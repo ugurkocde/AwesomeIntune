@@ -212,6 +212,22 @@ async function hasExistingScreenshots(toolId) {
 }
 
 /**
+ * Get screenshot paths for a tool from the filesystem
+ */
+async function getScreenshotsForTool(toolId) {
+  const dir = path.join(SCREENSHOTS_DIR, toolId);
+  try {
+    const files = await fs.readdir(dir);
+    const imageFiles = files
+      .filter(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f))
+      .sort();
+    return imageFiles.map(f => `screenshots/${toolId}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Detect if page content indicates bot protection (Cloudflare, etc.)
  */
 function detectBotProtection(pageContent, pageTitle) {
@@ -550,10 +566,20 @@ async function extractReadmeScreenshots(tool) {
 async function processTool(tool) {
   console.log(`\nProcessing: ${tool.name} (${tool.type})`);
 
-  // Check if screenshots already exist
+  // Check if screenshots already exist in filesystem
   const hasScreenshots = await hasExistingScreenshots(tool.id);
   if (hasScreenshots) {
-    console.log(`  Screenshots already exist, skipping...`);
+    // Screenshots exist in filesystem - check if JSON needs updating
+    const existingScreenshots = await getScreenshotsForTool(tool.id);
+    if (!tool.screenshots || tool.screenshots.length === 0) {
+      // JSON doesn't have screenshots array - update it
+      console.log(`  Screenshots exist but not in JSON, updating...`);
+      tool.screenshots = existingScreenshots;
+      await saveTool(tool);
+      console.log(`  Updated ${tool._filename} with ${existingScreenshots.length} screenshots`);
+    } else {
+      console.log(`  Screenshots already exist, skipping...`);
+    }
     return { count: 0, skipped: true };
   }
 
