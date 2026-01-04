@@ -1,0 +1,26 @@
+{
+  "id": "tenuvault",
+  "name": "TenuVault",
+  "description": "TenuVault is a safe backup and restore solution for Microsoft Intune configurations. It backs up Intune policies to JSON files, detects configuration drift, and restores by creating new policies with a [Restored] prefix - never overwriting existing ones. It supports multiple export formats (JSON, CSV, HTML), full audit logs, and a read-only backup model with preview mode to ensure non-destructive changes.",
+  "keywords": [
+    "intune",
+    "backup",
+    "restore",
+    "drift-detection",
+    "audit-logs",
+    "read-only-backups",
+    "policies",
+    "json-csv-html-exports"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/TenuVault",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.tenuvault.com/",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-01-04"
+}
