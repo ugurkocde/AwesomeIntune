@@ -118,6 +118,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
         background: isActive ? "transparent" : "rgba(17, 25, 34, 0.4)",
         border: isActive ? "1px solid rgba(0, 212, 255, 0.5)" : "1px solid rgba(255, 255, 255, 0.03)",
         color: isActive ? "var(--accent-primary)" : "var(--text-secondary)",
+        cursor: "pointer",
       }}
       whileHover={!isActive ? {
         scale: 1.05,
