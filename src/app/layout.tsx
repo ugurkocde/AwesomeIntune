@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Outfit, DM_Sans, JetBrains_Mono } from "next/font/google";
 
 import { GradientMesh } from "~/components/GradientMesh";
@@ -101,6 +102,20 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        {/* Plausible Analytics */}
+        <Script
+          defer
+          data-domain="awesomeintune.com"
+          src="https://plausible.io/js/pa-ZkotnMeJMBNcsN6hBD9x1.js"
+          strategy="afterInteractive"
+        />
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`
+            window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
+            plausible.init = plausible.init || function(i) { plausible.o = i || {} };
+            plausible.init();
+          `}
+        </Script>
       </head>
       <body className="flex min-h-screen flex-col">
         <GradientMesh />

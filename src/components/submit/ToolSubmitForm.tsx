@@ -6,6 +6,7 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "~/env";
 import { CATEGORIES, TYPES } from "~/lib/constants";
 import { CollapsibleSection } from "./CollapsibleSection";
+import { trackFormSubmission } from "~/lib/plausible";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -158,6 +159,7 @@ export function ToolSubmitForm() {
         setState("success");
         setMessage(data.message ?? "Tool submitted successfully!");
         setIssueUrl(data.issueUrl ?? "");
+        trackFormSubmission("tool-submission");
       } else {
         setState("error");
         if (data.details) {

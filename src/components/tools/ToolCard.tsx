@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
+import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
 
 interface ToolCardProps {
   tool: Tool;
@@ -26,7 +27,13 @@ export const ToolCard = memo(function ToolCard({
   const categoryConfig = CATEGORY_CONFIG[tool.category];
 
   const handleCardClick = () => {
+    trackToolClick(tool.name, tool.category);
     router.push(`/tools/${tool.id}`);
+  };
+
+  const handleOutboundClick = (e: React.MouseEvent, url: string) => {
+    e.stopPropagation();
+    trackOutboundLink(url);
   };
 
   return (
@@ -279,7 +286,7 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => handleOutboundClick(e, tool.repoUrl!)}
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
                   style={{
                     background: "rgba(255, 255, 255, 0.03)",
@@ -303,7 +310,7 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => handleOutboundClick(e, tool.downloadUrl!)}
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
@@ -331,7 +338,7 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => handleOutboundClick(e, tool.websiteUrl!)}
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,

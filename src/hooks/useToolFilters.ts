@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import type { Tool, ToolCategory, ToolType } from "~/types/tool";
 import { filterTools } from "~/lib/tools";
 import { useDebounce } from "./useDebounce";
+import { trackSearch, trackCategoryFilter } from "~/lib/plausible";
 import type { AISearchResult } from "~/app/api/search/route";
 
 interface UseToolFiltersOptions {
@@ -101,6 +102,7 @@ export function useToolFilters({
         setAiExplanations(explanations);
         setAiConfidenceScores(confidenceScores);
         setAiToolIds(ids);
+        trackSearch(debouncedQuery);
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") {
           return;
@@ -158,6 +160,9 @@ export function useToolFilters({
 
   const setCategory = useCallback((category: ToolCategory | null) => {
     setSelectedCategory(category);
+    if (category) {
+      trackCategoryFilter(category);
+    }
   }, []);
 
   const setType = useCallback((type: ToolType | null) => {

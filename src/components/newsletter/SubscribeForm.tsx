@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackNewsletterSignup } from "~/lib/plausible";
 
 interface SubscribeFormProps {
   variant?: "hero" | "footer";
@@ -40,6 +41,7 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
         setState("success");
         setMessage(data.message ?? "Check your email to confirm.");
         setEmail("");
+        trackNewsletterSignup(isHero ? "hero" : "footer");
       } else {
         setState("error");
         setMessage(data.error ?? "Something went wrong. Please try again.");
