@@ -142,8 +142,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <article
             className="relative overflow-hidden rounded-3xl"
             style={{
-              background: "rgba(17, 25, 34, 0.85)",
-              backdropFilter: "blur(24px)",
+              background: "rgba(17, 25, 34, 0.98)",
               border: "1px solid rgba(255, 255, 255, 0.06)",
               boxShadow: `0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 100px -30px ${typeConfig.color}20`,
             }}

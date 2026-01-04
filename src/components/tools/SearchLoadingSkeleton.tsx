@@ -14,8 +14,7 @@ function SkeletonCard({ index }: { index: number }) {
       }}
       className="relative overflow-hidden rounded-2xl"
       style={{
-        background: "rgba(17, 25, 34, 0.8)",
-        backdropFilter: "blur(20px)",
+        background: "rgba(17, 25, 34, 0.95)",
         border: "1px solid rgba(255, 255, 255, 0.05)",
         boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
       }}

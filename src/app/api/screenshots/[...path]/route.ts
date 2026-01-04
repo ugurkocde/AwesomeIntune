@@ -19,7 +19,8 @@ export async function GET(
   }
 
   const { path: pathSegments } = await params;
-  const filePath = path.join(process.cwd(), ...pathSegments);
+  // Screenshots are stored in public/screenshots/ directory
+  const filePath = path.join(process.cwd(), "public", ...pathSegments);
 
   try {
     const file = await fs.readFile(filePath);

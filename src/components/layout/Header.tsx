@@ -22,9 +22,8 @@ export function Header() {
       className="fixed left-0 right-0 top-0 z-50"
       style={{
         background: scrolled
-          ? "rgba(10, 14, 20, 0.8)"
+          ? "rgba(10, 14, 20, 0.98)"
           : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled
           ? "1px solid var(--border-subtle)"
           : "1px solid transparent",

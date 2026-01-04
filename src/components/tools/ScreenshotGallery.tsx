@@ -13,11 +13,12 @@ interface ScreenshotGalleryProps {
 
 // In development, serve from local API route
 // In production, serve from GitHub raw URLs
+// Screenshots are stored in public/screenshots/ so we need to prepend 'public/' for GitHub raw URLs
 function getScreenshotUrl(path: string): string {
   if (process.env.NODE_ENV === "development") {
     return `/api/screenshots/${path}`;
   }
-  return `${GITHUB_RAW_BASE_URL}/${path}`;
+  return `${GITHUB_RAW_BASE_URL}/public/${path}`;
 }
 
 export function ScreenshotGallery({
@@ -214,8 +215,7 @@ export function ScreenshotGallery({
             aria-label="Previous screenshot"
             className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300"
             style={{
-              background: "rgba(0, 0, 0, 0.6)",
-              backdropFilter: "blur(8px)",
+              background: "rgba(0, 0, 0, 0.85)",
               border: `1px solid ${activeIndex === 0 ? "rgba(255, 255, 255, 0.1)" : accentColor + "50"}`,
               opacity: activeIndex === 0 ? 0.3 : 1,
               cursor: activeIndex === 0 ? "default" : "pointer",
@@ -246,8 +246,7 @@ export function ScreenshotGallery({
             aria-label="Next screenshot"
             className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300"
             style={{
-              background: "rgba(0, 0, 0, 0.6)",
-              backdropFilter: "blur(8px)",
+              background: "rgba(0, 0, 0, 0.85)",
               border: `1px solid ${activeIndex === screenshotCount - 1 ? "rgba(255, 255, 255, 0.1)" : accentColor + "50"}`,
               opacity: activeIndex === screenshotCount - 1 ? 0.3 : 1,
               cursor: activeIndex === screenshotCount - 1 ? "default" : "pointer",
@@ -402,8 +401,7 @@ export function ScreenshotGallery({
           <div
             className="fixed inset-0"
             style={{
-              background: "rgba(0, 0, 0, 0.95)",
-              backdropFilter: "blur(12px)",
+              background: "rgba(0, 0, 0, 0.98)",
               zIndex: -1,
             }}
           />

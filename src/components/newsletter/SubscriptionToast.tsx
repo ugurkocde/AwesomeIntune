@@ -99,19 +99,19 @@ export function SubscriptionToast() {
     switch (type) {
       case "success":
         return {
-          bg: "rgba(0, 255, 136, 0.1)",
+          bg: "rgba(10, 30, 20, 0.95)",
           border: "rgba(0, 255, 136, 0.3)",
           icon: "var(--signal-success)",
         };
       case "error":
         return {
-          bg: "rgba(255, 68, 68, 0.1)",
+          bg: "rgba(30, 15, 15, 0.95)",
           border: "rgba(255, 68, 68, 0.3)",
           icon: "var(--signal-error)",
         };
       case "info":
         return {
-          bg: "rgba(0, 212, 255, 0.1)",
+          bg: "rgba(10, 20, 30, 0.95)",
           border: "rgba(0, 212, 255, 0.3)",
           icon: "var(--accent-primary)",
         };
@@ -132,7 +132,6 @@ export function SubscriptionToast() {
             style={{
               background: getColors(toast.type).bg,
               border: `1px solid ${getColors(toast.type).border}`,
-              backdropFilter: "blur(10px)",
             }}
           >
             <div style={{ color: getColors(toast.type).icon }}>
