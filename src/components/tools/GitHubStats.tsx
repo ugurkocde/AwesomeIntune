@@ -16,30 +16,6 @@ function formatNumber(num: number): string {
   return num.toString();
 }
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) {
-    return "today";
-  } else if (diffDays === 1) {
-    return "yesterday";
-  } else if (diffDays < 7) {
-    return `${diffDays}d ago`;
-  } else if (diffDays < 30) {
-    const weeks = Math.floor(diffDays / 7);
-    return `${weeks}w ago`;
-  } else if (diffDays < 365) {
-    const months = Math.floor(diffDays / 30);
-    return `${months}mo ago`;
-  } else {
-    const years = Math.floor(diffDays / 365);
-    return `${years}y ago`;
-  }
-}
-
 export function GitHubStats({ repoUrl, accentColor }: GitHubStatsProps) {
   const [stats, setStats] = useState<GitHubStatsType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -141,16 +117,6 @@ export function GitHubStats({ repoUrl, accentColor }: GitHubStatsProps) {
           },
         ]
       : []),
-    {
-      icon: (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
-        </svg>
-      ),
-      label: "Updated",
-      value: formatDate(stats.updatedAt),
-    },
   ];
 
   return (

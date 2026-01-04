@@ -60,13 +60,8 @@ export function getAllTools(): Tool[] {
     }
   }
 
-  // Sort by dateAdded (newest first), then by name
-  return tools.sort((a, b) => {
-    const dateCompare =
-      new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
-    if (dateCompare !== 0) return dateCompare;
-    return a.name.localeCompare(b.name);
-  });
+  // Sort alphabetically by name
+  return tools.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
