@@ -13,5 +13,9 @@
   "websiteUrl": "https://www.tenuvault.com/",
   "category": "automation",
   "type": "web-app",
-  "dateAdded": "2026-01-04"
+  "dateAdded": "2026-01-04",
+  "screenshots": [
+    "screenshots/tenuvault/screenshot-1.png",
+    "screenshots/tenuvault/screenshot-2.png"
+  ]
 }
