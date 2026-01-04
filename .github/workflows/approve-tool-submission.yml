@@ -181,29 +181,13 @@ jobs:
                 '2. keywords: Array of 8 lowercase search keywords covering: category, features, technologies, use cases';
 
               try {
-                console.log('Calling OpenAI API with model: gpt-5-nano (structured output)');
+                console.log('Calling OpenAI API with model: gpt-5-nano');
                 const response = await openai.chat.completions.create({
                   model: 'gpt-5-nano',
-                  max_completion_tokens: 1000,
-                  response_format: {
-                    type: 'json_schema',
-                    json_schema: {
-                      name: 'tool_catalog_entry',
-                      strict: true,
-                      schema: {
-                        type: 'object',
-                        properties: {
-                          description: { type: 'string', description: 'Professional 2-4 sentence description' },
-                          keywords: { type: 'array', items: { type: 'string' }, description: 'Array of 6-10 lowercase search keywords' }
-                        },
-                        required: ['description', 'keywords'],
-                        additionalProperties: false
-                      }
-                    }
-                  },
+                  response_format: { type: 'json_object' },
                   messages: [
-                    { role: 'system', content: 'You are an expert at cataloging Microsoft Intune and endpoint management tools. Create professional descriptions and relevant search keywords.' },
-                    { role: 'user', content: prompt }
+                    { role: 'system', content: 'You are an expert at cataloging Microsoft Intune and endpoint management tools. Always respond with valid JSON.' },
+                    { role: 'user', content: prompt + '\n\nRespond with JSON: {"description": "...", "keywords": ["...", "..."]}' }
                   ]
                 });
 
