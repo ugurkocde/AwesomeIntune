@@ -521,14 +521,15 @@ async function extractReadmeScreenshots(tool) {
   const screenshots = [];
   let count = 0;
 
-  // Download up to 5 images
+  // Download up to 5 images - use temp prefix to avoid overwriting website screenshots
   for (const imageUrl of imageUrls.slice(0, 5)) {
     const resolvedUrl = resolveImageUrl(imageUrl, tool.repoUrl, branch, subdir);
     if (!resolvedUrl) continue;
 
     count++;
     const ext = getExtension(resolvedUrl);
-    const filename = `screenshot-${count}${ext}`;
+    // Use readme-temp prefix to avoid conflicts with website screenshots
+    const filename = `readme-temp-${count}${ext}`;
     const destPath = path.join(screenshotDir, filename);
 
     console.log(`  Downloading image ${count}: ${resolvedUrl}`);
@@ -575,30 +576,31 @@ async function processTool(tool) {
   if (tool.repoUrl) {
     const readmeScreenshots = await extractReadmeScreenshots(tool);
 
-    // Renumber README screenshots to avoid conflicts with website screenshots
-    if (screenshots.length > 0 && readmeScreenshots.length > 0) {
+    // Rename README temp screenshots to proper screenshot-N format
+    if (readmeScreenshots.length > 0) {
       const renumberedScreenshots = [];
       for (let i = 0; i < readmeScreenshots.length; i++) {
         const oldPath = readmeScreenshots[i];
+        // Calculate new number: website screenshots count + position + 1
         const newNum = screenshots.length + i + 1;
         const ext = path.extname(oldPath);
         const dir = path.dirname(oldPath);
         const newPath = `${dir}/screenshot-${newNum}${ext}`;
 
-        // Rename the file
+        // Rename from readme-temp-N to screenshot-N
         const oldFullPath = path.join(ROOT_DIR, 'public', oldPath);
         const newFullPath = path.join(ROOT_DIR, 'public', newPath);
         try {
           await fs.rename(oldFullPath, newFullPath);
+          console.log(`  Renamed ${path.basename(oldPath)} -> ${path.basename(newPath)}`);
           renumberedScreenshots.push(newPath);
         } catch (error) {
           console.log(`  Failed to rename ${oldPath}: ${error.message}`);
+          // Keep the temp file as fallback
           renumberedScreenshots.push(oldPath);
         }
       }
       screenshots = [...screenshots, ...renumberedScreenshots];
-    } else {
-      screenshots = [...screenshots, ...readmeScreenshots];
     }
 
     if (readmeScreenshots.length === 0) {
