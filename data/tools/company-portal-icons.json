@@ -1,0 +1,25 @@
+{
+  "id": "company-portal-icons",
+  "name": "Company Portal Icons",
+  "description": "A free, high-quality icon resource collection for Microsoft Intune Company Portal applications. Provides 175+ enterprise-ready icons across 16 categories in PNG format with transparency, plus an Intune Documentation Generator tool.",
+  "keywords": [
+    "app icons",
+    "company portal",
+    "application icons",
+    "png icons",
+    "enterprise icons",
+    "free icons",
+    "intune icons",
+    "app images"
+  ],
+  "author": "Morten Glimme",
+  "authorPicture": "/images/authors/Morten-Glimme.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MrtnRQL/Companyportaliconsdotcom",
+  "websiteUrl": "https://companyportalicons.com/",
+  "category": "other",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

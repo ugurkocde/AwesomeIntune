@@ -1,0 +1,16 @@
+{
+  "id": "intune-device-inventory",
+  "name": "IntuneDeviceInventory",
+  "description": "A PowerShell module with UI for extending Microsoft Intune device management. Adds custom properties to Intune devices, enables bulk operations including device sync and BitLocker key rotation, with both PowerShell module and standalone UI interfaces.",
+  "keywords": ["custom device properties", "bulk operations", "bitlocker key rotation", "device sync", "device inventory", "bulk device management", "extend intune", "device attributes"],
+  "author": "Florian Salzmann",
+  "authorPicture": "/images/authors/Florian-Salzmann.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/FlorianSLZ/IntuneDeviceInventory",
+  "downloadUrl": "https://github.com/FlorianSLZ/IntuneDeviceInventory/releases",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "misa",
+  "name": "MISA (macOS Intune Support Assistant)",
+  "description": "A comprehensive macOS application for streamlining device management and Intune administration. Provides system info, disk usage, app inventory, macOS updates, MDM profile monitoring, Platform SSO verification, security settings, and self-service options from a single dashboard.",
+  "keywords": ["macos intune", "mac device management", "platform sso", "mdm profiles", "mac self-service", "system info", "disk usage", "app inventory"],
+  "author": "Somesh Pathak",
+  "authorPicture": "/images/authors/Somesh-Pathak.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/pathaksomesh06/MISA",
+  "downloadUrl": "https://github.com/pathaksomesh06/MISA/releases",
+  "category": "monitoring",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

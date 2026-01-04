@@ -1,0 +1,26 @@
+{
+  "id": "envoy",
+  "name": "Envoy",
+  "description": "A lightweight user environment manager for Intune-managed devices. Manages drive mappings, printer mappings, registry settings, file actions, application launcher, Start Menu and desktop shortcuts, with on-demand refresh and centralized JSON-based configuration.",
+  "keywords": [
+    "drive mapping",
+    "map network drives",
+    "printer mapping",
+    "map printers",
+    "shortcuts",
+    "user environment",
+    "gpo replacement",
+    "group policy alternative",
+    "desktop shortcuts",
+    "start menu"
+  ],
+  "author": "Joey Verlinden",
+  "authorPicture": "/images/authors/Joey-Verlinden.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://www.envoycontrol.com/",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

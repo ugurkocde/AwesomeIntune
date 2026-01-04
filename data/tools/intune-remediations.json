@@ -1,0 +1,16 @@
+{
+  "id": "intune-remediations",
+  "name": "Intune Remediations",
+  "description": "A collection of PowerShell detection and remediation scripts for Microsoft Intune. Organized into categories: Device Compliance, Device Configuration, Device Performance, Microsoft Defender AV, Miscellaneous, Reporting, and Toast Notifications for proactive endpoint issue resolution.",
+  "keywords": ["remediation scripts", "detection scripts", "proactive remediations", "device compliance", "device performance", "defender scripts", "toast notifications", "auto fix"],
+  "author": "Anthony Porter",
+  "authorPicture": "/images/authors/Anthony-Porter.png",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/AntoPorter/Intune-Remediations",
+  "downloadUrl": "https://github.com/AntoPorter/Intune-Remediations/archive/refs/heads/main.zip",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

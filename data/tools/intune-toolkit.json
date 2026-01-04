@@ -1,0 +1,25 @@
+{
+  "id": "intune-toolkit",
+  "name": "Intune Toolkit",
+  "description": "A PowerShell-based GUI solution for managing Microsoft Intune policies. Features Microsoft Graph authentication, multi-platform policy and app management, assignment operations, backup/restore in JSON format, CSV/Markdown export, and comprehensive activity logging.",
+  "keywords": [
+    "policy management",
+    "backup restore",
+    "app management",
+    "assignment operations",
+    "graph api",
+    "json export",
+    "policy export",
+    "activity logging"
+  ],
+  "author": "Maxime Guillemin",
+  "authorPicture": "/images/authors/Maxime-Guillemin.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MG-Cloudflow/Intune-Toolkit",
+  "downloadUrl": "https://github.com/MG-Cloudflow/Intune-Toolkit/releases",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

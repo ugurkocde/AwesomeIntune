@@ -1,0 +1,16 @@
+{
+  "id": "osd",
+  "name": "OSD",
+  "description": "A comprehensive PowerShell module for operating system deployment with 400+ functions for WinPE and Windows. Includes OSDCloud for cloud-based deployment, disk management, Windows image operations, driver management for Dell, HP, Lenovo, and Microsoft, BIOS/firmware updates, BitLocker management, and WinPE customization.",
+  "keywords": ["os deployment", "osdcloud", "winpe", "windows imaging", "driver management", "bios updates", "firmware updates", "zero touch"],
+  "author": "David Segura",
+  "authorPicture": "/images/authors/David-Segura.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/SeguraOSD",
+  "websiteUrl": "https://www.osdeploy.com/",
+  "downloadUrl": "https://www.powershellgallery.com/packages/OSD/",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

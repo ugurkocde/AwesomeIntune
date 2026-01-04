@@ -1,0 +1,25 @@
+{
+  "id": "rock-enroll-tool",
+  "name": "RockEnrollTool",
+  "description": "A Windows GUI tool for device enrollment and Intune management. Features modules for authentication, system info, Win32 app wrapping, device management, device sync, Autopilot hash generation, and BitLocker configuration through a tabbed interface.",
+  "keywords": [
+    "device enrollment",
+    "autopilot hash",
+    "win32 wrapper",
+    "device sync",
+    "bitlocker config",
+    "enrollment tool",
+    "device management",
+    "system info"
+  ],
+  "author": "Nicklas Ahlberg",
+  "authorPicture": "/images/authors/Nicklas-Ahlberg.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/NicklasAhlberg/RockEnrollTool",
+  "downloadUrl": "https://github.com/NicklasAhlberg/RockEnrollTool/releases",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "intune-uploader",
+  "name": "intune-uploader",
+  "description": "A set of AutoPkg processors for uploading apps to Microsoft Intune. Automates downloading, packaging, and uploading applications including LOB apps, app icons, scripts, and supports Teams/Slack notifications for deployment workflows.",
+  "keywords": [
+    "autopkg",
+    "upload apps",
+    "automated packaging",
+    "lob apps",
+    "app icons",
+    "teams notifications",
+    "slack notifications",
+    "ci cd apps"
+  ],
+  "author": "Tobias Almen",
+  "authorPicture": "/images/authors/tobias-almen.jpg",
+  "githubUrl": "https://github.com/almenscorner",
+  "linkedinUrl": "https://www.linkedin.com/in/tobiasalmen/",
+  "xUrl": "https://twitter.com/almenscorner",
+  "repoUrl": "https://github.com/almenscorner/intune-uploader",
+  "category": "automation",
+  "type": "cli-tool",
+  "dateAdded": "2026-01-03"
+}

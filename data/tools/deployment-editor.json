@@ -1,0 +1,27 @@
+{
+  "id": "deployment-editor",
+  "name": "Deployment Editor",
+  "description": "A visual software packaging editor for creating Windows deployment packages using PSAppDeployToolkit (PSADT). Build automated PowerShell deployment scripts through a GUI with drag-and-drop sequences, project templates, and one-click script generation for SCCM, Intune, WinGet, or task sequences.",
+  "keywords": [
+    "psadt",
+    "psappdeploytoolkit",
+    "software packaging",
+    "deployment script",
+    "install script",
+    "uninstall script",
+    "msi packaging",
+    "exe packaging",
+    "visual packaging",
+    "gui packaging"
+  ],
+  "author": "Tugay Taskin",
+  "authorPicture": "/images/authors/Tugay-Taskin.png",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/tugich/DeploymentEditor",
+  "downloadUrl": "https://github.com/tugich/DeploymentEditor/releases",
+  "category": "packaging",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

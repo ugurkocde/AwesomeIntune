@@ -1,0 +1,27 @@
+{
+  "id": "intune-cd",
+  "name": "IntuneCD",
+  "description": "A powerful Python package for backup and continuous delivery of Microsoft Intune configurations. Backs up configurations to Git repositories, detects changes automatically, propagates updates between environments, and integrates with Azure DevOps and GitHub Actions pipelines.",
+  "keywords": [
+    "backup policies",
+    "restore configuration",
+    "git backup",
+    "devops",
+    "ci cd",
+    "configuration as code",
+    "migrate tenant",
+    "sync environments",
+    "version control",
+    "disaster recovery"
+  ],
+  "author": "Tobias Almen",
+  "authorPicture": "/images/authors/tobias-almen.jpg",
+  "githubUrl": "https://github.com/almenscorner",
+  "linkedinUrl": "https://www.linkedin.com/in/tobiasalmen/",
+  "xUrl": "https://twitter.com/almenscorner",
+  "repoUrl": "https://github.com/almenscorner/IntuneCD",
+  "downloadUrl": "https://pypi.org/project/IntuneCD/",
+  "category": "automation",
+  "type": "cli-tool",
+  "dateAdded": "2026-01-03"
+}

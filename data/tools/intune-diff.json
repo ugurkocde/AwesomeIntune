@@ -1,0 +1,15 @@
+{
+  "id": "intune-diff",
+  "name": "IntuneDiff",
+  "description": "A powerful, free tool for comparing Microsoft Intune policies and analyzing configuration differences. Features real-time policy access via Microsoft Graph API, JSON import for offline comparison, device comparison against security baselines, settings search, and full Settings Catalog support.",
+  "keywords": ["compare policies", "policy diff", "configuration comparison", "settings catalog", "baseline comparison", "policy differences", "side by side", "find changes"],
+  "author": "Sandy Zeng",
+  "authorPicture": "/images/authors/sandy-zeng.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/intunediff/",
+  "xUrl": "",
+  "websiteUrl": "https://intunediff.com/",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

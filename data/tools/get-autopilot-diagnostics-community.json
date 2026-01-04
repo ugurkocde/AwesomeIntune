@@ -1,0 +1,16 @@
+{
+  "id": "get-autopilot-diagnostics-community",
+  "name": "Get-AutopilotDiagnosticsCommunity",
+  "description": "A PowerShell diagnostic script for analyzing Windows Autopilot deployments. Provides comprehensive details about Autopilot profile settings, policies, apps, and certificate profiles tracked via Enrollment Status Page, with support for local PC analysis and captured log files.",
+  "keywords": ["autopilot troubleshooting", "esp diagnostics", "enrollment status page", "autopilot failed", "autopilot stuck", "deployment analysis", "autopilot logs", "debug autopilot", "autopilot errors"],
+  "author": "Andrew Taylor",
+  "authorPicture": "/images/authors/Andrew-Taylor.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/andrew-s-taylor/public",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Get-AutopilotDiagnosticsCommunity",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "automatuner",
+  "name": "AutomaTuner",
+  "description": "A Python tool that automates packaging and deploying applications from the Winget repository into Microsoft Intune using WinTuner. Features automated packaging, direct publishing, dependency handling, duplicate detection, and report generation with Azure AD authentication.",
+  "keywords": [
+    "winget",
+    "app deployment",
+    "package apps",
+    "automate deployment",
+    "win32 apps",
+    "application packaging",
+    "deploy software",
+    "bulk app deployment",
+    "wintuner"
+  ],
+  "author": "Ayoub Sekoum",
+  "authorPicture": "/images/authors/Ayoub-Sekoum.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Ayoub-Sekoum/automattuner",
+  "category": "packaging",
+  "type": "cli-tool",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "reg2ps",
+  "name": "REG2PS",
+  "description": "A web-based tool that converts Windows Registry files to PowerShell scripts for Intune remediations. Generates detection scripts to validate registry states and remediation scripts to apply changes. Also available as CLI tool (Reg2CI) for SCCM configuration items.",
+  "keywords": [
+    "registry to powershell",
+    "reg file",
+    "remediation scripts",
+    "detection scripts",
+    "registry keys",
+    "registry values",
+    "convert registry",
+    "sccm migration"
+  ],
+  "author": "Roger Zander",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/rzander/REG2CI",
+  "websiteUrl": "https://reg2ps.azurewebsites.net/",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

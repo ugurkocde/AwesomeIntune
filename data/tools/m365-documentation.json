@@ -1,0 +1,26 @@
+{
+  "id": "m365-documentation",
+  "name": "M365Documentation",
+  "description": "A PowerShell module for automatic documentation of Microsoft 365 environments including Intune, Azure AD/Entra ID, Windows 365, Cloud Print, and Information Protection. Exports to Word, HTML, Markdown, JSON, and CSV formats with configuration comparison capabilities for change detection.",
+  "keywords": [
+    "documentation",
+    "word export",
+    "html export",
+    "tenant documentation",
+    "configuration report",
+    "m365 report",
+    "automatic documentation",
+    "change detection"
+  ],
+  "author": "Thomas Kurth",
+  "authorPicture": "/images/authors/Thomas-Kurth.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/ThomasKur/M365Documentation",
+  "websiteUrl": "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/",
+  "downloadUrl": "https://www.powershellgallery.com/packages/M365Documentation/",
+  "category": "reporting",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

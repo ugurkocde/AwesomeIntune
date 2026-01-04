@@ -1,0 +1,25 @@
+{
+  "id": "autopilot-app-registration-enrollment",
+  "name": "Autopilot App Registration Enrollment",
+  "description": "A PowerShell script that enrolls devices into Windows Autopilot using Azure App Registration credentials. Works without hybrid Azure AD join or SCCM, enabling unattended deployment via RMM tools. Uses community hardware hash collection module for reliable device registration.",
+  "keywords": [
+    "autopilot enrollment",
+    "register devices",
+    "hardware hash",
+    "device registration",
+    "autopilot setup",
+    "enroll computers",
+    "rmm deployment",
+    "unattended enrollment",
+    "bulk enrollment"
+  ],
+  "author": "Johannes Geir Kristjansson",
+  "authorPicture": "/images/authors/Johannes-Geir-Kristjansson.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://johannesblog.com/2024/09/04/enrolling-devices-to-autopilot-using-a-app-registration/",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

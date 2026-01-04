@@ -1,0 +1,16 @@
+{
+  "id": "intune-debug",
+  "name": "IntuneDebug",
+  "description": "A PowerShell module for Intune MDM policy reporting and debugging, similar to GPResult. Generates HTML reports showing device information, Intune sync status, applied settings by policy scope, Win32 app assignments, script policies, remediation status, LAPS settings, and certificate assignments.",
+  "keywords": ["gpresult", "resultant set of policy", "what policies applied", "device report", "policy report", "settings applied", "laps", "certificate assignments", "rsop"],
+  "author": "Jonas Ohmsen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/jonasatgit/IntuneDebug",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneDebug/",
+  "category": "troubleshooting",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

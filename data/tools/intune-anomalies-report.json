@@ -1,0 +1,27 @@
+{
+  "id": "intune-anomalies-report",
+  "name": "Intune Anomalies Report",
+  "description": "A PowerShell script for comprehensive analysis and reporting of Microsoft Intune environment anomalies. Identifies application failures, multi-user devices, BitLocker status, Autopilot hash issues, inactive devices, compliance violations, OS edition overview, and disabled user accounts.",
+  "keywords": [
+    "health report",
+    "environment audit",
+    "find issues",
+    "inactive devices",
+    "compliance report",
+    "bitlocker status",
+    "app failures",
+    "stale devices",
+    "anomaly detection",
+    "tenant health"
+  ],
+  "author": "Roy Klooster",
+  "authorPicture": "/images/authors/roy-klooster.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://rksolutions.nl/intune-anomalies-report-script/",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Generate-IntuneAnomaliesReport/",
+  "category": "reporting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

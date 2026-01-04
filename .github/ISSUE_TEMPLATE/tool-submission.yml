@@ -1,0 +1,139 @@
+name: Tool Submission
+description: Submit a new tool to the Awesome Intune directory
+title: "[Tool Submission]: "
+labels: ["submission", "pending-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Submit Your Tool to Awesome Intune
+
+        Thanks for contributing to the Intune community! Please fill out the form below to submit your tool for review.
+
+        Once approved, your tool will be added to the directory.
+
+  - type: input
+    id: name
+    attributes:
+      label: Tool Name
+      description: The name of your tool
+      placeholder: e.g., IntuneWin32 Deployer
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A brief description of what your tool does (2-3 sentences)
+      placeholder: A PowerShell module that simplifies Win32 app packaging and deployment to Microsoft Intune with automated detection rules.
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author Name
+      description: Your name or GitHub username
+      placeholder: e.g., John Doe
+    validations:
+      required: true
+
+  - type: input
+    id: author_url
+    attributes:
+      label: Author URL (optional)
+      description: Link to your GitHub profile, website, or social media
+      placeholder: https://github.com/johndoe
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: Repository URL
+      description: Link to the tool's GitHub repository or source code
+      placeholder: https://github.com/username/repo-name
+    validations:
+      required: true
+
+  - type: input
+    id: download_url
+    attributes:
+      label: Download URL (optional)
+      description: Direct download link (e.g., PowerShell Gallery, Releases page)
+      placeholder: https://www.powershellgallery.com/packages/YourModule
+
+  - type: input
+    id: website_url
+    attributes:
+      label: Website URL (optional)
+      description: Link to a dedicated website or documentation page
+      placeholder: https://yourtool.dev
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What category best describes your tool?
+      options:
+        - Reporting
+        - Automation
+        - Packaging
+        - Troubleshooting
+        - Security
+        - Configuration
+        - Monitoring
+        - Migration
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: What type of tool is this?
+      options:
+        - PowerShell Module
+        - PowerShell Script
+        - Web App
+        - Desktop App
+        - Browser Extension
+        - CLI Tool
+        - API Wrapper
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated list of relevant tags (3-5 recommended)
+      placeholder: e.g., win32, deployment, automation, packaging
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: This tool is related to Microsoft Intune or endpoint management
+          required: true
+        - label: The repository/download link is publicly accessible
+          required: true
+        - label: I am the author or have permission to submit this tool
+          required: true
+        - label: This tool does not contain malicious code or security vulnerabilities
+          required: true
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information (optional)
+      description: Any additional context about your tool
+      placeholder: |
+        - Special features
+        - Requirements or dependencies
+        - Known limitations
+        - Related tools

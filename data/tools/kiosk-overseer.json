@@ -1,0 +1,24 @@
+{
+  "id": "kiosk-overseer",
+  "name": "Kiosk Overseer",
+  "description": "A web-based tool for building Windows kiosk deployments by generating Assigned Access XML configurations. Supports Single-App, Multi-App, and Restricted User modes with customizable Start menu, taskbar, auto-launch, idle timeout, and breakout keys. Exports for Intune OMA-URI, PowerShell, or provisioning packages.",
+  "keywords": [
+    "kiosk mode",
+    "assigned access",
+    "single app kiosk",
+    "multi app kiosk",
+    "oma-uri",
+    "start menu",
+    "taskbar lockdown",
+    "restricted mode"
+  ],
+  "author": "Joshua Walderbach",
+  "authorPicture": "/images/authors/Joshua-Walderbach.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://kioskoverseer.com/",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

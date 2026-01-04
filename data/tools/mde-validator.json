@@ -1,0 +1,25 @@
+{
+  "id": "mde-validator",
+  "name": "MDEValidator",
+  "description": "A PowerShell module for validating Microsoft Defender for Endpoint configurations. Checks service status, real-time protection, cloud protection, ASR rules, network protection, tamper protection, SmartScreen policies, and MDE onboarding status with HTML and console reporting.",
+  "keywords": [
+    "defender for endpoint",
+    "mde",
+    "asr rules",
+    "tamper protection",
+    "smartscreen",
+    "real-time protection",
+    "cloud protection",
+    "security validation"
+  ],
+  "author": "Nathan Hutchinson",
+  "authorPicture": "/images/authors/Nathan-Hutchinson.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/NateHutch365/MDEValidator",
+  "downloadUrl": "https://github.com/NateHutch365/MDEValidator/releases",
+  "category": "security",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "intune-device-details-gui",
+  "name": "Intune Device Details GUI",
+  "description": "A PowerShell-based GUI tool for visualizing comprehensive Intune device information. Shows Azure AD group memberships, Intune filter assignments, application and configuration targeting, BitLocker recovery keys, LAPS passwords, Autopilot profiles, and remediation script status with color-coded assignment states.",
+  "keywords": [
+    "device details",
+    "bitlocker key",
+    "laps password",
+    "group membership",
+    "app assignments",
+    "filter assignments",
+    "device info",
+    "recovery key",
+    "device lookup"
+  ],
+  "author": "Petri Paavola",
+  "authorPicture": "/images/authors/Petri-Paavola.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/petripaavola/IntuneDeviceDetailsGUI",
+  "downloadUrl": "https://github.com/petripaavola/IntuneDeviceDetailsGUI/releases",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

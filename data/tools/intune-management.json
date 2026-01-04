@@ -1,0 +1,25 @@
+{
+  "id": "intune-management",
+  "name": "IntuneManagement",
+  "description": "A PowerShell application with WPF GUI for managing Microsoft Intune and Azure policies. Features export, import, copy, delete, document, and compare operations across 30+ object types with cross-tenant migration, ADMX import, bulk operations, and automated documentation.",
+  "keywords": [
+    "export policies",
+    "import policies",
+    "cross tenant migration",
+    "copy policies",
+    "admx import",
+    "bulk operations",
+    "document intune",
+    "policy management"
+  ],
+  "author": "Micke Karlsson",
+  "authorPicture": "/images/authors/Micke-Karlsson.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Micke-K/IntuneManagement",
+  "downloadUrl": "https://github.com/Micke-K/IntuneManagement/releases",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

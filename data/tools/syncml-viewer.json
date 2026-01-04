@@ -1,0 +1,26 @@
+{
+  "id": "syncml-viewer",
+  "name": "SyncML Viewer",
+  "description": "A Windows utility for monitoring and analyzing MDM SyncML protocol activity on Windows 10/11 devices. Features Autopilot hardware hash decoding, NodeCache registry lookup, hex viewer, real-time protocol stream capturing, health attestation status codes, and WiFi/VPN enumeration.",
+  "keywords": [
+    "syncml protocol",
+    "mdm sync",
+    "autopilot hash",
+    "nodecache",
+    "health attestation",
+    "real-time monitoring",
+    "wifi enumeration",
+    "vpn enumeration"
+  ],
+  "author": "Oliver Kieselbach",
+  "authorPicture": "/images/authors/Oliver-Kieselbach.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/okieselbach/SyncMLViewer",
+  "websiteUrl": "https://oliverkieselbach.com/2025/01/27/syncml-viewer-update-with-autopilot-hash-decoding/",
+  "downloadUrl": "https://github.com/okieselbach/SyncMLViewer/releases",
+  "category": "troubleshooting",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

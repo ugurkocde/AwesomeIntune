@@ -1,0 +1,25 @@
+{
+  "id": "intune-drive-mapping",
+  "name": "Intune Drive Mapping Generator",
+  "description": "A web-based tool that generates PowerShell scripts for network drive mapping on Intune-managed Windows 10 devices. Converts existing Group Policy drive exports to Intune-compatible scripts, supports security group filtering with nested groups, and enables recurring execution.",
+  "keywords": [
+    "network drives",
+    "drive mapping",
+    "gpo migration",
+    "group policy",
+    "network shares",
+    "map drives",
+    "drive letters",
+    "file server"
+  ],
+  "author": "Nicola Suter",
+  "authorPicture": "/images/authors/Nicola-Suter.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/nicolonsky/IntuneDriveMapping",
+  "websiteUrl": "https://intunedrivemapping.azurewebsites.net/",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

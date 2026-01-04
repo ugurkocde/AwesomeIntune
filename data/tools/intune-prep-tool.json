@@ -1,0 +1,25 @@
+{
+  "id": "intune-prep-tool",
+  "name": "IntunePrepTool",
+  "description": "A PowerShell GUI tool for streamlining application packaging for Microsoft Intune. Supports MSI, MSIX, EXE, PowerShell scripts, Winget, Chocolatey, and scheduled tasks. Features automatic script generation, direct Intune upload, registry modifications, shortcuts, and AI-assisted configuration via Azure OpenAI GPT-4.",
+  "keywords": [
+    "app packaging",
+    "intunewin",
+    "msi packaging",
+    "winget apps",
+    "chocolatey",
+    "application wrapper",
+    "package apps",
+    "scheduled tasks"
+  ],
+  "author": "Rink Turksma",
+  "authorPicture": "/images/authors/Rink-Turksma.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/rink-turksma/IntunePrepTool",
+  "downloadUrl": "https://github.com/rink-turksma/IntunePrepTool/releases",
+  "category": "packaging",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

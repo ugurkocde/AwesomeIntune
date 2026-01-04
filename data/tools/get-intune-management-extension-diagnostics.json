@@ -1,0 +1,26 @@
+{
+  "id": "get-intune-management-extension-diagnostics",
+  "name": "Get-IntuneManagementExtensionDiagnostics",
+  "description": "A PowerShell script for analyzing Intune Management Extension logs and creating timeline reports. Tracks Win32App deployments, WinGetApp packages, PowerShell scripts, Proactive Remediations, Custom Compliance, and Autopilot ESP phases with HTML reports and integrated LogViewerUI.",
+  "keywords": [
+    "ime logs",
+    "intune management extension",
+    "win32 app troubleshooting",
+    "app install failed",
+    "script failed",
+    "log analysis",
+    "deployment timeline",
+    "ime troubleshooting",
+    "app deployment logs"
+  ],
+  "author": "Petri Paavola",
+  "authorPicture": "/images/authors/Petri-Paavola.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics",
+  "downloadUrl": "https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics/releases",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

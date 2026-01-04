@@ -1,0 +1,25 @@
+{
+  "id": "intune-win32-app",
+  "name": "IntuneWin32App",
+  "description": "A PowerShell module for managing the complete lifecycle of Win32 applications in Microsoft Intune. Features 40+ functions for packaging, publishing, detection rules, requirement rules, assignments, dependencies, and supersedence with support for x64, x86, and ARM64 architectures.",
+  "keywords": [
+    "win32 apps",
+    "detection rules",
+    "requirement rules",
+    "app dependencies",
+    "app supersedence",
+    "intunewin",
+    "arm64 apps",
+    "publish apps"
+  ],
+  "author": "Nickolaj Andersen",
+  "authorPicture": "/images/authors/Nickolaj-Andersen.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MSEndpointMgr/IntuneWin32App",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneWin32App",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

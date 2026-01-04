@@ -1,0 +1,24 @@
+{
+  "id": "ruleforge",
+  "name": "RuleForge",
+  "description": "A PowerShell utility for capturing, comparing, and exporting Windows Defender firewall rules for Microsoft Intune deployment. Captures baseline rules, compares post-install changes, and exports to JSON for Intune or CSV formats with interactive menu and CLI modes.",
+  "keywords": [
+    "firewall rules",
+    "defender firewall",
+    "capture rules",
+    "export rules",
+    "firewall policy",
+    "baseline rules",
+    "rule comparison",
+    "firewall json"
+  ],
+  "author": "Nathan Hutchinson",
+  "authorPicture": "/images/authors/Nathan-Hutchinson.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/NateHutch365/Microsoft-Intune/tree/main/Tools/RuleForge",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

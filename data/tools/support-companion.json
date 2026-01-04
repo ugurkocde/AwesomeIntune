@@ -1,0 +1,25 @@
+{
+  "id": "support-companion",
+  "name": "SupportCompanion",
+  "description": "A macOS helper application designed to empower end-users by providing quick access to crucial information and actions. Features a tray menu, dashboard, user identity info, installed apps list, self-service capabilities, knowledge base access, and Company Portal integration.",
+  "keywords": [
+    "macos helper",
+    "self-service",
+    "end user support",
+    "tray menu",
+    "company portal",
+    "knowledge base",
+    "user identity",
+    "mac support app"
+  ],
+  "author": "Tobias Almen",
+  "authorPicture": "/images/authors/tobias-almen.jpg",
+  "githubUrl": "https://github.com/macadmins",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/macadmins/SupportCompanion",
+  "downloadUrl": "https://github.com/macadmins/SupportCompanion/releases",
+  "category": "troubleshooting",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

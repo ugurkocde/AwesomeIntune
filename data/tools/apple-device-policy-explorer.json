@@ -1,0 +1,26 @@
+{
+  "id": "apple-device-policy-explorer",
+  "name": "Apple Device Policy Explorer",
+  "description": "A comprehensive web tool for browsing and exploring Apple device management policies across iOS, macOS, tvOS, watchOS, and visionOS. Provides detailed documentation for MDM and DDM (Declarative Device Management) policies.",
+  "keywords": [
+    "apple mdm",
+    "ios policy",
+    "macos configuration",
+    "ddm",
+    "declarative device management",
+    "apple settings",
+    "iphone management",
+    "ipad management",
+    "apple tv",
+    "policy reference"
+  ],
+  "author": "Neil Johnson",
+  "authorPicture": "/images/authors/neil-johnson.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://appledevicepolicy.tools/policy-explorer",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

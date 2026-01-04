@@ -1,0 +1,26 @@
+{
+  "id": "intune-hydration-kit",
+  "name": "Intune Hydration Kit",
+  "description": "A PowerShell module that automates Microsoft Intune tenant setup by deploying 70+ security baselines, 43 dynamic groups, 24 device filters, compliance policies, app protection policies, and Conditional Access policies in a single command. Integrates OpenIntuneBaseline and supports multi-cloud environments.",
+  "keywords": [
+    "new tenant setup",
+    "baseline deployment",
+    "dynamic groups",
+    "device filters",
+    "tenant bootstrap",
+    "initial configuration",
+    "greenfield",
+    "quick start"
+  ],
+  "author": "Jorge Suarez",
+  "authorPicture": "/images/authors/Jorge-Suarez.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/jorgeasaurus/IntuneHydrationKit",
+  "websiteUrl": "https://intunehydrationkit.com/",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneHydrationKit/",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-03"
+}

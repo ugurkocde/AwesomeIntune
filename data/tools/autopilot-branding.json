@@ -1,0 +1,16 @@
+{
+  "id": "autopilot-branding",
+  "name": "Autopilot Branding",
+  "description": "A PowerShell-based customization tool packaged as an Intune Win32 app for configuring Windows 10/11 devices during Autopilot deployment. Customizes start menu layout, background/theme, time zone, removes built-in apps, installs OneDrive, configures language packs, and manages Windows features.",
+  "keywords": ["customize windows", "branding", "start menu", "wallpaper", "desktop background", "remove bloatware", "windows customization", "oobe customization", "autopilot customization", "language pack"],
+  "author": "Michael Niehaus",
+  "authorPicture": "/images/authors/Michael-Niehaus.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mtniehaus/AutopilotBranding",
+  "downloadUrl": "https://github.com/mtniehaus/AutopilotBranding/releases",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,32 @@
+name: Notify Subscribers of New Tools
+
+on:
+  schedule:
+    # 8:00 AM CET = 7:00 AM UTC (CET is UTC+1)
+    # During daylight saving (CEST), 8:00 AM = 6:00 AM UTC
+    - cron: '0 7 * * *'
+  workflow_dispatch: # Allow manual trigger for testing
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for new tools and send notifications
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: node scripts/notify-subscribers.mjs

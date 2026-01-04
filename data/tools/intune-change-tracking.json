@@ -1,0 +1,26 @@
+{
+  "id": "intune-change-tracking",
+  "name": "Intune Change Tracking",
+  "description": "An Azure Workbook for analyzing and tracking changes within Microsoft Intune environments. Provides rich audit log analysis with filters, profile type search with value change tracking, device identity and Autopilot hash tracking, and device operations audit logs.",
+  "keywords": [
+    "audit log",
+    "track changes",
+    "who changed",
+    "change history",
+    "azure workbook",
+    "configuration changes",
+    "policy changes",
+    "audit trail",
+    "compliance audit"
+  ],
+  "author": "Niklas Tinner",
+  "authorPicture": "/images/authors/Niklas-Tinner.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/thenikk/Oceanleaf/tree/main/Intune%20Change%20Tracking",
+  "websiteUrl": "https://www.oceanleaf.ch/intune-change-tracking/",
+  "category": "monitoring",
+  "type": "other",
+  "dateAdded": "2026-01-03"
+}

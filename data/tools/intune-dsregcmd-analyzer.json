@@ -1,0 +1,24 @@
+{
+  "id": "intune-dsregcmd-analyzer",
+  "name": "Intune dsregcmd Analyzer",
+  "description": "A web-based diagnostic tool for troubleshooting Microsoft Intune device registration issues. Analyzes dsregcmd /status output to detect Entra ID and Hybrid Entra ID join states, MDM enrollment status, and provides instant error code mapping with actionable solutions. All processing happens locally in the browser.",
+  "keywords": [
+    "dsregcmd",
+    "device registration",
+    "entra join",
+    "hybrid join",
+    "mdm enrollment",
+    "join status",
+    "azure ad join",
+    "device not enrolled"
+  ],
+  "author": "Maksymilian Olowski",
+  "authorPicture": "/images/authors/Maksymilian-Olowski.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "websiteUrl": "https://www.intunediag.com/",
+  "category": "troubleshooting",
+  "type": "web-app",
+  "dateAdded": "2026-01-03"
+}

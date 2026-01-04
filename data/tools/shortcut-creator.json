@@ -1,0 +1,25 @@
+{
+  "id": "shortcut-creator",
+  "name": "Shortcut Creator",
+  "description": "A utility for creating and deploying desktop shortcuts through Microsoft Intune as Win32 applications. Generates .intunewin files, detection scripts, and deployment instructions automatically. Supports URL, file path, and Microsoft Store app shortcuts with custom icons.",
+  "keywords": [
+    "desktop shortcuts",
+    "shortcut deployment",
+    "url shortcuts",
+    "store app shortcuts",
+    "custom icons",
+    "intunewin",
+    "shortcut generator",
+    "link deployment"
+  ],
+  "author": "Shehab Noaman",
+  "authorPicture": "/images/authors/Shehab-Noaman.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Shehab1Noaman/Community/blob/main/ShortCut_CreatorV2/",
+  "websiteUrl": "https://sysadminhub.info/easily-deploy-desktop-shortcuts-with-intune-a-simple-tool-for-admins/",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-03"
+}

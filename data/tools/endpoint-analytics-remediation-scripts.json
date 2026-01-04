@@ -1,0 +1,26 @@
+{
+  "id": "endpoint-analytics-remediation-scripts",
+  "name": "Endpoint Analytics Remediation Scripts",
+  "description": "A community-driven repository of 86+ PowerShell detection and remediation scripts for Microsoft Intune Endpoint Analytics. Includes scripts for system health, security hardening, device management, application management, optimization, and diagnostics.",
+  "keywords": [
+    "proactive remediations",
+    "detection script",
+    "remediation script",
+    "endpoint analytics",
+    "fix issues",
+    "auto repair",
+    "device health",
+    "security hardening",
+    "compliance scripts"
+  ],
+  "author": "Jannik Reinhard",
+  "authorPicture": "/images/authors/Jannik-Reinhard.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts",
+  "downloadUrl": "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-03"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "fleetly",
+  "name": "Fleetly",
+  "description": "An iOS application for managing and monitoring Microsoft Intune-enrolled devices on the go. Features Azure AD authentication, real-time device inventory across all platforms, remote actions (sync, restart, lock, wipe), compliance monitoring, and multi-tenant support with biometric authentication.",
+  "keywords": [
+    "mobile app",
+    "ios app",
+    "manage intune",
+    "remote wipe",
+    "device inventory",
+    "compliance monitoring",
+    "on the go",
+    "mobile management",
+    "remote actions",
+    "multi-tenant"
+  ],
+  "author": "Somesh Pathak",
+  "authorPicture": "/images/authors/Somesh-Pathak.jpg",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/pathaksomesh06/Fleetly",
+  "downloadUrl": "https://apps.apple.com/app/fleetly",
+  "category": "monitoring",
+  "type": "other",
+  "dateAdded": "2026-01-03"
+}
