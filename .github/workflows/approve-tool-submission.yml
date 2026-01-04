@@ -1,0 +1,538 @@
+name: Approve Tool Submission
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+jobs:
+  approve-tool:
+    # Only run on issue comments (not PR comments) with /approve command
+    # from the repo owner on issues labeled 'tool-submission'
+    if: |
+      github.event.issue.pull_request == null &&
+      github.event.comment.body == '/approve' &&
+      github.event.comment.user.login == 'ugurkocde' &&
+      contains(github.event.issue.labels.*.name, 'tool-submission')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create initial progress comment
+        id: create_comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '## Processing Tool Submission\n\n' +
+                    '- [ ] Parsing issue body...\n' +
+                    '- [ ] Fetching README from repository\n' +
+                    '- [ ] Fetching website content\n' +
+                    '- [ ] Enhancing with AI\n' +
+                    '- [ ] Creating tool JSON file\n' +
+                    '- [ ] Committing to repository\n' +
+                    '- [ ] Triggering screenshot capture\n\n' +
+                    '_Starting..._'
+            });
+            return comment.data.id;
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install OpenAI SDK
+        run: npm install openai
+
+      - name: Process tool submission
+        id: process
+        uses: actions/github-script@v7
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COMMENT_ID: ${{ steps.create_comment.outputs.result }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const commentId = parseInt(process.env.COMMENT_ID);
+
+            // Progress tracking
+            const steps = {
+              parse: { done: false, status: '' },
+              readme: { done: false, status: '' },
+              website: { done: false, status: '' },
+              ai: { done: false, status: '' },
+              json: { done: false, status: '' },
+              commit: { done: false, status: '' },
+              screenshot: { done: false, status: '' }
+            };
+
+            async function updateProgress(currentStep, message) {
+              const lines = [
+                '## Processing Tool Submission\n',
+                `- [${steps.parse.done ? 'x' : currentStep === 'parse' ? '>' : ' '}] Parsing issue body${steps.parse.status}`,
+                `- [${steps.readme.done ? 'x' : currentStep === 'readme' ? '>' : ' '}] Fetching README from repository${steps.readme.status}`,
+                `- [${steps.website.done ? 'x' : currentStep === 'website' ? '>' : ' '}] Fetching website content${steps.website.status}`,
+                `- [${steps.ai.done ? 'x' : currentStep === 'ai' ? '>' : ' '}] Enhancing with AI${steps.ai.status}`,
+                `- [${steps.json.done ? 'x' : currentStep === 'json' ? '>' : ' '}] Creating tool JSON file${steps.json.status}`,
+                `- [${steps.commit.done ? 'x' : currentStep === 'commit' ? '>' : ' '}] Committing to repository${steps.commit.status}`,
+                `- [${steps.screenshot.done ? 'x' : currentStep === 'screenshot' ? '>' : ' '}] Triggering screenshot capture${steps.screenshot.status}`,
+                '',
+                `_${message}_`
+              ];
+
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: lines.join('\n')
+              });
+            }
+
+            // Helper functions
+            function toKebabCase(name) {
+              return name
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            function normalizeCategory(category) {
+              const normalized = category.toLowerCase().trim();
+              const validCategories = [
+                'reporting', 'automation', 'packaging', 'troubleshooting',
+                'security', 'configuration', 'monitoring', 'migration', 'other'
+              ];
+              return validCategories.includes(normalized) ? normalized : 'other';
+            }
+
+            function normalizeType(type) {
+              const typeMapping = {
+                'powershell module': 'powershell-module',
+                'powershell script': 'powershell-script',
+                'web app': 'web-app',
+                'desktop app': 'desktop-app',
+                'browser extension': 'browser-extension',
+                'cli tool': 'cli-tool',
+                'api wrapper': 'api-wrapper',
+                'documentation': 'documentation',
+                'other': 'other'
+              };
+              const normalized = type.toLowerCase().trim();
+              return typeMapping[normalized] || 'other';
+            }
+
+            function isValidUrl(string) {
+              try {
+                new URL(string);
+                return true;
+              } catch {
+                return false;
+              }
+            }
+
+            // Fetch README from GitHub
+            async function fetchReadme(repoUrl) {
+              const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+              if (!match) return null;
+
+              const owner = match[1];
+              const repo = match[2].replace(/\.git$/, '');
+              const branches = ['main', 'master'];
+              const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
+
+              for (const branch of branches) {
+                for (const readmeName of readmeNames) {
+                  const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${readmeName}`;
+                  try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                      return await response.text();
+                    }
+                  } catch {
+                    continue;
+                  }
+                }
+              }
+              return null;
+            }
+
+            // Fetch website content
+            async function fetchWebsite(websiteUrl) {
+              try {
+                const response = await fetch(websiteUrl, {
+                  headers: {
+                    'User-Agent': 'Mozilla/5.0 (compatible; AwesomeIntune/1.0)'
+                  }
+                });
+                if (response.ok) {
+                  const html = await response.text();
+                  return html
+                    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+                    .replace(/<[^>]+>/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .substring(0, 5000);
+                }
+              } catch {
+                return null;
+              }
+              return null;
+            }
+
+            // Use OpenAI to enhance tool data
+            async function enhanceWithAI(toolName, submittedDescription, readmeContent, websiteContent) {
+              const OpenAI = require('openai');
+              const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+              const contextParts = [];
+              if (readmeContent) {
+                contextParts.push(`README content:\n${readmeContent.substring(0, 8000)}`);
+              }
+              if (websiteContent) {
+                contextParts.push(`Website content:\n${websiteContent}`);
+              }
+
+              const context = contextParts.length > 0
+                ? contextParts.join('\n\n---\n\n')
+                : `Submitted description: ${submittedDescription}`;
+
+              try {
+                const response = await openai.chat.completions.create({
+                  model: 'gpt-5-nano',
+                  max_completion_tokens: 1000,
+                  messages: [
+                    {
+                      role: 'system',
+                      content: `You are helping catalog tools for Microsoft Intune administrators.
+
+Given information about a tool, generate:
+1. A clear, professional description (2-4 sentences, max 500 characters) that explains what the tool does and its key features
+2. 6-10 relevant keywords for search/filtering (lowercase, 1-3 words each)
+
+Focus on Intune-specific functionality and benefits for IT administrators.`
+                    },
+                    {
+                      role: 'user',
+                      content: `Tool name: ${toolName}
+
+${context}
+
+Respond with ONLY a JSON object in this exact format:
+{
+  "description": "Your improved description here",
+  "keywords": ["keyword1", "keyword2", "keyword3", ...]
+}`
+                    }
+                  ]
+                });
+
+                const content = response.choices[0]?.message?.content || '';
+                const jsonMatch = content.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                  return JSON.parse(jsonMatch[0]);
+                }
+              } catch (error) {
+                console.log(`AI enhancement failed: ${error.message}`);
+              }
+
+              return {
+                description: submittedDescription,
+                keywords: []
+              };
+            }
+
+            // ===== STEP 1: Parse issue body =====
+            await updateProgress('parse', 'Parsing issue body...');
+
+            const body = context.payload.issue.body;
+            const fields = {};
+
+            const fieldPattern = /- \*\*([^:*]+):\*\*\s*(.+?)(?=\n|$)/g;
+            let match;
+            while ((match = fieldPattern.exec(body)) !== null) {
+              const label = match[1].trim().toLowerCase();
+              const value = match[2].trim();
+
+              const labelMapping = {
+                'name': 'name',
+                'description': 'description',
+                'author': 'author',
+                'repository url': 'repoUrl',
+                'category': 'category',
+                'type': 'type',
+                'github': 'githubUrl',
+                'avatar': 'authorPicture',
+                'linkedin': 'linkedinUrl',
+                'x/twitter': 'xUrl',
+                'website url': 'websiteUrl',
+                'download url': 'downloadUrl'
+              };
+
+              const fieldName = labelMapping[label];
+              if (fieldName && value) {
+                fields[fieldName] = value;
+              }
+            }
+
+            // Validate required fields
+            const requiredFields = ['name', 'description', 'author', 'repoUrl', 'category', 'type'];
+            const missing = requiredFields.filter(field => !fields[field]);
+
+            if (missing.length > 0) {
+              steps.parse.done = true;
+              steps.parse.status = ' - FAILED';
+              await updateProgress('parse', `Error: Missing required fields: ${missing.join(', ')}`);
+              core.setOutput('success', 'false');
+              core.setOutput('error', `Missing required fields: ${missing.join(', ')}`);
+              return;
+            }
+
+            // Validate URLs
+            const urlFields = ['repoUrl', 'githubUrl', 'linkedinUrl', 'xUrl', 'websiteUrl', 'downloadUrl'];
+            for (const field of urlFields) {
+              if (fields[field] && !isValidUrl(fields[field])) {
+                steps.parse.done = true;
+                steps.parse.status = ' - FAILED';
+                await updateProgress('parse', `Error: Invalid URL format for ${field}`);
+                core.setOutput('success', 'false');
+                core.setOutput('error', `Invalid URL format for ${field}: ${fields[field]}`);
+                return;
+              }
+            }
+
+            // Generate tool ID
+            const toolId = toKebabCase(fields.name);
+
+            // Check if tool already exists
+            const toolPath = path.join('data', 'tools', `${toolId}.json`);
+            if (fs.existsSync(toolPath)) {
+              steps.parse.done = true;
+              steps.parse.status = ' - FAILED';
+              await updateProgress('parse', `Error: Tool with ID "${toolId}" already exists`);
+              core.setOutput('success', 'false');
+              core.setOutput('error', `Tool with ID "${toolId}" already exists`);
+              return;
+            }
+
+            steps.parse.done = true;
+            steps.parse.status = ` - Found: **${fields.name}**`;
+            await updateProgress('readme', `Parsed successfully. Tool: ${fields.name}`);
+
+            // ===== STEP 2: Fetch README =====
+            let readmeContent = null;
+            if (fields.repoUrl) {
+              readmeContent = await fetchReadme(fields.repoUrl);
+              if (readmeContent) {
+                steps.readme.done = true;
+                steps.readme.status = ` - ${readmeContent.length} chars`;
+              } else {
+                steps.readme.done = true;
+                steps.readme.status = ' - Not found';
+              }
+            } else {
+              steps.readme.done = true;
+              steps.readme.status = ' - No repo URL';
+            }
+            await updateProgress('website', 'Fetching website...');
+
+            // ===== STEP 3: Fetch website =====
+            let websiteContent = null;
+            if (fields.websiteUrl) {
+              websiteContent = await fetchWebsite(fields.websiteUrl);
+              if (websiteContent) {
+                steps.website.done = true;
+                steps.website.status = ` - ${websiteContent.length} chars`;
+              } else {
+                steps.website.done = true;
+                steps.website.status = ' - Could not fetch';
+              }
+            } else {
+              steps.website.done = true;
+              steps.website.status = ' - No website URL';
+            }
+            await updateProgress('ai', 'Running AI enhancement...');
+
+            // ===== STEP 4: AI Enhancement =====
+            let enhancedDescription = fields.description;
+            let keywords = [];
+
+            if (process.env.OPENAI_API_KEY && (readmeContent || websiteContent)) {
+              const enhanced = await enhanceWithAI(
+                fields.name,
+                fields.description,
+                readmeContent,
+                websiteContent
+              );
+              if (enhanced.description) {
+                enhancedDescription = enhanced.description;
+              }
+              if (enhanced.keywords && enhanced.keywords.length > 0) {
+                keywords = enhanced.keywords;
+              }
+              steps.ai.done = true;
+              steps.ai.status = ` - Generated ${keywords.length} keywords`;
+            } else {
+              steps.ai.done = true;
+              steps.ai.status = ' - Skipped (no API key or content)';
+            }
+            await updateProgress('json', 'Creating JSON file...');
+
+            // ===== STEP 5: Create JSON file =====
+            const today = new Date().toISOString().split('T')[0];
+            const toolJson = {
+              id: toolId,
+              name: fields.name,
+              description: enhancedDescription,
+              keywords: keywords,
+              author: fields.author,
+              authorPicture: fields.authorPicture || '',
+              githubUrl: fields.githubUrl || '',
+              linkedinUrl: fields.linkedinUrl || '',
+              xUrl: fields.xUrl || '',
+              repoUrl: fields.repoUrl,
+              downloadUrl: fields.downloadUrl || '',
+              websiteUrl: fields.websiteUrl || '',
+              category: normalizeCategory(fields.category),
+              type: normalizeType(fields.type),
+              dateAdded: today
+            };
+
+            fs.writeFileSync(toolPath, JSON.stringify(toolJson, null, 2) + '\n');
+            steps.json.done = true;
+            steps.json.status = ` - \`${toolId}.json\``;
+            await updateProgress('commit', 'Committing to repository...');
+
+            // Store outputs for next steps
+            core.setOutput('success', 'true');
+            core.setOutput('tool_id', toolId);
+            core.setOutput('tool_name', fields.name);
+            core.setOutput('tool_path', toolPath);
+            core.setOutput('keywords_count', keywords.length.toString());
+            core.setOutput('description', enhancedDescription);
+
+      - name: Commit and push tool JSON
+        if: steps.process.outputs.success == 'true'
+        id: commit
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/tools/
+          git commit -m "Add tool: ${{ steps.process.outputs.tool_name }}"
+          git push
+          echo "committed=true" >> $GITHUB_OUTPUT
+
+      - name: Update progress - commit done
+        if: steps.process.outputs.success == 'true' && steps.commit.outputs.committed == 'true'
+        uses: actions/github-script@v7
+        env:
+          COMMENT_ID: ${{ steps.create_comment.outputs.result }}
+          TOOL_NAME: ${{ steps.process.outputs.tool_name }}
+          TOOL_ID: ${{ steps.process.outputs.tool_id }}
+          KEYWORDS_COUNT: ${{ steps.process.outputs.keywords_count }}
+        with:
+          script: |
+            const commentId = parseInt(process.env.COMMENT_ID);
+            const toolName = process.env.TOOL_NAME;
+            const toolId = process.env.TOOL_ID;
+            const keywordsCount = process.env.KEYWORDS_COUNT;
+
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: commentId,
+              body: '## Processing Tool Submission\n\n' +
+                    `- [x] Parsing issue body - Found: **${toolName}**\n` +
+                    '- [x] Fetching README from repository\n' +
+                    '- [x] Fetching website content\n' +
+                    `- [x] Enhancing with AI - Generated ${keywordsCount} keywords\n` +
+                    `- [x] Creating tool JSON file - \`${toolId}.json\`\n` +
+                    '- [x] Committing to repository\n' +
+                    '- [>] Triggering screenshot capture...\n\n' +
+                    '_Almost done..._'
+            });
+
+      - name: Trigger screenshot workflow
+        if: steps.process.outputs.success == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'capture-screenshots.yml',
+              ref: 'main'
+            });
+
+      - name: Final success update
+        if: steps.process.outputs.success == 'true'
+        uses: actions/github-script@v7
+        env:
+          COMMENT_ID: ${{ steps.create_comment.outputs.result }}
+          TOOL_NAME: ${{ steps.process.outputs.tool_name }}
+          TOOL_ID: ${{ steps.process.outputs.tool_id }}
+          KEYWORDS_COUNT: ${{ steps.process.outputs.keywords_count }}
+          DESCRIPTION: ${{ steps.process.outputs.description }}
+        with:
+          script: |
+            const commentId = parseInt(process.env.COMMENT_ID);
+            const toolName = process.env.TOOL_NAME;
+            const toolId = process.env.TOOL_ID;
+            const keywordsCount = process.env.KEYWORDS_COUNT;
+            const description = process.env.DESCRIPTION;
+
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: commentId,
+              body: '## Tool Added Successfully!\n\n' +
+                    `- [x] Parsing issue body - Found: **${toolName}**\n` +
+                    '- [x] Fetching README from repository\n' +
+                    '- [x] Fetching website content\n' +
+                    `- [x] Enhancing with AI - Generated ${keywordsCount} keywords\n` +
+                    `- [x] Creating tool JSON file - \`${toolId}.json\`\n` +
+                    '- [x] Committing to repository\n' +
+                    '- [x] Triggering screenshot capture\n\n' +
+                    '---\n\n' +
+                    '### Tool Details\n\n' +
+                    `**Name:** ${toolName}\n` +
+                    `**ID:** \`${toolId}\`\n` +
+                    `**File:** \`data/tools/${toolId}.json\`\n\n` +
+                    '**Description:**\n' +
+                    `> ${description}\n\n` +
+                    '---\n\n' +
+                    'The screenshot capture workflow has been triggered. Screenshots will be added automatically.\n\n' +
+                    'Thank you for your contribution!'
+            });
+
+      - name: Close issue and add label
+        if: steps.process.outputs.success == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['tool-added']
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });
