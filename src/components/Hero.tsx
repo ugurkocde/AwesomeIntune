@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { CharReveal } from "./TextReveal";
-import { ConstellationBackground } from "./ConstellationBackground";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,25 +20,13 @@ export function Hero() {
       ref={containerRef}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* Constellation Network Background */}
-      <ConstellationBackground nodeCount={50} connectionDistance={200} />
-
-      {/* Subtle Center Glow */}
+      {/* Subtle Center Glow - Static for performance */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <motion.div
-          className="h-[400px] w-[800px] rounded-full blur-[120px]"
+        <div
+          className="h-[400px] w-[800px] rounded-full opacity-15 blur-[120px]"
           style={{
             background:
               "radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)",
-          }}
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.1, 0.18, 0.1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
           }}
         />
       </div>
@@ -134,11 +121,9 @@ export function Hero() {
           transition={{ delay: 2.0, duration: 1 }}
           className="absolute bottom-8"
         >
-          <motion.a
+          <a
             href="#tools"
-            className="group inline-flex flex-col items-center gap-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="group inline-flex flex-col items-center gap-2 transition-transform hover:translate-y-1"
           >
             <span
               className="text-xs uppercase tracking-[0.25em] transition-colors group-hover:text-[var(--accent-primary)]"
@@ -159,7 +144,7 @@ export function Hero() {
             >
               <path d="M6 9l6 6 6-6" />
             </svg>
-          </motion.a>
+          </a>
         </motion.div>
       </motion.div>
     </section>
