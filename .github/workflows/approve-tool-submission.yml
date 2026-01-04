@@ -151,32 +151,73 @@ jobs:
             }
 
             async function enhanceWithAI(toolName, description, readme, website) {
+              console.log('Starting AI enhancement for: ' + toolName);
+
+              if (!process.env.OPENAI_API_KEY) {
+                console.log('ERROR: OPENAI_API_KEY is not set');
+                return { description: description, keywords: [], error: 'No API key' };
+              }
+
               const OpenAI = require('openai');
               const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-              const parts = [];
-              if (readme) parts.push('README content:\n' + readme.substring(0, 8000));
-              if (website) parts.push('Website content:\n' + website);
-              const ctx = parts.length > 0 ? parts.join('\n\n---\n\n') : 'Submitted description: ' + description;
 
-              const systemPrompt = 'You are helping catalog tools for Microsoft Intune administrators. Given information about a tool, generate: 1. A clear, professional description (2-4 sentences, max 500 characters) that explains what the tool does and its key features. 2. 6-10 relevant keywords for search/filtering (lowercase, 1-3 words each). Focus on Intune-specific functionality and benefits for IT administrators.';
-              const userPrompt = 'Tool name: ' + toolName + '\n\n' + ctx + '\n\nRespond with ONLY a JSON object in this exact format:\n{"description": "Your improved description here", "keywords": ["keyword1", "keyword2", "keyword3"]}';
+              const parts = [];
+              if (readme) {
+                console.log('Using README content: ' + readme.length + ' chars');
+                parts.push('README:\n' + readme.substring(0, 10000));
+              }
+              if (website) {
+                console.log('Using website content: ' + website.length + ' chars');
+                parts.push('Website:\n' + website);
+              }
+
+              const ctx = parts.length > 0 ? parts.join('\n\n') : 'Description: ' + description;
+              console.log('Context length: ' + ctx.length + ' chars');
+
+              const prompt = 'Create a catalog entry for this Microsoft Intune tool.\n\n' +
+                'Tool: ' + toolName + '\n\n' + ctx + '\n\n' +
+                'Generate:\n' +
+                '1. description: Professional 2-4 sentence description (max 500 chars) of what it does and key features\n' +
+                '2. keywords: Array of 8 lowercase search keywords covering: category, features, technologies, use cases';
 
               try {
+                console.log('Calling OpenAI API with model: gpt-5-nano (structured output)');
                 const response = await openai.chat.completions.create({
                   model: 'gpt-5-nano',
                   max_completion_tokens: 1000,
+                  response_format: {
+                    type: 'json_schema',
+                    json_schema: {
+                      name: 'tool_catalog_entry',
+                      strict: true,
+                      schema: {
+                        type: 'object',
+                        properties: {
+                          description: { type: 'string', description: 'Professional 2-4 sentence description' },
+                          keywords: { type: 'array', items: { type: 'string' }, description: 'Array of 6-10 lowercase search keywords' }
+                        },
+                        required: ['description', 'keywords'],
+                        additionalProperties: false
+                      }
+                    }
+                  },
                   messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userPrompt }
+                    { role: 'system', content: 'You are an expert at cataloging Microsoft Intune and endpoint management tools. Create professional descriptions and relevant search keywords.' },
+                    { role: 'user', content: prompt }
                   ]
                 });
+
                 const content = response.choices[0]?.message?.content || '';
-                const jsonMatch = content.match(/\{[\s\S]*\}/);
-                if (jsonMatch) return JSON.parse(jsonMatch[0]);
+                console.log('AI response: ' + content.substring(0, 300));
+
+                const parsed = JSON.parse(content);
+                console.log('Parsed - description: ' + (parsed.description?.length || 0) + ' chars, keywords: ' + (parsed.keywords?.length || 0));
+                return parsed;
               } catch (e) {
                 console.log('AI enhancement failed: ' + e.message);
+                if (e.response) console.log('Response status: ' + e.response.status);
               }
-              return { description: description, keywords: [] };
+              return { description: description, keywords: [], error: 'AI failed' };
             }
 
             // STEP 1: Parse issue body
@@ -264,14 +305,28 @@ jobs:
             let enhancedDescription = fields.description;
             let keywords = [];
             if (process.env.OPENAI_API_KEY && (readmeContent || websiteContent)) {
+              console.log('AI enhancement starting...');
               const enhanced = await enhanceWithAI(fields.name, fields.description, readmeContent, websiteContent);
-              if (enhanced.description) enhancedDescription = enhanced.description;
-              if (enhanced.keywords && enhanced.keywords.length > 0) keywords = enhanced.keywords;
+              console.log('AI result: ' + JSON.stringify(enhanced).substring(0, 500));
+              if (enhanced.description && enhanced.description !== fields.description) {
+                enhancedDescription = enhanced.description;
+              }
+              if (enhanced.keywords && enhanced.keywords.length > 0) {
+                keywords = enhanced.keywords;
+              }
               stepState.ai.done = true;
-              stepState.ai.status = ' - Generated ' + keywords.length + ' keywords';
+              if (enhanced.error) {
+                stepState.ai.status = ' - Error: ' + enhanced.error;
+              } else if (keywords.length > 0) {
+                stepState.ai.status = ' - Generated ' + keywords.length + ' keywords';
+              } else {
+                stepState.ai.status = ' - No keywords generated';
+              }
             } else {
               stepState.ai.done = true;
-              stepState.ai.status = ' - Skipped';
+              const reason = !process.env.OPENAI_API_KEY ? 'No API key' : 'No content to analyze';
+              stepState.ai.status = ' - Skipped (' + reason + ')';
+              console.log('AI skipped: ' + reason);
             }
             await updateProgress('json', 'Creating JSON file...');
 
