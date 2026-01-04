@@ -32,11 +32,23 @@ export function ScreenshotGallery({
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [lightboxImageLoaded, setLightboxImageLoaded] = useState(false);
 
   // Track mount state for portal (SSR safety)
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
+  }, []);
+
+  // Reset lightbox image loaded state when changing images
+  useEffect(() => {
+    setLightboxImageLoaded(false);
+  }, [lightboxIndex]);
+
+  // Handle image load
+  const handleImageLoad = useCallback((index: number) => {
+    setLoadedImages((prev) => new Set(prev).add(index));
   }, []);
 
   // Limit to 5 screenshots max
@@ -298,6 +310,31 @@ export function ScreenshotGallery({
                   boxShadow: `0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05)`,
                 }}
               >
+                {/* Loading skeleton */}
+                {!loadedImages.has(index) && (
+                  <div
+                    className="absolute inset-0 overflow-hidden"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.03)",
+                      minHeight: "200px",
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0 animate-pulse"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, ${accentColor}10, transparent)`,
+                        animation: "shimmer 1.5s infinite",
+                      }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div
+                        className="h-8 w-8 animate-spin rounded-full border-2 border-t-transparent"
+                        style={{ borderColor: `${accentColor}40`, borderTopColor: "transparent" }}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* Hover glow effect */}
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -312,10 +349,12 @@ export function ScreenshotGallery({
                   src={imageUrl}
                   alt={`${toolName} screenshot ${index + 1}`}
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="w-full object-cover transition-transform duration-300"
+                  onLoad={() => handleImageLoad(index)}
+                  className="w-full object-cover transition-all duration-500"
                   style={{
                     maxHeight: "400px",
                     minHeight: "200px",
+                    opacity: loadedImages.has(index) ? 1 : 0,
                   }}
                 />
 
@@ -520,18 +559,31 @@ export function ScreenshotGallery({
             style={{
               maxWidth: "calc(100vw - 120px)",
               maxHeight: "calc(100vh - 120px)",
+              minWidth: "200px",
+              minHeight: "200px",
             }}
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Lightbox loading indicator */}
+            {!lightboxImageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div
+                  className="h-12 w-12 animate-spin rounded-full border-3 border-t-transparent"
+                  style={{ borderColor: `${accentColor}60`, borderTopColor: "transparent", borderWidth: "3px" }}
+                />
+              </div>
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={getScreenshotUrl(displayScreenshots[lightboxIndex] ?? "")}
               alt={`${toolName} screenshot ${lightboxIndex + 1}`}
-              className="rounded-lg object-contain"
+              onLoad={() => setLightboxImageLoaded(true)}
+              className="rounded-lg object-contain transition-opacity duration-300"
               style={{
                 maxWidth: "calc(100vw - 120px)",
                 maxHeight: "calc(100vh - 120px)",
                 boxShadow: `0 0 60px ${accentColor}30`,
+                opacity: lightboxImageLoaded ? 1 : 0,
               }}
             />
           </motion.div>

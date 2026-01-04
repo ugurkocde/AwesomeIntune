@@ -21,5 +21,11 @@
   "downloadUrl": "https://github.com/rink-turksma/IntunePrepTool/releases",
   "category": "packaging",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-prep-tool/screenshot-1.png",
+    "screenshots/intune-prep-tool/screenshot-3.png",
+    "screenshots/intune-prep-tool/screenshot-4.png",
+    "screenshots/intune-prep-tool/screenshot-5.png"
+  ]
 }

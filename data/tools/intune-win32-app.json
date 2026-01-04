@@ -21,5 +21,8 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneWin32App",
   "category": "packaging",
   "type": "powershell-module",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-win32-app/screenshot-1.png"
+  ]
 }

@@ -23,5 +23,12 @@
   "downloadUrl": "https://apps.apple.com/app/fleetly",
   "category": "monitoring",
   "type": "other",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/fleetly/screenshot-1.png",
+    "screenshots/fleetly/screenshot-2.png",
+    "screenshots/fleetly/screenshot-3.png",
+    "screenshots/fleetly/screenshot-4.png",
+    "screenshots/fleetly/screenshot-5.png"
+  ]
 }

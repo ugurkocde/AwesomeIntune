@@ -21,5 +21,8 @@
   "websiteUrl": "https://sysadminhub.info/easily-deploy-desktop-shortcuts-with-intune-a-simple-tool-for-admins/",
   "category": "automation",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/shortcut-creator/screenshot-1.png"
+  ]
 }

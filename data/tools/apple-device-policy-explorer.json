@@ -22,5 +22,8 @@
   "websiteUrl": "https://appledevicepolicy.tools/policy-explorer",
   "category": "configuration",
   "type": "web-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/apple-device-policy-explorer/screenshot-1.png"
+  ]
 }

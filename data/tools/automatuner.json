@@ -21,5 +21,8 @@
   "repoUrl": "https://github.com/Ayoub-Sekoum/automattuner",
   "category": "packaging",
   "type": "cli-tool",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/automatuner/screenshot-2.jpg"
+  ]
 }

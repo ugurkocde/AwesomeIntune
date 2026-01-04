@@ -23,5 +23,8 @@
   "downloadUrl": "https://github.com/tugich/DeploymentEditor/releases",
   "category": "packaging",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/deployment-editor/screenshot-1.png"
+  ]
 }

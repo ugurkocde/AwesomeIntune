@@ -21,5 +21,8 @@
   "downloadUrl": "https://github.com/MG-Cloudflow/Intune-Toolkit/releases",
   "category": "automation",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-toolkit/screenshot-1.png"
+  ]
 }

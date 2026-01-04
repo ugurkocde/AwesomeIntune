@@ -20,5 +20,8 @@
   "websiteUrl": "https://kioskoverseer.com/",
   "category": "configuration",
   "type": "web-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/kiosk-overseer/screenshot-1.png"
+  ]
 }

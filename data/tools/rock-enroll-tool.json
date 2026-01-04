@@ -21,5 +21,12 @@
   "downloadUrl": "https://github.com/NicklasAhlberg/RockEnrollTool/releases",
   "category": "automation",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/rock-enroll-tool/screenshot-1.gif",
+    "screenshots/rock-enroll-tool/screenshot-2.png",
+    "screenshots/rock-enroll-tool/screenshot-3.gif",
+    "screenshots/rock-enroll-tool/screenshot-4.gif",
+    "screenshots/rock-enroll-tool/screenshot-5.gif"
+  ]
 }

@@ -22,5 +22,12 @@
   "downloadUrl": "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/endpoint-analytics-remediation-scripts/screenshot-1.png",
+    "screenshots/endpoint-analytics-remediation-scripts/screenshot-2.webp",
+    "screenshots/endpoint-analytics-remediation-scripts/screenshot-3.webp",
+    "screenshots/endpoint-analytics-remediation-scripts/screenshot-4.webp",
+    "screenshots/endpoint-analytics-remediation-scripts/screenshot-5.webp"
+  ]
 }

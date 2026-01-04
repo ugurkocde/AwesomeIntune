@@ -22,5 +22,8 @@
   "downloadUrl": "https://github.com/okieselbach/SyncMLViewer/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/syncml-viewer/screenshot-2.png"
+  ]
 }

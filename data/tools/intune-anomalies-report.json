@@ -23,5 +23,8 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/Generate-IntuneAnomaliesReport/",
   "category": "reporting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-anomalies-report/screenshot-1.png"
+  ]
 }

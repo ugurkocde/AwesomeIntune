@@ -22,5 +22,8 @@
   "downloadUrl": "https://github.com/petripaavola/IntuneDeviceDetailsGUI/releases",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-device-details-gui/screenshot-1.gif"
+  ]
 }

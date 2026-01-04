@@ -22,5 +22,12 @@
   "downloadUrl": "https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics/releases",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/get-intune-management-extension-diagnostics/screenshot-1.png",
+    "screenshots/get-intune-management-extension-diagnostics/screenshot-2.png",
+    "screenshots/get-intune-management-extension-diagnostics/screenshot-3.png",
+    "screenshots/get-intune-management-extension-diagnostics/screenshot-4.png",
+    "screenshots/get-intune-management-extension-diagnostics/screenshot-5.png"
+  ]
 }

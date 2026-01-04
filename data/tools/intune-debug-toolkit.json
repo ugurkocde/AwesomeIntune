@@ -23,5 +23,8 @@
   "downloadUrl": "https://github.com/MSEndpointMgr/IntuneDebugToolkit/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/intune-debug-toolkit/screenshot-1.png"
+  ]
 }
