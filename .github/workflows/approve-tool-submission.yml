@@ -29,7 +29,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '## Processing Tool Submission\n\n- [ ] Parsing issue body...\n- [ ] Fetching README from repository\n- [ ] Fetching website content\n- [ ] Enhancing with AI\n- [ ] Creating tool JSON file\n- [ ] Committing to repository\n\n_Starting..._'
+              body: '## Adding Your Tool\n\nProcessing your submission...\n\n| Step | Status |\n|:-----|:------:|\n| Validating submission | :hourglass_flowing_sand: |\n| Creating catalog entry | :white_circle: |\n| Saving to repository | :white_circle: |'
             });
             return comment.data.id;
 
@@ -56,33 +56,39 @@ jobs:
             const path = require('path');
             const commentId = parseInt(process.env.COMMENT_ID);
 
-            const stepState = {
-              parse: { done: false, status: '' },
-              readme: { done: false, status: '' },
-              website: { done: false, status: '' },
-              ai: { done: false, status: '' },
-              json: { done: false, status: '' },
-              commit: { done: false, status: '' }
-            };
+            let toolName = '';
 
-            async function updateProgress(currentStep, message) {
-              const getCheck = (key, current) => {
-                if (stepState[key].done) return 'x';
-                if (key === current) return '>';
-                return ' ';
+            async function updateProgress(step, status, error = null) {
+              const steps = {
+                validate: { label: 'Validating submission', order: 1 },
+                create: { label: 'Creating catalog entry', order: 2 },
+                save: { label: 'Saving to repository', order: 3 }
               };
-              const body = [
-                '## Processing Tool Submission',
-                '',
-                '- [' + getCheck('parse', currentStep) + '] Parsing issue body' + stepState.parse.status,
-                '- [' + getCheck('readme', currentStep) + '] Fetching README from repository' + stepState.readme.status,
-                '- [' + getCheck('website', currentStep) + '] Fetching website content' + stepState.website.status,
-                '- [' + getCheck('ai', currentStep) + '] Enhancing with AI' + stepState.ai.status,
-                '- [' + getCheck('json', currentStep) + '] Creating tool JSON file' + stepState.json.status,
-                '- [' + getCheck('commit', currentStep) + '] Committing to repository' + stepState.commit.status,
-                '',
-                '_' + message + '_'
-              ].join('\n');
+
+              const getIcon = (stepKey) => {
+                const stepOrder = steps[stepKey].order;
+                const currentOrder = steps[step].order;
+                if (status === 'error' && stepKey === step) return ':x:';
+                if (stepOrder < currentOrder) return ':white_check_mark:';
+                if (stepOrder === currentOrder) return ':hourglass_flowing_sand:';
+                return ':white_circle:';
+              };
+
+              let body = '## Adding Your Tool\n\n';
+              if (toolName) {
+                body += 'Adding **' + toolName + '** to the catalog...\n\n';
+              } else {
+                body += 'Processing your submission...\n\n';
+              }
+
+              body += '| Step | Status |\n|:-----|:------:|\n';
+              body += '| ' + steps.validate.label + ' | ' + getIcon('validate') + ' |\n';
+              body += '| ' + steps.create.label + ' | ' + getIcon('create') + ' |\n';
+              body += '| ' + steps.save.label + ' | ' + getIcon('save') + ' |';
+
+              if (error) {
+                body += '\n\n---\n\n:warning: **Error:** ' + error;
+              }
 
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
@@ -149,28 +155,18 @@ jobs:
             }
 
             async function enhanceWithAI(toolName, description, readme, website) {
-              console.log('Starting AI enhancement for: ' + toolName);
-
               if (!process.env.OPENAI_API_KEY) {
-                console.log('ERROR: OPENAI_API_KEY is not set');
-                return { description: description, keywords: [], error: 'No API key' };
+                return { description: description, keywords: [] };
               }
 
               const OpenAI = require('openai');
               const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
               const parts = [];
-              if (readme) {
-                console.log('Using README content: ' + readme.length + ' chars');
-                parts.push('README:\n' + readme.substring(0, 10000));
-              }
-              if (website) {
-                console.log('Using website content: ' + website.length + ' chars');
-                parts.push('Website:\n' + website);
-              }
+              if (readme) parts.push('README:\n' + readme.substring(0, 10000));
+              if (website) parts.push('Website:\n' + website);
 
               const ctx = parts.length > 0 ? parts.join('\n\n') : 'Description: ' + description;
-              console.log('Context length: ' + ctx.length + ' chars');
 
               const prompt = 'Create a catalog entry for this Microsoft Intune tool.\n\n' +
                 'Tool: ' + toolName + '\n\n' + ctx + '\n\n' +
@@ -179,7 +175,6 @@ jobs:
                 '2. keywords: Array of 8 lowercase search keywords covering: category, features, technologies, use cases';
 
               try {
-                console.log('Calling OpenAI API with model: gpt-5-nano');
                 const response = await openai.chat.completions.create({
                   model: 'gpt-5-nano',
                   response_format: { type: 'json_object' },
@@ -190,20 +185,15 @@ jobs:
                 });
 
                 const content = response.choices[0]?.message?.content || '';
-                console.log('AI response: ' + content.substring(0, 300));
-
-                const parsed = JSON.parse(content);
-                console.log('Parsed - description: ' + (parsed.description?.length || 0) + ' chars, keywords: ' + (parsed.keywords?.length || 0));
-                return parsed;
+                return JSON.parse(content);
               } catch (e) {
                 console.log('AI enhancement failed: ' + e.message);
-                if (e.response) console.log('Response status: ' + e.response.status);
               }
-              return { description: description, keywords: [], error: 'AI failed' };
+              return { description: description, keywords: [] };
             }
 
-            // STEP 1: Parse issue body
-            await updateProgress('parse', 'Parsing issue body...');
+            // STEP 1: Validate submission
+            await updateProgress('validate', 'working');
 
             const body = context.payload.issue.body;
             const fields = {};
@@ -224,95 +214,44 @@ jobs:
             const required = ['name', 'description', 'author', 'repoUrl', 'category', 'type'];
             const missing = required.filter(f => !fields[f]);
             if (missing.length > 0) {
-              stepState.parse.done = true;
-              stepState.parse.status = ' - FAILED';
-              await updateProgress('parse', 'Error: Missing required fields: ' + missing.join(', '));
+              await updateProgress('validate', 'error', 'Missing required fields: ' + missing.join(', '));
               core.setOutput('success', 'false');
-              core.setOutput('error', 'Missing required fields: ' + missing.join(', '));
               return;
             }
 
             const urlFields = ['repoUrl', 'githubUrl', 'linkedinUrl', 'xUrl', 'websiteUrl', 'downloadUrl'];
             for (const f of urlFields) {
               if (fields[f] && !isValidUrl(fields[f])) {
-                stepState.parse.done = true;
-                stepState.parse.status = ' - FAILED';
-                await updateProgress('parse', 'Error: Invalid URL format for ' + f);
+                await updateProgress('validate', 'error', 'Invalid URL format for ' + f);
                 core.setOutput('success', 'false');
-                core.setOutput('error', 'Invalid URL: ' + fields[f]);
                 return;
               }
             }
 
+            toolName = fields.name;
             const toolId = toKebabCase(fields.name);
             const toolPath = path.join('data', 'tools', toolId + '.json');
+
             if (fs.existsSync(toolPath)) {
-              stepState.parse.done = true;
-              stepState.parse.status = ' - FAILED';
-              await updateProgress('parse', 'Error: Tool "' + toolId + '" already exists');
+              await updateProgress('validate', 'error', 'A tool with this name already exists');
               core.setOutput('success', 'false');
-              core.setOutput('error', 'Tool already exists: ' + toolId);
               return;
             }
 
-            stepState.parse.done = true;
-            stepState.parse.status = ' - Found: **' + fields.name + '**';
-            await updateProgress('readme', 'Fetching README...');
+            // STEP 2: Create catalog entry
+            await updateProgress('create', 'working');
 
-            // STEP 2: Fetch README
-            let readmeContent = null;
-            if (fields.repoUrl) {
-              readmeContent = await fetchReadme(fields.repoUrl);
-              stepState.readme.done = true;
-              stepState.readme.status = readmeContent ? ' - ' + readmeContent.length + ' chars' : ' - Not found';
-            } else {
-              stepState.readme.done = true;
-              stepState.readme.status = ' - No repo URL';
-            }
-            await updateProgress('website', 'Fetching website...');
+            const readmeContent = fields.repoUrl ? await fetchReadme(fields.repoUrl) : null;
+            const websiteContent = fields.websiteUrl ? await fetchWebsite(fields.websiteUrl) : null;
 
-            // STEP 3: Fetch website
-            let websiteContent = null;
-            if (fields.websiteUrl) {
-              websiteContent = await fetchWebsite(fields.websiteUrl);
-              stepState.website.done = true;
-              stepState.website.status = websiteContent ? ' - ' + websiteContent.length + ' chars' : ' - Could not fetch';
-            } else {
-              stepState.website.done = true;
-              stepState.website.status = ' - No website URL';
-            }
-            await updateProgress('ai', 'Running AI enhancement...');
-
-            // STEP 4: AI Enhancement
             let enhancedDescription = fields.description;
             let keywords = [];
             if (process.env.OPENAI_API_KEY && (readmeContent || websiteContent)) {
-              console.log('AI enhancement starting...');
               const enhanced = await enhanceWithAI(fields.name, fields.description, readmeContent, websiteContent);
-              console.log('AI result: ' + JSON.stringify(enhanced).substring(0, 500));
-              if (enhanced.description && enhanced.description !== fields.description) {
-                enhancedDescription = enhanced.description;
-              }
-              if (enhanced.keywords && enhanced.keywords.length > 0) {
-                keywords = enhanced.keywords;
-              }
-              stepState.ai.done = true;
-              if (enhanced.error) {
-                stepState.ai.status = ' - Error: ' + enhanced.error;
-              } else if (keywords.length > 0) {
-                stepState.ai.status = ' - Generated ' + keywords.length + ' keywords';
-              } else {
-                stepState.ai.status = ' - No keywords generated';
-              }
-            } else {
-              stepState.ai.done = true;
-              const reason = !process.env.OPENAI_API_KEY ? 'No API key' : 'No content to analyze';
-              stepState.ai.status = ' - Skipped (' + reason + ')';
-              console.log('AI skipped: ' + reason);
+              if (enhanced.description) enhancedDescription = enhanced.description;
+              if (enhanced.keywords?.length > 0) keywords = enhanced.keywords;
             }
-            await updateProgress('json', 'Creating JSON file...');
 
-            // STEP 5: Create JSON file
             const today = new Date().toISOString().split('T')[0];
             const toolJson = {
               id: toolId,
@@ -333,15 +272,14 @@ jobs:
             };
 
             fs.writeFileSync(toolPath, JSON.stringify(toolJson, null, 2) + '\n');
-            stepState.json.done = true;
-            stepState.json.status = ' - ' + toolId + '.json';
-            await updateProgress('commit', 'Committing to repository...');
+
+            // STEP 3: Save to repository
+            await updateProgress('save', 'working');
 
             core.setOutput('success', 'true');
             core.setOutput('tool_id', toolId);
             core.setOutput('tool_name', fields.name);
             core.setOutput('tool_path', toolPath);
-            core.setOutput('keywords_count', String(keywords.length));
             core.setOutput('description', enhancedDescription);
 
       - name: Commit and push tool JSON
@@ -355,79 +293,45 @@ jobs:
           git push
           echo "committed=true" >> $GITHUB_OUTPUT
 
-      - name: Update progress after commit
+      - name: Final success update
         if: steps.process.outputs.success == 'true' && steps.commit.outputs.committed == 'true'
         uses: actions/github-script@v7
         env:
           COMMENT_ID: ${{ steps.create_comment.outputs.result }}
           TOOL_NAME: ${{ steps.process.outputs.tool_name }}
           TOOL_ID: ${{ steps.process.outputs.tool_id }}
-          KEYWORDS_COUNT: ${{ steps.process.outputs.keywords_count }}
-        with:
-          script: |
-            const commentId = parseInt(process.env.COMMENT_ID);
-            const body = [
-              '## Processing Tool Submission',
-              '',
-              '- [x] Parsing issue body - Found: **' + process.env.TOOL_NAME + '**',
-              '- [x] Fetching README from repository',
-              '- [x] Fetching website content',
-              '- [x] Enhancing with AI - Generated ' + process.env.KEYWORDS_COUNT + ' keywords',
-              '- [x] Creating tool JSON file - ' + process.env.TOOL_ID + '.json',
-              '- [x] Committing to repository',
-              '',
-              '_Almost done..._'
-            ].join('\n');
-            await github.rest.issues.updateComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: commentId,
-              body: body
-            });
-
-      - name: Final success update
-        if: steps.process.outputs.success == 'true'
-        uses: actions/github-script@v7
-        env:
-          COMMENT_ID: ${{ steps.create_comment.outputs.result }}
-          TOOL_NAME: ${{ steps.process.outputs.tool_name }}
-          TOOL_ID: ${{ steps.process.outputs.tool_id }}
-          KEYWORDS_COUNT: ${{ steps.process.outputs.keywords_count }}
           DESCRIPTION: ${{ steps.process.outputs.description }}
         with:
           script: |
             const commentId = parseInt(process.env.COMMENT_ID);
             const toolName = process.env.TOOL_NAME;
             const toolId = process.env.TOOL_ID;
-            const keywordsCount = process.env.KEYWORDS_COUNT;
             const description = process.env.DESCRIPTION;
+
             const body = [
-              '## Tool Added Successfully!',
+              '## :white_check_mark: Tool Added Successfully!',
               '',
-              '- [x] Parsing issue body - Found: **' + toolName + '**',
-              '- [x] Fetching README from repository',
-              '- [x] Fetching website content',
-              '- [x] Enhancing with AI - Generated ' + keywordsCount + ' keywords',
-              '- [x] Creating tool JSON file - ' + toolId + '.json',
-              '- [x] Committing to repository',
+              '**' + toolName + '** has been added to the Awesome Intune catalog.',
+              '',
+              '| Step | Status |',
+              '|:-----|:------:|',
+              '| Validating submission | :white_check_mark: |',
+              '| Creating catalog entry | :white_check_mark: |',
+              '| Saving to repository | :white_check_mark: |',
               '',
               '---',
               '',
-              '### Tool Details',
+              '### About This Tool',
               '',
-              '**Name:** ' + toolName,
-              '**ID:** `' + toolId + '`',
-              '**File:** `data/tools/' + toolId + '.json`',
-              '',
-              '**Description:**',
               '> ' + description,
               '',
               '---',
               '',
-              'Screenshot capture will run automatically after this workflow completes.',
+              ':camera: Screenshots will be captured automatically.',
               '',
-              'Thank you for your contribution!'
+              'Thank you for contributing to Awesome Intune!'
             ].join('\n');
+
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
               repo: context.repo.repo,

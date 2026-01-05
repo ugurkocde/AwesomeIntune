@@ -22,11 +22,11 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 const TOOLS_DIR = path.join(ROOT_DIR, 'data', 'tools');
 const SCREENSHOTS_DIR = path.join(ROOT_DIR, 'public', 'screenshots');
-const BLOCKLIST_FILE = path.join(ROOT_DIR, 'manual-screenshots-needed.json');
+const CACHE_FILE = path.join(ROOT_DIR, 'screenshot-cache.json');
 
-// Cache of blocked website URLs (loaded from manual-screenshots-needed.json)
-// These are sites that have previously failed due to Cloudflare, timeouts, etc.
-let blockedWebsiteUrls = new Set();
+// Cache data loaded from screenshot-cache.json
+let blockedWebsiteUrls = new Set(); // Sites that failed due to Cloudflare, timeouts, etc.
+let rejectedImageUrls = new Set(); // Image URLs rejected by AI (logos, icons, etc.)
 
 // OpenAI client for image analysis
 const openai = process.env.OPENAI_API_KEY
@@ -80,44 +80,61 @@ const BADGE_PATTERNS = [
 ];
 
 /**
- * Load blocked website URLs from manual-screenshots-needed.json
- * These are sites that previously failed (Cloudflare, timeouts, etc.)
- * We skip these to avoid wasting time on known problematic URLs
+ * Load cache data from screenshot-cache.json
+ * - blockedWebsites: Sites that failed (Cloudflare, timeouts, etc.)
+ * - rejectedImages: Image URLs rejected by AI (logos, icons, etc.)
  */
-async function loadBlockedUrls() {
+async function loadCache() {
   try {
-    const content = await fs.readFile(BLOCKLIST_FILE, 'utf-8');
-    const entries = JSON.parse(content);
+    const content = await fs.readFile(CACHE_FILE, 'utf-8');
+    const cache = JSON.parse(content);
 
-    // Only block URLs that failed due to website issues (not just missing README images)
-    const websiteBlockedReasons = ['Website blocked', 'timeout', 'Error:'];
-
-    for (const entry of entries) {
-      if (entry.url && entry.reason) {
-        // Check if the reason indicates a website access issue
-        const isWebsiteBlocked = websiteBlockedReasons.some(r =>
-          entry.reason.toLowerCase().includes(r.toLowerCase())
-        );
-        if (isWebsiteBlocked) {
-          blockedWebsiteUrls.add(entry.url);
-        }
+    // Load blocked website URLs
+    if (cache.blockedWebsites && Array.isArray(cache.blockedWebsites)) {
+      for (const url of cache.blockedWebsites) {
+        blockedWebsiteUrls.add(url);
       }
     }
 
-    if (blockedWebsiteUrls.size > 0) {
-      console.log(`Loaded ${blockedWebsiteUrls.size} blocked website URLs from cache`);
+    // Load rejected image URLs
+    if (cache.rejectedImages && Array.isArray(cache.rejectedImages)) {
+      for (const url of cache.rejectedImages) {
+        rejectedImageUrls.add(url);
+      }
+    }
+
+    const stats = [];
+    if (blockedWebsiteUrls.size > 0) stats.push(`${blockedWebsiteUrls.size} blocked websites`);
+    if (rejectedImageUrls.size > 0) stats.push(`${rejectedImageUrls.size} rejected images`);
+
+    if (stats.length > 0) {
+      console.log(`Loaded cache: ${stats.join(', ')}`);
     }
   } catch (error) {
     // File doesn't exist yet or is invalid - that's fine
-    console.log('No blocked URLs cache found (will be created after first run)');
+    console.log('No cache found (will be created after first run)');
   }
 }
 
 /**
- * Check if a URL is in the blocklist
+ * Check if a website URL is blocked
  */
-function isUrlBlocked(url) {
+function isWebsiteBlocked(url) {
   return blockedWebsiteUrls.has(url);
+}
+
+/**
+ * Check if an image URL was previously rejected by AI
+ */
+function isImageRejected(url) {
+  return rejectedImageUrls.has(url);
+}
+
+/**
+ * Add an image URL to the rejected cache
+ */
+function markImageRejected(url) {
+  rejectedImageUrls.add(url);
 }
 
 /**
@@ -383,8 +400,15 @@ function resolveImageUrl(imageUrl, repoUrl, branch = 'main', subdir = '') {
 /**
  * Download an image to the screenshots directory
  * Analyzes with AI to filter out logos/icons
+ * Caches rejected image URLs to avoid re-analyzing on subsequent runs
  */
 async function downloadImage(url, destPath, skipAIAnalysis = false) {
+  // Check if this image URL was previously rejected by AI
+  if (isImageRejected(url)) {
+    console.log(`    Skipping (cached rejection): ${url}`);
+    return false;
+  }
+
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -409,6 +433,8 @@ async function downloadImage(url, destPath, skipAIAnalysis = false) {
 
       if (!analysis.isProductScreenshot) {
         console.log(`    Rejected: ${analysis.reason}`);
+        // Cache this URL so we don't re-analyze it next time
+        markImageRejected(url);
         // Delete the file since it's not a product screenshot
         await fs.unlink(destPath);
         return false;
@@ -496,7 +522,7 @@ async function captureWebAppScreenshot(tool) {
   }
 
   // Check if this URL is in the blocklist (known to fail)
-  if (isUrlBlocked(tool.websiteUrl)) {
+  if (isWebsiteBlocked(tool.websiteUrl)) {
     console.log(`  Skipping ${tool.websiteUrl} (known blocked site from cache)`);
     return {
       screenshots: [],
@@ -739,8 +765,8 @@ async function main() {
     console.log('All downloaded images will be kept without analysis\n');
   }
 
-  // Load blocked URLs cache to skip known problematic websites
-  await loadBlockedUrls();
+  // Load cache to skip known problematic websites and rejected images
+  await loadCache();
 
   // Ensure screenshots directory exists
   await fs.mkdir(SCREENSHOTS_DIR, { recursive: true });
@@ -779,18 +805,35 @@ async function main() {
       console.log(`  Reason: ${tool.reason}`);
       console.log('');
     }
-
-    // Also write to a JSON file for easy reference
-    const reportPath = path.join(ROOT_DIR, 'manual-screenshots-needed.json');
-    await fs.writeFile(
-      reportPath,
-      JSON.stringify(manualScreenshotsNeeded, null, 2) + '\n',
-      'utf-8'
-    );
-    console.log(`Report saved to: ${reportPath}`);
   } else {
     console.log(`\nAll tools have screenshots!`);
   }
+
+  // Extract blocked website URLs from entries with "Website blocked" reason
+  const blockedWebsites = [];
+  for (const entry of manualScreenshotsNeeded) {
+    if (entry.reason && entry.reason.toLowerCase().includes('website blocked')) {
+      blockedWebsites.push(entry.url);
+    }
+  }
+  // Also include any previously cached blocked websites that might not be in current run
+  for (const url of blockedWebsiteUrls) {
+    if (!blockedWebsites.includes(url)) {
+      blockedWebsites.push(url);
+    }
+  }
+
+  // Save the cache file with all cached data
+  const cacheData = {
+    blockedWebsites,
+    rejectedImages: [...rejectedImageUrls],
+    manualScreenshotsNeeded,
+  };
+
+  await fs.writeFile(CACHE_FILE, JSON.stringify(cacheData, null, 2) + '\n', 'utf-8');
+  console.log(`\nCache saved to: ${CACHE_FILE}`);
+  console.log(`  - ${blockedWebsites.length} blocked websites`);
+  console.log(`  - ${rejectedImageUrls.size} rejected images`);
 }
 
 main().catch(console.error);

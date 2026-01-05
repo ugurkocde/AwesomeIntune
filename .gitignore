@@ -45,8 +45,5 @@ yarn-error.log*
 # idea files
 .idea
 
-# generated reports
-manual-screenshots-needed.json
-
 # claude code
 .claude/

@@ -2,7 +2,16 @@
   "id": "app-pruner",
   "name": "AppPruner",
   "description": "A command-line tool for managing the removal of macOS applications and their associated files. Features multiple matching modes, dry-run previews, JSON manifest generation, catalog synchronization, and Homebrew integration with pre/post-flight command hooks.",
-  "keywords": ["uninstall apps", "remove applications", "mac app cleanup", "delete apps", "app removal", "homebrew", "macos cleanup", "bulk uninstall"],
+  "keywords": [
+    "uninstall apps",
+    "remove applications",
+    "mac app cleanup",
+    "delete apps",
+    "app removal",
+    "homebrew",
+    "macos cleanup",
+    "bulk uninstall"
+  ],
   "author": "Tobias Almen",
   "authorPicture": "/images/authors/tobias-almen.jpg",
   "githubUrl": "https://github.com/almenscorner",
@@ -12,5 +21,8 @@
   "downloadUrl": "https://github.com/almenscorner/AppPruner/releases",
   "category": "automation",
   "type": "cli-tool",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "screenshots": [
+    "screenshots/app-pruner/screenshot-1.png"
+  ]
 }

@@ -1,0 +1,76 @@
+{
+  "blockedWebsites": [
+    "https://intunediff.com/",
+    "https://www.osdeploy.com/",
+    "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/"
+  ],
+  "rejectedImages": [],
+  "manualScreenshotsNeeded": [
+    {
+      "name": "Autopilot Branding",
+      "id": "autopilot-branding",
+      "url": "https://github.com/mtniehaus/AutopilotBranding",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Get-AutopilotDiagnosticsCommunity",
+      "id": "get-autopilot-diagnostics-community",
+      "url": "https://github.com/andrew-s-taylor/public",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneCD",
+      "id": "intune-cd",
+      "url": "https://github.com/almenscorner/IntuneCD",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneDebug",
+      "id": "intune-debug",
+      "url": "https://github.com/jonasatgit/IntuneDebug",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneDeviceInventory",
+      "id": "intune-device-inventory",
+      "url": "https://github.com/FlorianSLZ/IntuneDeviceInventory",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneDiff",
+      "id": "intune-diff",
+      "url": "https://intunediff.com/",
+      "reason": "Website blocked"
+    },
+    {
+      "name": "Intune Remediations",
+      "id": "intune-remediations",
+      "url": "https://github.com/AntoPorter/Intune-Remediations",
+      "reason": "No images in README"
+    },
+    {
+      "name": "intune-uploader",
+      "id": "intune-uploader",
+      "url": "https://github.com/almenscorner/intune-uploader",
+      "reason": "No images in README"
+    },
+    {
+      "name": "MISA (macOS Intune Support Assistant)",
+      "id": "misa",
+      "url": "https://github.com/pathaksomesh06/MISA",
+      "reason": "No images in README"
+    },
+    {
+      "name": "OpenIntuneBaseline",
+      "id": "open-intune-baseline",
+      "url": "https://github.com/SkipToTheEndpoint/OpenIntuneBaseline",
+      "reason": "No images in README"
+    },
+    {
+      "name": "OSD",
+      "id": "osd",
+      "url": "https://www.osdeploy.com/",
+      "reason": "Website blocked"
+    }
+  ]
+}
