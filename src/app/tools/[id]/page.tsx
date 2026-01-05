@@ -219,7 +219,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
               {/* Tool Name */}
               <h1
-                className="font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl"
+                className="font-display text-2xl font-bold leading-tight tracking-tight break-words hyphens-auto sm:text-4xl lg:text-5xl"
                 style={{ color: "var(--text-primary)" }}
               >
                 {tool.name}
