@@ -22,5 +22,9 @@
   "websiteUrl": "",
   "category": "packaging",
   "type": "powershell-module",
-  "dateAdded": "2026-01-05"
+  "dateAdded": "2026-01-05",
+  "screenshots": [
+    "screenshots/intune-app-sandbox/screenshot-1.gif",
+    "screenshots/intune-app-sandbox/screenshot-2.gif"
+  ]
 }
