@@ -22,9 +22,5 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "desktop-app",
-  "dateAdded": "2026-01-05",
-  "screenshots": [
-    "screenshots/intunelogwatch/screenshot-1.png",
-    "screenshots/intunelogwatch/screenshot-2.png"
-  ]
+  "dateAdded": "2026-01-05"
 }
