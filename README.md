@@ -7,9 +7,8 @@
 *Curated by experts, trusted by thousands.*
 
 [![GitHub Stars](https://img.shields.io/github/stars/ugurkocde/awesomeintune?style=flat&logo=github&color=00d4ff)](https://github.com/ugurkocde/awesomeintune/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/ugurkocde/awesomeintune?style=flat&logo=github&color=00d4ff)](https://github.com/ugurkocde/awesomeintune/network/members)
 [![License](https://img.shields.io/github/license/ugurkocde/awesomeintune?style=flat&color=00d4ff)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/ugurkocde/awesomeintune?style=flat&color=00d4ff)](https://github.com/ugurkocde/awesomeintune/commits/main)
+[![Last Updated](https://img.shields.io/github/last-commit/ugurkocde/awesomeintune?style=flat&color=00d4ff)](https://github.com/ugurkocde/awesomeintune/commits/main)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fawesomeintune.com&style=flat&color=00d4ff)](https://awesomeintune.com)
 
 <br />
