@@ -1,0 +1,26 @@
+{
+  "id": "insight",
+  "name": "InSight",
+  "description": "InSight is a PowerShell GUI tool for Microsoft Intune that provides deeper visibility beyond the Intune portal. It offers device ownership analytics, full configuration backup to JSON, assignment tracking to identify orphaned policies, application insights with version tracking, and a library of remediation scripts for quick deployment.",
+  "keywords": [
+    "intune",
+    "insight",
+    "powershell",
+    "gui",
+    "configuration-backup",
+    "assignment-tracking",
+    "application-insights",
+    "remediation-scripts"
+  ],
+  "author": "Kosta Wadenfalk",
+  "authorPicture": "https://github.com/MrOlof.png",
+  "githubUrl": "https://github.com/MrOlof",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MrOlof/InSight",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-05"
+}
