@@ -1,0 +1,26 @@
+{
+  "id": "intunelogwatch",
+  "name": "IntuneLogWatch",
+  "description": "IntuneLogWatch is a macOS application for analyzing Microsoft Intune logs and delivering human-readable insights. It converts raw log data into understandable summaries, highlighting trends and issues for IT admins. Designed to simplify troubleshooting and ongoing monitoring of Intune deployments with clear, actionable information.",
+  "keywords": [
+    "macos",
+    "intune",
+    "logs",
+    "log-analysis",
+    "insights",
+    "troubleshooting",
+    "monitoring",
+    "diagnostics"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns",
+  "linkedinUrl": "https://www.linkedin.com/in/gilburns",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/IntuneLogWatch",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-05"
+}
