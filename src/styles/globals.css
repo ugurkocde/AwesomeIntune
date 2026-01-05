@@ -404,3 +404,29 @@ body {
 .animate-shimmer {
   animation: shimmer 1.5s ease-in-out infinite;
 }
+
+/* ============================================
+   Sponsor Logo Theme Switching
+   ============================================ */
+
+.sponsor-logo-dark {
+  display: block;
+}
+
+.sponsor-logo-light {
+  display: none;
+}
+
+[data-theme="light"] .sponsor-logo-dark {
+  display: none;
+}
+
+[data-theme="light"] .sponsor-logo-light {
+  display: block;
+  position: relative;
+  opacity: 0.8;
+}
+
+[data-theme="light"] .sponsor-logo-link:hover .sponsor-logo-light {
+  opacity: 1;
+}

@@ -16,7 +16,7 @@ export function Footer() {
       }}
     >
       <div className="container-main pt-12 pb-6 md:pt-16 md:pb-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand Column */}
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-3">
@@ -93,6 +93,33 @@ export function Footer() {
                 Report an Issue
               </a>
             </nav>
+          </div>
+
+          {/* Sponsors Column */}
+          <div className="space-y-4">
+            <h3
+              className="font-display text-sm font-semibold uppercase tracking-wide"
+              style={{ color: "var(--text-tertiary)" }}
+            >
+              Sponsors
+            </h3>
+            <a
+              href="https://eido.io/?utm_source=awesome_intune"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="/sponsors/eido-light.svg"
+                alt="eido - Sponsor"
+                className="sponsor-logo-dark h-auto w-[90px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+              />
+              <img
+                src="/sponsors/eido-dark.svg"
+                alt="eido - Sponsor"
+                className="sponsor-logo-light h-auto w-[90px] transition-opacity duration-300 group-hover:opacity-100"
+              />
+            </a>
           </div>
 
           {/* Stay Updated Column */}

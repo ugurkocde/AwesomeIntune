@@ -120,6 +120,40 @@ export function Hero() {
             </motion.a>
           </motion.div>
 
+          {/* Sponsor Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-16 flex flex-col items-center gap-3"
+          >
+            <span
+              className="text-[11px] font-medium uppercase tracking-[0.2em]"
+              style={{ color: "var(--text-tertiary)", opacity: 0.7 }}
+            >
+              Sponsored by
+            </span>
+            <a
+              href="https://eido.io/?utm_source=awesome_intune"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
+            >
+              {/* Light logo for dark theme (default) */}
+              <img
+                src="/sponsors/eido-light.svg"
+                alt="eido - Sponsor"
+                className="sponsor-logo-dark h-auto w-[110px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+              />
+              {/* Dark logo for light theme */}
+              <img
+                src="/sponsors/eido-dark.svg"
+                alt="eido - Sponsor"
+                className="sponsor-logo-light h-auto w-[110px] transition-opacity duration-300 group-hover:opacity-100"
+              />
+            </a>
+          </motion.div>
+
         </div>
 
         {/* Scroll Indicator - Positioned at bottom */}
