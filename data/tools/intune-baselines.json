@@ -22,5 +22,8 @@
   "websiteUrl": "https://wolkenman.nl",
   "category": "configuration",
   "type": "documentation",
-  "dateAdded": "2026-01-05"
+  "dateAdded": "2026-01-05",
+  "screenshots": [
+    "screenshots/intune-baselines/screenshot-1.png"
+  ]
 }
