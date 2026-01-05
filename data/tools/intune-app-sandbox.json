@@ -1,0 +1,26 @@
+{
+  "id": "intune-app-sandbox",
+  "name": "Intune-App-Sandbox",
+  "description": "Intune-App-Sandbox is a testing utility for PowerShell-based installers packaged with the Win32 Content Prep Tool for Intune deployments. It creates a sandbox workspace (C:\\SandboxEnvironment), and adds context-menu options to pack with IntunewinUtil or run tests in a Safe sandbox. It also supports a detection-based test flow and a reusable template script to accelerate building and validating packaging for Win32 apps in Intune.",
+  "keywords": [
+    "intune",
+    "win32",
+    "powershell",
+    "sandbox",
+    "testing",
+    "packaging",
+    "intunewinutil",
+    "detection"
+  ],
+  "author": "Maciej Horbacz",
+  "authorPicture": "https://github.com/UniverseCitiz3n.png",
+  "githubUrl": "https://github.com/UniverseCitiz3n",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/universecitiz3n",
+  "repoUrl": "https://github.com/UniverseCitiz3n/Intune-App-Sandbox",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Intune-App-Sandbox",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-05"
+}
