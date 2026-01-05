@@ -22,6 +22,11 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 const TOOLS_DIR = path.join(ROOT_DIR, 'data', 'tools');
 const SCREENSHOTS_DIR = path.join(ROOT_DIR, 'public', 'screenshots');
+const BLOCKLIST_FILE = path.join(ROOT_DIR, 'manual-screenshots-needed.json');
+
+// Cache of blocked website URLs (loaded from manual-screenshots-needed.json)
+// These are sites that have previously failed due to Cloudflare, timeouts, etc.
+let blockedWebsiteUrls = new Set();
 
 // OpenAI client for image analysis
 const openai = process.env.OPENAI_API_KEY
@@ -73,6 +78,47 @@ const BADGE_PATTERNS = [
   '/icon',
   '/logo',
 ];
+
+/**
+ * Load blocked website URLs from manual-screenshots-needed.json
+ * These are sites that previously failed (Cloudflare, timeouts, etc.)
+ * We skip these to avoid wasting time on known problematic URLs
+ */
+async function loadBlockedUrls() {
+  try {
+    const content = await fs.readFile(BLOCKLIST_FILE, 'utf-8');
+    const entries = JSON.parse(content);
+
+    // Only block URLs that failed due to website issues (not just missing README images)
+    const websiteBlockedReasons = ['Website blocked', 'timeout', 'Error:'];
+
+    for (const entry of entries) {
+      if (entry.url && entry.reason) {
+        // Check if the reason indicates a website access issue
+        const isWebsiteBlocked = websiteBlockedReasons.some(r =>
+          entry.reason.toLowerCase().includes(r.toLowerCase())
+        );
+        if (isWebsiteBlocked) {
+          blockedWebsiteUrls.add(entry.url);
+        }
+      }
+    }
+
+    if (blockedWebsiteUrls.size > 0) {
+      console.log(`Loaded ${blockedWebsiteUrls.size} blocked website URLs from cache`);
+    }
+  } catch (error) {
+    // File doesn't exist yet or is invalid - that's fine
+    console.log('No blocked URLs cache found (will be created after first run)');
+  }
+}
+
+/**
+ * Check if a URL is in the blocklist
+ */
+function isUrlBlocked(url) {
+  return blockedWebsiteUrls.has(url);
+}
 
 /**
  * Analyze an image using OpenAI Vision to determine if it's a real product screenshot
@@ -449,6 +495,16 @@ async function captureWebAppScreenshot(tool) {
     return { screenshots: [], blocked: false };
   }
 
+  // Check if this URL is in the blocklist (known to fail)
+  if (isUrlBlocked(tool.websiteUrl)) {
+    console.log(`  Skipping ${tool.websiteUrl} (known blocked site from cache)`);
+    return {
+      screenshots: [],
+      blocked: true,
+      reason: 'Known blocked site (cached)',
+    };
+  }
+
   console.log(`  Capturing screenshot of ${tool.websiteUrl}...`);
 
   let browser;
@@ -682,6 +738,9 @@ async function main() {
     console.log('WARNING: OPENAI_API_KEY not set - AI image filtering disabled');
     console.log('All downloaded images will be kept without analysis\n');
   }
+
+  // Load blocked URLs cache to skip known problematic websites
+  await loadBlockedUrls();
 
   // Ensure screenshots directory exists
   await fs.mkdir(SCREENSHOTS_DIR, { recursive: true });
