@@ -15,7 +15,7 @@ export function Footer() {
         background: "var(--bg-secondary)",
       }}
     >
-      <div className="container-main py-12 md:py-16">
+      <div className="container-main pt-12 pb-6 md:pt-16 md:pb-8">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Brand Column */}
           <div className="space-y-4">
@@ -109,17 +109,45 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div
-          className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
+          className="mt-12 border-t pt-6"
           style={{ borderColor: "var(--border-subtle)" }}
         >
-          <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
-            &copy; {currentYear} Awesome Intune. Built for the community.
+          {/* Disclaimer - subtle fine print */}
+          <p
+            className="mb-4 text-center text-[11px] tracking-wide opacity-60"
+            style={{ color: "var(--text-tertiary)" }}
+          >
+            All tools belong to their respective authors and communities
+            <span className="mx-2" style={{ opacity: 0.4 }}>|</span>
+            Always test in non-production environments first
           </p>
+
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
+            &copy; {currentYear}{" "}
+            <a
+              href="https://ugurlabs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-[var(--accent-primary)]"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              Ugur Labs
+            </a>
+            . Built for the community.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/ugurkocde/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+            style={{ color: "var(--text-tertiary)" }}
+          >
             Made with{" "}
             <span style={{ color: "var(--accent-primary)" }}>&hearts;</span> by
-            the Intune community
-          </p>
+            Ugur
+          </a>
+          </div>
         </div>
       </div>
     </footer>
