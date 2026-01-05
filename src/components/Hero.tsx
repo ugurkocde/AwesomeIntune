@@ -145,13 +145,13 @@ export function Hero() {
               <img
                 src="/sponsors/eido-light.svg"
                 alt="eido - Sponsor"
-                className="sponsor-logo-dark h-auto w-[110px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                className="sponsor-logo-dark h-auto w-[140px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
               />
               {/* Dark logo for light theme */}
               <img
                 src="/sponsors/eido-dark.svg"
                 alt="eido - Sponsor"
-                className="sponsor-logo-light h-auto w-[110px] transition-opacity duration-300 group-hover:opacity-100"
+                className="sponsor-logo-light h-auto w-[140px] transition-opacity duration-300 group-hover:opacity-100"
               />
             </a>
           </motion.div>

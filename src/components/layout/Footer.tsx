@@ -114,12 +114,12 @@ export function Footer() {
               <img
                 src="/sponsors/eido-light.svg"
                 alt="eido - Sponsor"
-                className="sponsor-logo-dark h-auto w-[90px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                className="sponsor-logo-dark h-auto w-[120px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
               />
               <img
                 src="/sponsors/eido-dark.svg"
                 alt="eido - Sponsor"
-                className="sponsor-logo-light h-auto w-[90px] transition-opacity duration-300 group-hover:opacity-100"
+                className="sponsor-logo-light h-auto w-[120px] transition-opacity duration-300 group-hover:opacity-100"
               />
             </a>
           </div>
