@@ -15,6 +15,7 @@ type PlausibleEvents = {
   "Search": { query: string };
   "Category Filter": { category: string };
   "File Download": { file: string };
+  "Sponsor Click": { sponsor: string; location: string };
 };
 
 export function trackEvent<T extends keyof PlausibleEvents>(
@@ -48,4 +49,8 @@ export function trackSearch(query: string): void {
 
 export function trackCategoryFilter(category: string): void {
   trackEvent("Category Filter", { category });
+}
+
+export function trackSponsorClick(sponsor: string, location: string): void {
+  trackEvent("Sponsor Click", { sponsor, location });
 }

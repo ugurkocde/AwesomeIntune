@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef } from "react";
 import { CharReveal } from "./TextReveal";
+import { trackSponsorClick } from "~/lib/plausible";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -138,6 +139,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
+              onClick={() => trackSponsorClick("eido", "hero")}
             >
               {/* Light logo for dark theme (default) */}
               <img

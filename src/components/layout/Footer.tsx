@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { GITHUB_REPO_URL, SITE_CONFIG } from "~/lib/constants";
 import { SubscribeForm } from "~/components/newsletter/SubscribeForm";
+import { trackSponsorClick } from "~/lib/plausible";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -108,6 +109,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+              onClick={() => trackSponsorClick("eido", "footer")}
             >
               <img
                 src="/sponsors/eido-light.svg"
