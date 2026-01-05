@@ -1,0 +1,17 @@
+{
+  "id": "intune-admin-center-tools",
+  "name": "Intune Admin Center Tools",
+  "description": "Comprehensive tool designed to streamline the management of Microsoft Intune devices. This extension allows administrators to efficiently check application and configuration assignments, manage device groups, download platform scripts, and perform various other administrative tasks.",
+  "keywords": [],
+  "author": "Maciej Horbacz",
+  "authorPicture": "https://github.com/UniverseCitiz3n.png",
+  "githubUrl": "https://github.com/UniverseCitiz3n",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/universecitiz3n",
+  "repoUrl": "https://microsoftedge.microsoft.com/addons/detail/intune-admin-center-tools/iglpbhebeofeaiimjejamnicpfdagnhk",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "browser-extension",
+  "dateAdded": "2026-01-05"
+}
