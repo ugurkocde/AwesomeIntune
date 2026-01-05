@@ -22,5 +22,12 @@
   "websiteUrl": "",
   "category": "reporting",
   "type": "desktop-app",
-  "dateAdded": "2026-01-05"
+  "dateAdded": "2026-01-05",
+  "screenshots": [
+    "screenshots/insight/screenshot-1.png",
+    "screenshots/insight/screenshot-2.png",
+    "screenshots/insight/screenshot-3.png",
+    "screenshots/insight/screenshot-4.png",
+    "screenshots/insight/screenshot-5.png"
+  ]
 }
