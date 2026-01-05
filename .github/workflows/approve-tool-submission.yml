@@ -29,7 +29,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '## Processing Tool Submission\n\n- [ ] Parsing issue body...\n- [ ] Fetching README from repository\n- [ ] Fetching website content\n- [ ] Enhancing with AI\n- [ ] Creating tool JSON file\n- [ ] Committing to repository\n- [ ] Triggering screenshot capture\n\n_Starting..._'
+              body: '## Processing Tool Submission\n\n- [ ] Parsing issue body...\n- [ ] Fetching README from repository\n- [ ] Fetching website content\n- [ ] Enhancing with AI\n- [ ] Creating tool JSON file\n- [ ] Committing to repository\n\n_Starting..._'
             });
             return comment.data.id;
 
@@ -62,8 +62,7 @@ jobs:
               website: { done: false, status: '' },
               ai: { done: false, status: '' },
               json: { done: false, status: '' },
-              commit: { done: false, status: '' },
-              screenshot: { done: false, status: '' }
+              commit: { done: false, status: '' }
             };
 
             async function updateProgress(currentStep, message) {
@@ -81,7 +80,6 @@ jobs:
                 '- [' + getCheck('ai', currentStep) + '] Enhancing with AI' + stepState.ai.status,
                 '- [' + getCheck('json', currentStep) + '] Creating tool JSON file' + stepState.json.status,
                 '- [' + getCheck('commit', currentStep) + '] Committing to repository' + stepState.commit.status,
-                '- [' + getCheck('screenshot', currentStep) + '] Triggering screenshot capture' + stepState.screenshot.status,
                 '',
                 '_' + message + '_'
               ].join('\n');
@@ -377,7 +375,6 @@ jobs:
               '- [x] Enhancing with AI - Generated ' + process.env.KEYWORDS_COUNT + ' keywords',
               '- [x] Creating tool JSON file - ' + process.env.TOOL_ID + '.json',
               '- [x] Committing to repository',
-              '- [>] Triggering screenshot capture...',
               '',
               '_Almost done..._'
             ].join('\n');
@@ -386,18 +383,6 @@ jobs:
               repo: context.repo.repo,
               comment_id: commentId,
               body: body
-            });
-
-      - name: Trigger screenshot workflow
-        if: steps.process.outputs.success == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'capture-screenshots.yml',
-              ref: 'main'
             });
 
       - name: Final success update
@@ -425,7 +410,6 @@ jobs:
               '- [x] Enhancing with AI - Generated ' + keywordsCount + ' keywords',
               '- [x] Creating tool JSON file - ' + toolId + '.json',
               '- [x] Committing to repository',
-              '- [x] Triggering screenshot capture',
               '',
               '---',
               '',
@@ -440,7 +424,7 @@ jobs:
               '',
               '---',
               '',
-              'The screenshot capture workflow has been triggered. Screenshots will be added automatically.',
+              'Screenshot capture will run automatically after this workflow completes.',
               '',
               'Thank you for your contribution!'
             ].join('\n');

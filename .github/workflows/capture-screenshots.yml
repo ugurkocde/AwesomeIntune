@@ -6,12 +6,18 @@ on:
     - cron: '0 2 * * 0'
   # Allow manual trigger
   workflow_dispatch:
+  # Trigger when a tool submission is approved
+  workflow_run:
+    workflows: ["Approve Tool Submission"]
+    types: [completed]
 
 permissions:
   contents: write
 
 jobs:
   capture-screenshots:
+    # Only run if triggered manually/scheduled, or if the approval workflow succeeded
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
