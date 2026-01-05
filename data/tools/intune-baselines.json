@@ -1,0 +1,26 @@
+{
+  "id": "intune-baselines",
+  "name": "Intune Baselines",
+  "description": "Intune Baselines provides curated JSON Intune profiles that implement CIS, compliance, and security baselines across Windows, macOS, iOS/iPadOS, Android, and enterprise apps. Built from best practices, Zero Trust concepts, and official CIS benchmarks, these profiles are designed for rapid import into Intune (via Micke-K's IntuneManagement tool). Regularly updated, they support scalable Modern Workplace deployments and testing in diverse environments.",
+  "keywords": [
+    "intune",
+    "baselines",
+    "security",
+    "compliance",
+    "cis",
+    "profiles",
+    "import-export",
+    "enterprise"
+  ],
+  "author": "Jan Mulder",
+  "authorPicture": "https://github.com/IntuneAdmin.png",
+  "githubUrl": "https://github.com/IntuneAdmin",
+  "linkedinUrl": "https://www.linkedin.com/in/jan-mulder/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/IntuneAdmin/IntuneBaselines",
+  "downloadUrl": "",
+  "websiteUrl": "https://wolkenman.nl",
+  "category": "configuration",
+  "type": "documentation",
+  "dateAdded": "2026-01-05"
+}
