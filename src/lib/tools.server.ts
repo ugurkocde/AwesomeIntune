@@ -3,35 +3,6 @@ import path from "path";
 import type { Tool } from "~/types/tool";
 
 const TOOLS_DIRECTORY = path.join(process.cwd(), "data", "tools");
-const SCREENSHOTS_DIRECTORY = path.join(process.cwd(), "public", "screenshots");
-
-/**
- * Discover screenshots for a tool by checking the screenshots folder
- * Returns an array of relative paths (e.g., "screenshots/tool-id/image.png")
- */
-export function getScreenshotsForTool(toolId: string): string[] {
-  const toolScreenshotDir = path.join(SCREENSHOTS_DIRECTORY, toolId);
-
-  if (!fs.existsSync(toolScreenshotDir)) {
-    return [];
-  }
-
-  try {
-    const files = fs.readdirSync(toolScreenshotDir);
-    const imageExtensions = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
-
-    return files
-      .filter((file) => {
-        const ext = path.extname(file).toLowerCase();
-        return imageExtensions.includes(ext);
-      })
-      .sort() // Sort alphabetically for consistent ordering
-      .map((file) => `screenshots/${toolId}/${file}`);
-  } catch (error) {
-    console.error(`Error reading screenshots for ${toolId}:`, error);
-    return [];
-  }
-}
 
 /**
  * Read all tool JSON files from the data/tools directory

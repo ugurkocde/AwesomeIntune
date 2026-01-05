@@ -27,6 +27,7 @@ export function ScreenshotGallery({
   accentColor,
 }: ScreenshotGalleryProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -40,6 +41,22 @@ export function ScreenshotGallery({
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);
+
+  // Check for already-loaded images after hydration (handles cached images)
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const alreadyLoaded = new Set<number>();
+    imageRefs.current.forEach((img, index) => {
+      if (img && img.complete && img.naturalWidth > 0) {
+        alreadyLoaded.add(index);
+      }
+    });
+
+    if (alreadyLoaded.size > 0) {
+      setLoadedImages((prev) => new Set([...prev, ...alreadyLoaded]));
+    }
+  }, [isMounted]);
 
   // Reset lightbox image loaded state when changing images
   useEffect(() => {
@@ -346,6 +363,7 @@ export function ScreenshotGallery({
                 {/* Image - using img tag for external GitHub raw URLs */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
+                  ref={(el) => { imageRefs.current[index] = el; }}
                   src={imageUrl}
                   alt={`${toolName} screenshot ${index + 1}`}
                   loading={index === 0 ? "eager" : "lazy"}

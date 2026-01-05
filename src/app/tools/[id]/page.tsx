@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { getToolById, getAllToolIds, getScreenshotsForTool } from "~/lib/tools.server";
+import { getToolById, getAllToolIds } from "~/lib/tools.server";
 import { TYPE_CONFIG, CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import {
   generateToolStructuredData,
@@ -70,8 +70,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
     notFound();
   }
 
-  // Dynamically discover screenshots from the filesystem
-  const screenshots = getScreenshotsForTool(id);
+  const screenshots = tool.screenshots ?? [];
 
   const typeConfig = TYPE_CONFIG[tool.type];
   const categoryConfig = CATEGORY_CONFIG[tool.category];
@@ -426,7 +425,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
                 />
               )}
 
-              {/* Screenshots Gallery - dynamically discovered from filesystem */}
+              {/* Screenshots Gallery */}
               {screenshots.length > 0 && (
                 <ScreenshotGallery
                   screenshots={screenshots}

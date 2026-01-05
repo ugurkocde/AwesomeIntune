@@ -36,7 +36,7 @@ export interface Tool {
   category: ToolCategory;
   type: ToolType;
   dateAdded: string;
-  // Note: screenshots are dynamically discovered from public/screenshots/{tool-id}/ at build time
+  screenshots?: string[];
 }
 
 export interface ToolsData {
