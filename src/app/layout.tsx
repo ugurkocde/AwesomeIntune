@@ -9,6 +9,7 @@ import { GradientMesh } from "~/components/GradientMesh";
 import { Header } from "~/components/layout/Header";
 import { Footer } from "~/components/layout/Footer";
 import { SubscriptionToast } from "~/components/newsletter/SubscriptionToast";
+import { FloatingSubscribe } from "~/components/newsletter/FloatingSubscribe";
 import { generateOrganizationStructuredData } from "~/lib/structured-data";
 
 // Outfit - Display font (similar to Cabinet Grotesk)
@@ -125,6 +126,7 @@ export default function RootLayout({
         </Suspense>
         <main className="relative z-10 flex-1">{children}</main>
         <Footer />
+        <FloatingSubscribe />
       </body>
     </html>
   );

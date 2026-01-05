@@ -1,11 +1,16 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef } from "react";
 import { CharReveal } from "./TextReveal";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+
+  // Single viewport detection for both text animations to prevent race conditions on mobile
+  const isHeadlineInView = useInView(headlineRef, { once: true, margin: "-50px" });
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -38,14 +43,17 @@ export function Hero() {
       >
         <div className="mx-auto max-w-5xl text-center">
           {/* Main Headline */}
-          <h1 className="font-display text-6xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[9rem]">
+          <h1
+            ref={headlineRef}
+            className="font-display text-6xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[9rem]"
+          >
             <span className="block">
-              <CharReveal className="text-gradient" delay={0.2}>
+              <CharReveal className="text-gradient" delay={0.2} isAnimating={isHeadlineInView}>
                 AWESOME
               </CharReveal>
             </span>
             <span className="block" style={{ color: "var(--text-primary)" }}>
-              <CharReveal delay={0.6}>INTUNE</CharReveal>
+              <CharReveal delay={0.6} isAnimating={isHeadlineInView}>INTUNE</CharReveal>
             </span>
           </h1>
 

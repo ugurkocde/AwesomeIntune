@@ -43,6 +43,7 @@ interface CharRevealProps {
   delay?: number;
   staggerDelay?: number;
   once?: boolean;
+  isAnimating?: boolean;
 }
 
 // Simplified: animate entire text instead of per-character for performance
@@ -51,16 +52,20 @@ export function CharReveal({
   className = "",
   delay = 0,
   once = true,
+  isAnimating: externalIsAnimating,
 }: CharRevealProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once, margin: "-50px" });
+  const internalIsInView = useInView(ref, { once, margin: "-50px" });
+
+  // Use external trigger if provided, otherwise fall back to internal
+  const shouldAnimate = externalIsAnimating ?? internalIsInView;
 
   return (
     <span ref={ref} className={`inline-block overflow-hidden ${className}`}>
       <motion.span
         className="inline-block"
         initial={{ y: 40, opacity: 0 }}
-        animate={isInView ? { y: 0, opacity: 1 } : { y: 40, opacity: 0 }}
+        animate={shouldAnimate ? { y: 0, opacity: 1 } : { y: 40, opacity: 0 }}
         transition={{
           duration: 0.6,
           delay,

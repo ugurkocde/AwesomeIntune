@@ -1,0 +1,437 @@
+/* ============================================
+   Floating Subscribe Component Styles
+   ============================================ */
+
+/* Backdrop for mobile bottom sheet */
+.floating-subscribe-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 39;
+}
+
+/* Main container */
+.floating-subscribe-container {
+  position: fixed;
+  z-index: 40;
+}
+
+.floating-subscribe-container.desktop {
+  bottom: 24px;
+  right: 24px;
+}
+
+.floating-subscribe-container.mobile {
+  bottom: 16px;
+  right: 16px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.floating-subscribe-container.mobile.expanded {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+}
+
+/* Collapsed orb button */
+.floating-subscribe-orb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-accent);
+  color: var(--accent-primary);
+  cursor: pointer;
+  position: relative;
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  transition: box-shadow 0.3s var(--ease-out-expo);
+}
+
+.floating-subscribe-container.mobile .floating-subscribe-orb {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+
+/* Pulse animation */
+.floating-subscribe-orb::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  animation: floating-pulse 2s ease-out infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+}
+
+@keyframes floating-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+  }
+}
+
+/* Pause pulse animation when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .floating-subscribe-orb::before {
+    animation: none;
+  }
+}
+
+.floating-subscribe-orb:hover {
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 212, 255, 0.3);
+}
+
+.floating-subscribe-orb:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Bell icon */
+.floating-subscribe-icon {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.floating-subscribe-orb:hover .floating-subscribe-icon {
+  transform: rotate(-10deg);
+}
+
+/* Notification dot */
+.floating-subscribe-dot {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  background: var(--signal-success);
+  border-radius: 50%;
+  border: 2px solid var(--bg-secondary);
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-subscribe-dot {
+    animation: none;
+  }
+}
+
+/* Expanded panel */
+.floating-subscribe-panel {
+  background: rgba(17, 25, 34, 0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-accent);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  overflow: hidden;
+  position: relative;
+}
+
+.floating-subscribe-container.desktop .floating-subscribe-panel {
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.floating-subscribe-container.mobile .floating-subscribe-panel {
+  border-radius: 16px 16px 0 0;
+  padding: 20px 16px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  width: 100% !important;
+}
+
+/* Scan line effect (desktop only) */
+.floating-subscribe-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(calc(100% + 200px));
+  }
+}
+
+/* Close button */
+.floating-subscribe-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s var(--ease-out-expo);
+  z-index: 2;
+}
+
+.floating-subscribe-close:hover {
+  color: var(--text-primary);
+  background: var(--accent-glow);
+}
+
+.floating-subscribe-close:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Drag handle for mobile */
+.floating-subscribe-drag-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--border-medium);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+/* Form styles */
+.floating-subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-subscribe-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.floating-subscribe-social-proof {
+  font-size: var(--text-micro);
+  color: var(--text-tertiary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.floating-subscribe-social-proof::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--signal-success);
+  border-radius: 50%;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* Input group */
+.floating-subscribe-input-group {
+  position: relative;
+}
+
+.floating-subscribe-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  transition: all 0.15s var(--ease-out-expo);
+}
+
+.floating-subscribe-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.floating-subscribe-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.floating-subscribe-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.floating-subscribe-input[aria-invalid="true"] {
+  border-color: var(--signal-error);
+}
+
+/* Submit button */
+.floating-subscribe-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s var(--ease-out-expo);
+}
+
+.floating-subscribe-submit:hover:not(:disabled) {
+  background: var(--accent-secondary);
+  box-shadow: var(--shadow-glow);
+}
+
+.floating-subscribe-submit:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.floating-subscribe-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.floating-subscribe-submit-text,
+.floating-subscribe-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Error message */
+.floating-subscribe-error {
+  font-size: var(--text-micro);
+  color: var(--signal-error);
+  margin: 0;
+  text-align: center;
+}
+
+/* Success state */
+.floating-subscribe-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 0;
+  position: relative;
+  overflow: visible;
+}
+
+.floating-subscribe-checkmark {
+  color: var(--signal-success);
+}
+
+.floating-subscribe-success-text {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--signal-success);
+  margin: 0;
+}
+
+.floating-subscribe-success-subtext {
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Confetti */
+.floating-subscribe-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.floating-subscribe-confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+/* Corner accents */
+.floating-subscribe-panel::before,
+.floating-subscribe-panel::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border-accent);
+  pointer-events: none;
+}
+
+.floating-subscribe-panel::before {
+  top: 8px;
+  left: 8px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 4px 0 0 0;
+}
+
+.floating-subscribe-panel::after {
+  bottom: 8px;
+  right: 8px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 4px 0;
+}
+
+/* Hide corner accents on mobile */
+.floating-subscribe-container.mobile .floating-subscribe-panel::before,
+.floating-subscribe-container.mobile .floating-subscribe-panel::after {
+  display: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-subscribe-scanline,
+  .floating-subscribe-confetti {
+    display: none;
+  }
+
+  .floating-subscribe-orb,
+  .floating-subscribe-panel,
+  .floating-subscribe-input,
+  .floating-subscribe-submit,
+  .floating-subscribe-close {
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+  }
+}
