@@ -1,0 +1,26 @@
+{
+  "id": "intuneomator",
+  "name": "Intuneomator",
+  "description": "Intuneomator is a macOS enterprise tool that automates Microsoft Intune app lifecycle management, leveraging Installomator’s 900+ label database for multi-arch apps. It enables end-to-end workflows (download, package, upload, deploy), group targeting, metadata and script automation, plus Teams-based status and CVE alerts. Built with a secure XPC architecture, keychain-backed credentials, and dual authentication for enterprise-grade security.",
+  "keywords": [
+    "enterprise",
+    "macos",
+    "intune",
+    "automation",
+    "app-management",
+    "installomator",
+    "graph-api",
+    "group-targeting"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns",
+  "linkedinUrl": "https://linkedin.com/in/gilburns",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/Intuneomator",
+  "downloadUrl": "https://github.com/gilburns/Intuneomator/releases",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-05"
+}
