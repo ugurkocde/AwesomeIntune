@@ -15,11 +15,10 @@ export async function GET() {
       return NextResponse.json({ count: cachedCount });
     }
 
-    // Query confirmed subscribers count
+    // Query total subscribers count (all email addresses)
     const { count, error } = await supabase
       .from("subscribers")
-      .select("*", { count: "exact", head: true })
-      .eq("confirmed", true);
+      .select("*", { count: "exact", head: true });
 
     if (error) {
       console.error("Failed to fetch subscriber count:", error);
