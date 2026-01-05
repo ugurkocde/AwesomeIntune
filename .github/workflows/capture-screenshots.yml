@@ -46,7 +46,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if [[ -n $(git status --porcelain) ]]; then
+          if [[ -n $(git status --porcelain public/screenshots/ data/tools/) ]]; then
             echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "changes=false" >> $GITHUB_OUTPUT
