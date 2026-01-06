@@ -183,6 +183,19 @@ export function Hero() {
                   className="sponsor-logo-light h-[67px] sm:h-[88px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
+              <a
+                href="https://www.recastsoftware.com/?utm_source=sponsored_writer&utm_medium=referral&utm_campaign=awesomeintune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("recast", "hero")}
+              >
+                <img
+                  src="/sponsors/recast.png"
+                  alt="Recast - Sponsor"
+                  className="h-[67px] sm:h-[88px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
             </div>
           </motion.div>
 

@@ -141,6 +141,19 @@ export function Footer() {
                   className="sponsor-logo-light h-[42px] sm:h-[56px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
+              <a
+                href="https://www.recastsoftware.com/?utm_source=sponsored_writer&utm_medium=referral&utm_campaign=awesomeintune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("recast", "footer")}
+              >
+                <img
+                  src="/sponsors/recast.png"
+                  alt="Recast - Sponsor"
+                  className="h-[42px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
             </div>
           </div>
 
