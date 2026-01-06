@@ -197,6 +197,9 @@ jobs:
 
             const body = context.payload.issue.body;
             const fields = {};
+            const authors = [];
+
+            // Parse standard fields with - **Label:** value format
             const fieldPattern = /- \*\*([^:*]+):\*\*\s*(.+?)(?=\n|$)/g;
             let match;
             while ((match = fieldPattern.exec(body)) !== null) {
@@ -210,6 +213,43 @@ jobs:
               };
               const ignoredValues = ['not provided', 'n/a', 'none', '-', ''];
               if (mapping[label] && value && !ignoredValues.includes(value.toLowerCase())) fields[mapping[label]] = value;
+            }
+
+            // Parse multi-author format from website submissions: #### Author N: Name
+            const authorSectionMatch = body.match(/### Authors\s*([\s\S]*?)(?=###|$)/);
+            if (authorSectionMatch) {
+              const authorSection = authorSectionMatch[1];
+              const authorBlocks = authorSection.split(/(?=#### Author \d+:)/);
+
+              for (const block of authorBlocks) {
+                const headerMatch = block.match(/#### Author \d+:\s*(.+?)(?=\n|$)/);
+                if (headerMatch) {
+                  const authorName = headerMatch[1].trim();
+                  const authorData = { name: authorName };
+
+                  // Extract author's social links from the block
+                  const githubMatch = block.match(/- \*\*GitHub:\*\*\s*(.+?)(?=\n|$)/);
+                  const avatarMatch = block.match(/- \*\*Avatar:\*\*\s*(.+?)(?=\n|$)/);
+                  const linkedinMatch = block.match(/- \*\*LinkedIn:\*\*\s*(.+?)(?=\n|$)/);
+                  const xMatch = block.match(/- \*\*X\/Twitter:\*\*\s*(.+?)(?=\n|$)/);
+
+                  if (githubMatch && githubMatch[1].trim()) authorData.githubUrl = githubMatch[1].trim();
+                  if (avatarMatch && avatarMatch[1].trim()) authorData.picture = avatarMatch[1].trim();
+                  if (linkedinMatch && linkedinMatch[1].trim()) authorData.linkedinUrl = linkedinMatch[1].trim();
+                  if (xMatch && xMatch[1].trim()) authorData.xUrl = xMatch[1].trim();
+
+                  authors.push(authorData);
+                }
+              }
+
+              // Use first author for backwards compatibility with single-author fields
+              if (authors.length > 0 && !fields.author) {
+                fields.author = authors[0].name;
+                if (authors[0].githubUrl && !fields.githubUrl) fields.githubUrl = authors[0].githubUrl;
+                if (authors[0].picture && !fields.authorPicture) fields.authorPicture = authors[0].picture;
+                if (authors[0].linkedinUrl && !fields.linkedinUrl) fields.linkedinUrl = authors[0].linkedinUrl;
+                if (authors[0].xUrl && !fields.xUrl) fields.xUrl = authors[0].xUrl;
+              }
             }
 
             const required = ['name', 'description', 'author', 'repoUrl', 'category', 'type'];
@@ -271,6 +311,11 @@ jobs:
               type: normalizeType(fields.type),
               dateAdded: today
             };
+
+            // Add authors array if multiple authors were parsed
+            if (authors.length > 0) {
+              toolJson.authors = authors;
+            }
 
             fs.writeFileSync(toolPath, JSON.stringify(toolJson, null, 2) + '\n');
 
