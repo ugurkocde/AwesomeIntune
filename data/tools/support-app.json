@@ -1,0 +1,35 @@
+{
+  "id": "support-app",
+  "name": "Support App",
+  "description": "Support App is a native macOS menu bar utility designed to empower help desks and users with quick access to diagnostic data and essential support resources. It offers direct links to channels, websites, file servers, and company resources, wrapped in a native, responsive UI. The simplest deployment is via Configurator Mode using a Configuration Profile. It's free, privacy-conscious, and maintained by Root3.",
+  "keywords": [
+    "macos",
+    "menubar",
+    "diagnostics",
+    "support",
+    "resources",
+    "configurator-mode",
+    "configuration-profile",
+    "privacy"
+  ],
+  "author": "Root3",
+  "authorPicture": "https://github.com/root3nl.png",
+  "githubUrl": "https://github.com/root3nl/",
+  "linkedinUrl": "https://www.linkedin.com/company/root3/",
+  "xUrl": "https://x.com/root3nl",
+  "repoUrl": "https://github.com/root3nl/SupportApp",
+  "downloadUrl": "https://github.com/root3nl/SupportApp/releases",
+  "websiteUrl": "",
+  "category": "other",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-06",
+  "authors": [
+    {
+      "name": "Root3",
+      "githubUrl": "https://github.com/root3nl/",
+      "picture": "https://github.com/root3nl.png",
+      "linkedinUrl": "https://www.linkedin.com/company/root3/",
+      "xUrl": "https://x.com/root3nl"
+    }
+  ]
+}
