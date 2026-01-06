@@ -1,13 +1,20 @@
 "use client";
 
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { CharReveal } from "./TextReveal";
 import { trackSponsorClick } from "~/lib/plausible";
+import { useIsMobile } from "~/hooks/useIsMobile";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { isMobile } = useIsMobile();
+
+  // Disable heavy animations on mobile or when user prefers reduced motion
+  // prefersReducedMotion returns true/false/null, so we check explicitly
+  const shouldReduceMotion = prefersReducedMotion === true || isMobile;
 
   // Single viewport detection for both text animations to prevent race conditions on mobile
   const isHeadlineInView = useInView(headlineRef, { once: true, margin: "-50px" });
@@ -17,19 +24,20 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  // Disable parallax scroll transforms on mobile for better performance
+  const y = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], shouldReduceMotion ? [1, 1] : [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], shouldReduceMotion ? [1, 1] : [1, 0.95]);
 
   return (
     <section
       ref={containerRef}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* Subtle Center Glow - Static for performance */}
+      {/* Subtle Center Glow - Static for performance, reduced blur on mobile */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div
-          className="h-[400px] w-[800px] rounded-full opacity-15 blur-[120px]"
+          className="h-[300px] w-[600px] rounded-full opacity-15 blur-[60px] sm:h-[400px] sm:w-[800px] sm:blur-[120px]"
           style={{
             background:
               "radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)",
@@ -39,8 +47,8 @@ export function Hero() {
 
       {/* Main Content */}
       <motion.div
-        style={{ y, opacity, scale }}
-        className="container-main relative z-10 flex min-h-screen flex-col items-center justify-center"
+        style={shouldReduceMotion ? undefined : { y, opacity, scale }}
+        className="container-main relative z-10 flex min-h-screen flex-col items-center justify-center will-change-transform"
       >
         <div className="mx-auto max-w-5xl text-center">
           {/* Main Headline */}

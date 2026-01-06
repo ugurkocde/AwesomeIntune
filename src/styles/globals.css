@@ -406,6 +406,46 @@ body {
 }
 
 /* ============================================
+   Performance-Optimized Animation Utilities
+   ============================================ */
+
+/* Custom duration for card animations */
+.duration-400 {
+  transition-duration: 400ms;
+}
+
+/* Custom easing that matches the design system */
+.ease-out-expo {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .will-change-transform,
+  .will-change-\[transform\,opacity\] {
+    will-change: auto;
+  }
+}
+
+/* GPU-accelerated animations for smooth performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-\[transform\,opacity\] {
+  will-change: transform, opacity;
+}
+
+/* ============================================
    Sponsor Logo Theme Switching
    ============================================ */
 

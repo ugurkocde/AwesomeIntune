@@ -1,7 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { memo, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,24 +28,32 @@ export const ToolCard = memo(function ToolCard({
 }: ToolCardProps) {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const typeConfig = TYPE_CONFIG[tool.type];
   const categoryConfig = CATEGORY_CONFIG[tool.category];
 
-  // Track visibility using IntersectionObserver
+  // Combined IntersectionObserver for both visibility tracking and animation
+  // Uses a single observer to reduce overhead
   useEffect(() => {
-    if (!onVisible || !cardRef.current) return;
+    if (!cardRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            onVisible(tool.id);
+            setIsVisible(true);
+            if (onVisible) {
+              onVisible(tool.id);
+            }
             // Disconnect after first visibility to avoid repeated calls
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.5 } // 50% of the card must be visible
+      {
+        threshold: 0.1, // Lower threshold for faster animation trigger
+        rootMargin: "50px" // Start animation slightly before card enters viewport
+      }
     );
 
     observer.observe(cardRef.current);
@@ -64,6 +71,9 @@ export const ToolCard = memo(function ToolCard({
     trackOutboundLink(url);
   };
 
+  // Calculate stagger delay (capped at 300ms)
+  const staggerDelay = Math.min(index * 0.05, 0.3);
+
   return (
     <div
       ref={cardRef}
@@ -78,16 +88,15 @@ export const ToolCard = memo(function ToolCard({
         }
       }}
     >
-      <motion.article
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{
-          duration: 0.4,
-          delay: Math.min(index * 0.05, 0.3),
-          ease: [0.22, 1, 0.36, 1],
+      <article
+        className={`group relative transition-all duration-400 ease-out-expo will-change-[transform,opacity] ${
+          isVisible
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
+        }`}
+        style={{
+          transitionDelay: isVisible ? `${staggerDelay}s` : "0s",
         }}
-        className="group relative"
       >
         {/* Card Container - CSS-only hover effects for performance */}
         <div
@@ -416,7 +425,7 @@ export const ToolCard = memo(function ToolCard({
             </div>
           </div>
         </div>
-      </motion.article>
+      </article>
     </div>
   );
 });
