@@ -4,12 +4,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 export type ViewCounts = Record<string, number>;
 
+const POLL_INTERVAL = 30000; // 30 seconds
+
 export function useViewTracking() {
   const [viewCounts, setViewCounts] = useState<ViewCounts>({});
   const [isLoading, setIsLoading] = useState(true);
   const viewedToolsRef = useRef<Set<string>>(new Set());
 
-  // Fetch view counts on mount
+  // Fetch view counts with polling
   useEffect(() => {
     const fetchViewCounts = async () => {
       try {
@@ -25,7 +27,45 @@ export function useViewTracking() {
       }
     };
 
+    // Initial fetch
     void fetchViewCounts();
+
+    // Set up polling (only when tab is visible)
+    let intervalId: NodeJS.Timeout | null = null;
+
+    const startPolling = () => {
+      intervalId ??= setInterval(() => {
+        void fetchViewCounts();
+      }, POLL_INTERVAL);
+    };
+
+    const stopPolling = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void fetchViewCounts(); // Fetch immediately when tab becomes visible
+        startPolling();
+      } else {
+        stopPolling();
+      }
+    };
+
+    // Start polling if tab is visible
+    if (document.visibilityState === "visible") {
+      startPolling();
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      stopPolling();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   // Record a view for a tool
