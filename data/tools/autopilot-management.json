@@ -1,0 +1,26 @@
+{
+  "id": "autopilot-management",
+  "name": "Autopilot Management",
+  "description": "Autopilot Management is a Windows-based Intune utility that simplifies Autopilot device administration. It supports searching by serial number or device name, bulk updates to Group Tags, bulk or single deletions, and uploading hardware hashes. It can load and verify devices from CSV, backup data, and query with an optional cache for large environments. Authentication uses Azure Graph tools (MFA supported) for secure admin access.",
+  "keywords": [
+    "intune",
+    "autopilot",
+    "device-management",
+    "group-tags",
+    "bulk-update",
+    "bulk-delete",
+    "hash-upload",
+    "csv-import"
+  ],
+  "author": "Espen Jaegtvik",
+  "authorPicture": "https://github.com/Jaekty.png",
+  "githubUrl": "https://github.com/Jaekty",
+  "linkedinUrl": "https://www.linkedin.com/in/espen-j%C3%A6gtvik-755026b4",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Jaekty/Autopilot-Management",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
