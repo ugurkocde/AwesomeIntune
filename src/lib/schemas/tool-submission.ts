@@ -24,27 +24,12 @@ const VALID_TYPES = [
   "other",
 ] as const;
 
-export const toolSubmissionSchema = z.object({
-  // Required fields
+// Author schema for multiple authors support
+const authorSchema = z.object({
   name: z
-    .string()
-    .min(2, "Tool name must be at least 2 characters")
-    .max(100, "Tool name must be less than 100 characters"),
-  description: z
-    .string()
-    .min(20, "Description must be at least 20 characters")
-    .max(500, "Description must be less than 500 characters"),
-  author: z
     .string()
     .min(2, "Author name must be at least 2 characters")
     .max(50, "Author name must be less than 50 characters"),
-  repoUrl: z
-    .string()
-    .url("Please enter a valid URL"),
-  category: z.enum(VALID_CATEGORIES),
-  type: z.enum(VALID_TYPES),
-
-  // Optional author links (collapsible section)
   githubUrl: z
     .string()
     .url("Must be a valid URL")
@@ -72,6 +57,29 @@ export const toolSubmissionSchema = z.object({
     )
     .optional()
     .or(z.literal("")),
+});
+
+export type SubmissionAuthor = z.infer<typeof authorSchema>;
+
+export const toolSubmissionSchema = z.object({
+  // Required fields
+  name: z
+    .string()
+    .min(2, "Tool name must be at least 2 characters")
+    .max(100, "Tool name must be less than 100 characters"),
+  description: z
+    .string()
+    .min(20, "Description must be at least 20 characters")
+    .max(500, "Description must be less than 500 characters"),
+  authors: z
+    .array(authorSchema)
+    .min(1, "At least one author is required")
+    .max(5, "Maximum 5 authors allowed"),
+  repoUrl: z
+    .string()
+    .url("Please enter a valid URL"),
+  category: z.enum(VALID_CATEGORIES),
+  type: z.enum(VALID_TYPES),
 
   // Optional tool links
   downloadUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),

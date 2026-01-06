@@ -14,11 +14,27 @@
     "visualization",
     "os updates"
   ],
-  "author": "Daniel Rung & Ugur Koc",
-  "authorPicture": "https://github.com/ugurkocde.png",
-  "githubUrl": "https://github.com/ugurkocde",
-  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
-  "xUrl": "https://x.com/UgurKocDe",
+  "author": "Daniel Rung",
+  "authorPicture": "https://github.com/danrung.png",
+  "githubUrl": "https://github.com/danrung",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "authors": [
+    {
+      "name": "Daniel Rung",
+      "picture": "https://github.com/danrung.png",
+      "githubUrl": "https://github.com/danrung",
+      "linkedinUrl": "",
+      "xUrl": ""
+    },
+    {
+      "name": "Ugur Koc",
+      "picture": "https://github.com/ugurkocde.png",
+      "githubUrl": "https://github.com/ugurkocde",
+      "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+      "xUrl": "https://x.com/UgurKocDe"
+    }
+  ],
   "repoUrl": "https://github.com/ugurkocde/IntuneMonitoring",
   "downloadUrl": "",
   "websiteUrl": "https://www.intunemonitoring.com/",
