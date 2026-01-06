@@ -1,20 +1,23 @@
 import type { Tool } from "~/types/tool";
 import { SITE_CONFIG, CATEGORY_CONFIG } from "./constants";
+import { getToolAuthors } from "./tools";
 
 /**
  * Generate JSON-LD structured data for a tool (SoftwareApplication schema)
  */
 export function generateToolStructuredData(tool: Tool) {
+  const authors = getToolAuthors(tool);
+
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: tool.name,
     description: tool.description,
-    author: {
+    author: authors.map((author) => ({
       "@type": "Person",
-      name: tool.author,
-      ...(tool.githubUrl && { url: tool.githubUrl }),
-    },
+      name: author.name,
+      ...(author.githubUrl && { url: author.githubUrl }),
+    })),
     applicationCategory: CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
     operatingSystem: getOperatingSystem(tool.type),
     ...(tool.repoUrl && { codeRepository: tool.repoUrl }),

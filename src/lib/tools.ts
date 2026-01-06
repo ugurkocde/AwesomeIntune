@@ -1,4 +1,24 @@
-import type { Tool, ToolCategory, ToolType } from "~/types/tool";
+import type { Author, Tool, ToolCategory, ToolType } from "~/types/tool";
+
+/**
+ * Get normalized authors array from a tool.
+ * Handles both legacy single-author fields and new authors array.
+ */
+export function getToolAuthors(tool: Tool): Author[] {
+  if (tool.authors && tool.authors.length > 0) {
+    return tool.authors;
+  }
+
+  return [
+    {
+      name: tool.author,
+      picture: tool.authorPicture,
+      githubUrl: tool.githubUrl,
+      linkedinUrl: tool.linkedinUrl,
+      xUrl: tool.xUrl,
+    },
+  ];
+}
 
 /**
  * Get tools filtered by category
@@ -18,7 +38,7 @@ export function getToolsByType(tools: Tool[], type: ToolType): Tool[] {
 }
 
 /**
- * Search tools by query (searches name, description, and author)
+ * Search tools by query (searches name, description, and all authors)
  */
 export function searchTools(tools: Tool[], query: string): Tool[] {
   const normalizedQuery = query.toLowerCase().trim();
@@ -26,7 +46,9 @@ export function searchTools(tools: Tool[], query: string): Tool[] {
   if (!normalizedQuery) return tools;
 
   return tools.filter((tool) => {
-    const searchableText = [tool.name, tool.description, tool.author]
+    const authors = getToolAuthors(tool);
+    const authorNames = authors.map((a) => a.name).join(" ");
+    const searchableText = [tool.name, tool.description, authorNames]
       .join(" ")
       .toLowerCase();
 

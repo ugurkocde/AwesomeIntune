@@ -10,16 +10,20 @@ import { trackFormSubmission } from "~/lib/plausible";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-interface FormData {
+interface FormAuthor {
   name: string;
-  description: string;
-  author: string;
-  repoUrl: string;
-  category: string;
-  type: string;
   githubUrl: string;
   linkedinUrl: string;
   xUrl: string;
+}
+
+interface FormData {
+  name: string;
+  description: string;
+  authors: FormAuthor[];
+  repoUrl: string;
+  category: string;
+  type: string;
   downloadUrl: string;
   websiteUrl: string;
   additionalInfo: string;
@@ -70,20 +74,17 @@ export function ToolSubmitForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     description: "",
-    author: "",
+    authors: [{ name: "", githubUrl: "", linkedinUrl: "", xUrl: "" }],
     repoUrl: "",
     category: "",
     type: "",
-    githubUrl: "",
-    linkedinUrl: "",
-    xUrl: "",
     downloadUrl: "",
     websiteUrl: "",
     additionalInfo: "",
     acceptTerms: false,
   });
 
-  const updateField = (field: keyof FormData, value: string | boolean | string[]) => {
+  const updateField = (field: keyof FormData, value: string | boolean | FormAuthor[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when field is updated
     if (errors[field]) {
@@ -91,11 +92,43 @@ export function ToolSubmitForm() {
     }
   };
 
+  const updateAuthor = (index: number, field: keyof FormAuthor, value: string) => {
+    setFormData((prev) => {
+      const newAuthors = prev.authors.map((author, i) =>
+        i === index ? { ...author, [field]: value } : author
+      );
+      return { ...prev, authors: newAuthors };
+    });
+    // Clear author error when updated
+    if (errors[`author_${index}_${field}`]) {
+      setErrors((prev) => ({ ...prev, [`author_${index}_${field}`]: undefined }));
+    }
+  };
+
+  const addAuthor = () => {
+    if (formData.authors.length < 5) {
+      setFormData((prev) => ({
+        ...prev,
+        authors: [...prev.authors, { name: "", githubUrl: "", linkedinUrl: "", xUrl: "" }],
+      }));
+    }
+  };
+
+  const removeAuthor = (index: number) => {
+    if (formData.authors.length > 1) {
+      setFormData((prev) => ({
+        ...prev,
+        authors: prev.authors.filter((_, i) => i !== index),
+      }));
+    }
+  };
+
   // Real-time form validity check for submit button state
   const isFormValid =
     formData.name.length >= 2 &&
     formData.description.length >= 20 &&
-    formData.author.length >= 2 &&
+    formData.authors.length > 0 &&
+    formData.authors.every((author) => author.name.length >= 2) &&
     formData.repoUrl.length > 0 &&
     formData.category !== "" &&
     formData.type !== "" &&
@@ -111,8 +144,14 @@ export function ToolSubmitForm() {
     if (!formData.description || formData.description.length < 20) {
       newErrors.description = "Description must be at least 20 characters";
     }
-    if (!formData.author || formData.author.length < 2) {
-      newErrors.author = "Author name must be at least 2 characters";
+    if (formData.authors.length === 0) {
+      newErrors.authors = "At least one author is required";
+    } else {
+      formData.authors.forEach((author, index) => {
+        if (!author.name || author.name.length < 2) {
+          newErrors[`author_${index}_name`] = "Author name must be at least 2 characters";
+        }
+      });
     }
     if (!formData.repoUrl) {
       newErrors.repoUrl = "Tool URL is required";
@@ -343,33 +382,120 @@ export function ToolSubmitForm() {
           </div>
         </div>
 
-        {/* Author Name */}
+        {/* Authors */}
         <div>
-          <label
-            htmlFor="author"
-            className="mb-2 block text-sm font-medium"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Author Name <span style={{ color: "var(--signal-error)" }}>*</span>
-          </label>
-          <input
-            id="author"
-            type="text"
-            value={formData.author}
-            onChange={(e) => updateField("author", e.target.value)}
-            placeholder="Your name or organization"
-            className="input"
-            disabled={state === "loading"}
-          />
-          {errors.author ? (
-            <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
-              {errors.author}
-            </p>
-          ) : (
-            <p className="mt-1 text-xs" style={{ color: "var(--text-tertiary)" }}>
-              Minimum 2 characters
+          <div className="mb-2 flex items-center justify-between">
+            <label
+              className="block text-sm font-medium"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Authors <span style={{ color: "var(--signal-error)" }}>*</span>
+            </label>
+            {formData.authors.length < 5 && (
+              <button
+                type="button"
+                onClick={addAuthor}
+                className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-white/5"
+                style={{ color: "var(--accent-primary)" }}
+                disabled={state === "loading"}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add Author
+              </button>
+            )}
+          </div>
+          {errors.authors && (
+            <p className="mb-2 text-xs" style={{ color: "var(--signal-error)" }}>
+              {errors.authors}
             </p>
           )}
+          <div className="space-y-4">
+            {formData.authors.map((author, index) => (
+              <div
+                key={index}
+                className="rounded-lg p-4"
+                style={{
+                  background: "rgba(255, 255, 255, 0.02)",
+                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                }}
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
+                    Author {index + 1}
+                  </span>
+                  {formData.authors.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeAuthor(index)}
+                      className="flex items-center gap-1 rounded px-2 py-1 text-xs transition-colors hover:bg-white/5"
+                      style={{ color: "var(--signal-error)" }}
+                      disabled={state === "loading"}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <div className="space-y-3">
+                  {/* Author Name */}
+                  <div>
+                    <input
+                      type="text"
+                      value={author.name}
+                      onChange={(e) => updateAuthor(index, "name", e.target.value)}
+                      placeholder="Author name"
+                      className="input"
+                      disabled={state === "loading"}
+                    />
+                    {errors[`author_${index}_name`] && (
+                      <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+                        {errors[`author_${index}_name`]}
+                      </p>
+                    )}
+                  </div>
+                  {/* Author Social Links */}
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <input
+                      type="url"
+                      value={author.githubUrl}
+                      onChange={(e) => updateAuthor(index, "githubUrl", e.target.value)}
+                      placeholder="GitHub URL (optional)"
+                      className="input text-sm"
+                      disabled={state === "loading"}
+                    />
+                    <input
+                      type="url"
+                      value={author.linkedinUrl}
+                      onChange={(e) => updateAuthor(index, "linkedinUrl", e.target.value)}
+                      placeholder="LinkedIn URL (optional)"
+                      className="input text-sm"
+                      disabled={state === "loading"}
+                    />
+                    <input
+                      type="url"
+                      value={author.xUrl}
+                      onChange={(e) => updateAuthor(index, "xUrl", e.target.value)}
+                      placeholder="X/Twitter URL (optional)"
+                      className="input text-sm"
+                      disabled={state === "loading"}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-xs" style={{ color: "var(--text-tertiary)" }}>
+            Add up to 5 authors. Profile pictures are derived from GitHub URLs.
+          </p>
         </div>
 
         {/* Tool URL */}
@@ -505,70 +631,7 @@ export function ToolSubmitForm() {
 
       {/* Optional Fields */}
       <motion.div variants={itemVariants} className="mt-8">
-        <CollapsibleSection title="Optional: Author & Links">
-          {/* GitHub URL */}
-          <div>
-            <label
-              htmlFor="githubUrl"
-              className="mb-2 block text-sm"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              GitHub Profile
-            </label>
-            <input
-              id="githubUrl"
-              type="url"
-              value={formData.githubUrl}
-              onChange={(e) => updateField("githubUrl", e.target.value)}
-              placeholder="https://github.com/username"
-              className="input"
-              disabled={state === "loading"}
-            />
-            <p className="mt-1 text-xs" style={{ color: "var(--text-tertiary)" }}>
-              Your profile picture will be automatically derived from this URL
-            </p>
-          </div>
-
-          {/* LinkedIn URL */}
-          <div>
-            <label
-              htmlFor="linkedinUrl"
-              className="mb-2 block text-sm"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              LinkedIn Profile
-            </label>
-            <input
-              id="linkedinUrl"
-              type="url"
-              value={formData.linkedinUrl}
-              onChange={(e) => updateField("linkedinUrl", e.target.value)}
-              placeholder="https://linkedin.com/in/username"
-              className="input"
-              disabled={state === "loading"}
-            />
-          </div>
-
-          {/* X/Twitter URL */}
-          <div>
-            <label
-              htmlFor="xUrl"
-              className="mb-2 block text-sm"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              X / Twitter Profile
-            </label>
-            <input
-              id="xUrl"
-              type="url"
-              value={formData.xUrl}
-              onChange={(e) => updateField("xUrl", e.target.value)}
-              placeholder="https://x.com/username"
-              className="input"
-              disabled={state === "loading"}
-            />
-          </div>
-
+        <CollapsibleSection title="Optional: Additional Links">
           {/* Download URL */}
           <div>
             <label

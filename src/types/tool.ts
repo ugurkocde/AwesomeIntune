@@ -20,6 +20,14 @@ export type ToolType =
   | "documentation"
   | "other";
 
+export interface Author {
+  name: string;
+  picture?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  xUrl?: string;
+}
+
 export interface Tool {
   id: string;
   name: string;
@@ -30,6 +38,7 @@ export interface Tool {
   githubUrl?: string;
   linkedinUrl?: string;
   xUrl?: string;
+  authors?: Author[];
   repoUrl?: string;
   downloadUrl?: string;
   websiteUrl?: string;

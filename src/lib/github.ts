@@ -19,8 +19,20 @@ export async function createToolSubmissionIssue(
   const categoryLabel = CATEGORY_CONFIG[data.category].label;
   const typeLabel = TYPE_CONFIG[data.type].label;
 
-  // Derive avatar URL from GitHub profile if provided
-  const avatarUrl = data.githubUrl ? deriveAvatarUrl(data.githubUrl) : null;
+  // Format authors section
+  const authorsSection = data.authors
+    .map((author, index) => {
+      const avatarUrl = author.githubUrl ? deriveAvatarUrl(author.githubUrl) : null;
+      const lines = [
+        `#### Author ${index + 1}: ${author.name}`,
+        author.githubUrl ? `- **GitHub:** ${author.githubUrl}` : "",
+        avatarUrl ? `- **Avatar:** ${avatarUrl}` : "",
+        author.linkedinUrl ? `- **LinkedIn:** ${author.linkedinUrl}` : "",
+        author.xUrl ? `- **X/Twitter:** ${author.xUrl}` : "",
+      ].filter(Boolean);
+      return lines.join("\n");
+    })
+    .join("\n\n");
 
   // Build issue body in a structured format
   const body = `## Tool Submission
@@ -28,16 +40,12 @@ export async function createToolSubmissionIssue(
 ### Tool Information
 - **Name:** ${data.name}
 - **Description:** ${data.description}
-- **Author:** ${data.author}
 - **Repository URL:** ${data.repoUrl}
 - **Category:** ${categoryLabel}
 - **Type:** ${typeLabel}
 
-### Author Links
-${data.githubUrl ? `- **GitHub:** ${data.githubUrl}` : "- **GitHub:** Not provided"}
-${avatarUrl ? `- **Avatar:** ${avatarUrl}` : ""}
-${data.linkedinUrl ? `- **LinkedIn:** ${data.linkedinUrl}` : ""}
-${data.xUrl ? `- **X/Twitter:** ${data.xUrl}` : ""}
+### Authors
+${authorsSection}
 
 ### Optional URLs
 ${data.downloadUrl ? `- **Download URL:** ${data.downloadUrl}` : ""}

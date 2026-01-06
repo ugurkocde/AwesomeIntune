@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
+import { getToolAuthors } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 
 interface ToolCardProps {
@@ -260,58 +261,91 @@ export const ToolCard = memo(function ToolCard({
               </div>
             )}
 
-            {/* Author */}
-            <div className="mt-5 flex items-center gap-3">
-              <div
-                className="flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold transition-transform duration-200 group-hover:scale-110"
-                style={{
-                  background: tool.authorPicture
-                    ? "transparent"
-                    : `linear-gradient(135deg, ${categoryConfig.color}40, ${categoryConfig.color}20)`,
-                  color: categoryConfig.color,
-                  border: `1px solid ${categoryConfig.color}30`,
-                }}
-              >
-                {tool.authorPicture ? (
-                  <Image
-                    src={tool.authorPicture}
-                    alt={tool.author}
-                    width={32}
-                    height={32}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  tool.author.charAt(0).toUpperCase()
-                )}
-              </div>
-              <div>
-                {tool.githubUrl ? (
-                  <a
-                    href={tool.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-sm font-medium transition-colors hover:text-[var(--accent-primary)]"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {tool.author}
-                  </a>
-                ) : (
-                  <span
-                    className="text-sm font-medium"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {tool.author}
-                  </span>
-                )}
-                <div
-                  className="text-xs"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  {categoryConfig.label}
+            {/* Authors */}
+            {(() => {
+              const authors = getToolAuthors(tool);
+              const maxVisible = 3;
+              const visibleAuthors = authors.slice(0, maxVisible);
+              const remainingCount = authors.length - maxVisible;
+
+              return (
+                <div className="mt-5 flex items-center gap-3">
+                  {/* Stacked Avatars */}
+                  <div className="flex -space-x-2">
+                    {visibleAuthors.map((author, idx) => (
+                      <div
+                        key={`${author.name}-${idx}`}
+                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[#111922] transition-transform duration-200 group-hover:scale-110"
+                        style={{
+                          background: author.picture
+                            ? "transparent"
+                            : `linear-gradient(135deg, ${categoryConfig.color}40, ${categoryConfig.color}20)`,
+                          color: categoryConfig.color,
+                          border: `1px solid ${categoryConfig.color}30`,
+                          zIndex: visibleAuthors.length - idx,
+                        }}
+                      >
+                        {author.picture ? (
+                          <Image
+                            src={author.picture}
+                            alt={author.name}
+                            width={32}
+                            height={32}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          author.name.charAt(0).toUpperCase()
+                        )}
+                      </div>
+                    ))}
+                    {remainingCount > 0 && (
+                      <div
+                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[#111922]"
+                        style={{
+                          background: `linear-gradient(135deg, ${categoryConfig.color}40, ${categoryConfig.color}20)`,
+                          color: categoryConfig.color,
+                          border: `1px solid ${categoryConfig.color}30`,
+                          zIndex: 0,
+                        }}
+                      >
+                        +{remainingCount}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    {authors.length === 1 && authors[0]?.githubUrl ? (
+                      <a
+                        href={authors[0].githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-sm font-medium transition-colors hover:text-[var(--accent-primary)]"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        {authors[0].name}
+                      </a>
+                    ) : (
+                      <span
+                        className="text-sm font-medium"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        {authors.length === 1
+                          ? authors[0]?.name
+                          : authors.length === 2
+                            ? `${authors[0]?.name} & ${authors[1]?.name}`
+                            : `${authors[0]?.name} & ${authors.length - 1} others`}
+                      </span>
+                    )}
+                    <div
+                      className="text-xs"
+                      style={{ color: "var(--text-tertiary)" }}
+                    >
+                      {categoryConfig.label}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              );
+            })()}
 
             {/* Action Links */}
             <div

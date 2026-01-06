@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Tool } from "~/types/tool";
+import { getToolAuthors } from "./tools";
 
 const TOOLS_DIRECTORY = path.join(process.cwd(), "data", "tools");
 
@@ -36,11 +37,14 @@ export function getAllTools(): Tool[] {
 }
 
 /**
- * Get unique authors count
+ * Get unique authors count (counts all authors from multi-author tools)
  */
 export function getUniqueAuthorsCount(tools: Tool[]): number {
   const authors = new Set<string>();
-  tools.forEach((tool) => authors.add(tool.author.toLowerCase()));
+  tools.forEach((tool) => {
+    const toolAuthors = getToolAuthors(tool);
+    toolAuthors.forEach((author) => authors.add(author.name.toLowerCase()));
+  });
   return authors.size;
 }
 
