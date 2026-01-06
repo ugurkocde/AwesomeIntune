@@ -1,0 +1,26 @@
+{
+  "id": "feature-update-controller",
+  "name": "Feature Update Controller",
+  "description": "Feature Update Controller is a remediation package for Microsoft Intune that centralizes Windows feature upgrades with configurable setup, scripts, and custom actions. It generates and manages SetupConfig.ini, prestages Script Modules, and configures Custom Actions to tailor upgrade behavior, including post-install and rollback steps. The solution downloads and applies a manifest.json, stages scripts and actions, and supports updating or removing configurations on devices for a consistent upgrade experience.",
+  "keywords": [
+    "intune",
+    "windows-upgrade-control",
+    "feature-update-controller",
+    "setupconfig.ini",
+    "custom-actions",
+    "script-modules",
+    "manifest.json",
+    "remediation-scripts"
+  ],
+  "author": "Nickolaj Andersen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/NickolajA",
+  "repoUrl": "https://github.com/MSEndpointMgr/FeatureUpdateController",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
