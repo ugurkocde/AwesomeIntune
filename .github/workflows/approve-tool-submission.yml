@@ -208,7 +208,8 @@ jobs:
                 'github': 'githubUrl', 'avatar': 'authorPicture', 'linkedin': 'linkedinUrl',
                 'x/twitter': 'xUrl', 'website url': 'websiteUrl', 'download url': 'downloadUrl'
               };
-              if (mapping[label] && value) fields[mapping[label]] = value;
+              const ignoredValues = ['not provided', 'n/a', 'none', '-', ''];
+              if (mapping[label] && value && !ignoredValues.includes(value.toLowerCase())) fields[mapping[label]] = value;
             }
 
             const required = ['name', 'description', 'author', 'repoUrl', 'category', 'type'];
