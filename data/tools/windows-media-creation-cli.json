@@ -1,0 +1,26 @@
+{
+  "id": "windows-media-creation-cli",
+  "name": "Windows Media Creation CLI",
+  "description": "Windows Media Creation CLI is a PowerShell-based tool that automates building Windows installation media on a USB drive. It supports Windows 11 (22H2-25H2) and Windows 10, with customizable architecture, language, region and edition, enabling fully automated media creation. It also supports OEM driver injection via AUTOUNATTEND or DISM, single or multi-driver packs, and can generate an installwimdrivers.csv catalog to track installed drivers.",
+  "keywords": [
+    "windows deployment",
+    "media creation cli",
+    "powershell",
+    "dism",
+    "autounattend",
+    "driver injection",
+    "oem drivers",
+    "usb boot media"
+  ],
+  "author": "Niklas Rast",
+  "authorPicture": "https://github.com/niklasrst.png",
+  "githubUrl": "https://github.com/niklasrst",
+  "linkedinUrl": "https://www.linkedin.com/in/niklasrast?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+  "xUrl": "",
+  "repoUrl": "https://github.com/niklasrst/windows-mediacreation-cli",
+  "downloadUrl": "",
+  "websiteUrl": "https://niklasrast.io/blog/post-0088",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
