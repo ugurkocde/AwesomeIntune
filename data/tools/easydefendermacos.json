@@ -1,0 +1,26 @@
+{
+  "id": "easydefendermacos",
+  "name": "EasyDefenderMacOS",
+  "description": "EasyDefenderMacOS is a collection of importable Intune policies that streamline onboarding and offboarding macOS devices to Defender for Business/Endpoint. It supports personal work-profile and corporate-owned devices, integrates Defender with Intune, and uses an onboarding package with an optional offboarding package to automate policy deployment and Defender app configuration. The solution covers setup steps from Defender portal to Intune admin center and test enrollment on macOS.",
+  "keywords": [
+    "intune",
+    "macos",
+    "defender",
+    "defender-for-endpoint",
+    "onboarding",
+    "offboarding",
+    "policy-import",
+    "work-profile"
+  ],
+  "author": "Vlad Johansen",
+  "authorPicture": "https://github.com/vladjoh.png",
+  "githubUrl": "https://github.com/vladjoh",
+  "linkedinUrl": "https://www.linkedin.com/authwall?trk=gf&trkInfo=AQHwemufXuSiMAAAAZuTBnLAsRT2bOp-BjI1K3T-aDGQbDbFzurBPpjeBtPGyvoZoLr93Ja7r6SFNuwOIRJPE9ef-M_d_jeYQ89WaP76p9YXhxT1blmylZhBFD_aMW0wAfPknRk=&original_referer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fvladjoh",
+  "xUrl": "",
+  "repoUrl": "https://github.com/vladjoh/EasyDefenderMacOS",
+  "downloadUrl": "https://github.com/vladjoh/EasyDefenderMacOS",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "other",
+  "dateAdded": "2026-01-06"
+}
