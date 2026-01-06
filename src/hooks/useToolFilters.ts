@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { Tool, ToolCategory, ToolType } from "~/types/tool";
 import { filterTools } from "~/lib/tools";
 import { useDebounce } from "./useDebounce";
@@ -57,6 +57,7 @@ export function useToolFilters({
   const [aiToolIds, setAiToolIds] = useState<string[] | null>(null);
 
   const debouncedQuery = useDebounce(query, debounceMs);
+  const lastTrackedQuery = useRef<string>("");
 
   // Determine if we should use AI search (longer, sentence-like queries)
   const isAiMode = debouncedQuery.length >= AI_SEARCH_THRESHOLD;
@@ -102,7 +103,10 @@ export function useToolFilters({
         setAiExplanations(explanations);
         setAiConfidenceScores(confidenceScores);
         setAiToolIds(ids);
-        trackSearch(debouncedQuery);
+        if (lastTrackedQuery.current !== debouncedQuery) {
+          trackSearch(debouncedQuery, "ai");
+          lastTrackedQuery.current = debouncedQuery;
+        }
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") {
           return;
@@ -120,6 +124,18 @@ export function useToolFilters({
     void performAiSearch();
 
     return () => controller.abort();
+  }, [debouncedQuery, isAiMode]);
+
+  // Keyword search tracking effect
+  useEffect(() => {
+    if (
+      !isAiMode &&
+      debouncedQuery.length > 0 &&
+      lastTrackedQuery.current !== debouncedQuery
+    ) {
+      trackSearch(debouncedQuery, "keyword");
+      lastTrackedQuery.current = debouncedQuery;
+    }
   }, [debouncedQuery, isAiMode]);
 
   const filteredTools = useMemo(() => {

@@ -12,7 +12,7 @@ type PlausibleEvents = {
   "Tool Click": { tool: string; category: string };
   "Outbound Link": { url: string };
   "Newsletter Signup": { source: string };
-  "Search": { query: string };
+  "Search": { query: string; type: "keyword" | "ai" };
   "Category Filter": { category: string };
   "File Download": { file: string };
   "Sponsor Click": { sponsor: string; location: string };
@@ -43,8 +43,8 @@ export function trackNewsletterSignup(source: string): void {
   trackEvent("Newsletter Signup", { source });
 }
 
-export function trackSearch(query: string): void {
-  trackEvent("Search", { query });
+export function trackSearch(query: string, type: "keyword" | "ai"): void {
+  trackEvent("Search", { query, type });
 }
 
 export function trackCategoryFilter(category: string): void {
