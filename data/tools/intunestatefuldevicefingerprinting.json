@@ -1,0 +1,34 @@
+{
+  "id": "intunestatefuldevicefingerprinting",
+  "name": "IntuneStatefulDeviceFingerprinting",
+  "description": "KuShu-Shimon Intune Stateful Device Fingerprinting (ISDF) provides a tamper-resistant device fingerprint for enrolled Windows devices, enforced via Intune Custom Compliance and DPAPI-encrypted baselines. In Cloud mode it attests fingerprints to Entra ID through APIM and a Logic App to enable trusted device filters, dynamic groups, and stronger Conditional Access policies. The solution collects on-device signals, stores encrypted baselines, self-heals missing keys, and reports ISDF booleans for compliant state.",
+  "keywords": [
+    "intune",
+    "device-fingerprint",
+    "custom-compliance",
+    "cloud-attestation",
+    "entra-id",
+    "apim",
+    "logic-app",
+    "conditional-access"
+  ],
+  "author": "Graham Hild",
+  "authorPicture": "https://github.com/KuShuSec.png",
+  "githubUrl": "https://github.com/KuShuSec",
+  "linkedinUrl": "https://linkedin.com/in/graham-gold",
+  "xUrl": "",
+  "repoUrl": "https://github.com/KuShuSec/KuShu-Shimon",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06",
+  "authors": [
+    {
+      "name": "Graham Hild",
+      "githubUrl": "https://github.com/KuShuSec",
+      "picture": "https://github.com/KuShuSec.png",
+      "linkedinUrl": "https://linkedin.com/in/graham-gold"
+    }
+  ]
+}
