@@ -112,12 +112,15 @@ export default async function ToolPage({ params }: ToolPageProps) {
         />
 
         {/* Content Container */}
-        <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-12 sm:pb-32 sm:pt-20">
+        <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
           {/* Back Navigation */}
           <Link
             href="/"
-            className="group mb-12 inline-flex items-center gap-2 text-sm transition-colors"
-            style={{ color: "var(--text-secondary)" }}
+            className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
+            style={{
+              color: "var(--text-secondary)",
+              marginLeft: "-0.75rem",
+            }}
           >
             <svg
               width="16"
