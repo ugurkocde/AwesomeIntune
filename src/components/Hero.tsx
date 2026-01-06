@@ -214,12 +214,12 @@ export function Hero() {
 
         </div>
 
-        {/* Scroll Indicator - Positioned at bottom */}
+        {/* Scroll Indicator - Positioned at bottom, hidden on short viewports to avoid overlap with sponsors */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.0, duration: 1 }}
-          className="absolute bottom-8"
+          className="absolute bottom-8 hidden [@media(min-height:800px)]:block"
         >
           <a
             href="#tools"
