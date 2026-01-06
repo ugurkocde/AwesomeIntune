@@ -30,5 +30,12 @@
       "picture": "https://github.com/ennnbeee.png",
       "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
     }
+  ],
+  "screenshots": [
+    "screenshots/autopilotgrouptagger/screenshot-1.gif",
+    "screenshots/autopilotgrouptagger/screenshot-2.gif",
+    "screenshots/autopilotgrouptagger/screenshot-3.gif",
+    "screenshots/autopilotgrouptagger/screenshot-4.gif",
+    "screenshots/autopilotgrouptagger/screenshot-5.gif"
   ]
 }
