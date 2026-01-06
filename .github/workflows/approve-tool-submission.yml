@@ -216,7 +216,7 @@ jobs:
             }
 
             // Parse multi-author format from website submissions: #### Author N: Name
-            const authorSectionMatch = body.match(/### Authors\s*([\s\S]*?)(?=###|$)/);
+            const authorSectionMatch = body.match(/### Authors\s*([\s\S]*?)(?=\n### [^#]|$)/);
             if (authorSectionMatch) {
               const authorSection = authorSectionMatch[1];
               const authorBlocks = authorSection.split(/(?=#### Author \d+:)/);
