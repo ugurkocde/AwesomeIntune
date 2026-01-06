@@ -1,0 +1,26 @@
+{
+  "id": "intune-app-factory",
+  "name": "Intune App Factory",
+  "description": "Intune App Factory is a set of PowerShell scripts run in an Azure DevOps Pipeline that automatically detects, downloads, packages, and publishes onboarded applications as Win32 apps to Microsoft Intune, ensuring up-to-date deployments. It supports onboarding via manifests, integrates the PowerShell App Deployment Toolkit, and automates version checks from Winget, Evergreen, or Storage Account sources to streamline packaging and publishing.",
+  "keywords": [
+    "intune",
+    "win32",
+    "automation",
+    "devops",
+    "powershell",
+    "azure-devops",
+    "packaging",
+    "onboarding"
+  ],
+  "author": "Nickolaj Andersen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/NickolajA",
+  "repoUrl": "https://github.com/MSEndpointMgr/IntuneAppFactory",
+  "downloadUrl": "",
+  "websiteUrl": "https://msendpointmgr.com/intune-app-factory",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
