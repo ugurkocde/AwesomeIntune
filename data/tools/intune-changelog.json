@@ -1,0 +1,29 @@
+{
+  "id": "intune-changelog",
+  "name": "Intune Changelog",
+  "description": "A web-based tool for visualizing and tracking Microsoft Intune configuration changes. Displays audit logs in a beautiful, interactive timeline interface for easy monitoring of system modifications. Features a privacy-first approach with all data processing happening client-side in your browser without server transmission.",
+  "keywords": [
+    "changelog",
+    "audit logs",
+    "timeline",
+    "configuration changes",
+    "change tracking",
+    "visualization",
+    "client-side",
+    "privacy",
+    "monitoring",
+    "audit trail"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.intunechangelog.com/",
+  "category": "monitoring",
+  "type": "web-app",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

@@ -1,0 +1,28 @@
+{
+  "id": "intune-assignment-checker",
+  "name": "Intune Assignment Checker",
+  "description": "A PowerShell-based auditing tool for IT administrators managing Microsoft Intune. Provides comprehensive analysis of policy, app, and configuration assignments across users, groups, and devices. Features include assignment verification, policy discovery, empty group detection, HTML report generation with charts and dark/light mode, CSV export, and support for multiple authentication methods including certificate-based automation.",
+  "keywords": [
+    "assignment checker",
+    "policy audit",
+    "group analysis",
+    "assignment verification",
+    "html reports",
+    "csv export",
+    "empty groups",
+    "policy discovery",
+    "batch processing"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/IntuneAssignmentChecker",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneAssignmentChecker",
+  "websiteUrl": "https://intuneassignmentchecker.ugurkoc.de/",
+  "category": "reporting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

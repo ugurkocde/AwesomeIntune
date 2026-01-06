@@ -1,0 +1,29 @@
+{
+  "id": "kql-search",
+  "name": "KQL Search",
+  "description": "A specialized search engine for discovering Kusto Query Language (KQL) queries. Features query discovery across Microsoft Sentinel, Defender, and Azure Data Explorer, along with a Query Assistant, Query Generator, Query Lab for testing, and Device Query functionality. Aggregates community-contributed hunting queries and detection rules for threat hunting, vulnerability management, and incident response.",
+  "keywords": [
+    "kql",
+    "kusto",
+    "sentinel",
+    "defender",
+    "threat hunting",
+    "device query",
+    "detection rules",
+    "azure data explorer",
+    "security queries",
+    "query generator"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.kqlsearch.com/",
+  "category": "security",
+  "type": "web-app",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "device-offboarding-manager",
+  "name": "Device Offboarding Manager",
+  "description": "A PowerShell-based GUI application for streamlined device lifecycle management across Microsoft cloud services. Enables bulk device offboarding from Intune, Autopilot, and Entra ID from a single interface. Features real-time dashboard analytics, stale device tracking, automatic BitLocker and FileVault key retrieval, CSV/TXT import for bulk operations, and pre-built playbooks for automated workflows.",
+  "keywords": [
+    "offboarding",
+    "device lifecycle",
+    "autopilot",
+    "entra id",
+    "bulk operations",
+    "stale devices",
+    "bitlocker keys",
+    "filevault",
+    "dashboard",
+    "playbooks"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/DeviceOffboardingManager",
+  "downloadUrl": "https://www.powershellgallery.com/packages/DeviceOffboardingManager",
+  "websiteUrl": "https://intuneoffboarding.com/",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

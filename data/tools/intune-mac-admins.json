@@ -1,0 +1,29 @@
+{
+  "id": "intune-mac-admins",
+  "name": "Intune Mac Admins",
+  "description": "A community-driven documentation hub for macOS management within Microsoft Intune. Features guides, scripts, tools, and best practices contributed by IT professionals and Microsoft MVPs. Includes a Copilot assistant for macOS management queries and integration with the Open Intune Baseline (OIB) project for curated device management settings.",
+  "keywords": [
+    "macos",
+    "documentation",
+    "community",
+    "guides",
+    "best practices",
+    "baseline",
+    "copilot",
+    "mac management",
+    "mvp",
+    "scripts"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/IntuneMacAdmins",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.intunemacadmins.com/",
+  "category": "other",
+  "type": "documentation",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

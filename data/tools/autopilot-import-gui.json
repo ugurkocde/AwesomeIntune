@@ -1,0 +1,29 @@
+{
+  "id": "autopilot-import-gui",
+  "name": "Windows Autopilot Import GUI",
+  "description": "A PowerShell-based GUI tool that streamlines Windows Autopilot device enrollment during the Out-of-Box Experience (OOBE). Automates hardware hash collection and submission to Autopilot with Group Tag selection support and automatic system reboot after profile assignment. Includes network connectivity diagnostics to troubleshoot configuration issues. Built on Michael Niehaus's Get-WindowsAutoPilotInfo script.",
+  "keywords": [
+    "autopilot",
+    "device enrollment",
+    "oobe",
+    "hardware hash",
+    "group tags",
+    "device import",
+    "network diagnostics",
+    "gui",
+    "provisioning",
+    "deployment"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/AutoPilot_Import_GUI",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Get-WindowsAutopilotImportGUI/",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}

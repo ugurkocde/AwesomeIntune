@@ -1,0 +1,29 @@
+{
+  "id": "intunebrew",
+  "name": "IntuneBrew",
+  "description": "A macOS app deployment and patch management solution for Microsoft Intune. Features a web portal for app management, PowerShell script automation, and Azure Runbook integration for scheduled updates. Supports 510+ macOS applications with automated version comparison, intelligent patch management, and robust error handling with automatic retry mechanisms. Includes certificate-based and interactive authentication options.",
+  "keywords": [
+    "macos",
+    "app deployment",
+    "patch management",
+    "mac apps",
+    "azure runbook",
+    "automated updates",
+    "version comparison",
+    "homebrew",
+    "certificate auth",
+    "dmg pkg"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/IntuneBrew",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneBrew",
+  "websiteUrl": "https://www.intunebrew.com/",
+  "category": "packaging",
+  "type": "web-app",
+  "dateAdded": "2026-01-06",
+  "screenshots": []
+}
