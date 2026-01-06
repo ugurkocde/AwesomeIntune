@@ -35,9 +35,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://awesomeintune.com"),
-  title: "Awesome Intune | Community Tools Directory",
+  title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
   description:
-    "Discover the best community-built tools, scripts, and resources for Microsoft Intune. All in one place, curated by the community.",
+    "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources. Curated by IT professionals for endpoint management, compliance, and reporting.",
   keywords: [
     "Microsoft Intune",
     "Intune tools",
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://awesomeintune.com",
     siteName: "Awesome Intune",
-    title: "Awesome Intune | Community Tools Directory",
+    title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
     description:
-      "Discover the best community-built tools, scripts, and resources for Microsoft Intune.",
+      "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources for endpoint management.",
     images: [
       {
         url: "/api/og?title=Awesome%20Intune&category=automation",
@@ -67,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Awesome Intune | Community Tools Directory",
+    title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
     description:
-      "Discover the best community-built tools, scripts, and resources for Microsoft Intune.",
+      "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources for endpoint management.",
     images: ["/api/og?title=Awesome%20Intune&category=automation"],
   },
   icons: {

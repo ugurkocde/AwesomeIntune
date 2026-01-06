@@ -119,3 +119,35 @@ export function generateOrganizationStructuredData() {
     sameAs: ["https://github.com/ugurkocde/awesomeintune"],
   };
 }
+
+/**
+ * Generate JSON-LD for the tools directory (ItemList schema)
+ * This helps Google show a list snippet in search results
+ */
+export function generateItemListStructuredData(tools: Tool[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Microsoft Intune Tools and Scripts",
+    description:
+      "Curated collection of free community-built Intune tools and automation scripts",
+    numberOfItems: tools.length,
+    itemListElement: tools.slice(0, 10).map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: tool.name,
+        description: tool.description,
+        url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+        applicationCategory:
+          CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+      },
+    })),
+  };
+}
