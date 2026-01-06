@@ -1,0 +1,26 @@
+{
+  "id": "oib-deployer",
+  "name": "OIB Deployer",
+  "description": "OIB Deployer automates the deployment of OpenIntuneBaseline configurations within Microsoft Intune, enabling rapid, repeatable rollouts of baseline security policies and device configurations. It supports policy templating, script deployment, and integration with community-provided baseline content, with built-in logging and error reporting for auditability. Ideal for IT admins seeking consistent, scalable endpoint security across devices.",
+  "keywords": [
+    "intune",
+    "endpoint-security",
+    "automation",
+    "policy-deployment",
+    "device-configuration",
+    "powershell",
+    "community-driven",
+    "openintunebaseline"
+  ],
+  "author": "James Robinson",
+  "authorPicture": "https://github.com/SkipToTheEndpoint.png",
+  "githubUrl": "https://github.com/SkipToTheEndpoint",
+  "linkedinUrl": "https://www.linkedin.com/in/skiptotheendpoint",
+  "xUrl": "https://x.com/skiptoendpoint",
+  "repoUrl": "https://deploy.openintunebaseline.com/",
+  "downloadUrl": "https://github.com/SkipToTheEndpoint/OIBDeployer",
+  "websiteUrl": "https://openintunebaseline.com",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-01-06"
+}
