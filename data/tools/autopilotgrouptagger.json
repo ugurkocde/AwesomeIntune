@@ -1,0 +1,34 @@
+{
+  "id": "autopilotgrouptagger",
+  "name": "AutopilotGroupTagger",
+  "description": "AutopilotGroupTagger is a PowerShell-based utility for bulk updating and managing Windows Autopilot Device Group Tags, with optional unblocking of devices. It supports updating tags by group, manufacturer, model, purchase order, and interactive selection, plus exporting data and creating dynamic Entra ID groups. The tool runs with Microsoft Graph authentication and supports PowerShell 7 on Windows/macOS, including a whatIf simulation mode and Community Tool status.",
+  "keywords": [
+    "endpoint-management",
+    "autopilot",
+    "powershell",
+    "microsoft-graph",
+    "device-group-tags",
+    "dynamic-groups",
+    "what-if",
+    "export-data"
+  ],
+  "author": "Nick Benton",
+  "authorPicture": "https://github.com/ennnbeee.png",
+  "githubUrl": "https://github.com/ennnbeee",
+  "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/ennnbeee/AutopilotGroupTagger",
+  "downloadUrl": "https://www.powershellgallery.com/packages/AutopilotGroupTagger",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06",
+  "authors": [
+    {
+      "name": "Nick Benton",
+      "githubUrl": "https://github.com/ennnbeee",
+      "picture": "https://github.com/ennnbeee.png",
+      "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
+    }
+  ]
+}
