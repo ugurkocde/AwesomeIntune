@@ -154,13 +154,13 @@ export function Hero() {
                 <img
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-dark h-auto w-[97px] sm:w-[128px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[107px] sm:w-[141px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
                 <img
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-light h-auto w-[97px] sm:w-[128px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[107px] sm:w-[141px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -174,13 +174,13 @@ export function Hero() {
                 <img
                   src="/sponsors/zerotouch-light.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-dark h-[61px] sm:h-[80px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-[67px] sm:h-[88px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
                 <img
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-light h-[61px] sm:h-[80px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-[67px] sm:h-[88px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
             </div>
