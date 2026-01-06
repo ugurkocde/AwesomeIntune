@@ -104,24 +104,44 @@ export function Footer() {
             >
               Sponsors
             </h3>
-            <a
-              href="https://eido.io/?utm_source=awesome_intune"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
-              onClick={() => trackSponsorClick("eido", "footer")}
-            >
-              <img
-                src="/sponsors/eido-light.svg"
-                alt="eido - Sponsor"
-                className="sponsor-logo-dark h-auto w-[100px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
-              />
-              <img
-                src="/sponsors/eido-dark.svg"
-                alt="eido - Sponsor"
-                className="sponsor-logo-light h-auto w-[100px] transition-opacity duration-300 group-hover:opacity-100"
-              />
-            </a>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <a
+                href="https://eido.io/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("eido", "footer")}
+              >
+                <img
+                  src="/sponsors/eido-light.svg"
+                  alt="eido - Sponsor"
+                  className="sponsor-logo-dark h-auto w-[65px] sm:w-[80px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <img
+                  src="/sponsors/eido-dark.svg"
+                  alt="eido - Sponsor"
+                  className="sponsor-logo-light h-auto w-[65px] sm:w-[80px] transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+              <a
+                href="https://zerotouch.ai/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("zerotouch", "footer")}
+              >
+                <img
+                  src="/sponsors/zerotouch-light.png"
+                  alt="ZeroTouch - Sponsor"
+                  className="sponsor-logo-dark h-[42px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <img
+                  src="/sponsors/zerotouch-dark.png"
+                  alt="ZeroTouch - Sponsor"
+                  className="sponsor-logo-light h-[42px] sm:h-[56px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Stay Updated Column */}

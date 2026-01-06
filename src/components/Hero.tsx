@@ -142,26 +142,48 @@ export function Hero() {
             >
               Sponsored by
             </span>
-            <a
-              href="https://eido.io/?utm_source=awesome_intune"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
-              onClick={() => trackSponsorClick("eido", "hero")}
-            >
-              {/* Light logo for dark theme (default) */}
-              <img
-                src="/sponsors/eido-light.svg"
-                alt="eido - Sponsor"
-                className="sponsor-logo-dark h-auto w-[130px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-              />
-              {/* Dark logo for light theme */}
-              <img
-                src="/sponsors/eido-dark.svg"
-                alt="eido - Sponsor"
-                className="sponsor-logo-light h-auto w-[130px] transition-opacity duration-300 group-hover:opacity-100"
-              />
-            </a>
+            <div className="flex items-center gap-4 sm:gap-8">
+              <a
+                href="https://eido.io/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("eido", "hero")}
+              >
+                {/* Light logo for dark theme (default) */}
+                <img
+                  src="/sponsors/eido-light.svg"
+                  alt="eido - Sponsor"
+                  className="sponsor-logo-dark h-auto w-[97px] sm:w-[128px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                {/* Dark logo for light theme */}
+                <img
+                  src="/sponsors/eido-dark.svg"
+                  alt="eido - Sponsor"
+                  className="sponsor-logo-light h-auto w-[97px] sm:w-[128px] transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+              <a
+                href="https://zerotouch.ai/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("zerotouch", "hero")}
+              >
+                {/* Light logo for dark theme (default) */}
+                <img
+                  src="/sponsors/zerotouch-light.png"
+                  alt="ZeroTouch - Sponsor"
+                  className="sponsor-logo-dark h-[61px] sm:h-[80px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                {/* Dark logo for light theme */}
+                <img
+                  src="/sponsors/zerotouch-dark.png"
+                  alt="ZeroTouch - Sponsor"
+                  className="sponsor-logo-light h-[61px] sm:h-[80px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+            </div>
           </motion.div>
 
         </div>
