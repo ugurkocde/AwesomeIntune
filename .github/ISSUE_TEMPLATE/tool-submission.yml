@@ -1,7 +1,7 @@
 name: Tool Submission
 description: Submit a new tool to the Awesome Intune directory
 title: "[Tool Submission]: "
-labels: ["submission", "pending-review"]
+labels: ["tool-submission"]
 body:
   - type: markdown
     attributes:
