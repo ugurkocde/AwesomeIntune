@@ -4,65 +4,82 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 export type ViewCounts = Record<string, number>;
 
-const POLL_INTERVAL = 30000; // 30 seconds
+// Base poll interval with jitter to prevent thundering herd
+const BASE_POLL_INTERVAL = 60000; // 60 seconds base
+const POLL_JITTER = 15000; // +/- 15 seconds random jitter
+
+// Get a randomized poll interval to spread out requests
+function getJitteredInterval(): number {
+  return BASE_POLL_INTERVAL + Math.random() * POLL_JITTER * 2 - POLL_JITTER;
+}
 
 export function useViewTracking() {
   const [viewCounts, setViewCounts] = useState<ViewCounts>({});
   const [isLoading, setIsLoading] = useState(true);
   const viewedToolsRef = useRef<Set<string>>(new Set());
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Fetch view counts with polling
+  // Fetch view counts with jittered polling
   useEffect(() => {
+    let isMounted = true;
+
     const fetchViewCounts = async () => {
       try {
         const response = await fetch("/api/views");
-        if (response.ok) {
+        if (response.ok && isMounted) {
           const counts = (await response.json()) as ViewCounts;
           setViewCounts(counts);
         }
       } catch (error) {
         console.error("Failed to fetch view counts:", error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    // Initial fetch
-    void fetchViewCounts();
-
-    // Set up polling (only when tab is visible)
-    let intervalId: NodeJS.Timeout | null = null;
-
-    const startPolling = () => {
-      intervalId ??= setInterval(() => {
-        void fetchViewCounts();
-      }, POLL_INTERVAL);
+    // Schedule next poll with jitter
+    const scheduleNextPoll = () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        void fetchViewCounts().then(() => {
+          if (isMounted && document.visibilityState === "visible") {
+            scheduleNextPoll();
+          }
+        });
+      }, getJitteredInterval());
     };
 
+    // Initial fetch
+    void fetchViewCounts().then(() => {
+      if (isMounted && document.visibilityState === "visible") {
+        scheduleNextPoll();
+      }
+    });
+
     const stopPolling = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
       }
     };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         void fetchViewCounts(); // Fetch immediately when tab becomes visible
-        startPolling();
+        scheduleNextPoll();
       } else {
         stopPolling();
       }
     };
 
-    // Start polling if tab is visible
-    if (document.visibilityState === "visible") {
-      startPolling();
-    }
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
+      isMounted = false;
       stopPolling();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };

@@ -12,22 +12,24 @@ export function ToolViewCounter({ toolId }: ToolViewCounterProps) {
   const hasRecordedRef = useRef(false);
 
   useEffect(() => {
-    // Fetch current view count
-    const fetchCount = async () => {
+    let isMounted = true;
+
+    const initializeView = async () => {
+      // First, fetch current view count
+      let currentCount = 0;
       try {
         const response = await fetch("/api/views");
-        if (response.ok) {
+        if (response.ok && isMounted) {
           const counts = (await response.json()) as ViewCounts;
-          setViewCount(counts[toolId] ?? 0);
+          currentCount = counts[toolId] ?? 0;
+          setViewCount(currentCount);
         }
       } catch (error) {
         console.error("Failed to fetch view count:", error);
       }
-    };
 
-    // Record view (only once per page load)
-    const recordView = async () => {
-      if (hasRecordedRef.current) return;
+      // Then, record view (only once per page load)
+      if (hasRecordedRef.current || !isMounted) return;
       hasRecordedRef.current = true;
 
       try {
@@ -36,15 +38,20 @@ export function ToolViewCounter({ toolId }: ToolViewCounterProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ toolId }),
         });
-        // Increment local count after recording
-        setViewCount((prev) => (prev ?? 0) + 1);
+        // Increment from the fetched count to avoid race condition
+        if (isMounted) {
+          setViewCount(currentCount + 1);
+        }
       } catch (error) {
         console.error("Failed to record view:", error);
       }
     };
 
-    void fetchCount();
-    void recordView();
+    void initializeView();
+
+    return () => {
+      isMounted = false;
+    };
   }, [toolId]);
 
   if (viewCount === null || viewCount === 0) {
