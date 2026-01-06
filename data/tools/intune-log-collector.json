@@ -1,0 +1,26 @@
+{
+  "id": "intune-log-collector",
+  "name": "Intune Log Collector",
+  "description": "Intune Log Collector is an Azure-based solution that collects logs from Intune-managed devices, including files, directories, and event logs. It deploys a Function App, Storage Account, and Key Vault, with the Remediation script driving log collection per LogsGatherRules.json and uploading a compressed archive to the logs container. Deployments support Azure Template Spec (Bicep/ARM) or direct ARM templates, with optional UI and post-deployment steps.",
+  "keywords": [
+    "intune",
+    "log-collector",
+    "logs-gathering",
+    "azure-function",
+    "storage-account",
+    "bicep",
+    "template-spec",
+    "microsoft-graph"
+  ],
+  "author": "Nickolaj Andersen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/NickolajA",
+  "repoUrl": "https://github.com/MSEndpointMgr/IntuneLogCollector",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
