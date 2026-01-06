@@ -31,5 +31,10 @@
       "linkedinUrl": "https://www.linkedin.com/company/root3/",
       "xUrl": "https://x.com/root3nl"
     }
+  ],
+  "screenshots": [
+    "screenshots/support-app/screenshot-1.png",
+    "screenshots/support-app/screenshot-2.png",
+    "screenshots/support-app/screenshot-3.png"
   ]
 }
