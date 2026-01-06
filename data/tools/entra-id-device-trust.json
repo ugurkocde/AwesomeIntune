@@ -1,0 +1,26 @@
+{
+  "id": "entra-id-device-trust",
+  "name": "Entra ID Device Trust",
+  "description": "Entra ID Device Trust enables binding Function Apps to Entra ID joined devices by validating requests originate from trusted devices via the device certificate enrolled during device registration. It combines client-side data gathering (signature hash, device CN, public key, thumbprint) with server-side validation, and can be embedded as a module in your Function App or installed as a dependency. The solution supports embedding EntraIDDeviceTrust.Client on clients and EntraIDDeviceTrust.FunctionApp in Function Apps for seamless, enhanced request security.",
+  "keywords": [
+    "entra-id",
+    "device-trust",
+    "certificate-authentication",
+    "function-app",
+    "azure-functions",
+    "client-side-validation",
+    "security",
+    "embedded-modules"
+  ],
+  "author": "Nickolaj Andersen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "https://x.com/NickolajA",
+  "repoUrl": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-06"
+}
