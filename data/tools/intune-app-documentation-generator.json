@@ -1,0 +1,32 @@
+{
+  "id": "intune-app-documentation-generator",
+  "name": "Intune App - Documentation Generator",
+  "description": "Intune App - Documentation Generator automates creation of comprehensive documentation for Intune-managed apps, serving admins and end users. It extracts app details, deployment steps, and configuration notes to produce ready-to-publish how-to guides and reference materials. Key features include template-based docs, auto-generated step-by-step instructions, and support for common Intune deployment scenarios.",
+  "keywords": [
+    "intune",
+    "documentation",
+    "documentation-generator",
+    "automation",
+    "microsoft-intune",
+    "app-management",
+    "deployment-guides",
+    "how-to"
+  ],
+  "author": "Morten Glimme",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://linkedin.com/in/morten-glimme-31640535",
+  "xUrl": "",
+  "repoUrl": "https://mrtnrql.github.io/intune-doc-generator/intune-doc-generator.html",
+  "downloadUrl": "",
+  "websiteUrl": "https://github.com/MrtnRQL/intune-doc-generator/blob/main/github/assets/IntuneHowto.gif",
+  "category": "packaging",
+  "type": "documentation",
+  "dateAdded": "2026-01-06",
+  "authors": [
+    {
+      "name": "Morten Glimme",
+      "linkedinUrl": "https://linkedin.com/in/morten-glimme-31640535"
+    }
+  ]
+}
