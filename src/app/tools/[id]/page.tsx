@@ -10,6 +10,7 @@ import {
 } from "~/lib/structured-data";
 import { GitHubStats } from "~/components/tools/GitHubStats";
 import { ScreenshotGallery } from "~/components/tools/ScreenshotGallery";
+import { ToolViewCounter } from "~/components/tools/ToolViewCounter";
 
 interface ToolPageProps {
   params: Promise<{ id: string }>;
@@ -215,6 +216,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   </svg>
                   {categoryConfig.label}
                 </Link>
+
+                {/* View Counter */}
+                <ToolViewCounter toolId={tool.id} />
               </div>
 
               {/* Tool Name */}

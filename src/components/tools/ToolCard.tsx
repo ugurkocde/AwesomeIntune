@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -8,12 +8,15 @@ import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
+import { formatViewCount } from "~/hooks/useViewTracking";
 
 interface ToolCardProps {
   tool: Tool;
   index?: number;
   aiExplanation?: string;
   confidenceScore?: number;
+  viewCount?: number;
+  onVisible?: (toolId: string) => void;
 }
 
 export const ToolCard = memo(function ToolCard({
@@ -21,10 +24,35 @@ export const ToolCard = memo(function ToolCard({
   index = 0,
   aiExplanation,
   confidenceScore,
+  viewCount,
+  onVisible,
 }: ToolCardProps) {
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
   const typeConfig = TYPE_CONFIG[tool.type];
   const categoryConfig = CATEGORY_CONFIG[tool.category];
+
+  // Track visibility using IntersectionObserver
+  useEffect(() => {
+    if (!onVisible || !cardRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            onVisible(tool.id);
+            // Disconnect after first visibility to avoid repeated calls
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.5 } // 50% of the card must be visible
+    );
+
+    observer.observe(cardRef.current);
+
+    return () => observer.disconnect();
+  }, [tool.id, onVisible]);
 
   const handleCardClick = () => {
     trackToolClick(tool.name, tool.category);
@@ -38,6 +66,7 @@ export const ToolCard = memo(function ToolCard({
 
   return (
     <div
+      ref={cardRef}
       onClick={handleCardClick}
       className="block cursor-pointer"
       role="link"
@@ -123,6 +152,29 @@ export const ToolCard = memo(function ToolCard({
                 )}
                 {typeConfig.label}
               </span>
+
+              {/* View Count */}
+              {viewCount !== undefined && viewCount > 0 && (
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  {formatViewCount(viewCount)}
+                </span>
+              )}
             </div>
 
             {/* Tool Name */}

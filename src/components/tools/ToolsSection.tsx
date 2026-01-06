@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { useToolFilters } from "~/hooks/useToolFilters";
+import { useViewTracking } from "~/hooks/useViewTracking";
 import { SearchBar } from "./SearchBar";
 import { SearchExamples } from "./SearchExamples";
 import { FilterBar } from "./FilterBar";
@@ -28,6 +29,8 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
     setCategory,
     setType,
   } = useToolFilters({ tools });
+
+  const { viewCounts, recordView } = useViewTracking();
 
   return (
     <section id="tools" className="relative scroll-mt-24 py-24 md:py-32">
@@ -184,7 +187,13 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <ToolGrid tools={filteredTools} aiExplanations={aiExplanations} aiConfidenceScores={aiConfidenceScores} />
+                <ToolGrid
+                  tools={filteredTools}
+                  aiExplanations={aiExplanations}
+                  aiConfidenceScores={aiConfidenceScores}
+                  viewCounts={viewCounts}
+                  onToolVisible={recordView}
+                />
               </motion.div>
             )}
           </AnimatePresence>

@@ -21,3 +21,9 @@ export interface SentNotification {
   sent_at: string;
   recipient_count: number;
 }
+
+export interface ToolView {
+  id: string;
+  tool_id: string;
+  viewed_at: string;
+}

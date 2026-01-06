@@ -7,6 +7,7 @@ import { ToolCard } from "./ToolCard";
 import { Pagination } from "./Pagination";
 import Link from "next/link";
 import type { AIExplanations, AIConfidenceScores } from "~/hooks/useToolFilters";
+import type { ViewCounts } from "~/hooks/useViewTracking";
 
 const TOOLS_PER_PAGE = 9;
 
@@ -14,9 +15,17 @@ interface ToolGridProps {
   tools: Tool[];
   aiExplanations?: AIExplanations;
   aiConfidenceScores?: AIConfidenceScores;
+  viewCounts?: ViewCounts;
+  onToolVisible?: (toolId: string) => void;
 }
 
-export function ToolGrid({ tools, aiExplanations, aiConfidenceScores }: ToolGridProps) {
+export function ToolGrid({
+  tools,
+  aiExplanations,
+  aiConfidenceScores,
+  viewCounts,
+  onToolVisible,
+}: ToolGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
@@ -133,6 +142,8 @@ export function ToolGrid({ tools, aiExplanations, aiConfidenceScores }: ToolGrid
               index={index}
               aiExplanation={aiExplanations?.[tool.id]}
               confidenceScore={aiConfidenceScores?.[tool.id]}
+              viewCount={viewCounts?.[tool.id]}
+              onVisible={onToolVisible}
             />
           ))}
         </motion.div>
