@@ -1,0 +1,26 @@
+{
+  "id": "intunecompliancemaintainer",
+  "name": "IntuneComplianceMaintainer",
+  "description": "IntuneComplianceMaintainer is a PowerShell automation script that keeps Microsoft Intune compliance and app-protection policies up to date with the latest supported OS minimums across iOS, iPadOS, macOS, Android, and Windows. It uses endoflife.date and the Graph Windows Update Catalog to drive cadence-based updates, with flexible authentication (Managed Identity, App Registration with certificate or secret, plus Key Vault integration) and safety features like dry-run and downgrade protection. It provides comprehensive logging and built-in retry logic for resilience.",
+  "keywords": [
+    "intune",
+    "compliance",
+    "app-protection",
+    "os-versions",
+    "windows-update-catalog",
+    "endoflife-date",
+    "powershell",
+    "graph-api"
+  ],
+  "author": "James Robinson",
+  "authorPicture": "https://github.com/SkipToTheEndpoint.png",
+  "githubUrl": "https://github.com/SkipToTheEndpoint",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/SkipToTheEndpoint/IntuneComplianceMaintainer",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06"
+}
