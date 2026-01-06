@@ -2,13 +2,21 @@
 
 import { motion } from "framer-motion";
 import type { ToolCategory, ToolType } from "~/types/tool";
+import type { SortOption } from "~/hooks/useToolFilters";
 import { CATEGORIES, TYPES, CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: "alphabetical", label: "A-Z" },
+  { value: "popular", label: "Most Popular" },
+];
 
 interface FilterBarProps {
   selectedCategory: ToolCategory | null;
   selectedType: ToolType | null;
+  sortBy: SortOption;
   onCategoryChange: (category: ToolCategory | null) => void;
   onTypeChange: (type: ToolType | null) => void;
+  onSortChange: (sortBy: SortOption) => void;
   resultCount: number;
   totalCount: number;
   isAiSearching?: boolean;
@@ -17,8 +25,10 @@ interface FilterBarProps {
 export function FilterBar({
   selectedCategory,
   selectedType,
+  sortBy,
   onCategoryChange,
   onTypeChange,
+  onSortChange,
   resultCount,
   totalCount,
   isAiSearching = false,
@@ -133,6 +143,47 @@ export function FilterBar({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke={selectedTypeColor ?? "var(--text-tertiary)"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Sort Dropdown */}
+          <div className="flex items-center gap-2">
+            <label
+              className="hidden text-xs font-medium uppercase tracking-wide sm:block"
+              style={{ color: "var(--text-tertiary)" }}
+            >
+              Sort
+            </label>
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => onSortChange(e.target.value as SortOption)}
+                className="cursor-pointer appearance-none rounded-lg py-2 pl-3 pr-8 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <svg
+                className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--text-tertiary)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

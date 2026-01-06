@@ -16,10 +16,13 @@ interface ToolsSectionProps {
 }
 
 export function ToolsSection({ tools }: ToolsSectionProps) {
+  const { viewCounts, recordView } = useViewTracking();
+
   const {
     query,
     selectedCategory,
     selectedType,
+    sortBy,
     filteredTools,
     isAiSearching,
     aiExplanations,
@@ -28,9 +31,8 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
     setQuery,
     setCategory,
     setType,
-  } = useToolFilters({ tools });
-
-  const { viewCounts, recordView } = useViewTracking();
+    setSortBy,
+  } = useToolFilters({ tools, viewCounts });
 
   return (
     <section id="tools" className="relative scroll-mt-24 py-24 md:py-32">
@@ -134,8 +136,10 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
             <FilterBar
               selectedCategory={selectedCategory}
               selectedType={selectedType}
+              sortBy={sortBy}
               onCategoryChange={setCategory}
               onTypeChange={setType}
+              onSortChange={setSortBy}
               resultCount={filteredTools.length}
               totalCount={tools.length}
               isAiSearching={isAiSearching}

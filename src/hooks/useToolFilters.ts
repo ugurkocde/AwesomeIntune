@@ -6,9 +6,13 @@ import { filterTools } from "~/lib/tools";
 import { useDebounce } from "./useDebounce";
 import { trackSearch, trackCategoryFilter } from "~/lib/plausible";
 import type { AISearchResult } from "~/app/api/search/route";
+import type { ViewCounts } from "./useViewTracking";
+
+export type SortOption = "alphabetical" | "popular";
 
 interface UseToolFiltersOptions {
   tools: Tool[];
+  viewCounts?: ViewCounts;
   debounceMs?: number;
 }
 
@@ -20,6 +24,7 @@ interface UseToolFiltersReturn {
   query: string;
   selectedCategory: ToolCategory | null;
   selectedType: ToolType | null;
+  sortBy: SortOption;
 
   // Derived
   filteredTools: Tool[];
@@ -35,6 +40,7 @@ interface UseToolFiltersReturn {
   setQuery: (query: string) => void;
   setCategory: (category: ToolCategory | null) => void;
   setType: (type: ToolType | null) => void;
+  setSortBy: (sortBy: SortOption) => void;
   clearFilters: () => void;
 }
 
@@ -42,6 +48,7 @@ const AI_SEARCH_THRESHOLD = 15;
 
 export function useToolFilters({
   tools,
+  viewCounts = {},
   debounceMs = 300,
 }: UseToolFiltersOptions): UseToolFiltersReturn {
   const [query, setQuery] = useState("");
@@ -49,6 +56,7 @@ export function useToolFilters({
     null
   );
   const [selectedType, setSelectedType] = useState<ToolType | null>(null);
+  const [sortBy, setSortByState] = useState<SortOption>("alphabetical");
 
   // AI Search state
   const [isAiSearching, setIsAiSearching] = useState(false);
@@ -151,18 +159,38 @@ export function useToolFilters({
         aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
       }
 
-      // Maintain AI relevance order
-      return aiFiltered.sort(
-        (a, b) => aiToolIds.indexOf(a.id) - aiToolIds.indexOf(b.id)
-      );
+      // Sort by AI confidence, using popularity as tiebreaker
+      return aiFiltered.sort((a, b) => {
+        const confA = aiConfidenceScores[a.id] ?? 0;
+        const confB = aiConfidenceScores[b.id] ?? 0;
+        if (confA !== confB) return confB - confA; // Higher confidence first
+        // Same confidence - use popularity as tiebreaker
+        const viewsA = viewCounts[a.id] ?? 0;
+        const viewsB = viewCounts[b.id] ?? 0;
+        return viewsB - viewsA;
+      });
     }
 
     // Regular keyword search
-    return filterTools(tools, {
+    let filtered = filterTools(tools, {
       query: debouncedQuery,
       category: selectedCategory,
       type: selectedType,
     });
+
+    // Apply sorting
+    if (sortBy === "popular") {
+      filtered = [...filtered].sort((a, b) => {
+        const viewsA = viewCounts[a.id] ?? 0;
+        const viewsB = viewCounts[b.id] ?? 0;
+        return viewsB - viewsA;
+      });
+    } else {
+      // Alphabetical (default)
+      filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    return filtered;
   }, [
     tools,
     debouncedQuery,
@@ -170,6 +198,9 @@ export function useToolFilters({
     selectedType,
     isAiMode,
     aiToolIds,
+    aiConfidenceScores,
+    viewCounts,
+    sortBy,
   ]);
 
   const isFiltering = query !== debouncedQuery || isAiSearching;
@@ -185,6 +216,10 @@ export function useToolFilters({
     setSelectedType(type);
   }, []);
 
+  const setSortBy = useCallback((sort: SortOption) => {
+    setSortByState(sort);
+  }, []);
+
   const clearFilters = useCallback(() => {
     setQuery("");
     setSelectedCategory(null);
@@ -198,6 +233,7 @@ export function useToolFilters({
     query,
     selectedCategory,
     selectedType,
+    sortBy,
     filteredTools,
     isFiltering,
     isAiSearching,
@@ -207,6 +243,7 @@ export function useToolFilters({
     setQuery,
     setCategory,
     setType,
+    setSortBy,
     clearFilters,
   };
 }
