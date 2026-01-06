@@ -104,7 +104,7 @@ export function Footer() {
             >
               Sponsors
             </h3>
-            <div className="flex items-center gap-4 sm:gap-6">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <a
                 href="https://eido.io/?utm_source=awesome_intune"
                 target="_blank"
@@ -115,12 +115,12 @@ export function Footer() {
                 <img
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-dark h-auto w-[65px] sm:w-[80px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[75px] sm:w-[95px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 <img
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-light h-auto w-[65px] sm:w-[80px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[75px] sm:w-[95px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -133,12 +133,12 @@ export function Footer() {
                 <img
                   src="/sponsors/zerotouch-light.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-dark h-[42px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-[38px] sm:h-[50px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 <img
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-light h-[42px] sm:h-[56px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-[38px] sm:h-[50px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -151,7 +151,20 @@ export function Footer() {
                 <img
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
-                  className="h-[42px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[32px] sm:h-[42px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+              <a
+                href="https://devicie.com/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("devicie", "footer")}
+              >
+                <img
+                  src="/sponsors/devicie.png"
+                  alt="Devicie - Sponsor"
+                  className="h-[44px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
             </div>

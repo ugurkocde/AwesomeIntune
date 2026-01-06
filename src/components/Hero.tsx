@@ -142,7 +142,7 @@ export function Hero() {
             >
               Sponsored by
             </span>
-            <div className="flex items-center gap-4 sm:gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
               <a
                 href="https://eido.io/?utm_source=awesome_intune"
                 target="_blank"
@@ -154,13 +154,13 @@ export function Hero() {
                 <img
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-dark h-auto w-[107px] sm:w-[141px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[120px] sm:w-[160px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
                 <img
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-light h-auto w-[107px] sm:w-[141px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[120px] sm:w-[160px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -174,13 +174,13 @@ export function Hero() {
                 <img
                   src="/sponsors/zerotouch-light.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-dark h-[67px] sm:h-[88px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-[60px] sm:h-[80px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
                 <img
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
-                  className="sponsor-logo-light h-[67px] sm:h-[88px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-[60px] sm:h-[80px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -193,7 +193,20 @@ export function Hero() {
                 <img
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
-                  className="h-[67px] sm:h-[88px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[52px] sm:h-[68px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </a>
+              <a
+                href="https://devicie.com/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("devicie", "hero")}
+              >
+                <img
+                  src="/sponsors/devicie.png"
+                  alt="Devicie - Sponsor"
+                  className="h-[70px] sm:h-[90px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
             </div>
