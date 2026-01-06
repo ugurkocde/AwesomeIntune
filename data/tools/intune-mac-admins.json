@@ -25,5 +25,7 @@
   "category": "other",
   "type": "documentation",
   "dateAdded": "2026-01-06",
-  "screenshots": []
+  "screenshots": [
+    "screenshots/intune-mac-admins/screenshot-1.png"
+  ]
 }
