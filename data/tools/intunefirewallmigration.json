@@ -1,0 +1,34 @@
+{
+  "id": "intunefirewallmigration",
+  "name": "IntuneFirewallMigration",
+  "description": "IntuneFirewallMigration is a public-preview tool that migrates Group Policy and local firewall rules into Intune as Settings Catalog policies. It supports selecting specific firewall profiles (Domain, Private, Public) and importing only inbound or outbound rules, using Microsoft.Graph.Authentication with Invoke-MgGraphRequest. The script disables telemetry, requires Graph permissions (DeviceManagementConfiguration.ReadWrite.All), and works with PowerShell 5 or 7 to modernize firewall management in Intune.",
+  "keywords": [
+    "endpoint-management",
+    "intune",
+    "firewall",
+    "settings-catalog",
+    "group-policy",
+    "migration",
+    "graph-api",
+    "powershell"
+  ],
+  "author": "Nick Benton",
+  "authorPicture": "https://github.com/ennnbeee.png",
+  "githubUrl": "https://github.com/ennnbeee/",
+  "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/ennnbeee/IntuneFirewallMigration",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-06",
+  "authors": [
+    {
+      "name": "Nick Benton",
+      "githubUrl": "https://github.com/ennnbeee/",
+      "picture": "https://github.com/ennnbeee.png",
+      "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
+    }
+  ]
+}
