@@ -1,0 +1,33 @@
+{
+  "id": "mace",
+  "name": "Mace",
+  "description": "M.A.C.E. is a native macOS app that lets security teams build, customize, audit, and deploy macOS compliance baselines using the mSCP 2.0 framework without scripting. It offers a visual, three-panel editor with 500+ rules, real-time audit results, and exportable configuration profiles for MDMs such as Intune and Jamf. The tool prioritizes ease of use, cross-MDM readiness, and reproducible baselines.",
+  "keywords": [
+    "macos",
+    "compliance",
+    "mdm",
+    "baselines",
+    "audit",
+    "profiles",
+    "intune",
+    "jamf"
+  ],
+  "author": "Cody Keats",
+  "authorPicture": "https://github.com/cocopuff2u.png",
+  "githubUrl": "https://github.com/cocopuff2u",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mace-app/mace",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "other",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Cody Keats",
+      "githubUrl": "https://github.com/cocopuff2u",
+      "picture": "https://github.com/cocopuff2u.png"
+    }
+  ]
+}
