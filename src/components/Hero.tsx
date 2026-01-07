@@ -5,12 +5,14 @@ import { useRef } from "react";
 import { CharReveal } from "./TextReveal";
 import { trackSponsorClick } from "~/lib/plausible";
 import { useIsMobile } from "~/hooks/useIsMobile";
+import { useStats, formatNumber } from "~/hooks/useStats";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const { isMobile } = useIsMobile();
+  const { stats } = useStats();
 
   // Disable heavy animations on mobile or when user prefers reduced motion
   // prefersReducedMotion returns true/false/null, so we check explicitly
@@ -129,11 +131,75 @@ export function Hero() {
             </motion.a>
           </motion.div>
 
+          {/* Stats Bar */}
+          {stats && (stats.toolCount > 0 || stats.totalViews > 0) && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex items-center justify-center gap-3 sm:gap-4"
+            >
+              {stats.toolCount > 0 && (
+                <div
+                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+                  style={{
+                    background: "rgba(0, 212, 255, 0.08)",
+                    border: "1px solid rgba(0, 212, 255, 0.15)",
+                  }}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--accent-primary)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  </svg>
+                  <span style={{ color: "var(--accent-primary)" }} className="font-semibold">
+                    {stats.toolCount}+
+                  </span>
+                  <span style={{ color: "var(--text-secondary)" }}>Tools</span>
+                </div>
+              )}
+              {stats.totalViews > 0 && (
+                <div
+                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+                  style={{
+                    background: "rgba(0, 212, 255, 0.08)",
+                    border: "1px solid rgba(0, 212, 255, 0.15)",
+                  }}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--accent-primary)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <span style={{ color: "var(--accent-primary)" }} className="font-semibold">
+                    {formatNumber(stats.totalViews)}
+                  </span>
+                  <span style={{ color: "var(--text-secondary)" }}>Views</span>
+                </div>
+              )}
+            </motion.div>
+          )}
+
           {/* Sponsor Section */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, delay: 2.1, ease: [0.22, 1, 0.36, 1] }}
             className="mt-16 flex flex-col items-center gap-3"
           >
             <span
@@ -218,7 +284,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.0, duration: 1 }}
+          transition={{ delay: 2.3, duration: 1 }}
           className="absolute bottom-8 hidden [@media(min-height:800px)]:block"
         >
           <a
