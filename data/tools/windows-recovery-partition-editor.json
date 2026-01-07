@@ -1,0 +1,34 @@
+{
+  "id": "windows-recovery-partition-editor",
+  "name": "Windows Recovery Partition Editor",
+  "description": "Windows Recovery Partition Editor resizes the local Windows Recovery Partition to 984MB and injects CAB files to enable optional features and language support. It deploys via a PowerShell script, placing architecture-specific CABs under tools\\amd64 or tools\\arm64cpu and matching language packs, with an optional backup of OEM images. Detection uses the registry key HKLM:\\SOFTWARE\\YourCompanyNameHere\\Client-Recovery with value 1.0.0.",
+  "keywords": [
+    "windows",
+    "recovery-partition",
+    "partition-management",
+    "cab-files",
+    "powershell",
+    "deployment-script",
+    "registry-detection",
+    "language-packs"
+  ],
+  "author": "Niklas Rast",
+  "authorPicture": "https://github.com/niklasrst.png",
+  "githubUrl": "https://github.com/niklasrst",
+  "linkedinUrl": "https://www.linkedin.com/in/niklasrast",
+  "xUrl": "",
+  "repoUrl": "https://github.com/niklasrst/windows-recovery-partition",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Niklas Rast",
+      "githubUrl": "https://github.com/niklasrst",
+      "picture": "https://github.com/niklasrst.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
+    }
+  ]
+}
