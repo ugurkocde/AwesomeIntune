@@ -12,6 +12,7 @@ import {
 import { GitHubStats } from "~/components/tools/GitHubStats";
 import { ScreenshotGallery } from "~/components/tools/ScreenshotGallery";
 import { ToolViewCounter } from "~/components/tools/ToolViewCounter";
+import { ToolUpvoteButton } from "~/components/tools/ToolUpvoteButton";
 
 interface ToolPageProps {
   params: Promise<{ id: string }>;
@@ -223,6 +224,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
                 {/* View Counter */}
                 <ToolViewCounter toolId={tool.id} />
+
+                {/* Upvote Button */}
+                <ToolUpvoteButton toolId={tool.id} />
               </div>
 
               {/* Tool Name */}

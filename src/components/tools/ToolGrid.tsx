@@ -8,6 +8,7 @@ import { Pagination } from "./Pagination";
 import Link from "next/link";
 import type { AIExplanations, AIConfidenceScores } from "~/hooks/useToolFilters";
 import type { ViewCounts } from "~/hooks/useViewTracking";
+import type { VoteCounts } from "~/hooks/useVoting";
 
 const TOOLS_PER_PAGE = 9;
 
@@ -17,6 +18,10 @@ interface ToolGridProps {
   aiConfidenceScores?: AIConfidenceScores;
   viewCounts?: ViewCounts;
   onToolVisible?: (toolId: string) => void;
+  voteCounts?: VoteCounts;
+  hasVoted?: (toolId: string) => boolean;
+  isVotePending?: (toolId: string) => boolean;
+  onVote?: (toolId: string) => Promise<boolean>;
 }
 
 export function ToolGrid({
@@ -25,6 +30,10 @@ export function ToolGrid({
   aiConfidenceScores,
   viewCounts,
   onToolVisible,
+  voteCounts,
+  hasVoted,
+  isVotePending,
+  onVote,
 }: ToolGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -144,6 +153,10 @@ export function ToolGrid({
               confidenceScore={aiConfidenceScores?.[tool.id]}
               viewCount={viewCounts?.[tool.id]}
               onVisible={onToolVisible}
+              voteCount={voteCounts?.[tool.id] ?? 0}
+              hasVoted={hasVoted?.(tool.id) ?? false}
+              isVotePending={isVotePending?.(tool.id) ?? false}
+              onVote={onVote}
             />
           ))}
         </motion.div>

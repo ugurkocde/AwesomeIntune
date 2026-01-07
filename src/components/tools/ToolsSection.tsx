@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { useToolFilters } from "~/hooks/useToolFilters";
 import { useViewTracking } from "~/hooks/useViewTracking";
+import { useVoting } from "~/hooks/useVoting";
 import { SearchBar } from "./SearchBar";
 import { SearchExamples } from "./SearchExamples";
 import { FilterBar } from "./FilterBar";
@@ -17,6 +18,7 @@ interface ToolsSectionProps {
 
 export function ToolsSection({ tools }: ToolsSectionProps) {
   const { viewCounts, recordView } = useViewTracking();
+  const { voteCounts, hasVoted, isVotePending, vote } = useVoting();
 
   const {
     query,
@@ -197,6 +199,10 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
                   aiConfidenceScores={aiConfidenceScores}
                   viewCounts={viewCounts}
                   onToolVisible={recordView}
+                  voteCounts={voteCounts}
+                  hasVoted={hasVoted}
+                  isVotePending={isVotePending}
+                  onVote={vote}
                 />
               </motion.div>
             )}

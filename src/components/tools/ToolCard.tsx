@@ -9,6 +9,7 @@ import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
 import { getToolAuthors } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
+import { UpvoteButton } from "./UpvoteButton";
 
 interface ToolCardProps {
   tool: Tool;
@@ -17,6 +18,10 @@ interface ToolCardProps {
   confidenceScore?: number;
   viewCount?: number;
   onVisible?: (toolId: string) => void;
+  voteCount?: number;
+  hasVoted?: boolean;
+  isVotePending?: boolean;
+  onVote?: (toolId: string) => Promise<boolean>;
 }
 
 export const ToolCard = memo(function ToolCard({
@@ -26,6 +31,10 @@ export const ToolCard = memo(function ToolCard({
   confidenceScore,
   viewCount,
   onVisible,
+  voteCount = 0,
+  hasVoted = false,
+  isVotePending = false,
+  onVote,
 }: ToolCardProps) {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -163,28 +172,40 @@ export const ToolCard = memo(function ToolCard({
                 {typeConfig.label}
               </span>
 
-              {/* View Count */}
-              {viewCount !== undefined && viewCount > 0 && (
-                <span
-                  className="inline-flex items-center gap-1.5 text-xs"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+              {/* View Count and Upvote */}
+              <div className="flex items-center gap-2">
+                {viewCount !== undefined && viewCount > 0 && (
+                  <span
+                    className="inline-flex items-center gap-1.5 text-xs"
+                    style={{ color: "var(--text-tertiary)" }}
                   >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                  {formatViewCount(viewCount)}
-                </span>
-              )}
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    {formatViewCount(viewCount)}
+                  </span>
+                )}
+                {onVote && (
+                  <UpvoteButton
+                    toolId={tool.id}
+                    voteCount={voteCount}
+                    hasVoted={hasVoted}
+                    isPending={isVotePending}
+                    onVote={onVote}
+                    variant="compact"
+                  />
+                )}
+              </div>
             </div>
 
             {/* Tool Name */}
