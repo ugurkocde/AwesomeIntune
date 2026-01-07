@@ -1,0 +1,33 @@
+{
+  "id": "wintuner",
+  "name": "Wintuner",
+  "description": "WinTuner is a tool that lets you take any WinGet app and upload it to Intune in minutes. It automates downloading the installer and logo, generates the intunewin package, creates the required deployment script details, and publishes the app to Intune. It also ships a PowerShell module for automation and includes documentation to guide you through the process.",
+  "keywords": [
+    "intune",
+    "winget",
+    "automation",
+    "packaging",
+    "intunewin",
+    "powershell",
+    "deployment",
+    "enterprise"
+  ],
+  "author": "Stephan van Rooij",
+  "authorPicture": "https://github.com/svrooij.png",
+  "githubUrl": "https://github.com/svrooij",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/svrooij/WinTuner",
+  "downloadUrl": "",
+  "websiteUrl": "https://wintuner.app/",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Stephan van Rooij",
+      "githubUrl": "https://github.com/svrooij",
+      "picture": "https://github.com/svrooij.png"
+    }
+  ]
+}
