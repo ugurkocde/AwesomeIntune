@@ -98,6 +98,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "IntuneAssistant",
+      "id": "intuneassistant",
+      "url": "https://intuneassistant.cloud/",
+      "reason": "No images in README"
+    },
+    {
       "name": "IntuneComplianceMaintainer",
       "id": "intunecompliancemaintainer",
       "url": "https://github.com/SkipToTheEndpoint/IntuneComplianceMaintainer",
