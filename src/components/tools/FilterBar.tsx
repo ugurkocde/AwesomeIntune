@@ -8,6 +8,8 @@ import { CATEGORIES, TYPES, CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "alphabetical", label: "A-Z" },
   { value: "popular", label: "Most Popular" },
+  { value: "most-voted", label: "Most Voted" },
+  { value: "newest", label: "Newest" },
 ];
 
 interface FilterBarProps {

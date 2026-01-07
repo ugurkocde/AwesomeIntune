@@ -7,12 +7,14 @@ import { useDebounce } from "./useDebounce";
 import { trackSearch, trackCategoryFilter } from "~/lib/plausible";
 import type { AISearchResult } from "~/app/api/search/route";
 import type { ViewCounts } from "./useViewTracking";
+import type { VoteCounts } from "./useVoting";
 
-export type SortOption = "alphabetical" | "popular";
+export type SortOption = "alphabetical" | "popular" | "newest" | "most-voted";
 
 interface UseToolFiltersOptions {
   tools: Tool[];
   viewCounts?: ViewCounts;
+  voteCounts?: VoteCounts;
   debounceMs?: number;
 }
 
@@ -49,6 +51,7 @@ const AI_SEARCH_THRESHOLD = 15;
 export function useToolFilters({
   tools,
   viewCounts = {},
+  voteCounts = {},
   debounceMs = 300,
 }: UseToolFiltersOptions): UseToolFiltersReturn {
   const [query, setQuery] = useState("");
@@ -185,6 +188,16 @@ export function useToolFilters({
         const viewsB = viewCounts[b.id] ?? 0;
         return viewsB - viewsA;
       });
+    } else if (sortBy === "most-voted") {
+      filtered = [...filtered].sort((a, b) => {
+        const votesA = voteCounts[a.id] ?? 0;
+        const votesB = voteCounts[b.id] ?? 0;
+        return votesB - votesA;
+      });
+    } else if (sortBy === "newest") {
+      filtered = [...filtered].sort((a, b) => {
+        return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+      });
     } else {
       // Alphabetical (default)
       filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
@@ -200,6 +213,7 @@ export function useToolFilters({
     aiToolIds,
     aiConfidenceScores,
     viewCounts,
+    voteCounts,
     sortBy,
   ]);
 

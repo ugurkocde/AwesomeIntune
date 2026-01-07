@@ -233,6 +233,12 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
         const viewsB = viewCounts[b.id] ?? 0;
         return viewsB - viewsA;
       });
+    } else if (sortBy === "most-voted") {
+      filtered = [...filtered].sort((a, b) => {
+        const votesA = voteCounts[a.id] ?? 0;
+        const votesB = voteCounts[b.id] ?? 0;
+        return votesB - votesA;
+      });
     } else if (sortBy === "newest") {
       filtered = [...filtered].sort((a, b) => {
         return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
@@ -243,7 +249,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
 
     return filtered;
-  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, sortBy, viewCounts, effectiveIsAiMode, aiToolIds, aiConfidenceScores]);
+  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, sortBy, viewCounts, voteCounts, effectiveIsAiMode, aiToolIds, aiConfidenceScores]);
 
   // Tools to display (with infinite scroll)
   const displayedTools = useMemo(() => {

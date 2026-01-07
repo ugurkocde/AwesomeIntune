@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { ToolCategory, ToolType } from "~/types/tool";
 import { CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
 
-export type SortOption = "alphabetical" | "popular" | "newest";
+export type SortOption = "alphabetical" | "popular" | "newest" | "most-voted";
 export type ViewMode = "grid" | "list";
 
 interface UseUrlFiltersReturn {
@@ -45,7 +45,7 @@ function isValidType(value: string | null): value is ToolType {
 
 // Validate sort option from URL
 function isValidSort(value: string | null): value is SortOption {
-  return value === "alphabetical" || value === "popular" || value === "newest";
+  return value === "alphabetical" || value === "popular" || value === "newest" || value === "most-voted";
 }
 
 // Validate view mode

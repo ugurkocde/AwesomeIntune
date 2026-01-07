@@ -34,7 +34,7 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
     setCategory,
     setType,
     setSortBy,
-  } = useToolFilters({ tools, viewCounts });
+  } = useToolFilters({ tools, viewCounts, voteCounts });
 
   return (
     <section id="tools" className="relative scroll-mt-24 py-24 md:py-32">
