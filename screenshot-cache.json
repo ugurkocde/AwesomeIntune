@@ -1,11 +1,24 @@
 {
   "blockedWebsites": [
     "https://intunediff.com/",
+    "https://www.kqlsearch.com/",
+    "https://openintunebaseline.com",
     "https://www.osdeploy.com/",
     "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/"
   ],
-  "rejectedImages": [],
+  "rejectedImages": [
+    "https://github.com/user-attachments/assets/aaefdd10-5c9d-4401-a664-f997de5d883f",
+    "https://github.com/gilburns/IntuneLogWatch/wiki/images/app-icon.png",
+    "https://github.com/gilburns/IntuneLogWatch/wiki/images/footer-logo.png",
+    "https://raw.githubusercontent.com/KuShuSec/KuShu-Shimon/main/images/KuShu_Shimon_ISDF_Logo.png"
+  ],
   "manualScreenshotsNeeded": [
+    {
+      "name": "AppLocker Policy Creator",
+      "id": "applocker-policy-creator",
+      "url": "https://app-locker-cloud.vercel.app/",
+      "reason": "No images in README"
+    },
     {
       "name": "Autopilot Branding",
       "id": "autopilot-branding",
@@ -13,9 +26,33 @@
       "reason": "No images in README"
     },
     {
+      "name": "Entra ID Device Trust",
+      "id": "entra-id-device-trust",
+      "url": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Feature Update Controller",
+      "id": "feature-update-controller",
+      "url": "https://github.com/MSEndpointMgr/FeatureUpdateController",
+      "reason": "No images in README"
+    },
+    {
       "name": "Get-AutopilotDiagnosticsCommunity",
       "id": "get-autopilot-diagnostics-community",
       "url": "https://github.com/andrew-s-taylor/public",
+      "reason": "No images in README"
+    },
+    {
+      "name": "InToolz",
+      "id": "intoolz",
+      "url": "https://github.com/Kvikku/IntuneTools",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Intune Admin Center Tools",
+      "id": "intune-admin-center-tools",
+      "url": "https://microsoftedge.microsoft.com/addons/detail/intune-admin-center-tools/iglpbhebeofeaiimjejamnicpfdagnhk",
       "reason": "No images in README"
     },
     {
@@ -43,6 +80,12 @@
       "reason": "Website blocked"
     },
     {
+      "name": "Intune Registry Builder",
+      "id": "intune-registry-builder",
+      "url": "https://headsinthecloud.blog/intuneregistrybuilder/",
+      "reason": "No images in README"
+    },
+    {
       "name": "Intune Remediations",
       "id": "intune-remediations",
       "url": "https://github.com/AntoPorter/Intune-Remediations",
@@ -55,10 +98,52 @@
       "reason": "No images in README"
     },
     {
+      "name": "IntuneComplianceMaintainer",
+      "id": "intunecompliancemaintainer",
+      "url": "https://github.com/SkipToTheEndpoint/IntuneComplianceMaintainer",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneLogWatch",
+      "id": "intunelogwatch",
+      "url": "https://github.com/gilburns/IntuneLogWatch",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Intuneomator",
+      "id": "intuneomator",
+      "url": "https://github.com/gilburns/Intuneomator",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneStatefulDeviceFingerprinting",
+      "id": "intunestatefuldevicefingerprinting",
+      "url": "https://github.com/KuShuSec/KuShu-Shimon",
+      "reason": "No images in README"
+    },
+    {
+      "name": "KQL Search",
+      "id": "kql-search",
+      "url": "https://www.kqlsearch.com/",
+      "reason": "Website blocked"
+    },
+    {
+      "name": "Microsoft Team Rooms Wallpaper package wrapper",
+      "id": "microsoft-team-rooms-wallpaper-package-wrapper",
+      "url": "https://github.com/niklasrst/microsoft-teams-rooms-custom-wallpaper",
+      "reason": "No images in README"
+    },
+    {
       "name": "MISA (macOS Intune Support Assistant)",
       "id": "misa",
       "url": "https://github.com/pathaksomesh06/MISA",
       "reason": "No images in README"
+    },
+    {
+      "name": "OIB Deployer",
+      "id": "oib-deployer",
+      "url": "https://openintunebaseline.com",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "OpenIntuneBaseline",
@@ -71,6 +156,18 @@
       "id": "osd",
       "url": "https://www.osdeploy.com/",
       "reason": "Website blocked"
+    },
+    {
+      "name": "PowerShell ADMX wizard",
+      "id": "powershell-admx-wizard",
+      "url": "https://github.com/niklasrst/windows-admx-wizard",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Windows Recovery Partition Editor",
+      "id": "windows-recovery-partition-editor",
+      "url": "https://github.com/niklasrst/windows-recovery-partition",
+      "reason": "No images in README"
     }
   ]
 }
