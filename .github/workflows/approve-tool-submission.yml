@@ -13,7 +13,7 @@ jobs:
   approve-tool:
     if: |
       github.event.issue.pull_request == null &&
-      github.event.comment.body == '/approve' &&
+      startsWith(github.event.comment.body, '/approve') &&
       github.event.comment.user.login == 'ugurkocde' &&
       contains(github.event.issue.labels.*.name, 'tool-submission')
 
@@ -57,6 +57,16 @@ jobs:
             const commentId = parseInt(process.env.COMMENT_ID);
 
             let toolName = '';
+
+            // Parse /approve command for optional -name override
+            // Supports: /approve -name "Custom Tool Name"
+            const approveComment = context.payload.comment.body;
+            let nameOverride = null;
+            const nameMatch = approveComment.match(/\/approve\s+-name\s+"([^"]+)"/);
+            if (nameMatch) {
+              nameOverride = nameMatch[1].trim();
+              console.log('Name override from /approve command: ' + nameOverride);
+            }
 
             async function updateProgress(step, status, error = null) {
               const steps = {
@@ -284,9 +294,14 @@ jobs:
               }
             }
 
-            // Handle long tool names by using the repo name instead
+            // Determine final tool name: override > submission name (with length fallback)
             let finalToolName = fields.name;
-            if (fields.name.length > MAX_TOOL_NAME_LENGTH && fields.repoUrl) {
+            if (nameOverride) {
+              // Use the name override from /approve -name "..." command
+              console.log('Using name override: ' + nameOverride);
+              finalToolName = nameOverride;
+            } else if (fields.name.length > MAX_TOOL_NAME_LENGTH && fields.repoUrl) {
+              // Handle long tool names by using the repo name instead
               const repoName = extractRepoName(fields.repoUrl);
               if (repoName) {
                 const formattedRepoName = formatRepoNameAsTitle(repoName);
