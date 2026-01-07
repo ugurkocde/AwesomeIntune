@@ -1,0 +1,34 @@
+{
+  "id": "intune-make-enrollment-user-admin",
+  "name": "Intune Make Enrollment User Admin",
+  "description": "This Intune-deployable script elevates the enrollment user to a local administrator on Windows devices. Packaged as an .INTUNEWIN app, it is deployed through Microsoft Intune to targeted users with install and uninstall commands to grant or revoke admin rights after enrollment. It uses a requirements check for detection and can be reconfigured later, providing an Autopilot-like capability fully managed by Intune.",
+  "keywords": [
+    "intune",
+    "endpoint-management",
+    "windows",
+    "local-admin",
+    "enrollment",
+    "powershell",
+    "intunewin",
+    "admin-permissions"
+  ],
+  "author": "Niklas Rast",
+  "authorPicture": "https://github.com/niklasrst.png",
+  "githubUrl": "https://github.com/niklasrst",
+  "linkedinUrl": "https://www.linkedin.com/in/niklasrast",
+  "xUrl": "",
+  "repoUrl": "https://github.com/niklasrst/intune-make-enrollment-user-admin",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Niklas Rast",
+      "githubUrl": "https://github.com/niklasrst",
+      "picture": "https://github.com/niklasrst.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
+    }
+  ]
+}
