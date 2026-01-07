@@ -20,9 +20,10 @@ const DEFAULT_QUERIES = EXAMPLE_QUERIES.slice(0, 4);
 interface SearchExamplesProps {
   isVisible: boolean;
   onExampleClick: (query: string) => void;
+  align?: "center" | "left";
 }
 
-export function SearchExamples({ isVisible, onExampleClick }: SearchExamplesProps) {
+export function SearchExamples({ isVisible, onExampleClick, align = "center" }: SearchExamplesProps) {
   // Start with default queries for SSR, then randomize on client
   const [displayedQueries, setDisplayedQueries] = useState(DEFAULT_QUERIES);
 
@@ -40,7 +41,7 @@ export function SearchExamples({ isVisible, onExampleClick }: SearchExamplesProp
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 flex flex-wrap items-center justify-center gap-2"
+          className={`mt-4 flex flex-wrap items-center gap-2 ${align === "center" ? "justify-center" : "justify-start"}`}
         >
           {/* Label */}
           <motion.span

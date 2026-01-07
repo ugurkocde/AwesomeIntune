@@ -69,6 +69,28 @@ export function Header() {
 
           {/* Navigation */}
           <div className="flex items-center gap-2 md:gap-4">
+            <Link
+              href="/tools"
+              className="btn btn-ghost"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="hidden sm:block"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
+              <span>Browse</span>
+            </Link>
             <a
               href={GITHUB_REPO_URL}
               target="_blank"
