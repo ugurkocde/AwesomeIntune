@@ -97,6 +97,7 @@ export default function RootLayout({
       className={`${outfit.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
+        <meta name="msvalidate.01" content="3E85A4E6616AA104DB060F4E3AC73298" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
