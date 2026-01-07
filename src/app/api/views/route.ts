@@ -1,31 +1,31 @@
 import { NextResponse } from "next/server";
 import { supabase } from "~/lib/supabase";
 
-interface ToolViewSummaryRow {
+interface ToolViewCountRow {
   tool_id: string;
-  total_views: number;
+  view_count: number;
 }
 
 // Cache view counts to reduce database load under high traffic
 let cachedCounts: Record<string, number> | null = null;
 let cacheTimestamp = 0;
-const CACHE_DURATION_MS = 15 * 1000; // 15 seconds cache
+const CACHE_DURATION_MS = 30 * 1000; // 30 seconds cache (can be longer now since reads are fast)
 
-// Function to fetch view counts from the summary view (pre-aggregated by database)
+// Function to fetch view counts from the counter table (pre-aggregated)
 async function fetchViewCounts(): Promise<Record<string, number>> {
   const { data, error } = await supabase
-    .from("tool_views_summary")
-    .select("tool_id, total_views");
+    .from("tool_view_counts")
+    .select("tool_id, view_count");
 
   if (error) {
     console.error("Error fetching view counts:", error);
     throw error;
   }
 
-  // Build counts object from pre-aggregated summary
+  // Build counts object from counter table
   const counts: Record<string, number> = {};
-  for (const row of (data as ToolViewSummaryRow[]) ?? []) {
-    counts[row.tool_id] = row.total_views;
+  for (const row of (data as ToolViewCountRow[]) ?? []) {
+    counts[row.tool_id] = row.view_count;
   }
 
   return counts;
@@ -76,7 +76,7 @@ export async function GET() {
   }
 }
 
-// POST - Record a view for a tool
+// POST - Record a view for a tool using UPSERT on counter table
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as { toolId?: string };
@@ -89,8 +89,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const { error } = await supabase.from("tool_views").insert({
-      tool_id: toolId,
+    // Use raw SQL for atomic increment via UPSERT
+    const { error } = await supabase.rpc("increment_view_count", {
+      p_tool_id: toolId,
     });
 
     if (error) {
