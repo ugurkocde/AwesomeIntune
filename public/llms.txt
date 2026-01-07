@@ -1,0 +1,99 @@
+# Awesome Intune
+
+> A curated directory of 85+ free, community-built tools for Microsoft Intune and endpoint management.
+
+## About
+
+Awesome Intune is the largest collection of free Microsoft Intune tools, PowerShell scripts, and automation resources. All tools are open-source and community-maintained. The directory helps IT professionals and system administrators discover utilities for device management, compliance, reporting, and automation.
+
+Website: https://awesomeintune.com
+GitHub: https://github.com/ugurkocde/awesomeintune
+
+## Categories
+
+### Automation Tools
+Tools for automating Intune tasks, bulk operations, and scheduled workflows.
+- IntuneManagement: Backup and restore Intune configurations
+- Intune App Factory: Automated application packaging pipeline
+- IntuneCD: Configuration as code for Intune
+- Intune Toolkit: Collection of automation scripts
+- AutopilotGroupTagger: Automate Autopilot group assignments
+- Device Offboarding Manager: Automate device removal workflows
+URL: https://awesomeintune.com/tools/category/automation
+
+### Troubleshooting Tools
+Diagnostic utilities for resolving Intune deployment issues.
+- Get-IntuneManagementExtensionDiagnostics: Debug IME issues
+- Intune Debug Toolkit: Device-side troubleshooting
+- Intune dsregcmd Analyzer: Parse device registration data
+- SyncML Viewer: View device sync communication
+URL: https://awesomeintune.com/tools/category/troubleshooting
+
+### Reporting Tools
+Analytics and compliance reporting solutions.
+- Intune Anomalies Report: Detect configuration anomalies
+- Intune Change Tracking: Monitor configuration changes
+- Insight: Advanced Intune reporting
+URL: https://awesomeintune.com/tools/category/reporting
+
+### Security Tools
+Device security and compliance utilities.
+- MDE Validator: Validate Microsoft Defender for Endpoint
+- RuleForge: Security policy management
+- EasyDefenderMacOS: macOS Defender deployment
+URL: https://awesomeintune.com/tools/category/security
+
+### Packaging Tools
+Application packaging for Intune deployment.
+- Intune Win32 App: Create Win32 app packages
+- Intune Prep Tool: Prepare apps for deployment
+- WinTuner: Package management for Intune
+URL: https://awesomeintune.com/tools/category/packaging
+
+### Configuration Tools
+Device settings and policy management.
+- Intune Baselines: Security baseline templates
+- Apple Device Policy Explorer: Browse Apple MDM policies
+- Envoy: Configuration deployment tool
+- IntuneDiff: Compare configurations across tenants
+URL: https://awesomeintune.com/tools/category/configuration
+
+### Monitoring Tools
+Device health and compliance monitoring.
+- Fleetly: Fleet management dashboard
+- Support Companion: End-user support tool
+URL: https://awesomeintune.com/tools/category/monitoring
+
+### Migration Tools
+Tools for MDM migration and tenant transfers.
+- Intune Hydration Kit: Environment setup automation
+URL: https://awesomeintune.com/tools/category/migration
+
+## Popular Tools
+
+1. IntuneManagement - Backup, restore, and document Intune configurations
+2. Get-IntuneManagementExtensionDiagnostics - Comprehensive IME troubleshooting
+3. Intune Debug Toolkit - Device-side debugging and diagnostics
+4. WinTuner - Simplified Win32 app packaging
+5. IntuneCD - GitOps for Intune configuration management
+
+## FAQ
+
+### What is Awesome Intune?
+Awesome Intune is a curated directory of 85+ free, community-built tools for Microsoft Intune and endpoint management. It helps IT professionals discover PowerShell scripts, automation tools, and utilities for managing devices.
+
+### Are all tools free?
+Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub.
+
+### How do I submit a tool?
+Visit the GitHub repository at https://github.com/ugurkocde/awesomeintune and open a pull request or create an issue with your tool details.
+
+### Who maintains Awesome Intune?
+Awesome Intune is a community project maintained by Intune professionals and Microsoft MVPs.
+
+## Links
+
+- Homepage: https://awesomeintune.com
+- All Tools: https://awesomeintune.com/tools
+- GitHub Repository: https://github.com/ugurkocde/awesomeintune
+- Submit a Tool: https://github.com/ugurkocde/awesomeintune/issues/new

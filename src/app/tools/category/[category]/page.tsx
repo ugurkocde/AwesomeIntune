@@ -7,6 +7,7 @@ import { CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import {
   generateCollectionStructuredData,
   generateBreadcrumbStructuredData,
+  generateCategoryFAQStructuredData,
 } from "~/lib/structured-data";
 import { ToolCard } from "~/components/tools/ToolCard";
 
@@ -104,6 +105,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     },
   ]);
 
+  const faqData = generateCategoryFAQStructuredData(category as ToolCategory);
+
   return (
     <>
       <script
@@ -113,6 +116,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
 
       <main className="relative min-h-screen overflow-hidden">

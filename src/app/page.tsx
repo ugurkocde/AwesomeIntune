@@ -4,12 +4,14 @@ import { getAllTools } from "~/lib/tools.server";
 import {
   generateWebsiteStructuredData,
   generateItemListStructuredData,
+  generateHomepageFAQStructuredData,
 } from "~/lib/structured-data";
 
 export default function HomePage() {
   const tools = getAllTools();
   const websiteSchema = generateWebsiteStructuredData();
   const itemListSchema = generateItemListStructuredData(tools);
+  const faqSchema = generateHomepageFAQStructuredData(tools.length);
 
   return (
     <>
@@ -23,6 +25,12 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(itemListSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
         }}
       />
       <Hero />

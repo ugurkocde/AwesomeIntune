@@ -8,6 +8,7 @@ import { TYPE_CONFIG, CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import {
   generateToolStructuredData,
   generateBreadcrumbStructuredData,
+  generateToolFAQStructuredData,
 } from "~/lib/structured-data";
 import { GitHubStats } from "~/components/tools/GitHubStats";
 import { ScreenshotGallery } from "~/components/tools/ScreenshotGallery";
@@ -86,6 +87,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
     },
     { name: tool.name, url: `${SITE_CONFIG.url}/tools/${tool.id}` },
   ]);
+  const faqData = generateToolFAQStructuredData(tool);
 
   return (
     <>
@@ -96,6 +98,10 @@ export default async function ToolPage({ params }: ToolPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
 
       <main className="relative min-h-screen overflow-hidden">
