@@ -19,6 +19,43 @@
   "githubUrl": "https://github.com/ugurkocde",
   "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
   "xUrl": "https://x.com/UgurKocDe",
+  "authors": [
+    {
+      "name": "Ugur Koc",
+      "picture": "https://github.com/ugurkocde.png",
+      "githubUrl": "https://github.com/ugurkocde",
+      "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+      "xUrl": "https://x.com/UgurKocDe"
+    },
+    {
+      "name": "Matthias Choules",
+      "picture": "https://github.com/choules.png",
+      "githubUrl": "https://github.com/choules",
+      "linkedinUrl": "",
+      "xUrl": ""
+    },
+    {
+      "name": "Jordy Witteman",
+      "picture": "https://github.com/jordywitteman.png",
+      "githubUrl": "https://github.com/jordywitteman",
+      "linkedinUrl": "",
+      "xUrl": ""
+    },
+    {
+      "name": "Vigneshwaran",
+      "picture": "https://github.com/app2pack.png",
+      "githubUrl": "https://github.com/app2pack",
+      "linkedinUrl": "",
+      "xUrl": ""
+    },
+    {
+      "name": "Tobias Almen",
+      "picture": "https://github.com/almenscorner.png",
+      "githubUrl": "https://github.com/almenscorner",
+      "linkedinUrl": "",
+      "xUrl": ""
+    }
+  ],
   "repoUrl": "https://github.com/ugurkocde/IntuneMacAdmins",
   "downloadUrl": "",
   "websiteUrl": "https://www.intunemacadmins.com/",
