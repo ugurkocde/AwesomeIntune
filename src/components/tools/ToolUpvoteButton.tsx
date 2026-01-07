@@ -23,7 +23,8 @@ export function ToolUpvoteButton({ toolId }: ToolUpvoteButtonProps) {
       onClick={handleClick}
       disabled={voted || isPending}
       className={`
-        group inline-flex items-center gap-2 rounded-lg px-4 py-2
+        group inline-flex items-center gap-1.5 sm:gap-2 rounded-lg
+        px-3 py-1.5 sm:px-4 sm:py-2
         text-xs font-semibold uppercase tracking-wider
         transition-all duration-200
         ${voted ? "cursor-default" : "cursor-pointer hover:scale-105 active:scale-95"}
@@ -42,8 +43,6 @@ export function ToolUpvoteButton({ toolId }: ToolUpvoteButtonProps) {
     >
       {/* Upvote Arrow */}
       <svg
-        width="14"
-        height="14"
         viewBox="0 0 24 24"
         fill={voted ? "currentColor" : "none"}
         stroke="currentColor"
@@ -51,6 +50,7 @@ export function ToolUpvoteButton({ toolId }: ToolUpvoteButtonProps) {
         strokeLinecap="round"
         strokeLinejoin="round"
         className={`
+          h-3 w-3 sm:h-3.5 sm:w-3.5
           transition-transform duration-200
           ${!voted && !isPending ? "group-hover:-translate-y-0.5" : ""}
         `}

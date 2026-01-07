@@ -37,7 +37,8 @@ export const UpvoteButton = memo(function UpvoteButton({
       className={`
         group/vote inline-flex items-center justify-center gap-1
         rounded-lg font-medium transition-all duration-200
-        ${isCompact ? "px-2 py-1 text-xs" : "px-3 py-2 text-sm"}
+        min-h-[32px] min-w-[32px]
+        ${isCompact ? "px-2 py-1.5 text-xs" : "px-3 py-2 text-sm"}
         ${
           hasVoted
             ? "cursor-default"
