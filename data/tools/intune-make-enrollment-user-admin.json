@@ -30,5 +30,10 @@
       "picture": "https://github.com/niklasrst.png",
       "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
     }
+  ],
+  "screenshots": [
+    "screenshots/intune-make-enrollment-user-admin/screenshot-1.png",
+    "screenshots/intune-make-enrollment-user-admin/screenshot-2.png",
+    "screenshots/intune-make-enrollment-user-admin/screenshot-3.png"
   ]
 }
