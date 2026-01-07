@@ -127,6 +127,21 @@ jobs:
               try { new URL(str); return true; } catch { return false; }
             }
 
+            function extractRepoName(repoUrl) {
+              const match = repoUrl.match(/github\.com\/[^/]+\/([^/]+)/);
+              if (!match) return null;
+              return match[1].replace(/\.git$/, '');
+            }
+
+            function formatRepoNameAsTitle(repoName) {
+              // Convert kebab-case or snake_case to Title Case
+              return repoName
+                .replace(/[-_]/g, ' ')
+                .replace(/\b\w/g, c => c.toUpperCase());
+            }
+
+            const MAX_TOOL_NAME_LENGTH = 50;
+
             async function fetchReadme(repoUrl) {
               const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
               if (!match) return null;
@@ -269,8 +284,21 @@ jobs:
               }
             }
 
-            toolName = fields.name;
-            const toolId = toKebabCase(fields.name);
+            // Handle long tool names by using the repo name instead
+            let finalToolName = fields.name;
+            if (fields.name.length > MAX_TOOL_NAME_LENGTH && fields.repoUrl) {
+              const repoName = extractRepoName(fields.repoUrl);
+              if (repoName) {
+                const formattedRepoName = formatRepoNameAsTitle(repoName);
+                if (formattedRepoName.length <= MAX_TOOL_NAME_LENGTH) {
+                  console.log('Tool name too long (' + fields.name.length + ' chars). Using repo name: ' + formattedRepoName);
+                  finalToolName = formattedRepoName;
+                }
+              }
+            }
+
+            toolName = finalToolName;
+            const toolId = toKebabCase(finalToolName);
             const toolPath = path.join('data', 'tools', toolId + '.json');
 
             if (fs.existsSync(toolPath)) {
@@ -296,7 +324,7 @@ jobs:
             const today = new Date().toISOString().split('T')[0];
             const toolJson = {
               id: toolId,
-              name: fields.name,
+              name: finalToolName,
               description: enhancedDescription,
               keywords: keywords,
               author: fields.author,
