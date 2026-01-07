@@ -1,0 +1,34 @@
+{
+  "id": "intoolz",
+  "name": "InToolz",
+  "description": "InToolz is a management tool for Microsoft Intune designed to simplify cross-tenant migrations and bulk configuration tasks. It enables tenant-to-tenant copy of Intune content, bulk assignment deployment and removal between groups, profiles, and applications, and mass updates to description fields. Note that the project is a work in progress, with several features planned for future releases.",
+  "keywords": [
+    "intune",
+    "endpoint-management",
+    "tenant-migration",
+    "bulk-operations",
+    "group-management",
+    "profile-management",
+    "application-management",
+    "automation"
+  ],
+  "author": "Jørgen Sundet",
+  "authorPicture": "https://github.com/Kvikku.png",
+  "githubUrl": "https://github.com/Kvikku",
+  "linkedinUrl": "https://www.linkedin.com/in/jorgensundet/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Kvikku/IntuneTools",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Jørgen Sundet",
+      "githubUrl": "https://github.com/Kvikku",
+      "picture": "https://github.com/Kvikku.png",
+      "linkedinUrl": "https://www.linkedin.com/in/jorgensundet/"
+    }
+  ]
+}
