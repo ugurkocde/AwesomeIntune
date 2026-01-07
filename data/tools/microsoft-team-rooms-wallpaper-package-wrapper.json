@@ -1,0 +1,34 @@
+{
+  "id": "microsoft-team-rooms-wallpaper-package-wrapper",
+  "name": "Microsoft Team Rooms Wallpaper package wrapper",
+  "description": "A Microsoft Intune wrapper that enables deploying a custom wallpaper to Microsoft Teams Rooms devices via a PowerShell installer. It packages a wallpaper into an .INTUNEWIN package, supports install and uninstall commands, and uses registry-based detection to verify the deployed version. It also generates logs under the Intune Management Extension folder for troubleshooting, with a configurable company name for branding.",
+  "keywords": [
+    "intune",
+    "teams-rooms",
+    "wallpaper",
+    "powershell",
+    "registry-detection",
+    "software-deployment",
+    "customization",
+    "windows"
+  ],
+  "author": "Niklas Rast",
+  "authorPicture": "https://github.com/niklasrst.png",
+  "githubUrl": "https://github.com/niklasrst",
+  "linkedinUrl": "https://www.linkedin.com/in/niklasrast",
+  "xUrl": "",
+  "repoUrl": "https://github.com/niklasrst/microsoft-teams-rooms-custom-wallpaper",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Niklas Rast",
+      "githubUrl": "https://github.com/niklasrst",
+      "picture": "https://github.com/niklasrst.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
+    }
+  ]
+}
