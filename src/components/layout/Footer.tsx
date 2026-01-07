@@ -91,6 +91,13 @@ export function Footer() {
               >
                 Submit a Tool
               </Link>
+              <Link
+                href="/developers"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Developer API
+              </Link>
               <a
                 href={`${GITHUB_REPO_URL}/issues`}
                 target="_blank"
