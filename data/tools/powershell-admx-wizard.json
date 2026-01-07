@@ -1,0 +1,34 @@
+{
+  "id": "powershell-admx-wizard",
+  "name": "PowerShell ADMX wizard",
+  "description": "PowerShell ADMX Wizard creates custom ADMX/ADML templates from a CSV of registry keys, enabling Windows policies via Intune. It generates GUID-based templates, adds registry entries (STRING, DWORD, BINARY), and logs progress. After creation, upload the ADM/ADML to Intune as Imported ADMX to apply through a configuration profile.",
+  "keywords": [
+    "intune",
+    "admin-templates",
+    "admx",
+    "adml",
+    "powershell",
+    "registry",
+    "config-profiles",
+    "custom-policy"
+  ],
+  "author": "Niklas Rast",
+  "authorPicture": "https://github.com/niklasrst.png",
+  "githubUrl": "https://github.com/niklasrst",
+  "linkedinUrl": "https://www.linkedin.com/in/niklasrast",
+  "xUrl": "",
+  "repoUrl": "https://github.com/niklasrst/windows-admx-wizard",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Niklas Rast",
+      "githubUrl": "https://github.com/niklasrst",
+      "picture": "https://github.com/niklasrst.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
+    }
+  ]
+}
