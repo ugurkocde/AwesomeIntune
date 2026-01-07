@@ -1,0 +1,25 @@
+{
+  "id": "intune-registry-builder",
+  "name": "Intune Registry Builder",
+  "description": "Intune Registry Builder is a browser-based tool to create, validate, and export Intune-ready PowerShell scripts for Windows registry changes. It supports Proactive Remediations and Win32 apps, allows direct deployment to Intune, and processes everything locally in the browser. No data or credentials are stored or sent to any server.",
+  "keywords": [],
+  "author": "Daniel Fraubaum",
+  "authorPicture": "https://github.com/daniel-fraubaum.png",
+  "githubUrl": "https://github.com/daniel-fraubaum/",
+  "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/",
+  "xUrl": "",
+  "repoUrl": "https://headsinthecloud.blog/intuneregistrybuilder/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Daniel Fraubaum",
+      "githubUrl": "https://github.com/daniel-fraubaum/",
+      "picture": "https://github.com/daniel-fraubaum.png",
+      "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/"
+    }
+  ]
+}
