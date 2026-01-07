@@ -1,0 +1,24 @@
+{
+  "id": "intuneassistant",
+  "name": "IntuneAssistant",
+  "description": "IntuneAssistant gives you clear insights in the current Intune assignments over every resource. If it is a configuration policy, compliance policy, application or anything else, all resources are shown. You can search based on a user, a group or all resource assignments. Even if their not assigned.",
+  "keywords": [],
+  "author": "Sander Rozemuller",
+  "authorPicture": "https://github.com/srozemuller.png",
+  "githubUrl": "https://github.com/srozemuller/IntuneAssistant",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://intuneassistant.cloud/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "web-app",
+  "dateAdded": "2026-01-07",
+  "authors": [
+    {
+      "name": "Sander Rozemuller",
+      "githubUrl": "https://github.com/srozemuller/IntuneAssistant",
+      "picture": "https://github.com/srozemuller.png"
+    }
+  ]
+}
