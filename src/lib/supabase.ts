@@ -27,3 +27,16 @@ export interface ToolView {
   tool_id: string;
   viewed_at: string;
 }
+
+export interface ApiKey {
+  id: string;
+  key: string;
+  name: string;
+  email: string;
+  created_at: string;
+  last_used_at: string | null;
+  requests_today: number;
+  requests_total: number;
+  rate_limit: number;
+  is_active: boolean;
+}
