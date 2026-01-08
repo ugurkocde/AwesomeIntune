@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import type { Tool, ToolCategory, ToolType } from "~/types/tool";
+import type { Tool, ToolCategory, ToolType, WorksWithTag } from "~/types/tool";
 import { filterTools } from "~/lib/tools";
 import { useDebounce } from "./useDebounce";
 import { trackSearch, trackCategoryFilter } from "~/lib/plausible";
@@ -26,6 +26,7 @@ interface UseToolFiltersReturn {
   query: string;
   selectedCategory: ToolCategory | null;
   selectedType: ToolType | null;
+  selectedWorksWith: WorksWithTag[];
   sortBy: SortOption;
 
   // Derived
@@ -42,6 +43,8 @@ interface UseToolFiltersReturn {
   setQuery: (query: string) => void;
   setCategory: (category: ToolCategory | null) => void;
   setType: (type: ToolType | null) => void;
+  setWorksWith: (tags: WorksWithTag[]) => void;
+  toggleWorksWith: (tag: WorksWithTag) => void;
   setSortBy: (sortBy: SortOption) => void;
   clearFilters: () => void;
 }
@@ -59,6 +62,7 @@ export function useToolFilters({
     null
   );
   const [selectedType, setSelectedType] = useState<ToolType | null>(null);
+  const [selectedWorksWith, setSelectedWorksWith] = useState<WorksWithTag[]>([]);
   const [sortBy, setSortByState] = useState<SortOption>("alphabetical");
 
   // AI Search state
@@ -154,12 +158,17 @@ export function useToolFilters({
     if (isAiMode && aiToolIds !== null) {
       let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
 
-      // Apply category/type filters on top of AI results
+      // Apply category/type/worksWith filters on top of AI results
       if (selectedCategory) {
         aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
       }
       if (selectedType) {
         aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
+      }
+      if (selectedWorksWith.length > 0) {
+        aiFiltered = aiFiltered.filter((t) =>
+          t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+        );
       }
 
       // Sort by AI confidence, using popularity as tiebreaker
@@ -180,6 +189,13 @@ export function useToolFilters({
       category: selectedCategory,
       type: selectedType,
     });
+
+    // Apply worksWith filter
+    if (selectedWorksWith.length > 0) {
+      filtered = filtered.filter((t) =>
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+      );
+    }
 
     // Apply sorting
     if (sortBy === "popular") {
@@ -209,6 +225,7 @@ export function useToolFilters({
     debouncedQuery,
     selectedCategory,
     selectedType,
+    selectedWorksWith,
     isAiMode,
     aiToolIds,
     aiConfidenceScores,
@@ -230,6 +247,16 @@ export function useToolFilters({
     setSelectedType(type);
   }, []);
 
+  const setWorksWith = useCallback((tags: WorksWithTag[]) => {
+    setSelectedWorksWith(tags);
+  }, []);
+
+  const toggleWorksWith = useCallback((tag: WorksWithTag) => {
+    setSelectedWorksWith((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  }, []);
+
   const setSortBy = useCallback((sort: SortOption) => {
     setSortByState(sort);
   }, []);
@@ -238,6 +265,7 @@ export function useToolFilters({
     setQuery("");
     setSelectedCategory(null);
     setSelectedType(null);
+    setSelectedWorksWith([]);
     setAiExplanations({});
     setAiConfidenceScores({});
     setAiToolIds(null);
@@ -247,6 +275,7 @@ export function useToolFilters({
     query,
     selectedCategory,
     selectedType,
+    selectedWorksWith,
     sortBy,
     filteredTools,
     isFiltering,
@@ -257,6 +286,8 @@ export function useToolFilters({
     setQuery,
     setCategory,
     setType,
+    setWorksWith,
+    toggleWorksWith,
     setSortBy,
     clearFilters,
   };

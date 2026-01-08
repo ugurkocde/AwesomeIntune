@@ -7,10 +7,11 @@ import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
-import { getToolAuthors } from "~/lib/tools";
+import { getToolAuthors, generateAuthorSlug } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
 import { SecurityBadge } from "./SecurityBadge";
+import { WorksWithTags } from "./WorksWithTags";
 
 interface ToolCardProps {
   tool: Tool;
@@ -226,6 +227,13 @@ export const ToolCard = memo(function ToolCard({
               {tool.description}
             </p>
 
+            {/* Works With Tags */}
+            {tool.worksWith && tool.worksWith.length > 0 && (
+              <div className="mt-3">
+                <WorksWithTags tags={tool.worksWith} variant="compact" maxDisplay={3} />
+              </div>
+            )}
+
             {/* AI Explanation */}
             {aiExplanation && (
               <div
@@ -336,27 +344,65 @@ export const ToolCard = memo(function ToolCard({
                     )}
                   </div>
                   <div>
-                    {authors.length === 1 && authors[0]?.githubUrl ? (
-                      <a
-                        href={authors[0].githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {authors.length === 1 ? (
+                      <Link
+                        href={`/authors/${generateAuthorSlug(authors[0]?.name ?? "")}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="text-sm font-medium transition-colors hover:text-[var(--accent-primary)]"
+                        className="inline-flex items-center gap-1 text-sm font-medium transition-colors hover:underline"
+                        style={{ color: "var(--accent-primary)" }}
+                      >
+                        {authors[0]?.name}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="opacity-60"
+                        >
+                          <path d="M7 17l9.2-9.2M17 17V7H7" />
+                        </svg>
+                      </Link>
+                    ) : authors.length === 2 ? (
+                      <span
+                        className="text-sm font-medium"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        {authors[0].name}
-                      </a>
+                        <Link
+                          href={`/authors/${generateAuthorSlug(authors[0]?.name ?? "")}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="transition-colors hover:underline"
+                          style={{ color: "var(--accent-primary)" }}
+                        >
+                          {authors[0]?.name}
+                        </Link>
+                        {" & "}
+                        <Link
+                          href={`/authors/${generateAuthorSlug(authors[1]?.name ?? "")}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="transition-colors hover:underline"
+                          style={{ color: "var(--accent-primary)" }}
+                        >
+                          {authors[1]?.name}
+                        </Link>
+                      </span>
                     ) : (
                       <span
                         className="text-sm font-medium"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        {authors.length === 1
-                          ? authors[0]?.name
-                          : authors.length === 2
-                            ? `${authors[0]?.name} & ${authors[1]?.name}`
-                            : `${authors[0]?.name} & ${authors.length - 1} others`}
+                        <Link
+                          href={`/authors/${generateAuthorSlug(authors[0]?.name ?? "")}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="transition-colors hover:underline"
+                          style={{ color: "var(--accent-primary)" }}
+                        >
+                          {authors[0]?.name}
+                        </Link>
+                        {` & ${authors.length - 1} others`}
                       </span>
                     )}
                     <div

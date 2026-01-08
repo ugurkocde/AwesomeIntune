@@ -20,6 +20,22 @@ export type ToolType =
   | "documentation"
   | "other";
 
+export type WorksWithTag =
+  | "graph-api"
+  | "autopilot"
+  | "win32-apps"
+  | "configuration-profiles"
+  | "remediation-scripts"
+  | "admx"
+  | "macos"
+  | "ios"
+  | "android"
+  | "windows"
+  | "linux"
+  | "compliance-policies"
+  | "conditional-access"
+  | "defender";
+
 export interface Author {
   name: string;
   picture?: string;
@@ -80,6 +96,7 @@ export interface Tool {
   screenshots?: string[];
   securityCheck?: SecurityCheck;
   repoStats?: RepoStats;
+  worksWith?: WorksWithTag[];
 }
 
 export interface ToolsData {

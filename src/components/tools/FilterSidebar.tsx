@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { ToolCategory, ToolType, Tool } from "~/types/tool";
-import { CATEGORIES, TYPES } from "~/lib/constants";
+import type { ToolCategory, ToolType, Tool, WorksWithTag } from "~/types/tool";
+import { CATEGORIES, TYPES, WORKS_WITH_TAGS } from "~/lib/constants";
 import type { SortOption } from "~/hooks/useUrlFilters";
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
@@ -17,9 +17,11 @@ interface FilterSidebarProps {
   tools: Tool[];
   selectedCategory: ToolCategory | null;
   selectedType: ToolType | null;
+  selectedWorksWith: WorksWithTag[];
   sortBy: SortOption;
   onCategoryChange: (category: ToolCategory | null) => void;
   onTypeChange: (type: ToolType | null) => void;
+  onWorksWithToggle: (tag: WorksWithTag) => void;
   onSortChange: (sort: SortOption) => void;
   onClearAll: () => void;
   hasActiveFilters: boolean;
@@ -29,9 +31,11 @@ export function FilterSidebar({
   tools,
   selectedCategory,
   selectedType,
+  selectedWorksWith,
   sortBy,
   onCategoryChange,
   onTypeChange,
+  onWorksWithToggle,
   onSortChange,
   onClearAll,
   hasActiveFilters,
@@ -39,6 +43,7 @@ export function FilterSidebar({
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
     types: true,
+    worksWith: false,
   });
 
   // Calculate tool counts per category and type
@@ -56,6 +61,16 @@ export function FilterSidebar({
       return acc;
     },
     {} as Record<ToolType, number>
+  );
+
+  const worksWithCounts = tools.reduce(
+    (acc, tool) => {
+      tool.worksWith?.forEach((tag) => {
+        acc[tag] = (acc[tag] ?? 0) + 1;
+      });
+      return acc;
+    },
+    {} as Record<WorksWithTag, number>
   );
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -202,6 +217,37 @@ export function FilterSidebar({
                   isSelected={isSelected}
                   color={type.color}
                   onClick={() => onTypeChange(isSelected ? null : type.value)}
+                />
+              );
+            })}
+          </div>
+        </FilterSection>
+
+        {/* Divider */}
+        <div
+          className="my-5 h-px"
+          style={{ background: "rgba(255, 255, 255, 0.06)" }}
+        />
+
+        {/* Works With Section */}
+        <FilterSection
+          title="Works With"
+          isExpanded={expandedSections.worksWith}
+          onToggle={() => toggleSection("worksWith")}
+        >
+          <div className="space-y-1">
+            {WORKS_WITH_TAGS.map((tag) => {
+              const count = worksWithCounts[tag.value] ?? 0;
+              if (count === 0) return null;
+              const isSelected = selectedWorksWith.includes(tag.value);
+              return (
+                <FilterCheckbox
+                  key={tag.value}
+                  label={tag.label}
+                  count={count}
+                  isSelected={isSelected}
+                  color={tag.color}
+                  onClick={() => onWorksWithToggle(tag.value)}
                 />
               );
             })}
@@ -441,6 +487,7 @@ function FilterSidebarContent(props: FilterSidebarProps) {
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
     types: true,
+    worksWith: false,
   });
 
   const categoryCounts = props.tools.reduce(
@@ -457,6 +504,16 @@ function FilterSidebarContent(props: FilterSidebarProps) {
       return acc;
     },
     {} as Record<ToolType, number>
+  );
+
+  const worksWithCounts = props.tools.reduce(
+    (acc, tool) => {
+      tool.worksWith?.forEach((tag) => {
+        acc[tag] = (acc[tag] ?? 0) + 1;
+      });
+      return acc;
+    },
+    {} as Record<WorksWithTag, number>
   );
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -585,6 +642,33 @@ function FilterSidebarContent(props: FilterSidebarProps) {
                 onClick={() =>
                   props.onTypeChange(isSelected ? null : type.value)
                 }
+              />
+            );
+          })}
+        </div>
+      </FilterSection>
+
+      <div className="my-5 h-px" style={{ background: "rgba(255, 255, 255, 0.06)" }} />
+
+      {/* Works With */}
+      <FilterSection
+        title="Works With"
+        isExpanded={expandedSections.worksWith}
+        onToggle={() => toggleSection("worksWith")}
+      >
+        <div className="space-y-1">
+          {WORKS_WITH_TAGS.map((tag) => {
+            const count = worksWithCounts[tag.value] ?? 0;
+            if (count === 0) return null;
+            const isSelected = props.selectedWorksWith.includes(tag.value);
+            return (
+              <FilterCheckbox
+                key={tag.value}
+                label={tag.label}
+                count={count}
+                isSelected={isSelected}
+                color={tag.color}
+                onClick={() => props.onWorksWithToggle(tag.value)}
               />
             );
           })}

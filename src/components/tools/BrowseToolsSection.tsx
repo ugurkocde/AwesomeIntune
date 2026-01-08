@@ -40,11 +40,13 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const {
     selectedCategory,
     selectedType,
+    selectedWorksWith,
     sortBy,
     viewMode,
     searchQuery,
     setCategory,
     setType,
+    toggleWorksWith,
     setSortBy,
     setViewMode,
     setSearchQuery,
@@ -200,12 +202,17 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     if (effectiveIsAiMode && aiToolIds !== null) {
       let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
 
-      // Apply category/type filters on top of AI results
+      // Apply category/type/worksWith filters on top of AI results
       if (selectedCategory) {
         aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
       }
       if (selectedType) {
         aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
+      }
+      if (selectedWorksWith.length > 0) {
+        aiFiltered = aiFiltered.filter((t) =>
+          t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+        );
       }
 
       // Sort by AI confidence, using popularity as tiebreaker
@@ -225,6 +232,13 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
       category: selectedCategory,
       type: selectedType,
     });
+
+    // Apply worksWith filter
+    if (selectedWorksWith.length > 0) {
+      filtered = filtered.filter((t) =>
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+      );
+    }
 
     // Sort
     if (sortBy === "popular") {
@@ -249,7 +263,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
 
     return filtered;
-  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, sortBy, viewCounts, voteCounts, effectiveIsAiMode, aiToolIds, aiConfidenceScores]);
+  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, selectedWorksWith, sortBy, viewCounts, voteCounts, effectiveIsAiMode, aiToolIds, aiConfidenceScores]);
 
   // Tools to display (with infinite scroll)
   const displayedTools = useMemo(() => {
@@ -285,9 +299,11 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     tools,
     selectedCategory,
     selectedType,
+    selectedWorksWith,
     sortBy,
     onCategoryChange: setCategory,
     onTypeChange: setType,
+    onWorksWithToggle: toggleWorksWith,
     onSortChange: setSortBy,
     onClearAll: handleClearAll,
     hasActiveFilters,

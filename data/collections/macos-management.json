@@ -1,0 +1,16 @@
+{
+  "id": "macos-management",
+  "title": "macOS Management with Intune",
+  "description": "Essential tools for managing macOS devices with Microsoft Intune. From app deployment with IntuneBrew to policy configuration and security management, these tools help you extend Intune's native macOS capabilities.",
+  "slug": "macos-management",
+  "tools": [
+    "intunebrew",
+    "intune-mac-admins",
+    "apple-device-policy-explorer",
+    "mace",
+    "support-companion",
+    "easydefendermacos",
+    "microsoft-mac-apps-tracker"
+  ],
+  "dateCreated": "2026-01-08"
+}

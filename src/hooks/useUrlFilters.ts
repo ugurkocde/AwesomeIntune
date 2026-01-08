@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import type { ToolCategory, ToolType } from "~/types/tool";
-import { CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
+import type { ToolCategory, ToolType, WorksWithTag } from "~/types/tool";
+import { CATEGORY_CONFIG, TYPE_CONFIG, WORKS_WITH_CONFIG } from "~/lib/constants";
 
 export type SortOption = "alphabetical" | "popular" | "newest" | "most-voted";
 export type ViewMode = "grid" | "list";
@@ -12,6 +12,7 @@ interface UseUrlFiltersReturn {
   // State from URL
   selectedCategory: ToolCategory | null;
   selectedType: ToolType | null;
+  selectedWorksWith: WorksWithTag[];
   sortBy: SortOption;
   viewMode: ViewMode;
   searchQuery: string;
@@ -19,6 +20,8 @@ interface UseUrlFiltersReturn {
   // Actions
   setCategory: (category: ToolCategory | null) => void;
   setType: (type: ToolType | null) => void;
+  setWorksWith: (tags: WorksWithTag[]) => void;
+  toggleWorksWith: (tag: WorksWithTag) => void;
   setSortBy: (sort: SortOption) => void;
   setViewMode: (mode: ViewMode) => void;
   setSearchQuery: (query: string) => void;
@@ -53,6 +56,14 @@ function isValidViewMode(value: string | null): value is ViewMode {
   return value === "grid" || value === "list";
 }
 
+// Validate and parse worksWith from URL (comma-separated)
+function parseWorksWith(value: string | null): WorksWithTag[] {
+  if (!value) return [];
+  return value
+    .split(",")
+    .filter((tag): tag is WorksWithTag => tag in WORKS_WITH_CONFIG);
+}
+
 export function useUrlFilters(): UseUrlFiltersReturn {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -61,12 +72,14 @@ export function useUrlFilters(): UseUrlFiltersReturn {
   // Read initial state from URL params
   const categoryParam = searchParams.get("category");
   const typeParam = searchParams.get("type");
+  const worksWithParam = searchParams.get("worksWith");
   const sortParam = searchParams.get("sort");
   const queryParam = searchParams.get("q");
 
   // Parse URL values with validation
   const selectedCategory = isValidCategory(categoryParam) ? categoryParam : null;
   const selectedType = isValidType(typeParam) ? typeParam : null;
+  const selectedWorksWith = parseWorksWith(worksWithParam);
   const sortBy: SortOption = isValidSort(sortParam) ? sortParam : "alphabetical";
   const searchQuery = queryParam ?? "";
 
@@ -121,6 +134,23 @@ export function useUrlFilters(): UseUrlFiltersReturn {
     [updateParams]
   );
 
+  const setWorksWith = useCallback(
+    (tags: WorksWithTag[]) => {
+      updateParams({ worksWith: tags.length > 0 ? tags.join(",") : null });
+    },
+    [updateParams]
+  );
+
+  const toggleWorksWith = useCallback(
+    (tag: WorksWithTag) => {
+      const newTags = selectedWorksWith.includes(tag)
+        ? selectedWorksWith.filter((t) => t !== tag)
+        : [...selectedWorksWith, tag];
+      updateParams({ worksWith: newTags.length > 0 ? newTags.join(",") : null });
+    },
+    [updateParams, selectedWorksWith]
+  );
+
   const setSortBy = useCallback(
     (sort: SortOption) => {
       // Don't include alphabetical in URL since it's the default
@@ -154,26 +184,31 @@ export function useUrlFilters(): UseUrlFiltersReturn {
     return (
       selectedCategory !== null ||
       selectedType !== null ||
+      selectedWorksWith.length > 0 ||
       searchQuery.length > 0
     );
-  }, [selectedCategory, selectedType, searchQuery]);
+  }, [selectedCategory, selectedType, selectedWorksWith, searchQuery]);
 
   const activeFilterCount = useMemo(() => {
     let count = 0;
     if (selectedCategory) count++;
     if (selectedType) count++;
+    count += selectedWorksWith.length;
     if (searchQuery) count++;
     return count;
-  }, [selectedCategory, selectedType, searchQuery]);
+  }, [selectedCategory, selectedType, selectedWorksWith, searchQuery]);
 
   return {
     selectedCategory,
     selectedType,
+    selectedWorksWith,
     sortBy,
     viewMode: isViewModeLoaded ? viewMode : "grid",
     searchQuery,
     setCategory,
     setType,
+    setWorksWith,
+    toggleWorksWith,
     setSortBy,
     setViewMode,
     setSearchQuery,

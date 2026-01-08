@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { getToolById, getAllToolIds } from "~/lib/tools.server";
-import { getToolAuthors } from "~/lib/tools";
+import { getToolById, getAllToolIds, getRelatedTools } from "~/lib/tools.server";
+import { getToolAuthors, generateAuthorSlug } from "~/lib/tools";
 import { TYPE_CONFIG, CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import {
   generateToolStructuredData,
@@ -15,6 +15,9 @@ import { ScreenshotGallery } from "~/components/tools/ScreenshotGallery";
 import { ToolViewCounter } from "~/components/tools/ToolViewCounter";
 import { ToolUpvoteButton } from "~/components/tools/ToolUpvoteButton";
 import { SecurityBadge, SecurityChecklist } from "~/components/tools/SecurityBadge";
+import { WorksWithTags } from "~/components/tools/WorksWithTags";
+import { RelatedTools } from "~/components/tools/RelatedTools";
+import { PopularityBadge } from "~/components/tools/PopularityBadge";
 
 interface ToolPageProps {
   params: Promise<{ id: string }>;
@@ -76,6 +79,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   }
 
   const screenshots = tool.screenshots ?? [];
+  const relatedTools = getRelatedTools(tool, 4);
 
   const typeConfig = TYPE_CONFIG[tool.type];
   const categoryConfig = CATEGORY_CONFIG[tool.category];
@@ -229,6 +233,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   {categoryConfig.label}
                 </Link>
 
+                {/* Popularity Badge */}
+                <PopularityBadge toolId={tool.id} category={tool.category} />
+
                 {/* View Counter */}
                 <ToolViewCounter toolId={tool.id} />
 
@@ -251,6 +258,19 @@ export default async function ToolPage({ params }: ToolPageProps) {
               >
                 {tool.description}
               </p>
+
+              {/* Works With Tags */}
+              {tool.worksWith && tool.worksWith.length > 0 && (
+                <div className="mt-6">
+                  <span
+                    className="mb-3 block text-sm uppercase tracking-wider"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    Works with
+                  </span>
+                  <WorksWithTags tags={tool.worksWith} variant="full" />
+                </div>
+              )}
 
               {/* Authors Section */}
               {(() => {
@@ -303,12 +323,26 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
                           {/* Author Name and Social Links */}
                           <div className="flex flex-col gap-2">
-                            <span
-                              className="text-lg font-semibold"
-                              style={{ color: "var(--text-primary)" }}
+                            <Link
+                              href={`/authors/${generateAuthorSlug(author.name)}`}
+                              className="inline-flex items-center gap-2 text-lg font-semibold transition-colors hover:underline"
+                              style={{ color: "var(--accent-primary)" }}
                             >
                               {author.name}
-                            </span>
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="opacity-60"
+                              >
+                                <path d="M7 17l9.2-9.2M17 17V7H7" />
+                              </svg>
+                            </Link>
                             {/* Social Links */}
                             {[author.githubUrl, author.linkedinUrl, author.xUrl].some(Boolean) && (
                               <div className="flex items-center gap-2">
@@ -496,6 +530,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   toolName={tool.name}
                   accentColor={typeConfig.color}
                 />
+              )}
+
+              {/* Related Tools */}
+              {relatedTools.length > 0 && (
+                <RelatedTools tools={relatedTools} currentToolId={tool.id} />
               )}
             </div>
           </article>

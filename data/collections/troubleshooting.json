@@ -1,0 +1,16 @@
+{
+  "id": "troubleshooting",
+  "title": "Troubleshooting and Diagnostics",
+  "description": "Diagnostic and troubleshooting tools for when things go wrong. These tools help you analyze logs, debug enrollment issues, investigate Autopilot problems, and understand what's happening on your managed devices.",
+  "slug": "troubleshooting",
+  "tools": [
+    "intune-debug",
+    "intune-debug-toolkit",
+    "get-intune-management-extension-diagnostics",
+    "get-autopilot-diagnostics-community",
+    "intune-dsregcmd-analyzer",
+    "intune-log-collector",
+    "intunelogwatch"
+  ],
+  "dateCreated": "2026-01-08"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "app-packaging",
+  "title": "Win32 App Packaging and Deployment",
+  "description": "Tools for packaging, preparing, and deploying Win32 applications through Intune. Streamline your app deployment workflow with these community tools for creating intunewin packages and managing app catalogs.",
+  "slug": "app-packaging",
+  "tools": [
+    "intune-app-factory",
+    "intune-win32-app",
+    "intune-prep-tool",
+    "wintuner",
+    "intune-uploader",
+    "app-pruner",
+    "company-portal-icons"
+  ],
+  "dateCreated": "2026-01-08"
+}

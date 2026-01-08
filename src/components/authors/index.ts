@@ -1,0 +1,1 @@
+export { AuthorPageClient } from "./AuthorPageClient";

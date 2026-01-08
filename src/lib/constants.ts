@@ -1,4 +1,4 @@
-import type { ToolCategory, ToolType } from "~/types/tool";
+import type { ToolCategory, ToolType, WorksWithTag } from "~/types/tool";
 
 export const CATEGORY_CONFIG: Record<
   ToolCategory,
@@ -50,5 +50,46 @@ export const SITE_CONFIG = {
   description:
     "The community-curated collection of Microsoft Intune tools and resources",
   url: "https://awesomeintune.com",
+};
+
+export const WORKS_WITH_CONFIG: Record<
+  WorksWithTag,
+  { label: string; color: string }
+> = {
+  "graph-api": { label: "Graph API", color: "#0078d4" },
+  autopilot: { label: "Autopilot", color: "#00bcf2" },
+  "win32-apps": { label: "Win32 Apps", color: "#7c3aed" },
+  "configuration-profiles": { label: "Config Profiles", color: "#10b981" },
+  "remediation-scripts": { label: "Remediation Scripts", color: "#f59e0b" },
+  admx: { label: "ADMX", color: "#6366f1" },
+  macos: { label: "macOS", color: "#a3a3a3" },
+  ios: { label: "iOS", color: "#0ea5e9" },
+  android: { label: "Android", color: "#22c55e" },
+  windows: { label: "Windows", color: "#0078d4" },
+  linux: { label: "Linux", color: "#fbbf24" },
+  "compliance-policies": { label: "Compliance", color: "#8b5cf6" },
+  "conditional-access": { label: "Conditional Access", color: "#ec4899" },
+  defender: { label: "Defender", color: "#ef4444" },
+};
+
+export const WORKS_WITH_TAGS = Object.entries(WORKS_WITH_CONFIG).map(
+  ([value, config]) => ({
+    value: value as WorksWithTag,
+    label: config.label,
+    color: config.color,
+  })
+);
+
+// Collection icons and accent colors
+export const COLLECTION_ICONS: Record<
+  string,
+  { icon: "book-open" | "rocket" | "settings" | "apple" | "package" | "bug" | "layers"; color: string }
+> = {
+  "getting-started": { icon: "book-open", color: "#00d4ff" },
+  "autopilot-toolkit": { icon: "rocket", color: "#7c3aed" },
+  "device-management": { icon: "settings", color: "#10b981" },
+  "macos-management": { icon: "apple", color: "#a3a3a3" },
+  "app-packaging": { icon: "package", color: "#f59e0b" },
+  troubleshooting: { icon: "bug", color: "#ef4444" },
 };
 

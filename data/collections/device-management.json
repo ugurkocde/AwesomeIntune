@@ -1,0 +1,14 @@
+{
+  "id": "device-management",
+  "title": "Device Management Essentials",
+  "description": "Tools to help manage devices across your organization, from deployment to offboarding. Perfect for IT professionals looking to streamline device lifecycle management.",
+  "slug": "device-management",
+  "tools": [
+    "device-offboarding-manager",
+    "deployment-editor",
+    "app-pruner",
+    "intune-toolkit",
+    "entra-id-device-trust"
+  ],
+  "dateCreated": "2026-01-08"
+}

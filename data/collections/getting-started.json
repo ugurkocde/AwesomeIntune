@@ -1,0 +1,14 @@
+{
+  "id": "getting-started",
+  "title": "Getting Started with Intune",
+  "description": "Essential tools for IT admins new to Microsoft Intune. These community-built tools will help you set up, configure, and manage your Intune environment effectively.",
+  "slug": "getting-started",
+  "tools": [
+    "intune-toolkit",
+    "intune-debug",
+    "get-intune-management-extension-diagnostics",
+    "get-autopilot-diagnostics-community",
+    "intune-policy-replicator"
+  ],
+  "dateCreated": "2026-01-08"
+}

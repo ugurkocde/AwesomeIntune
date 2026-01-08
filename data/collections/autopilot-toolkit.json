@@ -1,0 +1,15 @@
+{
+  "id": "autopilot-toolkit",
+  "title": "Windows Autopilot Toolkit",
+  "description": "A comprehensive collection of tools for Windows Autopilot deployment, management, and troubleshooting. Streamline your device provisioning workflow with these community tools.",
+  "slug": "autopilot-toolkit",
+  "tools": [
+    "autopilot-branding",
+    "autopilot-management",
+    "autopilot-import-gui",
+    "autopilotgrouptagger",
+    "autopilot-app-registration-enrollment",
+    "get-autopilot-diagnostics-community"
+  ],
+  "dateCreated": "2026-01-08"
+}

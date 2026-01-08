@@ -1,9 +1,16 @@
 import fs from "fs";
 import path from "path";
-import type { Tool } from "~/types/tool";
-import { getToolAuthors } from "./tools";
+import type { Tool, Author } from "~/types/tool";
+import type { Collection } from "~/types/collection";
+import { getToolAuthors, generateAuthorSlug } from "./tools";
+
+export interface AuthorWithTools extends Author {
+  slug: string;
+  tools: Tool[];
+}
 
 const TOOLS_DIRECTORY = path.join(process.cwd(), "data", "tools");
+const COLLECTIONS_DIRECTORY = path.join(process.cwd(), "data", "collections");
 
 /**
  * Read all tool JSON files from the data/tools directory
@@ -80,4 +87,151 @@ export function getAllCategories(): string[] {
   const categories = new Set<string>();
   tools.forEach((tool) => categories.add(tool.category));
   return Array.from(categories);
+}
+
+/**
+ * Get related tools based on category, type, keywords, and worksWith tags
+ */
+export function getRelatedTools(tool: Tool, limit = 4): Tool[] {
+  const tools = getAllTools().filter((t) => t.id !== tool.id);
+
+  const scored = tools.map((t) => {
+    let score = 0;
+
+    // Same category: high weight
+    if (t.category === tool.category) score += 10;
+
+    // Same type: medium weight
+    if (t.type === tool.type) score += 5;
+
+    // Shared keywords: low weight
+    const toolKeywords = new Set(
+      tool.keywords?.map((k) => k.toLowerCase()) ?? []
+    );
+    const sharedKeywords =
+      t.keywords?.filter((k) => toolKeywords.has(k.toLowerCase())).length ?? 0;
+    score += sharedKeywords * 2;
+
+    // Shared worksWith tags: medium weight
+    const toolWorksWith = new Set(tool.worksWith ?? []);
+    const sharedWorksWith =
+      t.worksWith?.filter((w) => toolWorksWith.has(w)).length ?? 0;
+    score += sharedWorksWith * 3;
+
+    return { tool: t, score };
+  });
+
+  return scored
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((s) => s.tool);
+}
+
+// Re-export generateAuthorSlug for convenience
+export { generateAuthorSlug };
+
+/**
+ * Get all unique authors with their tools
+ */
+export function getAllAuthors(): AuthorWithTools[] {
+  const tools = getAllTools();
+  const authorMap = new Map<string, AuthorWithTools>();
+
+  tools.forEach((tool) => {
+    const toolAuthors = getToolAuthors(tool);
+    toolAuthors.forEach((author) => {
+      const slug = generateAuthorSlug(author.name);
+      const existing = authorMap.get(slug);
+
+      if (existing) {
+        existing.tools.push(tool);
+      } else {
+        authorMap.set(slug, {
+          ...author,
+          slug,
+          tools: [tool],
+        });
+      }
+    });
+  });
+
+  return Array.from(authorMap.values()).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+}
+
+/**
+ * Get author by slug
+ */
+export function getAuthorBySlug(slug: string): AuthorWithTools | undefined {
+  const authors = getAllAuthors();
+  return authors.find((a) => a.slug === slug);
+}
+
+/**
+ * Get all author slugs for static generation
+ */
+export function getAllAuthorSlugs(): string[] {
+  return getAllAuthors().map((a) => a.slug);
+}
+
+// ============================================
+// Collection Functions
+// ============================================
+
+/**
+ * Read all collection JSON files from the data/collections directory
+ */
+export function getAllCollections(): Collection[] {
+  if (!fs.existsSync(COLLECTIONS_DIRECTORY)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(COLLECTIONS_DIRECTORY);
+  const collections: Collection[] = [];
+
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+
+    const filePath = path.join(COLLECTIONS_DIRECTORY, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+
+    try {
+      const collection = JSON.parse(content) as Collection;
+      collections.push(collection);
+    } catch (error) {
+      console.error(`Error parsing collection ${file}:`, error);
+    }
+  }
+
+  // Sort by title alphabetically
+  return collections.sort((a, b) => a.title.localeCompare(b.title));
+}
+
+/**
+ * Get a collection by its slug
+ */
+export function getCollectionBySlug(slug: string): Collection | undefined {
+  const collections = getAllCollections();
+  return collections.find((c) => c.slug === slug);
+}
+
+/**
+ * Get all collection slugs for static generation
+ */
+export function getAllCollectionSlugs(): string[] {
+  return getAllCollections().map((c) => c.slug);
+}
+
+/**
+ * Get tools for a collection
+ */
+export function getCollectionTools(collection: Collection): Tool[] {
+  const allTools = getAllTools();
+  const toolsById = new Map(allTools.map((t) => [t.id, t]));
+
+  return collection.tools
+    .map((id) => toolsById.get(id))
+    .filter((t): t is Tool => t !== undefined);
 }

@@ -116,3 +116,16 @@ export function getToolStats(tools: Tool[]): {
     types: getUniqueTypes(tools).length,
   };
 }
+
+/**
+ * Generate slug from author name
+ * Used for linking to author profile pages
+ */
+export function generateAuthorSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}

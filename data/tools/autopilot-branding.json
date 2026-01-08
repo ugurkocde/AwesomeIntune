@@ -23,6 +23,7 @@
   "downloadUrl": "https://github.com/mtniehaus/AutopilotBranding/releases",
   "category": "configuration",
   "type": "powershell-script",
+  "worksWith": ["autopilot", "windows", "win32-apps"],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
