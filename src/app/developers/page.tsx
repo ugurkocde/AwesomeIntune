@@ -175,9 +175,9 @@ export default function DevelopersPage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-12">
+          <div className="grid gap-6 lg:grid-cols-12 overflow-hidden">
             {/* Left Column - Registration & Info */}
-            <motion.div variants={itemVariants} className="lg:col-span-4 space-y-4">
+            <motion.div variants={itemVariants} className="lg:col-span-4 space-y-4 min-w-0">
               {/* Registration Form */}
               <div
                 className="rounded-2xl p-5"
@@ -370,9 +370,9 @@ export default function DevelopersPage() {
                     { path: "/categories", desc: "List categories" },
                     { path: "/stats", desc: "Get stats" },
                   ].map((ep) => (
-                    <div key={ep.path} className="flex items-center gap-2">
+                    <div key={ep.path} className="flex items-center gap-2 min-w-0">
                       <span
-                        className="px-1.5 py-0.5 rounded text-[10px] font-bold"
+                        className="px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0"
                         style={{
                           background: "rgba(0, 212, 255, 0.15)",
                           color: "var(--accent-primary)",
@@ -380,8 +380,8 @@ export default function DevelopersPage() {
                       >
                         GET
                       </span>
-                      <code className="text-xs" style={{ color: "var(--text-primary)" }}>{ep.path}</code>
-                      <span className="text-xs ml-auto" style={{ color: "var(--text-tertiary)" }}>{ep.desc}</span>
+                      <code className="text-xs shrink-0" style={{ color: "var(--text-primary)" }}>{ep.path}</code>
+                      <span className="text-xs ml-auto hidden sm:inline" style={{ color: "var(--text-tertiary)" }}>{ep.desc}</span>
                     </div>
                   ))}
                 </div>
@@ -389,7 +389,7 @@ export default function DevelopersPage() {
             </motion.div>
 
             {/* Right Column - Tabbed Documentation */}
-            <motion.div variants={itemVariants} className="lg:col-span-8">
+            <motion.div variants={itemVariants} className="lg:col-span-8 min-w-0">
               <div
                 className="rounded-2xl overflow-hidden"
                 style={{
@@ -426,7 +426,7 @@ export default function DevelopersPage() {
                 </div>
 
                 {/* Tab Content */}
-                <div className="p-4 sm:p-5">
+                <div className="p-4 sm:p-5 overflow-hidden">
                   <AnimatePresence mode="wait">
                     {activeTab === "quickstart" && (
                       <motion.div
@@ -435,7 +435,7 @@ export default function DevelopersPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-5"
+                        className="space-y-5 min-w-0"
                       >
                         {/* Authentication */}
                         <div>
@@ -513,11 +513,11 @@ export default function DevelopersPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-5"
+                        className="space-y-5 min-w-0"
                       >
                         {/* Code Examples in 2 columns on desktop */}
                         <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                          <div>
+                          <div className="min-w-0">
                             <div className="flex items-center gap-2 mb-2">
                               <div className="w-2 h-2 rounded-full" style={{ background: "#f97316" }} />
                               <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>cURL</span>
@@ -529,7 +529,7 @@ export default function DevelopersPage() {
                               </code>
                             </pre>
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <div className="flex items-center gap-2 mb-2">
                               <div className="w-2 h-2 rounded-full" style={{ background: "#eab308" }} />
                               <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>JavaScript</span>
@@ -545,7 +545,7 @@ const { data } = await res.json();`}
                           </div>
                         </div>
 
-                        <div>
+                        <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-2">
                             <div className="w-2 h-2 rounded-full" style={{ background: "#3b82f6" }} />
                             <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Python</span>
@@ -561,12 +561,12 @@ data = response.json()`}
                         </div>
 
                         {/* Response Examples */}
-                        <div>
+                        <div className="min-w-0">
                           <h3 className="text-sm font-medium mb-3" style={{ color: "var(--text-primary)" }}>
                             Response Examples
                           </h3>
                           <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                            <div>
+                            <div className="min-w-0">
                               <div className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>GET /tools</div>
                               <pre style={{ ...codeBlockStyle, fontSize: "11px" }}>
                                 <code style={{ color: "var(--text-primary)" }}>
@@ -583,7 +583,7 @@ data = response.json()`}
                                 </code>
                               </pre>
                             </div>
-                            <div>
+                            <div className="min-w-0">
                               <div className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>GET /stats</div>
                               <pre style={{ ...codeBlockStyle, fontSize: "11px" }}>
                                 <code style={{ color: "var(--text-primary)" }}>
@@ -612,7 +612,7 @@ data = response.json()`}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-5"
+                        className="space-y-5 min-w-0"
                       >
                         {/* Valid Values */}
                         <div>
