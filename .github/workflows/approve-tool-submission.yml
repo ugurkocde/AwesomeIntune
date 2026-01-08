@@ -161,11 +161,11 @@ jobs:
 
               try {
                 const res = await fetch(
-                  `https://api.github.com/repos/${owner}/${repo}`,
+                  'https://api.github.com/repos/' + owner + '/' + repo,
                   {
                     headers: {
                       'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
-                      'Authorization': `token ${process.env.GITHUB_TOKEN || ''}`
+                      'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
                     }
                   }
                 );
@@ -215,11 +215,11 @@ jobs:
                 for (const branch of ['main', 'master', 'develop']) {
                   try {
                     const treeRes = await fetch(
-                      `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`,
+                      'https://api.github.com/repos/' + owner + '/' + repo + '/git/trees/' + branch + '?recursive=1',
                       {
                         headers: {
                           'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
-                          'Authorization': `token ${process.env.GITHUB_TOKEN || ''}`
+                          'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
                         }
                       }
                     );
@@ -241,7 +241,7 @@ jobs:
                     for (const file of scannableFiles) {
                       try {
                         const contentRes = await fetch(
-                          `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`,
+                          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + branch + '/' + file.path,
                           { headers: { 'User-Agent': 'AwesomeIntune-SecurityScanner/1.0' } }
                         );
                         if (contentRes.ok) {
@@ -345,7 +345,7 @@ jobs:
                     results.noObfuscatedCode.passed = false;
                     results.noObfuscatedCode.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noObfuscatedCode.reason) {
-                      results.noObfuscatedCode.reason = `${p.desc} in ${file.path}`;
+                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -355,7 +355,7 @@ jobs:
                     results.noRemoteExecution.passed = false;
                     results.noRemoteExecution.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noRemoteExecution.reason) {
-                      results.noRemoteExecution.reason = `${p.desc} in ${file.path}`;
+                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -365,7 +365,7 @@ jobs:
                     results.noCredentialTheft.passed = false;
                     results.noCredentialTheft.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noCredentialTheft.reason) {
-                      results.noCredentialTheft.reason = `${p.desc} in ${file.path}`;
+                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -375,7 +375,7 @@ jobs:
                     results.noDataExfiltration.passed = false;
                     results.noDataExfiltration.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noDataExfiltration.reason) {
-                      results.noDataExfiltration.reason = `${p.desc} in ${file.path}`;
+                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -385,7 +385,7 @@ jobs:
                     results.noMaliciousPatterns.passed = false;
                     results.noMaliciousPatterns.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noMaliciousPatterns.reason) {
-                      results.noMaliciousPatterns.reason = `${p.desc} in ${file.path}`;
+                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -395,7 +395,7 @@ jobs:
                     results.noHardcodedSecrets.passed = false;
                     results.noHardcodedSecrets.details.push({ file: file.path, pattern: p.desc });
                     if (!results.noHardcodedSecrets.reason) {
-                      results.noHardcodedSecrets.reason = `${p.desc} in ${file.path}`;
+                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path;
                     }
                   }
                 }
@@ -419,34 +419,23 @@ jobs:
 
               for (const file of files) {
                 if (totalSize + file.content.length > maxContextSize) break;
-                codeContext += `\n--- ${file.path} ---\n${file.content}\n`;
+                codeContext += '\n--- ' + file.path + ' ---\n' + file.content + '\n';
                 totalSize += file.content.length;
               }
 
-              const prompt = `You are a security analyst reviewing code for a Microsoft Intune tool called "${toolName}".
-
-Analyze the following code for security issues. Focus on:
-1. Obfuscated code (base64 encoded commands, character code obfuscation, string building to hide intent)
-2. Remote code execution (downloading and executing scripts from URLs)
-3. Credential theft (harvesting tokens, passwords, certificates, using mimikatz patterns)
-4. Data exfiltration (sending sensitive data like $env vars to external webhooks/servers)
-5. Malicious patterns (reverse shells, persistence mechanisms, disabling security software)
-6. Hardcoded secrets (API keys, tokens, passwords embedded in code)
-
-Be strict about malicious patterns but don't flag legitimate admin tools. Microsoft Graph API usage, Intune management, and proper authentication flows are expected.
-
-Code to analyze:
-${codeContext}
-
-Respond with JSON only:
-{
-  "findings": [
-    {"type": "obfuscation|remote_exec|cred_theft|exfiltration|malicious|secrets", "severity": "high|medium|low", "file": "filename", "description": "what was found"}
-  ],
-  "summary": "brief overall assessment (1-2 sentences)"
-}
-
-If no issues found, return: {"findings": [], "summary": "No security issues detected. Code appears safe for an Intune management tool."}`;
+              const prompt = 'You are a security analyst reviewing code for a Microsoft Intune tool called "' + toolName + '".\n\n' +
+                'Analyze the following code for security issues. Focus on:\n' +
+                '1. Obfuscated code (base64 encoded commands, character code obfuscation, string building to hide intent)\n' +
+                '2. Remote code execution (downloading and executing scripts from URLs)\n' +
+                '3. Credential theft (harvesting tokens, passwords, certificates, using mimikatz patterns)\n' +
+                '4. Data exfiltration (sending sensitive data like $env vars to external webhooks/servers)\n' +
+                '5. Malicious patterns (reverse shells, persistence mechanisms, disabling security software)\n' +
+                '6. Hardcoded secrets (API keys, tokens, passwords embedded in code)\n\n' +
+                'Be strict about malicious patterns but do not flag legitimate admin tools. Microsoft Graph API usage, Intune management, and proper authentication flows are expected.\n\n' +
+                'Code to analyze:\n' + codeContext + '\n\n' +
+                'Respond with JSON only:\n' +
+                '{"findings": [{"type": "obfuscation|remote_exec|cred_theft|exfiltration|malicious|secrets", "severity": "high|medium|low", "file": "filename", "description": "what was found"}], "summary": "brief overall assessment"}\n\n' +
+                'If no issues found, return: {"findings": [], "summary": "No security issues detected. Code appears safe for an Intune management tool."}';
 
               // Try models in order of preference
               const models = ['gpt-4o-mini', 'gpt-4o', 'gpt-3.5-turbo'];
@@ -463,10 +452,10 @@ If no issues found, return: {"findings": [], "summary": "No security issues dete
                     temperature: 0.1 // Low temperature for consistent analysis
                   });
 
-                  console.log(`AI security check completed using model: ${model}`);
+                  console.log('AI security check completed using model: ' + model);
                   return JSON.parse(response.choices[0]?.message?.content || '{}');
                 } catch (e) {
-                  console.log(`AI security check failed with ${model}: ${e.message}`);
+                  console.log('AI security check failed with ' + model + ': ' + e.message);
                   continue;
                 }
               }
@@ -480,12 +469,12 @@ If no issues found, return: {"findings": [], "summary": "No security issues dete
               // Fetch repository metadata
               const repoMeta = await fetchRepoMetadata(repoUrl);
               if (repoMeta) {
-                console.log(`Repository: ${repoMeta.stars} stars, license: ${repoMeta.license || 'none'}, archived: ${repoMeta.archived}`);
+                console.log('Repository: ' + repoMeta.stars + ' stars, license: ' + (repoMeta.license || 'none') + ', archived: ' + repoMeta.archived);
               }
 
               // Fetch files from repo
               const { files, branch } = await fetchRepoFiles(repoUrl);
-              console.log(`Fetched ${files.length} files from branch '${branch}' for scanning`);
+              console.log('Fetched ' + files.length + ' files from branch ' + branch + ' for scanning');
 
               if (files.length === 0) {
                 // No scannable files found - pass by default but note it
@@ -767,7 +756,7 @@ If no issues found, return: {"findings": [], "summary": "No security issues dete
             await updateProgress('security', 'working');
 
             securityResults = await performSecurityScan(fields.repoUrl, finalToolName);
-            console.log(`Security scan complete: ${securityResults.passed}/${securityResults.total} checks passed`);
+            console.log('Security scan complete: ' + securityResults.passed + '/' + securityResults.total + ' checks passed');
 
             // Check if security scan failed and --force was not used
             if (securityResults.passed < securityResults.total && !forceApprove) {
