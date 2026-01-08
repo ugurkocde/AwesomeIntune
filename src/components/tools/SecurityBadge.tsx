@@ -17,11 +17,42 @@ export function SecurityBadge({
     return null;
   }
 
-  const { passed, total, forceApproved } = securityCheck;
+  const { passed, total, forceApproved, filesScanned } = securityCheck;
   const isPerfect = passed === total;
   const percentage = Math.round((passed / total) * 100);
+  const noFilesScanned = filesScanned === 0;
 
   if (variant === "compact") {
+    // If no files were scanned, show "Not Scanned" badge
+    if (noFilesScanned) {
+      return (
+        <div
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
+          style={{
+            background: "linear-gradient(135deg, rgba(107, 114, 128, 0.15), rgba(107, 114, 128, 0.08))",
+            color: "#9ca3af",
+            border: "1px solid rgba(107, 114, 128, 0.25)",
+          }}
+          title={showTooltip ? "No scannable code files found in repository" : undefined}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+          </svg>
+          <span>Not Scanned</span>
+        </div>
+      );
+    }
+
     // Only show badge for perfect scores or warnings
     // For perfect scores: "Verified" badge
     // For partial: Warning indicator
@@ -120,6 +151,93 @@ export function SecurityBadge({
   }
 
   // Full variant for detail page - Premium Security Report Card
+
+  // Handle "not scanned" state for full variant
+  if (noFilesScanned) {
+    return (
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          background: "linear-gradient(135deg, rgba(17, 25, 34, 0.98), rgba(17, 25, 34, 0.95))",
+          border: "1px solid rgba(255, 255, 255, 0.06)",
+          boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.4)",
+        }}
+      >
+        <div
+          className="absolute left-0 right-0 top-0 h-px"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.4), transparent)",
+          }}
+        />
+        <div className="p-6">
+          <div className="flex items-center gap-5">
+            <div className="relative flex-shrink-0">
+              <svg width="72" height="72" viewBox="0 0 72 72" className="transform -rotate-90">
+                <circle
+                  cx="36"
+                  cy="36"
+                  r="30"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.06)"
+                  strokeWidth="6"
+                />
+                <circle
+                  cx="36"
+                  cy="36"
+                  r="30"
+                  fill="none"
+                  stroke="#6b7280"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeDasharray="30 188.5"
+                  style={{ opacity: 0.5 }}
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6b7280"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6b7280"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <line x1="12" y1="8" x2="12" y2="16" />
+                </svg>
+                <span className="text-base font-semibold" style={{ color: "#9ca3af" }}>
+                  Unable to Scan
+                </span>
+              </div>
+              <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
+                No scannable code files found. This repository may contain only binaries, documentation, or unsupported file types.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const statusColor = isPerfect ? "#10b981" : "#f59e0b";
   const statusLabel = isPerfect ? "All Checks Passed" : `${total - passed} Issue${total - passed > 1 ? "s" : ""} Found`;
 

@@ -233,7 +233,7 @@ jobs:
                       .filter(f => f.type === 'blob')
                       .filter(f => scanExtensions.some(ext => f.path.toLowerCase().endsWith(ext)))
                       .filter(f => !skipDirs.some(dir => f.path.includes(dir)))
-                      .filter(f => (f.size || 0) < 100000) // Skip files over 100KB
+                      .filter(f => (f.size || 0) < 500000) // Skip files over 500KB
                       .sort((a, b) => (a.size || 0) - (b.size || 0))
                       .slice(0, maxFiles);
 

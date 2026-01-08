@@ -481,9 +481,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
                     </h2>
                   </div>
                   <SecurityBadge securityCheck={tool.securityCheck} variant="full" />
-                  <div className="mt-6">
-                    <SecurityChecklist securityCheck={tool.securityCheck} />
-                  </div>
+                  {tool.securityCheck.filesScanned > 0 && (
+                    <div className="mt-6">
+                      <SecurityChecklist securityCheck={tool.securityCheck} />
+                    </div>
+                  )}
                 </div>
               )}
 
