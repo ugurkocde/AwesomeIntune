@@ -437,30 +437,22 @@ jobs:
                 '{"findings": [{"type": "obfuscation|remote_exec|cred_theft|exfiltration|malicious|secrets", "severity": "high|medium|low", "file": "filename", "description": "what was found"}], "summary": "brief overall assessment"}\n\n' +
                 'If no issues found, return: {"findings": [], "summary": "No security issues detected. Code appears safe for an Intune management tool."}';
 
-              // Try models in order of preference
-              const models = ['gpt-4o-mini', 'gpt-4o', 'gpt-3.5-turbo'];
+              try {
+                const response = await openai.chat.completions.create({
+                  model: 'gpt-5-nano',
+                  response_format: { type: 'json_object' },
+                  messages: [
+                    { role: 'system', content: 'You are a security code reviewer specializing in PowerShell and endpoint management tools. Respond only with valid JSON. Be thorough but avoid false positives on legitimate admin tools.' },
+                    { role: 'user', content: prompt }
+                  ]
+                });
 
-              for (const model of models) {
-                try {
-                  const response = await openai.chat.completions.create({
-                    model: model,
-                    response_format: { type: 'json_object' },
-                    messages: [
-                      { role: 'system', content: 'You are a security code reviewer specializing in PowerShell and endpoint management tools. Respond only with valid JSON. Be thorough but avoid false positives on legitimate admin tools.' },
-                      { role: 'user', content: prompt }
-                    ],
-                    temperature: 0.1 // Low temperature for consistent analysis
-                  });
-
-                  console.log('AI security check completed using model: ' + model);
-                  return JSON.parse(response.choices[0]?.message?.content || '{}');
-                } catch (e) {
-                  console.log('AI security check failed with ' + model + ': ' + e.message);
-                  continue;
-                }
+                console.log('AI security check completed');
+                return JSON.parse(response.choices[0]?.message?.content || '{}');
+              } catch (e) {
+                console.log('AI security check failed: ' + e.message);
+                return null;
               }
-
-              return null;
             }
 
             async function performSecurityScan(repoUrl, toolNameForScan) {
