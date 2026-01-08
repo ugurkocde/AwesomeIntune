@@ -34,6 +34,7 @@ jobs:
         run: npm install openai
 
       - name: Run security backfill
+        id: backfill
         uses: actions/github-script@v7
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -486,7 +487,7 @@ jobs:
             core.setOutput('updated', updated.toString());
 
       - name: Commit and push changes
-        if: steps.run.outputs.updated != '0'
+        if: steps.backfill.outputs.updated != '0'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
