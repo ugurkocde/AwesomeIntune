@@ -14,6 +14,7 @@ import { GitHubStats } from "~/components/tools/GitHubStats";
 import { ScreenshotGallery } from "~/components/tools/ScreenshotGallery";
 import { ToolViewCounter } from "~/components/tools/ToolViewCounter";
 import { ToolUpvoteButton } from "~/components/tools/ToolUpvoteButton";
+import { SecurityBadge, SecurityChecklist } from "~/components/tools/SecurityBadge";
 
 interface ToolPageProps {
   params: Promise<{ id: string }>;
@@ -451,6 +452,39 @@ export default async function ToolPage({ params }: ToolPageProps) {
                   repoUrl={tool.repoUrl}
                   accentColor={typeConfig.color}
                 />
+              )}
+
+              {/* Security Check Section */}
+              {tool.securityCheck && (
+                <div
+                  className="mt-10 border-t pt-8"
+                  style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
+                >
+                  <div className="mb-6 flex items-center gap-3">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--text-secondary)"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    <h2
+                      className="text-lg font-semibold"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      Security Analysis
+                    </h2>
+                  </div>
+                  <SecurityBadge securityCheck={tool.securityCheck} variant="full" />
+                  <div className="mt-6">
+                    <SecurityChecklist securityCheck={tool.securityCheck} />
+                  </div>
+                </div>
               )}
 
               {/* Screenshots Gallery */}

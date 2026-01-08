@@ -10,6 +10,7 @@ import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
 import { getToolAuthors } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
+import { SecurityBadge } from "./SecurityBadge";
 
 interface ToolCardProps {
   tool: Tool;
@@ -172,8 +173,9 @@ export const ToolCard = memo(function ToolCard({
                 {typeConfig.label}
               </span>
 
-              {/* View Count and Upvote */}
+              {/* Security Badge, View Count and Upvote */}
               <div className="flex items-center gap-2">
+                <SecurityBadge securityCheck={tool.securityCheck} variant="compact" />
                 {viewCount !== undefined && viewCount > 0 && (
                   <span
                     className="inline-flex items-center gap-1.5 text-xs"

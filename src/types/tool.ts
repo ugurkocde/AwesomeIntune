@@ -28,6 +28,33 @@ export interface Author {
   xUrl?: string;
 }
 
+export interface SecurityChecks {
+  noObfuscatedCode: boolean;
+  noRemoteExecution: boolean;
+  noCredentialTheft: boolean;
+  noDataExfiltration: boolean;
+  noMaliciousPatterns: boolean;
+  noHardcodedSecrets: boolean;
+}
+
+export interface SecurityCheck {
+  passed: number;
+  total: number;
+  filesScanned: number;
+  lastChecked: string;
+  forceApproved: boolean;
+  aiSummary?: string | null;
+  checks: SecurityChecks;
+}
+
+export interface RepoStats {
+  stars: number;
+  forks: number;
+  license: string | null;
+  lastUpdated: string | null;
+  archived: boolean;
+}
+
 export interface Tool {
   id: string;
   name: string;
@@ -46,6 +73,8 @@ export interface Tool {
   type: ToolType;
   dateAdded: string;
   screenshots?: string[];
+  securityCheck?: SecurityCheck;
+  repoStats?: RepoStats;
 }
 
 export interface ToolsData {

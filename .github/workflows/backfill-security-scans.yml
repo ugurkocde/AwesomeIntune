@@ -1,0 +1,495 @@
+name: Backfill Security Scans
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_rescan:
+        description: 'Force rescan all tools (ignore lastChecked date)'
+        required: false
+        default: 'false'
+        type: boolean
+      max_tools:
+        description: 'Maximum tools to scan (0 = all)'
+        required: false
+        default: '0'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install OpenAI SDK
+        run: npm install openai
+
+      - name: Run security backfill
+        uses: actions/github-script@v7
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE_RESCAN: ${{ inputs.force_rescan }}
+          MAX_TOOLS: ${{ inputs.max_tools }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const forceRescan = process.env.FORCE_RESCAN === 'true';
+            const maxTools = parseInt(process.env.MAX_TOOLS || '0');
+            const toolsDir = 'data/tools';
+
+            console.log('='.repeat(60));
+            console.log('Security Scan Backfill');
+            console.log('='.repeat(60));
+            console.log('Force rescan:', forceRescan);
+            console.log('Max tools:', maxTools || 'all');
+            console.log('');
+
+            // Security scanning functions (same as approve workflow)
+            async function fetchRepoMetadata(repoUrl) {
+              const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+              if (!match) return null;
+
+              const owner = match[1];
+              const repo = match[2].replace(/\.git$/, '');
+
+              try {
+                const res = await fetch(
+                  'https://api.github.com/repos/' + owner + '/' + repo,
+                  {
+                    headers: {
+                      'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
+                      'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
+                    }
+                  }
+                );
+                if (res.ok) {
+                  const data = await res.json();
+                  return {
+                    stars: data.stargazers_count || 0,
+                    forks: data.forks_count || 0,
+                    openIssues: data.open_issues_count || 0,
+                    lastUpdated: data.pushed_at || null,
+                    license: data.license?.spdx_id || null,
+                    archived: data.archived || false,
+                    defaultBranch: data.default_branch || 'main'
+                  };
+                }
+              } catch (e) {
+                console.log('  Error fetching repo metadata: ' + e.message);
+              }
+              return null;
+            }
+
+            async function fetchRepoFiles(repoUrl, maxFiles = 50) {
+              const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+              if (!match) return { files: [], branch: null };
+
+              const owner = match[1];
+              const repo = match[2].replace(/\.git$/, '');
+              const files = [];
+              let usedBranch = null;
+
+              const scanExtensions = [
+                '.ps1', '.psm1', '.psd1',
+                '.py', '.pyw',
+                '.js', '.mjs', '.cjs', '.jsx',
+                '.ts', '.tsx',
+                '.cs',
+                '.sh', '.bash',
+                '.bat', '.cmd', '.vbs',
+                '.rb', '.go', '.rs'
+              ];
+
+              const skipDirs = ['node_modules/', 'vendor/', '.git/', 'dist/', 'build/', '__pycache__/', 'bin/', 'obj/'];
+
+              try {
+                for (const branch of ['main', 'master', 'develop']) {
+                  try {
+                    const treeRes = await fetch(
+                      'https://api.github.com/repos/' + owner + '/' + repo + '/git/trees/' + branch + '?recursive=1',
+                      {
+                        headers: {
+                          'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
+                          'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
+                        }
+                      }
+                    );
+
+                    if (!treeRes.ok) continue;
+                    const tree = await treeRes.json();
+                    usedBranch = branch;
+
+                    const scannableFiles = (tree.tree || [])
+                      .filter(f => f.type === 'blob')
+                      .filter(f => scanExtensions.some(ext => f.path.toLowerCase().endsWith(ext)))
+                      .filter(f => !skipDirs.some(dir => f.path.includes(dir)))
+                      .filter(f => (f.size || 0) < 100000)
+                      .sort((a, b) => (a.size || 0) - (b.size || 0))
+                      .slice(0, maxFiles);
+
+                    for (const file of scannableFiles) {
+                      try {
+                        const contentRes = await fetch(
+                          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + branch + '/' + file.path,
+                          { headers: { 'User-Agent': 'AwesomeIntune-SecurityScanner/1.0' } }
+                        );
+                        if (contentRes.ok) {
+                          const content = await contentRes.text();
+                          files.push({ path: file.path, content: content, size: content.length });
+                        }
+                        await new Promise(r => setTimeout(r, 50));
+                      } catch {}
+                    }
+
+                    if (files.length > 0) break;
+                  } catch {}
+                }
+              } catch (e) {
+                console.log('  Error fetching repo files: ' + e.message);
+              }
+
+              return { files, branch: usedBranch };
+            }
+
+            function runPatternChecks(files) {
+              const results = {
+                noObfuscatedCode: { passed: true, reason: '', details: [] },
+                noRemoteExecution: { passed: true, reason: '', details: [] },
+                noCredentialTheft: { passed: true, reason: '', details: [] },
+                noDataExfiltration: { passed: true, reason: '', details: [] },
+                noMaliciousPatterns: { passed: true, reason: '', details: [] },
+                noHardcodedSecrets: { passed: true, reason: '', details: [] }
+              };
+
+              const testPattern = (content, patternStr, flags = 'gi') => {
+                return new RegExp(patternStr, flags).test(content);
+              };
+
+              const patterns = {
+                obfuscation: [
+                  { pattern: '\\[System\\.Convert\\]::FromBase64String\\s*\\([^)]*\\)\\s*\\)', desc: 'Base64 decode and execute' },
+                  { pattern: '-enc(odedcommand)?\\s+[A-Za-z0-9+\\/=]{50,}', desc: 'Encoded PowerShell command' },
+                  { pattern: '\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+', desc: 'Character code obfuscation' },
+                  { pattern: '-join\\s*\\(.*\\[char\\]', desc: 'String building obfuscation' }
+                ],
+                remoteExecution: [
+                  { pattern: 'IEX\\s*\\(?\\s*\\(?\\s*New-Object', desc: 'IEX with WebClient download' },
+                  { pattern: 'Invoke-Expression\\s*\\(?\\s*\\(?\\s*New-Object', desc: 'Invoke-Expression with download' },
+                  { pattern: '\\.DownloadString\\s*\\([^)]+\\)\\s*\\)', desc: 'DownloadString execution' },
+                  { pattern: '\\.DownloadFile\\s*\\([^)]+\\)\\s*;?\\s*(Start-Process|&|\\.\\\\|Invoke)', desc: 'Download and execute file' },
+                  { pattern: 'Invoke-WebRequest[^\\n]*\\|\\s*Invoke-Expression', desc: 'IWR piped to IEX' },
+                  { pattern: '\\biwr\\b[^\\n]*\\|\\s*iex\\b', desc: 'iwr piped to iex' }
+                ],
+                credentialTheft: [
+                  { pattern: 'mimikatz', desc: 'Mimikatz reference' },
+                  { pattern: 'sekurlsa::', desc: 'Sekurlsa credential dump' },
+                  { pattern: 'lsadump::', desc: 'LSA dump' },
+                  { pattern: 'kerberos::golden', desc: 'Golden ticket attack' },
+                  { pattern: 'Invoke-Mimikatz', desc: 'Invoke-Mimikatz' },
+                  { pattern: 'Get-GPPPassword', desc: 'GPP password extraction' }
+                ],
+                dataExfiltration: [
+                  { pattern: 'webhook\\.office\\.com[^\\n]*\\$env:', desc: 'Webhook with environment vars' },
+                  { pattern: 'discord(app)?\\.com\\/api\\/webhooks[^\\n]*\\$(env|pwd|home)', desc: 'Discord webhook with sensitive data' },
+                  { pattern: '\\.UploadString\\s*\\([^)]*\\$env:', desc: 'Upload environment data' }
+                ],
+                maliciousPatterns: [
+                  { pattern: 'New-Object\\s+Net\\.Sockets\\.TCPClient\\s*\\([^)]+\\d+', desc: 'TCP reverse shell' },
+                  { pattern: 'Set-MpPreference\\s+-DisableRealtimeMonitoring\\s+\\$true', desc: 'Disable Defender realtime' },
+                  { pattern: 'Stop-Service\\s+["\']?WinDefend', desc: 'Stop Windows Defender' },
+                  { pattern: 'New-ItemProperty[^\\n]*CurrentVersion\\\\Run[^\\n]*-Value', desc: 'Registry run key persistence' }
+                ],
+                hardcodedSecrets: [
+                  { pattern: 'AKIA[0-9A-Z]{16}', desc: 'AWS Access Key ID' },
+                  { pattern: 'ghp_[a-zA-Z0-9]{36}', desc: 'GitHub Personal Access Token' },
+                  { pattern: 'sk-[a-zA-Z0-9]{48}', desc: 'OpenAI API Key' },
+                  { pattern: 'xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}', desc: 'Slack Token' }
+                ]
+              };
+
+              for (const file of files) {
+                const content = file.content;
+
+                for (const p of patterns.obfuscation) {
+                  if (testPattern(content, p.pattern)) {
+                    results.noObfuscatedCode.passed = false;
+                    if (!results.noObfuscatedCode.reason) {
+                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+
+                for (const p of patterns.remoteExecution) {
+                  if (testPattern(content, p.pattern)) {
+                    results.noRemoteExecution.passed = false;
+                    if (!results.noRemoteExecution.reason) {
+                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+
+                for (const p of patterns.credentialTheft) {
+                  if (testPattern(content, p.pattern, 'i')) {
+                    results.noCredentialTheft.passed = false;
+                    if (!results.noCredentialTheft.reason) {
+                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+
+                for (const p of patterns.dataExfiltration) {
+                  if (testPattern(content, p.pattern)) {
+                    results.noDataExfiltration.passed = false;
+                    if (!results.noDataExfiltration.reason) {
+                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+
+                for (const p of patterns.maliciousPatterns) {
+                  if (testPattern(content, p.pattern)) {
+                    results.noMaliciousPatterns.passed = false;
+                    if (!results.noMaliciousPatterns.reason) {
+                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+
+                for (const p of patterns.hardcodedSecrets) {
+                  if (testPattern(content, p.pattern)) {
+                    results.noHardcodedSecrets.passed = false;
+                    if (!results.noHardcodedSecrets.reason) {
+                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path;
+                    }
+                  }
+                }
+              }
+
+              return results;
+            }
+
+            async function runAISecurityCheck(files, toolName) {
+              if (!process.env.OPENAI_API_KEY || files.length === 0) {
+                return null;
+              }
+
+              const OpenAI = require('openai');
+              const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+              let codeContext = '';
+              let totalSize = 0;
+              const maxContextSize = 30000;
+
+              for (const file of files) {
+                if (totalSize + file.content.length > maxContextSize) break;
+                codeContext += '\n--- ' + file.path + ' ---\n' + file.content + '\n';
+                totalSize += file.content.length;
+              }
+
+              const prompt = 'You are a security analyst reviewing code for a Microsoft Intune tool called "' + toolName + '".\n\n' +
+                'Analyze the following code for security issues. Focus on:\n' +
+                '1. Obfuscated code (base64 encoded commands, character code obfuscation)\n' +
+                '2. Remote code execution (downloading and executing scripts from URLs)\n' +
+                '3. Credential theft (harvesting tokens, passwords, certificates)\n' +
+                '4. Data exfiltration (sending sensitive data to external webhooks/servers)\n' +
+                '5. Malicious patterns (reverse shells, persistence mechanisms, disabling security)\n' +
+                '6. Hardcoded secrets (API keys, tokens, passwords embedded in code)\n\n' +
+                'Be strict but do not flag legitimate admin tools.\n\n' +
+                'Code to analyze:\n' + codeContext + '\n\n' +
+                'Respond with JSON only:\n' +
+                '{"findings": [{"type": "obfuscation|remote_exec|cred_theft|exfiltration|malicious|secrets", "severity": "high|medium|low", "file": "filename", "description": "what was found"}], "summary": "brief overall assessment"}\n\n' +
+                'If no issues found, return: {"findings": [], "summary": "No security issues detected. Code appears safe for an Intune management tool."}';
+
+              try {
+                const response = await openai.chat.completions.create({
+                  model: 'gpt-5-nano',
+                  response_format: { type: 'json_object' },
+                  messages: [
+                    { role: 'system', content: 'You are a security code reviewer. Respond only with valid JSON.' },
+                    { role: 'user', content: prompt }
+                  ]
+                });
+
+                return JSON.parse(response.choices[0]?.message?.content || '{}');
+              } catch (e) {
+                console.log('  AI security check failed: ' + e.message);
+                return null;
+              }
+            }
+
+            async function performSecurityScan(repoUrl, toolName) {
+              const repoMeta = await fetchRepoMetadata(repoUrl);
+              const { files, branch } = await fetchRepoFiles(repoUrl);
+
+              console.log('  Files scanned: ' + files.length + (branch ? ' (branch: ' + branch + ')' : ''));
+              files.forEach(f => console.log('    - ' + f.path));
+
+              if (files.length === 0) {
+                return {
+                  checks: {
+                    noObfuscatedCode: { passed: true, reason: '' },
+                    noRemoteExecution: { passed: true, reason: '' },
+                    noCredentialTheft: { passed: true, reason: '' },
+                    noDataExfiltration: { passed: true, reason: '' },
+                    noMaliciousPatterns: { passed: true, reason: '' },
+                    noHardcodedSecrets: { passed: true, reason: '' }
+                  },
+                  passed: 6,
+                  total: 6,
+                  filesScanned: 0,
+                  repoMetadata: repoMeta,
+                  note: 'No scannable code files found'
+                };
+              }
+
+              const patternResults = runPatternChecks(files);
+              const aiResults = await runAISecurityCheck(files, toolName);
+
+              if (aiResults?.findings?.length > 0) {
+                for (const finding of aiResults.findings) {
+                  if (finding.severity === 'high') {
+                    const typeMap = {
+                      'obfuscation': 'noObfuscatedCode',
+                      'remote_exec': 'noRemoteExecution',
+                      'cred_theft': 'noCredentialTheft',
+                      'exfiltration': 'noDataExfiltration',
+                      'malicious': 'noMaliciousPatterns',
+                      'secrets': 'noHardcodedSecrets'
+                    };
+                    const checkKey = typeMap[finding.type];
+                    if (checkKey && patternResults[checkKey].passed) {
+                      patternResults[checkKey].passed = false;
+                      patternResults[checkKey].reason = finding.description;
+                    }
+                  }
+                }
+              }
+
+              const passed = Object.values(patternResults).filter(c => c.passed).length;
+
+              return {
+                checks: patternResults,
+                passed: passed,
+                total: 6,
+                filesScanned: files.length,
+                repoMetadata: repoMeta,
+                aiSummary: aiResults?.summary || null
+              };
+            }
+
+            // Main backfill logic
+            const toolFiles = fs.readdirSync(toolsDir).filter(f => f.endsWith('.json'));
+            console.log('Found ' + toolFiles.length + ' tools to process\n');
+
+            let processed = 0;
+            let updated = 0;
+            let skipped = 0;
+            let errors = 0;
+
+            for (const file of toolFiles) {
+              if (maxTools > 0 && processed >= maxTools) {
+                console.log('\nReached max tools limit (' + maxTools + ')');
+                break;
+              }
+
+              const toolPath = path.join(toolsDir, file);
+              const tool = JSON.parse(fs.readFileSync(toolPath, 'utf8'));
+
+              console.log('-'.repeat(60));
+              console.log('Processing: ' + tool.name);
+
+              // Skip if no repoUrl
+              if (!tool.repoUrl) {
+                console.log('  Skipped: No repository URL');
+                skipped++;
+                continue;
+              }
+
+              // Skip if already has recent security check (unless force rescan)
+              if (!forceRescan && tool.securityCheck?.lastChecked) {
+                const lastChecked = new Date(tool.securityCheck.lastChecked);
+                const daysSince = (Date.now() - lastChecked.getTime()) / (1000 * 60 * 60 * 24);
+                if (daysSince < 30) {
+                  console.log('  Skipped: Scanned ' + Math.round(daysSince) + ' days ago');
+                  skipped++;
+                  continue;
+                }
+              }
+
+              processed++;
+
+              try {
+                console.log('  Scanning: ' + tool.repoUrl);
+                const results = await performSecurityScan(tool.repoUrl, tool.name);
+
+                const today = new Date().toISOString().split('T')[0];
+                tool.securityCheck = {
+                  passed: results.passed,
+                  total: results.total,
+                  filesScanned: results.filesScanned,
+                  lastChecked: today,
+                  forceApproved: false,
+                  aiSummary: results.aiSummary || null,
+                  checks: {
+                    noObfuscatedCode: results.checks.noObfuscatedCode.passed,
+                    noRemoteExecution: results.checks.noRemoteExecution.passed,
+                    noCredentialTheft: results.checks.noCredentialTheft.passed,
+                    noDataExfiltration: results.checks.noDataExfiltration.passed,
+                    noMaliciousPatterns: results.checks.noMaliciousPatterns.passed,
+                    noHardcodedSecrets: results.checks.noHardcodedSecrets.passed
+                  }
+                };
+
+                if (results.repoMetadata) {
+                  tool.repoStats = {
+                    stars: results.repoMetadata.stars,
+                    forks: results.repoMetadata.forks,
+                    license: results.repoMetadata.license,
+                    lastUpdated: results.repoMetadata.lastUpdated,
+                    archived: results.repoMetadata.archived
+                  };
+                }
+
+                fs.writeFileSync(toolPath, JSON.stringify(tool, null, 2) + '\n');
+                console.log('  Result: ' + results.passed + '/' + results.total + ' checks passed');
+                updated++;
+
+                // Rate limiting - wait between tools
+                await new Promise(r => setTimeout(r, 1000));
+
+              } catch (e) {
+                console.log('  Error: ' + e.message);
+                errors++;
+              }
+            }
+
+            console.log('\n' + '='.repeat(60));
+            console.log('Backfill Complete');
+            console.log('='.repeat(60));
+            console.log('Processed: ' + processed);
+            console.log('Updated: ' + updated);
+            console.log('Skipped: ' + skipped);
+            console.log('Errors: ' + errors);
+
+            core.setOutput('updated', updated.toString());
+
+      - name: Commit and push changes
+        if: steps.run.outputs.updated != '0'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/tools/
+          git diff --staged --quiet || git commit -m "Update security scans for existing tools"
+          git push
