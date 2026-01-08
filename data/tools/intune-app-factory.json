@@ -25,5 +25,40 @@
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-app-factory/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 21,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No obfuscated code detected. The codebase performs legitimate admin tasks (module installation, artifact packaging). Primary concerns are potential remote code execution risk from dynamic module installation and information leakage via verbose error messages. Artifact uploads to Azure Storage are expected but require proper access controls and encryption.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 60,
+    "forks": 17,
+    "license": "MIT",
+    "lastUpdated": "2024-09-10T22:42:31Z",
+    "archived": false
+  }
 }

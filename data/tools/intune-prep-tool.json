@@ -27,5 +27,40 @@
     "screenshots/intune-prep-tool/screenshot-3.png",
     "screenshots/intune-prep-tool/screenshot-4.png",
     "screenshots/intune-prep-tool/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 5,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase contains credential handling weaknesses (plaintext export to CSV, credential storage) and a high risk from downloading/installing external binaries without integrity checks. Also uses broad Graph permissions. No obfuscation detected.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 87,
+    "forks": 12,
+    "license": "MIT",
+    "lastUpdated": "2025-11-25T13:21:26Z",
+    "archived": false
+  }
 }

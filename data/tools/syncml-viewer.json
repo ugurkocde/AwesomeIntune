@@ -25,5 +25,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/syncml-viewer/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 24,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No obfuscated code, no remote code execution, and no hardcoded secrets detected. The code does not show data exfiltration logic or persistence mechanisms. A potential credential exposure risk exists due to Wi‑Fi password extraction (GetKeyContent). Treat this feature as sensitive and enforce strict access control.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 212,
+    "forks": 29,
+    "license": "MIT",
+    "lastUpdated": "2025-01-23T23:32:39Z",
+    "archived": false
+  }
 }

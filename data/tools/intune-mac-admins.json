@@ -64,5 +64,40 @@
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-mac-admins/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 80,
+    "forks": 33,
+    "license": "MIT",
+    "lastUpdated": "2025-08-28T07:34:23Z",
+    "archived": false
+  }
 }

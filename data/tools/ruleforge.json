@@ -24,5 +24,41 @@
   "screenshots": [
     "screenshots/ruleforge/screenshot-1.png",
     "screenshots/ruleforge/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 25,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase contains multiple remote download-and-execute patterns (GSA client installer, Chocolatey install, and GSA prerequisites) that lack integrity verification, increasing risk of supply-chain compromise. A BitLocker decryption script represents a critical security risk by decrypting all drives. A minor logic bug in a detection script could reduce effectiveness of remediation. No explicit credential harvesting or data exfiltration observed, but the remote install patterns should be hardened with signature checks, TLS verification, and least privilege.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": false,
+        "reason": "Invoke-Expression with download in Windows/Win32-Apps/chocolately/chocoInstall.ps1"
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 10,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2025-12-08T17:10:09Z",
+    "archived": false
+  }
 }

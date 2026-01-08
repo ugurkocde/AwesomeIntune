@@ -2,7 +2,16 @@
   "id": "misa",
   "name": "MISA (macOS Intune Support Assistant)",
   "description": "A comprehensive macOS application for streamlining device management and Intune administration. Provides system info, disk usage, app inventory, macOS updates, MDM profile monitoring, Platform SSO verification, security settings, and self-service options from a single dashboard.",
-  "keywords": ["macos intune", "mac device management", "platform sso", "mdm profiles", "mac self-service", "system info", "disk usage", "app inventory"],
+  "keywords": [
+    "macos intune",
+    "mac device management",
+    "platform sso",
+    "mdm profiles",
+    "mac self-service",
+    "system info",
+    "disk usage",
+    "app inventory"
+  ],
   "author": "Somesh Pathak",
   "authorPicture": "/images/authors/Somesh-Pathak.jpg",
   "githubUrl": "",
@@ -12,5 +21,40 @@
   "downloadUrl": "https://github.com/pathaksomesh06/MISA/releases",
   "category": "monitoring",
   "type": "desktop-app",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 40,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2024-09-01T07:42:23Z",
+    "archived": false
+  }
 }

@@ -26,5 +26,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/deployment-editor/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 111,
+    "forks": 10,
+    "license": "GPL-3.0",
+    "lastUpdated": "2026-01-04T14:18:29Z",
+    "archived": false
+  }
 }

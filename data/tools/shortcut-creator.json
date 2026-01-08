@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/shortcut-creator/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 13,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Security review notes: The codebase does not exhibit obfuscated code, remote code execution from external URLs, data exfiltration, or explicit credential theft. However, there are concerns around a persistence-like scheduled task for device renaming, insecure handling of secrets (plaintext in memory via ConvertTo-SecureString -AsPlainText -Force), and placeholder secrets that could be misconfigured. Recommend strengthening secret handling (avoid plaintext in memory, remove logging of sensitive data), ensure proper change management for the scheduled task, and replace placeholders with secure retrieval from a trusted vault.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-01-05T13:19:25Z",
+    "archived": false
+  }
 }

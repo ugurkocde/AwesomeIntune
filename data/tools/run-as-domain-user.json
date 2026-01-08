@@ -34,5 +34,41 @@
   "screenshots": [
     "screenshots/run-as-domain-user/screenshot-1.png",
     "screenshots/run-as-domain-user/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase shows potential security concerns related to stealthy PowerShell execution, persistence-like installer behavior, and config-driven command construction. There is no evidence of remote script downloads, credential harvesting, or data exfiltration in the provided snippets. Treat as potentially risky admin tooling: enforce input validation, code signing, least privilege execution, and avoid bypassing PowerShell security policies.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": false,
+        "reason": "Launcher uses PowerShell with -ExecutionPolicy Bypass and -WindowStyle Hidden to execute runasdomainuser.ps1. This enables stealthy execution and potential evasion of security controls, which can be abused for persistence or privilege escalation."
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2025-06-14T20:21:59Z",
+    "archived": false
+  }
 }

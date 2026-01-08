@@ -2,7 +2,17 @@
   "id": "intune-debug",
   "name": "IntuneDebug",
   "description": "A PowerShell module for Intune MDM policy reporting and debugging, similar to GPResult. Generates HTML reports showing device information, Intune sync status, applied settings by policy scope, Win32 app assignments, script policies, remediation status, LAPS settings, and certificate assignments.",
-  "keywords": ["gpresult", "resultant set of policy", "what policies applied", "device report", "policy report", "settings applied", "laps", "certificate assignments", "rsop"],
+  "keywords": [
+    "gpresult",
+    "resultant set of policy",
+    "what policies applied",
+    "device report",
+    "policy report",
+    "settings applied",
+    "laps",
+    "certificate assignments",
+    "rsop"
+  ],
   "author": "Jonas Ohmsen",
   "authorPicture": "",
   "githubUrl": "",
@@ -12,5 +22,40 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneDebug/",
   "category": "troubleshooting",
   "type": "powershell-module",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 38,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No evidence of obfuscated code, remote download/execution, credential theft, or data exfiltration. Some risks include long-running registry monitoring for persistence, local user data collection, exposure of Passport for Work settings, and loading private helpers without validation. A syntax issue in Get-ValidDateTime should be fixed.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 8,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2025-12-11T16:19:16Z",
+    "archived": false
+  }
 }

@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-toolkit/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 32,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Two notable security concerns identified: 1) policy data backups export sensitive data to local JSON files without encryption, posing risk if the machine is compromised; 2) logging reveals Graph API URLs and query parameters, potentially exposing internal data structures. No evidence of remote code execution, hardcoded secrets, or credential theft was found in the provided code. The tool otherwise appears to be admin-oriented for Intune management.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 315,
+    "forks": 47,
+    "license": "MIT",
+    "lastUpdated": "2025-09-15T08:23:22Z",
+    "archived": false
+  }
 }

@@ -28,5 +28,40 @@
   "screenshots": [
     "screenshots/intune-automation/screenshot-1.png",
     "screenshots/intune-automation/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 48,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 78,
+    "forks": 11,
+    "license": "MIT",
+    "lastUpdated": "2026-01-08T02:42:03Z",
+    "archived": false
+  }
 }

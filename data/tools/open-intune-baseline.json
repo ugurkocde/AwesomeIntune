@@ -2,7 +2,16 @@
   "id": "open-intune-baseline",
   "name": "OpenIntuneBaseline",
   "description": "A community-driven security baseline framework for Microsoft Intune. Provides pre-configured security policies for Windows, Windows 365, and macOS aligned with NCSC, CIS Benchmarks, ACSC Essential Eight, and Microsoft best practices. Importable via IntuneManagement tool or native Intune import.",
-  "keywords": ["security baseline", "cis benchmarks", "ncsc", "essential eight", "hardening", "security policies", "best practices", "compliance baseline"],
+  "keywords": [
+    "security baseline",
+    "cis benchmarks",
+    "ncsc",
+    "essential eight",
+    "hardening",
+    "security policies",
+    "best practices",
+    "compliance baseline"
+  ],
   "author": "James Robinson",
   "authorPicture": "/images/authors/James-Robinson.jpg",
   "githubUrl": "",
@@ -12,5 +21,40 @@
   "downloadUrl": "https://github.com/SkipToTheEndpoint/OpenIntuneBaseline/releases",
   "category": "security",
   "type": "documentation",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 1127,
+    "forks": 222,
+    "license": "GPL-3.0",
+    "lastUpdated": "2025-10-21T16:45:55Z",
+    "archived": false
+  }
 }

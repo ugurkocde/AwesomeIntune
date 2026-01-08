@@ -44,5 +44,40 @@
   "screenshots": [
     "screenshots/intune-monitoring/screenshot-1.png",
     "screenshots/intune-monitoring/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 39,
+    "forks": 6,
+    "license": "MIT",
+    "lastUpdated": "2025-10-15T06:03:15Z",
+    "archived": false
+  }
 }

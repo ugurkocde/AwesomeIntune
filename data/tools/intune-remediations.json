@@ -2,7 +2,16 @@
   "id": "intune-remediations",
   "name": "Intune Remediations",
   "description": "A collection of PowerShell detection and remediation scripts for Microsoft Intune. Organized into categories: Device Compliance, Device Configuration, Device Performance, Microsoft Defender AV, Miscellaneous, Reporting, and Toast Notifications for proactive endpoint issue resolution.",
-  "keywords": ["remediation scripts", "detection scripts", "proactive remediations", "device compliance", "device performance", "defender scripts", "toast notifications", "auto fix"],
+  "keywords": [
+    "remediation scripts",
+    "detection scripts",
+    "proactive remediations",
+    "device compliance",
+    "device performance",
+    "defender scripts",
+    "toast notifications",
+    "auto fix"
+  ],
   "author": "Anthony Porter",
   "authorPicture": "/images/authors/Anthony-Porter.png",
   "githubUrl": "",
@@ -12,5 +21,40 @@
   "downloadUrl": "https://github.com/AntoPorter/Intune-Remediations/archive/refs/heads/main.zip",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Overall, the codebase does not exhibit obfuscated code, remote script downloads, credential harvesting, or data exfiltration. The primary concerns are some detection scripts with boolean-vs-string comparisons that can misreport device state, a hardcoded DNS configuration, and a registry change with unclear intent. These should be reviewed and corrected to avoid misconfiguration or inaccurate compliance reporting.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 100,
+    "forks": 21,
+    "license": null,
+    "lastUpdated": "2026-01-08T05:58:38Z",
+    "archived": false
+  }
 }

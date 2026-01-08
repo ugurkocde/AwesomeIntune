@@ -30,5 +30,41 @@
       "picture": "https://github.com/KuShuSec.png",
       "linkedinUrl": "https://linkedin.com/in/graham-gold"
     }
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase shows obfuscated inline PowerShell in a watchdog component, SYSTEM-level persistence via a scheduled task, and an optional data exfiltration path to an external webhook in the fingerprinting/detection flow. No hardcoded secrets detected.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": false,
+        "reason": "Cloud mode sends a structured payload to an external webhook including device identifiers and fingerprint data. This constitutes data exfiltration risk if the webhook endpoint is not trusted or properly secured."
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 9,
+    "forks": 1,
+    "license": "NOASSERTION",
+    "lastUpdated": "2025-12-19T09:40:51Z",
+    "archived": false
+  }
 }

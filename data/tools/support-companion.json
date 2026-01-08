@@ -27,5 +27,40 @@
     "screenshots/support-companion/screenshot-3.png",
     "screenshots/support-companion/screenshot-4.png",
     "screenshots/support-companion/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 166,
+    "forks": 11,
+    "license": "Apache-2.0",
+    "lastUpdated": "2025-12-12T08:56:34Z",
+    "archived": false
+  }
 }

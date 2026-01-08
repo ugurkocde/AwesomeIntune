@@ -29,5 +29,41 @@
     "screenshots/insight/screenshot-3.png",
     "screenshots/insight/screenshot-4.png",
     "screenshots/insight/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase contains several remediation scripts that present significant risk: (1) data-destructive operations clearing user Downloads across multiple accounts; (2) ambiguous Local Admin management with placeholder values that could enable privilege abuse; (3) registry-based changes that weaken security controls for Adobe products (JavaScript, Flash); and (4) potential attempts to uninstall or evade device management (SCCM). These issues warrant strict access controls, safe-guarding (dry-run, prompts, backups), and thorough review before deployment in Intune/InSight workflows.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": false,
+        "reason": "Deletes contents of all users' Downloads folders (Get-ChildItem C:\\Users\\*\\Downloads\\* | Remove-Item -recurse -force). High risk of data loss."
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 20,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-01-07T17:51:15Z",
+    "archived": false
+  }
 }

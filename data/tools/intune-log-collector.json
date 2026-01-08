@@ -25,5 +25,41 @@
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-log-collector/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 12,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase implements an Intune Log Collector with legitimate management functionality, but exhibits several security concerns: potential credential leakage via verbose logging of cryptographic material; exposure of a write-enabled SAS token to clients; risk of tampering via automatic loading of Public/Private function files; possible input handling weaknesses when building Graph API queries. No hardcoded secrets detected; secrets appear to be sourced from environment/config and MSI endpoints, requiring strict access controls.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "Base64 decode and execute in Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1"
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 8,
+    "forks": 2,
+    "license": "MIT",
+    "lastUpdated": "2025-12-07T10:36:19Z",
+    "archived": false
+  }
 }

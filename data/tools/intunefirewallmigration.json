@@ -33,5 +33,41 @@
   ],
   "screenshots": [
     "screenshots/intunefirewallmigration/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 22,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The codebase for IntuneFirewallMigration presents security/reliability concerns primarily around runtime dependency installation from external sources without robust verification, potential error handling weaknesses (Break in catch), and a logic-case mismatch in direction filtering that could affect firewall rule processing. No hardcoded secrets detected in the provided segments.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": false,
+        "reason": "Automatic runtime installation and update of dependencies (Microsoft.Graph.Authentication and ImportExcel) from the PowerShell Gallery without explicit signature verification or pinned versions beyond a few hard-coded checks. This creates a supply-chain risk: downloaded modules could be compromised or malicious if gallery integrity is breached or a rogue package is published."
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 18,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2025-11-06T14:47:00Z",
+    "archived": false
+  }
 }

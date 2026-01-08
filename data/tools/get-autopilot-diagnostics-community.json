@@ -2,7 +2,17 @@
   "id": "get-autopilot-diagnostics-community",
   "name": "Get-AutopilotDiagnosticsCommunity",
   "description": "A PowerShell diagnostic script for analyzing Windows Autopilot deployments. Provides comprehensive details about Autopilot profile settings, policies, apps, and certificate profiles tracked via Enrollment Status Page, with support for local PC analysis and captured log files.",
-  "keywords": ["autopilot troubleshooting", "esp diagnostics", "enrollment status page", "autopilot failed", "autopilot stuck", "deployment analysis", "autopilot logs", "debug autopilot", "autopilot errors"],
+  "keywords": [
+    "autopilot troubleshooting",
+    "esp diagnostics",
+    "enrollment status page",
+    "autopilot failed",
+    "autopilot stuck",
+    "deployment analysis",
+    "autopilot logs",
+    "debug autopilot",
+    "autopilot errors"
+  ],
   "author": "Andrew Taylor",
   "authorPicture": "/images/authors/Andrew-Taylor.jpg",
   "githubUrl": "",
@@ -12,5 +22,44 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/Get-AutopilotDiagnosticsCommunity",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 2,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "High-severity issues detected: remote code fetch and execution from external URLs (backupprofile.ps1), and data exfiltration of hardware identifiers to an external webhook (remediate-harvest.ps1). Several hardcoded secrets/placeholders (WEBHOOK URL HERE) and potential persistence mechanisms (scheduled tasks for driver updates, user backup, hidden execution) present risks for abuse or covert activity. Additionally, a function demonstrates Graph API usage for device enrollment, which could be misused if not properly secured. Recommendations: remove or harden remote script downloads; sign and verify scripts; avoid hidden/invisible execution; store credentials and tokens securely (e.g., Azure Key Vault); implement least-privilege scheduling and auditing; validate and restrict Graph API operations; replace hardcoded endpoints with configurable, access-controlled controls; monitor and log script executions and webhook activity.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": false,
+        "reason": "Downloads remote scripts (backup.bat, NEWrestore.bat, run-invisible.vbs) from GitHub and creates a scheduled task to run them, enabling remote code execution and potential persistence without validation or integrity checks."
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": false,
+        "reason": "Collects hardware identifiers (serialNumber, hardwareId, groupTag) and posts them to an external webhook, effectively exfiltrating device identifiers."
+      },
+      "noMaliciousPatterns": {
+        "passed": false,
+        "reason": "VBScript launches a backup script invisibly, enabling covert execution that may evade user awareness."
+      },
+      "noHardcodedSecrets": {
+        "passed": false,
+        "reason": "Contains a hardcoded placeholder webhook URL (WEBHOOK URL HERE); embedding or shipping secrets/endpoints in code increases risk of leakage."
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 677,
+    "forks": 266,
+    "license": "GPL-3.0",
+    "lastUpdated": "2025-12-16T11:29:26Z",
+    "archived": false
+  }
 }

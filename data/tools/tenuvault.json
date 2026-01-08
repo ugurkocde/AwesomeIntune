@@ -26,5 +26,40 @@
   "screenshots": [
     "screenshots/tenuvault/screenshot-1.png",
     "screenshots/tenuvault/screenshot-2.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 45,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2025-08-09T16:05:22Z",
+    "archived": false
+  }
 }

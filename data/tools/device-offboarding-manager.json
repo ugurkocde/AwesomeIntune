@@ -31,5 +31,40 @@
     "screenshots/device-offboarding-manager/screenshot-3.png",
     "screenshots/device-offboarding-manager/screenshot-4.png",
     "screenshots/device-offboarding-manager/screenshot-5.jpg"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 5,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 215,
+    "forks": 38,
+    "license": "MIT",
+    "lastUpdated": "2025-07-26T16:03:30Z",
+    "archived": false
+  }
 }

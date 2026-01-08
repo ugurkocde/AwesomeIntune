@@ -2,7 +2,16 @@
   "id": "intune-device-inventory",
   "name": "IntuneDeviceInventory",
   "description": "A PowerShell module with UI for extending Microsoft Intune device management. Adds custom properties to Intune devices, enables bulk operations including device sync and BitLocker key rotation, with both PowerShell module and standalone UI interfaces.",
-  "keywords": ["custom device properties", "bulk operations", "bitlocker key rotation", "device sync", "device inventory", "bulk device management", "extend intune", "device attributes"],
+  "keywords": [
+    "custom device properties",
+    "bulk operations",
+    "bitlocker key rotation",
+    "device sync",
+    "device inventory",
+    "bulk device management",
+    "extend intune",
+    "device attributes"
+  ],
   "author": "Florian Salzmann",
   "authorPicture": "/images/authors/Florian-Salzmann.jpg",
   "githubUrl": "",
@@ -12,5 +21,40 @@
   "downloadUrl": "https://github.com/FlorianSLZ/IntuneDeviceInventory/releases",
   "category": "automation",
   "type": "powershell-module",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 37,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The IntuneDeviceInventory codebase includes notable security concerns: an obfuscated/binary-like module header that impedes code review; a runtime-logic bug with an inappropriate break; hard-coded Azure App ID/permissions; local credential storage with potential leak risk and plaintext exposure in memory; destructive operations without safeguards; and potential exposure of sensitive device notes via backups. While there is legitimate admin tooling value, these issues should be addressed by refactoring for transparency, parameterization, safer secret handling, and protective prompts to reduce risk.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 19,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2024-07-26T08:38:42Z",
+    "archived": false
+  }
 }

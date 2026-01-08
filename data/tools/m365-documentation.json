@@ -25,5 +25,41 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/m365-documentation/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "Base64 decode and execute in PSModule/M365Documentation/Internal/Collector/Intune/Get-MdmShellScript.ps1"
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 535,
+    "forks": 76,
+    "license": "NOASSERTION",
+    "lastUpdated": "2025-10-24T20:07:33Z",
+    "archived": false
+  }
 }

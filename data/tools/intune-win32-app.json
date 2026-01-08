@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-win32-app/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Moderate security concerns: in-memory handling of access tokens (cred_theft), a generic executable launcher (malicious) that could be misused, and potential XML injection risk when finalizing Azure Storage blob uploads (exfiltration). No obfuscated code, no hardcoded secrets, and no remote code execution detected. The codebase appears to be a legitimate IntuneWin32App tooling library, but apply token minimization, input validation, and safe XML construction to mitigate the identified risks.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 447,
+    "forks": 110,
+    "license": "MIT",
+    "lastUpdated": "2026-01-04T23:09:47Z",
+    "archived": false
+  }
 }

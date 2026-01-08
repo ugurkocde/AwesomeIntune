@@ -29,5 +29,40 @@
     "screenshots/autopilot-management/screenshot-3.png",
     "screenshots/autopilot-management/screenshot-4.png",
     "screenshots/autopilot-management/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 45,
+    "forks": 2,
+    "license": "MIT",
+    "lastUpdated": "2025-07-04T16:57:56Z",
+    "archived": false
+  }
 }

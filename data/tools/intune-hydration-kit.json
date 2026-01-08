@@ -25,5 +25,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-hydration-kit/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 45,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "High risk: remote repository download without verification; potential RCE risk if the downloaded baseline is malicious. Moderate risk: bypass of WhatIf for destructive actions could cause data loss. Moderate risk: logging of sensitive Data to logs if misused. No embedded hardcoded secrets or obvious credential harvesting. The tool appears to be legitimate administrative tooling for Intune hydration, but must enforce code-signing, artifact verification, and safer logging.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 98,
+    "forks": 8,
+    "license": "MIT",
+    "lastUpdated": "2026-01-05T03:47:49Z",
+    "archived": false
+  }
 }

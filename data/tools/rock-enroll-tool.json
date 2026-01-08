@@ -28,5 +28,40 @@
     "screenshots/rock-enroll-tool/screenshot-3.gif",
     "screenshots/rock-enroll-tool/screenshot-4.gif",
     "screenshots/rock-enroll-tool/screenshot-5.gif"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 10,
+    "forks": 1,
+    "license": null,
+    "lastUpdated": "2022-12-18T11:47:57Z",
+    "archived": false
+  }
 }

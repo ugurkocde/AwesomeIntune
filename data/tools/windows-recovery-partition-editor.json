@@ -30,5 +30,41 @@
       "picture": "https://github.com/niklasrst.png",
       "linkedinUrl": "https://www.linkedin.com/in/niklasrast"
     }
-  ]
+  ],
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The script is a legitimate admin tool for managing the Windows Recovery Environment but contains high-risk operations that can brick the system if misused. It does not download/execute remote code, harvest credentials, or exfiltrate data beyond logging. Recommendations: restrict usage to trusted admins, add robust error handling and environment validation, implement safety checks to prevent destructive actions, and review logging practices to avoid leaking sensitive information.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": false,
+        "reason": "The script performs high-risk disk/partition operations (Resize-Partition, New-Partition, Remove-Partition, Format-Volume) to create and modify the Windows Recovery Environment (RE) partition, including disabling and re-enabling WinRE. If misused or dropped into an unmanaged system, it can brick the system or disable security features. It also copies WinRE images between partitions and moves WinRE, which could be leveraged for persistence or evasion if abused."
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2025-06-14T20:26:37Z",
+    "archived": false
+  }
 }

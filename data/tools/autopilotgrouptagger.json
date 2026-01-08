@@ -37,5 +37,40 @@
     "screenshots/autopilotgrouptagger/screenshot-3.gif",
     "screenshots/autopilotgrouptagger/screenshot-4.gif",
     "screenshots/autopilotgrouptagger/screenshot-5.gif"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No code provided for analysis.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 28,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2025-11-17T09:06:34Z",
+    "archived": false
+  }
 }

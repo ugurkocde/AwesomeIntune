@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-drive-mapping/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 15,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Potential security considerations identified. No evidence of code obfuscation, remote code execution, credential theft, data exfiltration, malicious persistence, or hardcoded secrets. The main concerns are missing access controls on admin endpoints and potential leakage of internal error details through the UI.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 191,
+    "forks": 24,
+    "license": "MIT",
+    "lastUpdated": "2022-02-04T23:09:12Z",
+    "archived": false
+  }
 }

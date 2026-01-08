@@ -29,5 +29,40 @@
     "screenshots/easydefendermacos/screenshot-3.png",
     "screenshots/easydefendermacos/screenshot-4.png",
     "screenshots/easydefendermacos/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 7,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2025-08-18T14:35:25Z",
+    "archived": false
+  }
 }

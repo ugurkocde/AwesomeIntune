@@ -29,5 +29,40 @@
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-3.webp",
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-4.webp",
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-5.webp"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The collection contains several legitimate admin/remediation tasks, but with notable security concerns: (1) data-loss risk from clearing Downloads, (2) destructive OS-component removal, (3) potential persistence/privilege-change risk via a Local Admin remediation, (4) risky use of Win32_Product for software detection, and (5) configuration hazards from hardcoded placeholders and registry policy changes. No obfuscated code, credential harvesting, or external data exfiltration detected.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 557,
+    "forks": 120,
+    "license": "MIT",
+    "lastUpdated": "2025-07-01T18:16:40Z",
+    "archived": false
+  }
 }

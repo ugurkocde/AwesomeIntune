@@ -30,5 +30,40 @@
     "screenshots/fleetly/screenshot-3.png",
     "screenshots/fleetly/screenshot-4.png",
     "screenshots/fleetly/screenshot-5.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 11,
+    "forks": 4,
+    "license": null,
+    "lastUpdated": "2025-11-18T01:44:25Z",
+    "archived": false
+  }
 }

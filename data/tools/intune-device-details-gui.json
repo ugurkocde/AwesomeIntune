@@ -25,5 +25,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-device-details-gui/screenshot-1.gif"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 373,
+    "forks": 37,
+    "license": "MIT",
+    "lastUpdated": "2024-09-17T22:05:34Z",
+    "archived": false
+  }
 }

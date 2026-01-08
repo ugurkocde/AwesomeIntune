@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/company-portal-icons/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No code provided for analysis. Please provide the code sample for review.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-01-07T08:39:09Z",
+    "archived": false
+  }
 }

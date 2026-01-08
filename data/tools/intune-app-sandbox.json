@@ -26,5 +26,40 @@
   "screenshots": [
     "screenshots/intune-app-sandbox/screenshot-1.gif",
     "screenshots/intune-app-sandbox/screenshot-2.gif"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 12,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Overall assessment: The Intune-App-Sandbox tool appears to be a legitimate admin-oriented utility for packaging and sandboxing software in Intune, with features like sandbox updates, toast notifications, and inventory gathering. However, several risky patterns are present: policy bypass usage, SYSTEM-level scheduled tasks for persistence, and registry-based context-menu modifications that could enable persistent or covert execution. The manifest in Intune-App-Sandbox.psd1 shows garbled/non-ASCII content suggesting encoding obfuscation or corruption. Additionally, uninstall string tampering (I->X) in Uninstall-ProgramScriptTemplate.ps1 could lead to unreliable uninstallation. No hardcoded secrets or explicit credential theft are evident in the provided code. Overall, treat these risky patterns as potential security concerns and audit usage contexts (administrative tooling within a managed environment) to differentiate legitimate admin activity from potential misuse.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 45,
+    "forks": 2,
+    "license": "GPL-3.0",
+    "lastUpdated": "2025-10-11T18:19:04Z",
+    "archived": false
+  }
 }

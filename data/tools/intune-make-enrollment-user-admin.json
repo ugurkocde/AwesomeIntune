@@ -35,5 +35,40 @@
     "screenshots/intune-make-enrollment-user-admin/screenshot-1.png",
     "screenshots/intune-make-enrollment-user-admin/screenshot-2.png",
     "screenshots/intune-make-enrollment-user-admin/screenshot-3.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "The code primarily enables privilege elevation for an enrollment admin scenario (adding the user to Administrators). No credential theft or data exfiltration detected. Primary security considerations are the privilege escalation risk, potential execution-policy bypass, and error-suppression practices; mitigate with strict authorization, signing, and improved error handling.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2025-06-14T20:24:46Z",
+    "archived": false
+  }
 }

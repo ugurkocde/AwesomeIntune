@@ -24,5 +24,40 @@
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/reg2ps/screenshot-1.png"
-  ]
+  ],
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 19,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Moderate risk due to PowerShell script templates and user-supplied content leading to potential unintended script execution if not strictly validated. No hardcoded secrets or obfuscated payloads detected. Overall, appears to be legitimate admin tooling for Reg2CI/Reg2PS with standard packaging steps.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 123,
+    "forks": 22,
+    "license": "MS-PL",
+    "lastUpdated": "2025-09-05T15:57:30Z",
+    "archived": false
+  }
 }

@@ -22,5 +22,40 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "desktop-app",
-  "dateAdded": "2026-01-05"
+  "dateAdded": "2026-01-05",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 7,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No major security issues detected. The codebase primarily contains legitimate build, packaging, and uninstall tooling for a macOS Intune management utility. No obfuscated code, remote code execution, credential harvesting, data exfiltration, or malicious patterns observed. A minor hardcoded signing identity is the primary improvement area.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 57,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2025-10-12T02:52:22Z",
+    "archived": false
+  }
 }
