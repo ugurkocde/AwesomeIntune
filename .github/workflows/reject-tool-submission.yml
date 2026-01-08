@@ -1,0 +1,171 @@
+name: Reject Tool Submission
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+jobs:
+  reject-tool:
+    if: |
+      github.event.issue.pull_request == null &&
+      startsWith(github.event.comment.body, '/reject') &&
+      github.event.comment.user.login == 'ugurkocde' &&
+      contains(github.event.issue.labels.*.name, 'tool-submission')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Process rejection
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body;
+
+            // Parse the rejection reason
+            const reasonMatch = comment.match(/\/reject\s+--reason\s+(\w+)/);
+            const customMessageMatch = comment.match(/--message\s+"([^"]+)"/);
+
+            const reason = reasonMatch ? reasonMatch[1].toLowerCase() : null;
+            const customMessage = customMessageMatch ? customMessageMatch[1] : null;
+
+            // Rejection templates
+            const templates = {
+              quality: {
+                title: 'Quality Standards Not Met',
+                description: 'Thank you for your submission! After review, we found that the tool does not currently meet our quality standards for inclusion in the catalog.',
+                requirements: [
+                  'Clear and comprehensive README documentation',
+                  'Working code without critical bugs',
+                  'Proper error handling and logging',
+                  'Consistent code style and formatting',
+                  'Active maintenance (recent commits within the last 12 months)'
+                ],
+                resubmitTip: 'Please address the quality concerns mentioned above and feel free to resubmit once the improvements have been made.'
+              },
+              relevance: {
+                title: 'Not Intune-Related',
+                description: 'Thank you for your interest in contributing! However, we could not determine a direct connection between this tool and Microsoft Intune or endpoint management.',
+                requirements: [
+                  'Tool must directly interact with Microsoft Intune/Endpoint Manager',
+                  'Or assist with Intune-related workflows (packaging, deployment, troubleshooting)',
+                  'Or integrate with Intune APIs or Microsoft Graph API for device management',
+                  'General IT tools without specific Intune focus do not qualify'
+                ],
+                resubmitTip: 'If your tool does have Intune functionality that we missed, please clarify this connection in a new submission with more details about the Intune integration.'
+              },
+              incomplete: {
+                title: 'Incomplete Submission',
+                description: 'Your submission is missing required information needed for us to properly review and catalog the tool.',
+                requirements: [
+                  'Tool Name - A clear, descriptive name',
+                  'Description - What the tool does (2-3 sentences)',
+                  'Author Name - Your name or GitHub username',
+                  'Repository URL - Valid link to the source code on GitHub',
+                  'Category - Select the appropriate category',
+                  'Type - Select the tool type (PowerShell, Web App, etc.)'
+                ],
+                resubmitTip: 'Please create a new submission with all required fields completed. You can use our submission form at awesomeintune.com/submit for a guided experience.'
+              },
+              duplicate: {
+                title: 'Duplicate Tool',
+                description: 'A tool with similar functionality or the same repository already exists in our catalog.',
+                requirements: [
+                  'Check the existing catalog at awesomeintune.com before submitting',
+                  'If your tool offers significantly different functionality, explain the distinction clearly',
+                  'Consider contributing improvements to the existing tool instead'
+                ],
+                resubmitTip: 'If you believe this is a mistake or your tool offers unique functionality not covered by existing entries, please explain the differences in a new submission.'
+              },
+              unclear: {
+                title: 'Use Case Not Clear',
+                description: 'We were unable to understand what this tool does or why it would be valuable for Intune administrators based on the information provided.',
+                requirements: [
+                  'Clear explanation of what problem the tool solves',
+                  'Specific use cases and scenarios where the tool is helpful',
+                  'Target audience (IT admins, developers, etc.)',
+                  'How the tool integrates with or relates to Intune workflows'
+                ],
+                resubmitTip: 'Please resubmit with a clearer description of the tool\'s purpose, specific use cases, and how it helps Intune administrators in their daily work.'
+              }
+            };
+
+            // Validate reason
+            if (!reason || !templates[reason]) {
+              const validReasons = Object.keys(templates).map(r => '`' + r + '`').join(', ');
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '**Invalid rejection command**\n\n' +
+                  'Usage: `/reject --reason <reason>`\n\n' +
+                  'Valid reasons: ' + validReasons + '\n\n' +
+                  '| Reason | When to Use |\n' +
+                  '|--------|-------------|\n' +
+                  '| `quality` | Tool lacks documentation, has bugs, or is unmaintained |\n' +
+                  '| `relevance` | Tool is not related to Microsoft Intune |\n' +
+                  '| `incomplete` | Submission missing required fields |\n' +
+                  '| `duplicate` | Similar tool already exists in catalog |\n' +
+                  '| `unclear` | Use case/value not explained well enough |\n\n' +
+                  'Optional: Add a custom message with `--message "Your feedback here"`\n\n' +
+                  'Example: `/reject --reason quality --message "The repository has no README"`'
+              });
+              return;
+            }
+
+            const template = templates[reason];
+
+            // Build requirements list
+            let requirementsList = '';
+            for (const req of template.requirements) {
+              requirementsList += '- ' + req + '\n';
+            }
+
+            // Build rejection comment
+            let body = '## Submission Not Approved\n\n';
+            body += '### ' + template.title + '\n\n';
+            body += template.description + '\n\n';
+
+            if (customMessage) {
+              body += '**Reviewer note:** ' + customMessage + '\n\n';
+            }
+
+            body += '---\n\n';
+            body += '### What We Look For\n\n';
+            body += requirementsList + '\n';
+            body += '---\n\n';
+            body += '### How to Resubmit\n\n';
+            body += template.resubmitTip + '\n\n';
+            body += '1. Address the concerns mentioned above\n';
+            body += '2. Create a new submission at [awesomeintune.com/submit](https://awesomeintune.com/submit)\n';
+            body += '3. Reference this issue (#' + context.issue.number + ') if relevant\n\n';
+            body += '---\n\n';
+            body += 'We appreciate your interest in contributing to Awesome Intune! ';
+            body += 'Rejections are not permanent - we encourage you to address the feedback and resubmit.\n\n';
+            body += '*Questions? Feel free to open a discussion or reach out to the maintainers.*';
+
+            // Post rejection comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+            // Add rejected label
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['rejected']
+            });
+
+            // Close the issue
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });

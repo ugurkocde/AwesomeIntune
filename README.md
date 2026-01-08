@@ -98,9 +98,35 @@ Create a new issue using our [tool submission template](https://github.com/ugurk
 ### Review Process
 
 1. Submit your tool via web form or GitHub issue
-2. Community members and maintainers review the submission
-3. Once approved, the tool is added to the collection
-4. You'll be notified when your tool goes live
+2. An automated security scan checks your repository
+3. Maintainers review the submission for quality and relevance
+4. **Outcome:**
+   - **Approved** - Tool is added to the catalog
+   - **Needs Info** - We may ask clarifying questions (issue stays open)
+   - **Not Approved** - Feedback provided with guidance for resubmission
+
+### Submission Guidelines
+
+To increase the chances of approval, ensure your submission includes:
+
+- Clear documentation explaining what the tool does
+- Working code without critical bugs
+- Direct relevance to Microsoft Intune or endpoint management
+- Active maintenance (recent commits)
+
+### If Your Submission Is Not Approved
+
+Rejections are not permanent. Common reasons and how to address them:
+
+| Reason | How to Fix |
+|--------|------------|
+| **Quality** | Improve documentation, fix bugs, ensure code works |
+| **Relevance** | Clarify how the tool relates to Intune workflows |
+| **Incomplete** | Resubmit with all required fields filled out |
+| **Duplicate** | Explain what makes your tool unique |
+| **Unclear** | Provide specific use cases and target audience |
+
+We encourage you to address the feedback and resubmit.
 
 ---
 

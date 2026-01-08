@@ -1,0 +1,74 @@
+name: Request Info on Tool Submission
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+jobs:
+  request-info:
+    if: |
+      github.event.issue.pull_request == null &&
+      startsWith(github.event.comment.body, '/info') &&
+      github.event.comment.user.login == 'ugurkocde' &&
+      contains(github.event.issue.labels.*.name, 'tool-submission')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Request more information
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body;
+
+            // Parse optional custom message
+            const customMessageMatch = comment.match(/\/info\s+--message\s+"([^"]+)"/);
+            const customMessage = customMessageMatch ? customMessageMatch[1] : null;
+
+            // Build info request comment
+            let body = '## More Information Needed\n\n';
+            body += 'Thank you for submitting your tool! Before we can proceed with the review, ';
+            body += 'we need some additional information to better understand your tool.\n\n';
+
+            if (customMessage) {
+              body += '**Specific question from reviewer:** ' + customMessage + '\n\n';
+              body += '---\n\n';
+            }
+
+            body += '### Please Help Us Understand\n\n';
+            body += 'Could you please provide more details about:\n\n';
+            body += '1. **What problem does this tool solve?**\n';
+            body += '   - What specific pain point or challenge does it address?\n\n';
+            body += '2. **What are the primary use cases?**\n';
+            body += '   - Give us 2-3 specific scenarios where this tool is helpful\n\n';
+            body += '3. **Who is the target audience?**\n';
+            body += '   - IT administrators, developers, help desk, etc.?\n\n';
+            body += '4. **How does it relate to Microsoft Intune?**\n';
+            body += '   - Does it integrate with Intune APIs?\n';
+            body += '   - Does it help with device management workflows?\n';
+            body += '   - Does it complement Intune in some other way?\n\n';
+            body += '---\n\n';
+            body += 'Please reply to this issue with the additional details. ';
+            body += 'Once we have a better understanding, we will continue with the review process.\n\n';
+            body += '*This issue will remain open while we await your response.*';
+
+            // Post info request comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+            // Add needs-info label
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['needs-info']
+            });
+
+            // Note: Issue stays OPEN - we're waiting for a response
