@@ -1,0 +1,56 @@
+{
+  "id": "windows-autopatch-fix",
+  "name": "Windows Autopatch Fix",
+  "description": "Windows Autopatch Fix provides intelligent detection and targeted remediation for Windows Update failures on Intune-managed devices. It offers 15 configurable repair steps that execute only when needed, minimizing downtime and system impact, with comprehensive logging and support for 20+ error codes.",
+  "keywords": [
+    "endpoint-management",
+    "intune",
+    "proactive-remediation",
+    "windows-update",
+    "patch-management",
+    "automation",
+    "diagnostic",
+    "remediation"
+  ],
+  "author": "Ronny Alhelm",
+  "authorPicture": "https://github.com/roalhelm.png",
+  "githubUrl": "https://github.com/roalhelm/WindowsAutopatchFix",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/roalhelm/WindowsAutopatchFix",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "documentation",
+  "dateAdded": "2026-01-08",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": true,
+      "noRemoteExecution": true,
+      "noCredentialTheft": true,
+      "noDataExfiltration": true,
+      "noMaliciousPatterns": true,
+      "noHardcodedSecrets": true
+    }
+  },
+  "repoStats": {
+    "stars": 1,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2025-12-11T12:20:36Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Ronny Alhelm",
+      "githubUrl": "https://github.com/roalhelm/WindowsAutopatchFix",
+      "picture": "https://github.com/roalhelm.png"
+    }
+  ]
+}
