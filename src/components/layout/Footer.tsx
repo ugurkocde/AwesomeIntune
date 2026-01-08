@@ -242,7 +242,7 @@ export function Footer() {
                 <img
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
-                  className="h-[32px] sm:h-[42px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[15px] sm:h-[20px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a

@@ -55,6 +55,28 @@ export async function GET(
     const votes = voteData?.vote_count ?? 0;
     const views = viewData?.view_count ?? 0;
 
+    // Compute security status
+    const getSecurityStatus = () => {
+      // No source code available (e.g., web apps without repo)
+      if (!tool.repoUrl) {
+        return "curated";
+      }
+      // No security check data
+      if (!tool.securityCheck) {
+        return "pending";
+      }
+      // No files were scanned
+      if (tool.securityCheck.filesScanned === 0) {
+        return "not_scanned";
+      }
+      // All checks passed
+      if (tool.securityCheck.passed === tool.securityCheck.total) {
+        return "verified";
+      }
+      // Some checks failed
+      return "warning";
+    };
+
     // Format response
     const formattedTool = {
       id: tool.id,
@@ -72,6 +94,16 @@ export async function GET(
       screenshots: tool.screenshots,
       votes,
       views,
+      securityStatus: getSecurityStatus(),
+      securityCheck: tool.securityCheck ? {
+        passed: tool.securityCheck.passed,
+        total: tool.securityCheck.total,
+        filesScanned: tool.securityCheck.filesScanned,
+        lastChecked: tool.securityCheck.lastChecked,
+        forceApproved: tool.securityCheck.forceApproved,
+        aiSummary: tool.securityCheck.aiSummary,
+        checks: tool.securityCheck.checks,
+      } : null,
     };
 
     return NextResponse.json(

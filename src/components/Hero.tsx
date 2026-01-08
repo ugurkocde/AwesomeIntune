@@ -259,7 +259,7 @@ export function Hero() {
                 <img
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
-                  className="h-[52px] sm:h-[68px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[25px] sm:h-[33px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
