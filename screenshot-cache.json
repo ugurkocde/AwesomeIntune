@@ -177,6 +177,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Windows Autopatch Fix",
+      "id": "windows-autopatch-fix",
+      "url": "https://github.com/roalhelm/WindowsAutopatchFix",
+      "reason": "No images in README"
+    },
+    {
       "name": "Windows Recovery Partition Editor",
       "id": "windows-recovery-partition-editor",
       "url": "https://github.com/niklasrst/windows-recovery-partition",
