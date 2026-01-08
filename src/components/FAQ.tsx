@@ -73,6 +73,7 @@ export function FAQ() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
@@ -95,7 +96,7 @@ export function FAQ() {
         </div>
 
         {/* FAQ Items */}
-        <div className="space-y-3">
+        <div className="space-y-3" role="list">
           {faqItems.map((item, index) => (
             <div
               key={index}
@@ -110,11 +111,14 @@ export function FAQ() {
                     ? "1px solid rgba(0, 212, 255, 0.2)"
                     : "1px solid rgba(255, 255, 255, 0.05)",
               }}
+              role="listitem"
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors"
                 aria-expanded={openIndex === index}
+                aria-controls={`faq-content-${index}`}
+                id={`faq-button-${index}`}
               >
                 <span
                   className="text-sm font-medium sm:text-base"
@@ -145,12 +149,17 @@ export function FAQ() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden="true"
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </span>
               </button>
               <div
+                id={`faq-content-${index}`}
+                role="region"
+                aria-labelledby={`faq-button-${index}`}
+                aria-hidden={openIndex !== index}
                 className="overflow-hidden transition-all duration-300 ease-out"
                 style={{
                   maxHeight: openIndex === index ? "500px" : "0px",
