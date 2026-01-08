@@ -1,5 +1,6 @@
 import { Hero } from "~/components/Hero";
 import { ToolsSection } from "~/components/tools/ToolsSection";
+import { FAQ } from "~/components/FAQ";
 import { getAllTools } from "~/lib/tools.server";
 import {
   generateWebsiteStructuredData,
@@ -35,6 +36,7 @@ export default function HomePage() {
       />
       <Hero />
       <ToolsSection tools={tools} />
+      <FAQ />
     </>
   );
 }

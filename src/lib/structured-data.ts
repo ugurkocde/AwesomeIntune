@@ -173,18 +173,26 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
       },
       {
         "@type": "Question",
-        name: "Are all tools on Awesome Intune free?",
+        name: "What does the Verified badge mean on Awesome Intune?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub.",
+          text: "The Verified badge indicates that a tool's source code has been automatically scanned by our AI-powered security system and passed all 6 security checks. These checks look for obfuscated code, remote execution risks, credential theft patterns, data exfiltration, malicious patterns, and hardcoded secrets.",
         },
       },
       {
         "@type": "Question",
-        name: "Who maintains Awesome Intune?",
+        name: "What does the Curated badge mean on Awesome Intune?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Awesome Intune is a community project maintained by Intune professionals and Microsoft MVPs. Anyone can contribute by submitting tools via GitHub.",
+          text: "The Curated badge is shown for tools that don't have publicly available source code (such as web applications). While we cannot perform automated security scans on these tools, they have been manually reviewed and selected by our team for their usefulness to the Intune community.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are all tools on Awesome Intune free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub, while some web applications offer free tiers with optional premium features.",
         },
       },
       {
@@ -192,15 +200,15 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
         name: "How do I submit a tool to Awesome Intune?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can submit a tool by visiting our GitHub repository and opening a pull request or creating an issue with your tool details. All submissions are reviewed before being added.",
+          text: "You can submit a tool by visiting our GitHub repository and opening a pull request or creating an issue with your tool details. All submissions are reviewed before being added, including automated security scanning for open-source tools.",
         },
       },
       {
         "@type": "Question",
-        name: "What types of Intune tools are available?",
+        name: "What security checks are performed on Intune tools?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Awesome Intune includes automation scripts, deployment and Autopilot tools, reporting solutions, security utilities, troubleshooting aids, configuration management tools, and more.",
+          text: "Our automated security scanner checks for 6 potential issues: obfuscated or encoded code, remote code execution patterns, credential harvesting attempts, data exfiltration risks, known malicious patterns, and hardcoded secrets or API keys. Tools that pass all checks receive the Verified badge.",
         },
       },
     ],

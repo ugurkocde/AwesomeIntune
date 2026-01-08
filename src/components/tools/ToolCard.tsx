@@ -175,7 +175,7 @@ export const ToolCard = memo(function ToolCard({
 
               {/* Security Badge, View Count and Upvote */}
               <div className="flex items-center gap-2">
-                <SecurityBadge securityCheck={tool.securityCheck} variant="compact" />
+                <SecurityBadge securityCheck={tool.securityCheck} variant="compact" hasSourceCode={!!tool.repoUrl} />
                 {viewCount !== undefined && viewCount > 0 && (
                   <span
                     className="inline-flex items-center gap-1.5 text-xs"

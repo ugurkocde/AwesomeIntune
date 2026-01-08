@@ -6,13 +6,113 @@ interface SecurityBadgeProps {
   securityCheck?: SecurityCheck;
   variant?: "compact" | "full";
   showTooltip?: boolean;
+  hasSourceCode?: boolean;
 }
 
 export function SecurityBadge({
   securityCheck,
   variant = "compact",
   showTooltip = true,
+  hasSourceCode = true,
 }: SecurityBadgeProps) {
+  // For closed-source tools (no repo URL), show "Curated" badge
+  if (!hasSourceCode) {
+    if (variant === "compact") {
+      return (
+        <div
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
+          style={{
+            background: "linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.08))",
+            color: "#818cf8",
+            border: "1px solid rgba(99, 102, 241, 0.25)",
+          }}
+          title={showTooltip ? "Curated tool - reviewed for inclusion in our collection" : undefined}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          <span>Curated</span>
+        </div>
+      );
+    }
+
+    // Full variant for closed-source tools
+    return (
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          background: "linear-gradient(135deg, rgba(17, 25, 34, 0.98), rgba(17, 25, 34, 0.95))",
+          border: "1px solid rgba(255, 255, 255, 0.06)",
+          boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.4)",
+        }}
+      >
+        <div
+          className="absolute left-0 right-0 top-0 h-px"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), transparent)",
+          }}
+        />
+        <div className="p-6">
+          <div className="flex items-center gap-5">
+            <div className="relative flex-shrink-0">
+              <div
+                className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
+                style={{
+                  background: "rgba(99, 102, 241, 0.1)",
+                  border: "2px solid rgba(99, 102, 241, 0.2)",
+                }}
+              >
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#818cf8"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#818cf8"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                <span className="text-base font-semibold" style={{ color: "#818cf8" }}>
+                  Curated Tool
+                </span>
+              </div>
+              <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
+                This tool has been reviewed and selected for inclusion in our collection. Source code is not publicly available for security scanning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!securityCheck) {
     return null;
   }
