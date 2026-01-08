@@ -2,7 +2,18 @@
   "id": "autopilot-branding",
   "name": "Autopilot Branding",
   "description": "A PowerShell-based customization tool packaged as an Intune Win32 app for configuring Windows 10/11 devices during Autopilot deployment. Customizes start menu layout, background/theme, time zone, removes built-in apps, installs OneDrive, configures language packs, and manages Windows features.",
-  "keywords": ["customize windows", "branding", "start menu", "wallpaper", "desktop background", "remove bloatware", "windows customization", "oobe customization", "autopilot customization", "language pack"],
+  "keywords": [
+    "customize windows",
+    "branding",
+    "start menu",
+    "wallpaper",
+    "desktop background",
+    "remove bloatware",
+    "windows customization",
+    "oobe customization",
+    "autopilot customization",
+    "language pack"
+  ],
   "author": "Michael Niehaus",
   "authorPicture": "/images/authors/Michael-Niehaus.jpg",
   "githubUrl": "",
@@ -12,5 +23,40 @@
   "downloadUrl": "https://github.com/mtniehaus/AutopilotBranding/releases",
   "category": "configuration",
   "type": "powershell-script",
-  "dateAdded": "2026-01-03"
+  "dateAdded": "2026-01-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-01-08",
+    "forceApproved": false,
+    "aiSummary": "Packaging script for Autopilot Branding relies on external PowerShell modules and a bypassed execution policy, posing remote code execution and supply-chain risks. No credential harvesting or data exfiltration detected. No hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 470,
+    "forks": 102,
+    "license": "MIT",
+    "lastUpdated": "2025-11-08T06:48:41Z",
+    "archived": false
+  }
 }
