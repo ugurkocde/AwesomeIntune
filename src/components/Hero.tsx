@@ -220,13 +220,13 @@ export function Hero() {
                 <img
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-dark h-auto w-[120px] sm:w-[160px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[108px] sm:w-[144px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
                 <img
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-light h-auto w-[120px] sm:w-[160px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[108px] sm:w-[144px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -272,7 +272,7 @@ export function Hero() {
                 <img
                   src="/sponsors/devicie.png"
                   alt="Devicie - Sponsor"
-                  className="h-[70px] sm:h-[90px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[43px] sm:h-[55px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
             </div>

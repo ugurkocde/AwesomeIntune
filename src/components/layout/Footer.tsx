@@ -206,12 +206,12 @@ export function Footer() {
                 <img
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-dark h-auto w-[75px] sm:w-[95px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[68px] sm:w-[86px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 <img
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
-                  className="sponsor-logo-light h-auto w-[75px] sm:w-[95px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[68px] sm:w-[86px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
               <a
@@ -255,7 +255,7 @@ export function Footer() {
                 <img
                   src="/sponsors/devicie.png"
                   alt="Devicie - Sponsor"
-                  className="h-[44px] sm:h-[56px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[27px] sm:h-[34px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
             </div>
