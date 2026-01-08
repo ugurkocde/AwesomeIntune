@@ -247,6 +247,7 @@ jobs:
                         if (contentRes.ok) {
                           const content = await contentRes.text();
                           files.push({ path: file.path, content: content, size: content.length });
+                          console.log('  - ' + file.path + ' (' + Math.round(content.length / 1024 * 10) / 10 + ' KB)');
                         }
                         // Small delay to avoid rate limiting
                         await new Promise(r => setTimeout(r, 50));
@@ -466,7 +467,7 @@ jobs:
 
               // Fetch files from repo
               const { files, branch } = await fetchRepoFiles(repoUrl);
-              console.log('Fetched ' + files.length + ' files from branch ' + branch + ' for scanning');
+              console.log('Scanned ' + files.length + ' files from branch: ' + branch);
 
               if (files.length === 0) {
                 // No scannable files found - pass by default but note it
