@@ -17,7 +17,7 @@ export const CATEGORY_CONFIG: Record<
 
 export const TYPE_CONFIG: Record<ToolType, { label: string; color: string }> = {
   "powershell-module": { label: "PowerShell Module", color: "#5c2d91" },
-  "powershell-script": { label: "PowerShell Script", color: "#4FC3F7" },
+  "powershell-script": { label: "PS Script", color: "#4FC3F7" },
   "web-app": { label: "Web App", color: "#0078d4" },
   "desktop-app": { label: "Desktop App", color: "#00bcf2" },
   "browser-extension": { label: "Browser Extension", color: "#ff8c00" },

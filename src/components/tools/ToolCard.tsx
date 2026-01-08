@@ -128,7 +128,7 @@ export const ToolCard = memo(function ToolCard({
 
           <div className="relative p-6">
             {/* Header Row */}
-            <div className="mb-4 flex items-start justify-between">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-2">
               {/* Type Badge */}
               <span
                 className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-transform duration-200 group-hover:scale-105"
