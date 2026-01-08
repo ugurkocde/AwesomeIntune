@@ -444,12 +444,12 @@ jobs:
                   forceApproved: false,
                   aiSummary: results.aiSummary || null,
                   checks: {
-                    noObfuscatedCode: results.checks.noObfuscatedCode.passed,
-                    noRemoteExecution: results.checks.noRemoteExecution.passed,
-                    noCredentialTheft: results.checks.noCredentialTheft.passed,
-                    noDataExfiltration: results.checks.noDataExfiltration.passed,
-                    noMaliciousPatterns: results.checks.noMaliciousPatterns.passed,
-                    noHardcodedSecrets: results.checks.noHardcodedSecrets.passed
+                    noObfuscatedCode: { passed: results.checks.noObfuscatedCode.passed, reason: results.checks.noObfuscatedCode.reason || undefined },
+                    noRemoteExecution: { passed: results.checks.noRemoteExecution.passed, reason: results.checks.noRemoteExecution.reason || undefined },
+                    noCredentialTheft: { passed: results.checks.noCredentialTheft.passed, reason: results.checks.noCredentialTheft.reason || undefined },
+                    noDataExfiltration: { passed: results.checks.noDataExfiltration.passed, reason: results.checks.noDataExfiltration.reason || undefined },
+                    noMaliciousPatterns: { passed: results.checks.noMaliciousPatterns.passed, reason: results.checks.noMaliciousPatterns.reason || undefined },
+                    noHardcodedSecrets: { passed: results.checks.noHardcodedSecrets.passed, reason: results.checks.noHardcodedSecrets.reason || undefined }
                   }
                 };
 

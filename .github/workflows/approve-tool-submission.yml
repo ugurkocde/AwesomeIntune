@@ -800,12 +800,12 @@ jobs:
                 forceApproved: forceApprove && securityResults.passed < securityResults.total,
                 aiSummary: securityResults.aiSummary || null,
                 checks: {
-                  noObfuscatedCode: securityResults.checks.noObfuscatedCode.passed,
-                  noRemoteExecution: securityResults.checks.noRemoteExecution.passed,
-                  noCredentialTheft: securityResults.checks.noCredentialTheft.passed,
-                  noDataExfiltration: securityResults.checks.noDataExfiltration.passed,
-                  noMaliciousPatterns: securityResults.checks.noMaliciousPatterns.passed,
-                  noHardcodedSecrets: securityResults.checks.noHardcodedSecrets.passed
+                  noObfuscatedCode: { passed: securityResults.checks.noObfuscatedCode.passed, reason: securityResults.checks.noObfuscatedCode.reason || undefined },
+                  noRemoteExecution: { passed: securityResults.checks.noRemoteExecution.passed, reason: securityResults.checks.noRemoteExecution.reason || undefined },
+                  noCredentialTheft: { passed: securityResults.checks.noCredentialTheft.passed, reason: securityResults.checks.noCredentialTheft.reason || undefined },
+                  noDataExfiltration: { passed: securityResults.checks.noDataExfiltration.passed, reason: securityResults.checks.noDataExfiltration.reason || undefined },
+                  noMaliciousPatterns: { passed: securityResults.checks.noMaliciousPatterns.passed, reason: securityResults.checks.noMaliciousPatterns.reason || undefined },
+                  noHardcodedSecrets: { passed: securityResults.checks.noHardcodedSecrets.passed, reason: securityResults.checks.noHardcodedSecrets.reason || undefined }
                 }
               },
               repoStats: securityResults.repoMetadata ? {

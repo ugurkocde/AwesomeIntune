@@ -28,13 +28,18 @@ export interface Author {
   xUrl?: string;
 }
 
+export interface SecurityCheckItem {
+  passed: boolean;
+  reason?: string;
+}
+
 export interface SecurityChecks {
-  noObfuscatedCode: boolean;
-  noRemoteExecution: boolean;
-  noCredentialTheft: boolean;
-  noDataExfiltration: boolean;
-  noMaliciousPatterns: boolean;
-  noHardcodedSecrets: boolean;
+  noObfuscatedCode: SecurityCheckItem;
+  noRemoteExecution: SecurityCheckItem;
+  noCredentialTheft: SecurityCheckItem;
+  noDataExfiltration: SecurityCheckItem;
+  noMaliciousPatterns: SecurityCheckItem;
+  noHardcodedSecrets: SecurityCheckItem;
 }
 
 export interface SecurityCheck {

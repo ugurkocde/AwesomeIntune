@@ -160,14 +160,23 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
     },
   };
 
+  // Helper to get passed status - handles both old boolean format and new object format
+  const getCheckStatus = (check: boolean | { passed: boolean; reason?: string }) => {
+    if (typeof check === "boolean") {
+      return { passed: check, reason: undefined };
+    }
+    return check;
+  };
+
   return (
     <div className="space-y-2">
-      {Object.entries(securityCheck.checks).map(([key, passed]) => {
+      {Object.entries(securityCheck.checks).map(([key, checkValue]) => {
         const info = checkLabels[key as keyof typeof securityCheck.checks];
+        const { passed, reason } = getCheckStatus(checkValue as boolean | { passed: boolean; reason?: string });
         return (
           <div
             key={key}
-            className="flex items-center gap-3 rounded-lg px-3 py-2"
+            className="flex items-start gap-3 rounded-lg px-3 py-2"
             style={{
               background: passed
                 ? "rgba(16, 185, 129, 0.05)"
@@ -184,6 +193,7 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="mt-0.5 flex-shrink-0"
               >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
@@ -197,6 +207,7 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="mt-0.5 flex-shrink-0"
               >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
@@ -215,6 +226,17 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
               >
                 {info.description}
               </div>
+              {!passed && reason && (
+                <div
+                  className="mt-1 text-xs rounded px-2 py-1"
+                  style={{
+                    background: "rgba(239, 68, 68, 0.1)",
+                    color: "#ef4444",
+                  }}
+                >
+                  {reason}
+                </div>
+              )}
             </div>
           </div>
         );
