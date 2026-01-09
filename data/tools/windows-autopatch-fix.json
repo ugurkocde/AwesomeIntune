@@ -34,6 +34,7 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "documentation",
+  "worksWith": ["windows", "remediation-scripts"],
   "dateAdded": "2026-01-08",
   "securityCheck": {
     "passed": 6,

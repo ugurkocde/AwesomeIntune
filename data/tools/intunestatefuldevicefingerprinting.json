@@ -34,6 +34,7 @@
   "websiteUrl": "",
   "category": "security",
   "type": "powershell-script",
+  "worksWith": ["windows", "entra-id", "compliance-policies", "conditional-access"],
   "dateAdded": "2026-01-06",
   "authors": [
     {

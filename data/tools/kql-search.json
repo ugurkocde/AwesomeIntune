@@ -34,6 +34,7 @@
   "websiteUrl": "https://www.kqlsearch.com/",
   "category": "security",
   "type": "web-app",
+  "worksWith": ["defender"],
   "dateAdded": "2026-01-06",
   "screenshots": []
 }

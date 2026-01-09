@@ -37,6 +37,7 @@
   "websiteUrl": "https://wintuner.app/",
   "category": "packaging",
   "type": "powershell-module",
+  "worksWith": ["windows", "winget", "win32-apps", "graph-api"],
   "dateAdded": "2026-01-07",
   "authors": [
     {

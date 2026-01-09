@@ -33,6 +33,7 @@
   "websiteUrl": "https://reg2ps.azurewebsites.net/",
   "category": "automation",
   "type": "web-app",
+  "worksWith": ["windows", "remediation-scripts"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/reg2ps/screenshot-1.png"

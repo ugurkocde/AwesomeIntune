@@ -34,6 +34,7 @@
   "websiteUrl": "",
   "category": "security",
   "type": "other",
+  "worksWith": ["macos", "security-baselines", "compliance-policies", "configuration-profiles"],
   "dateAdded": "2026-01-07",
   "authors": [
     {

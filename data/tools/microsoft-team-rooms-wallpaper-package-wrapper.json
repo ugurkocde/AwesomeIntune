@@ -34,6 +34,7 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "desktop-app",
+  "worksWith": ["windows", "win32-apps"],
   "dateAdded": "2026-01-07",
   "authors": [
     {

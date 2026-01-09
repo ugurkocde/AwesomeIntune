@@ -32,6 +32,7 @@
   "repoUrl": "https://github.com/NateHutch365/Microsoft-Intune/tree/main/Tools/RuleForge",
   "category": "configuration",
   "type": "powershell-script",
+  "worksWith": ["windows", "defender"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/ruleforge/screenshot-1.png",

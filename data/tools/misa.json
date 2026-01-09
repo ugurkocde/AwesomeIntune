@@ -33,6 +33,7 @@
   "downloadUrl": "https://github.com/pathaksomesh06/MISA/releases",
   "category": "monitoring",
   "type": "desktop-app",
+  "worksWith": ["macos", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,

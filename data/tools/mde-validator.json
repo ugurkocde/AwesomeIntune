@@ -44,6 +44,7 @@
   "downloadUrl": "https://github.com/NateHutch365/MDEValidator/releases",
   "category": "security",
   "type": "powershell-module",
+  "worksWith": ["windows", "defender"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/mde-validator/screenshot-1.png"

@@ -33,6 +33,7 @@
   "downloadUrl": "https://github.com/NicklasAhlberg/RockEnrollTool/releases",
   "category": "automation",
   "type": "desktop-app",
+  "worksWith": ["windows", "autopilot", "win32-apps", "bitlocker"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/rock-enroll-tool/screenshot-1.gif",

@@ -44,7 +44,7 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "macos", "autopilot", "graph-api", "entra-id"],
+  "worksWith": ["windows", "autopilot", "graph-api", "entra-id"],
   "dateAdded": "2026-01-06",
   "authors": [
     {

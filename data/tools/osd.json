@@ -33,5 +33,6 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/OSD/",
   "category": "automation",
   "type": "powershell-module",
+  "worksWith": ["windows", "autopilot", "bitlocker"],
   "dateAdded": "2026-01-03"
 }

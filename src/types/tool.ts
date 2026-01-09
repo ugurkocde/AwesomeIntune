@@ -21,20 +21,35 @@ export type ToolType =
   | "other";
 
 export type WorksWithTag =
-  | "graph-api"
-  | "autopilot"
-  | "win32-apps"
-  | "configuration-profiles"
-  | "remediation-scripts"
-  | "admx"
+  // Platforms
+  | "windows"
   | "macos"
   | "ios"
   | "android"
-  | "windows"
   | "linux"
+  // Intune Features
+  | "autopilot"
+  | "win32-apps"
+  | "configuration-profiles"
   | "compliance-policies"
+  | "remediation-scripts"
+  | "security-baselines"
+  | "settings-catalog"
+  | "app-protection-policies"
+  | "device-filters"
   | "conditional-access"
-  | "defender";
+  // Microsoft Services
+  | "graph-api"
+  | "defender"
+  | "entra-id"
+  | "bitlocker"
+  | "laps"
+  // External Integrations
+  | "admx"
+  | "azure-automation"
+  | "azure-devops"
+  | "winget"
+  | "homebrew";
 
 export interface Author {
   name: string;

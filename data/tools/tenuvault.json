@@ -37,6 +37,7 @@
   "websiteUrl": "https://www.tenuvault.com/",
   "category": "automation",
   "type": "web-app",
+  "worksWith": ["windows", "graph-api", "configuration-profiles", "compliance-policies"],
   "dateAdded": "2026-01-04",
   "screenshots": [
     "screenshots/tenuvault/screenshot-1.png",

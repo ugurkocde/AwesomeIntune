@@ -43,6 +43,7 @@
   "downloadUrl": "https://github.com/macadmins/SupportCompanion/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
+  "worksWith": ["macos"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/support-companion/screenshot-2.png",

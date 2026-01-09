@@ -38,6 +38,7 @@
   "downloadUrl": "https://github.com/SkipToTheEndpoint/OpenIntuneBaseline/releases",
   "category": "security",
   "type": "documentation",
+  "worksWith": ["windows", "macos", "security-baselines", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,

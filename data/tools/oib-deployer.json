@@ -34,6 +34,7 @@
   "websiteUrl": "https://openintunebaseline.com",
   "category": "automation",
   "type": "web-app",
+  "worksWith": ["windows", "graph-api", "security-baselines", "configuration-profiles"],
   "dateAdded": "2026-01-06",
   "securityCheck": {
     "passed": 6,

@@ -34,6 +34,7 @@
   "websiteUrl": "https://niklasrast.io/blog/post-0088",
   "category": "configuration",
   "type": "powershell-script",
+  "worksWith": ["windows"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/windows-media-creation-cli/screenshot-1.png"
