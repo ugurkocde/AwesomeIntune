@@ -235,3 +235,43 @@ export function getCollectionTools(collection: Collection): Tool[] {
     .map((id) => toolsById.get(id))
     .filter((t): t is Tool => t !== undefined);
 }
+
+/**
+ * Author data prepared for spotlight component
+ */
+export interface AuthorForSpotlight {
+  name: string;
+  slug: string;
+  picture?: string;
+  toolCount: number;
+  toolIds: string[];
+  topTools: { id: string; name: string }[];
+  socialLinks: {
+    github?: string;
+    linkedin?: string;
+    x?: string;
+  };
+}
+
+/**
+ * Get authors prepared for the spotlight carousel.
+ * Returns all authors with their tool data - sorting by impact is done client-side
+ * after view counts are fetched.
+ */
+export function getAuthorsForSpotlight(): AuthorForSpotlight[] {
+  const authors = getAllAuthors();
+
+  return authors.map((author) => ({
+    name: author.name,
+    slug: author.slug,
+    picture: author.picture,
+    toolCount: author.tools.length,
+    toolIds: author.tools.map((t) => t.id),
+    topTools: author.tools.slice(0, 3).map((t) => ({ id: t.id, name: t.name })),
+    socialLinks: {
+      github: author.githubUrl,
+      linkedin: author.linkedinUrl,
+      x: author.xUrl,
+    },
+  }));
+}

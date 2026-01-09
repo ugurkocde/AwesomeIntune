@@ -1,7 +1,8 @@
 import { Hero } from "~/components/Hero";
 import { ToolsSection } from "~/components/tools/ToolsSection";
+import { AuthorSpotlight } from "~/components/AuthorSpotlight";
 import { FAQ } from "~/components/FAQ";
-import { getAllTools } from "~/lib/tools.server";
+import { getAllTools, getAuthorsForSpotlight } from "~/lib/tools.server";
 import {
   generateWebsiteStructuredData,
   generateItemListStructuredData,
@@ -10,6 +11,7 @@ import {
 
 export default function HomePage() {
   const tools = getAllTools();
+  const authors = getAuthorsForSpotlight();
   const websiteSchema = generateWebsiteStructuredData();
   const itemListSchema = generateItemListStructuredData(tools);
   const faqSchema = generateHomepageFAQStructuredData(tools.length);
@@ -36,6 +38,7 @@ export default function HomePage() {
       />
       <Hero />
       <ToolsSection tools={tools} />
+      <AuthorSpotlight authors={authors} />
       <FAQ />
     </>
   );
