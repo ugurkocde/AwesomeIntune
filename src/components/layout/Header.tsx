@@ -83,13 +83,21 @@ export function Header() {
                 <path d="M2 12l10 5 10-5" />
               </svg>
             </motion.div>
-            <span
-              className="font-display text-lg font-bold tracking-tight"
-              style={{ color: "var(--text-primary)" }}
-            >
-              AWESOME
-              <span style={{ color: "var(--accent-primary)" }}> INTUNE</span>
-            </span>
+            <div className="flex flex-col">
+              <span
+                className="font-display text-lg font-bold tracking-tight"
+                style={{ color: "var(--text-primary)" }}
+              >
+                AWESOME
+                <span style={{ color: "var(--accent-primary)" }}> INTUNE</span>
+              </span>
+              <span
+                className="text-[10px] tracking-wide transition-colors group-hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                by UgurLabs.com
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
