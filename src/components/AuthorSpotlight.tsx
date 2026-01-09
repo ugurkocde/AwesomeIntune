@@ -273,7 +273,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
   return (
     <Link
       href={`/authors/${author.slug}`}
-      className="group relative flex w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:w-[280px] sm:rounded-2xl"
+      className="group relative flex h-[200px] w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:h-[220px] sm:w-[280px] sm:rounded-2xl"
       style={{
         background: "rgba(255, 255, 255, 0.03)",
         border: "1px solid rgba(255, 255, 255, 0.08)",
@@ -297,7 +297,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
         }}
       />
 
-      <div className="relative p-4 sm:p-5">
+      <div className="relative flex h-full flex-col p-4 sm:p-5">
         {/* Avatar and Name */}
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Avatar */}
@@ -385,20 +385,20 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
           </div>
         </div>
 
-        {/* Top Tools */}
-        {author.topTools.length > 0 && (
-          <div className="mt-3 sm:mt-4">
-            <p
-              className="mb-1.5 text-[9px] font-medium uppercase tracking-wider sm:mb-2 sm:text-[10px]"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Top Tools
-            </p>
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              {author.topTools.map((tool) => (
+        {/* Top Tools - Always rendered, pushed to bottom */}
+        <div className="mt-auto pt-3 sm:pt-4">
+          <p
+            className="mb-1.5 text-[9px] font-medium uppercase tracking-wider sm:mb-2 sm:text-[10px]"
+            style={{ color: "var(--text-tertiary)" }}
+          >
+            Top Tools
+          </p>
+          <div className="flex flex-col gap-1 sm:gap-1.5">
+            {author.topTools.length > 0 ? (
+              author.topTools.slice(0, 2).map((tool) => (
                 <span
                   key={tool.id}
-                  className="inline-block max-w-[100px] truncate rounded-md px-1.5 py-0.5 text-[10px] sm:max-w-[120px] sm:px-2 sm:py-1 sm:text-xs"
+                  className="inline-block truncate rounded-md px-1.5 py-0.5 text-[10px] sm:px-2 sm:py-1 sm:text-xs"
                   style={{
                     background: "rgba(0, 212, 255, 0.08)",
                     color: "var(--text-secondary)",
@@ -408,10 +408,17 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
                 >
                   {tool.name}
                 </span>
-              ))}
-            </div>
+              ))
+            ) : (
+              <span
+                className="text-[10px] italic sm:text-xs"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                View profile for tools
+              </span>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Arrow indicator */}
         <div
