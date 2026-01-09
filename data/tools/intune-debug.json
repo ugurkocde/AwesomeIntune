@@ -11,7 +11,19 @@
     "settings applied",
     "laps",
     "certificate assignments",
-    "rsop"
+    "rsop",
+    "gpresult for intune",
+    "intune policy troubleshooting",
+    "how to check applied intune policies",
+    "intune rsop equivalent",
+    "download intune debug tool",
+    "intune html report generator",
+    "which policies are applied to device",
+    "intune win32 app troubleshooting",
+    "intune settings catalog report",
+    "mdm policy debugging powershell",
+    "intune configuration profile report",
+    "troubleshoot intune policy deployment"
   ],
   "author": "Jonas Ohmsen",
   "authorPicture": "",
@@ -22,6 +34,7 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneDebug/",
   "category": "troubleshooting",
   "type": "powershell-module",
+  "worksWith": ["windows", "win32-apps", "laps", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,

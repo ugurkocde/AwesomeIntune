@@ -36,12 +36,24 @@ export async function generateMetadata({
     };
   }
 
+  const tools = getCollectionTools(collection);
+  const toolCount = tools.length;
+
+  // Optimized title with tool count
+  const title = `${collection.title}: ${toolCount} Curated Intune Tools | ${SITE_CONFIG.name}`;
+
+  // Enhanced description
+  const description = `${collection.description} Browse ${toolCount} hand-picked tools for Microsoft Intune.`;
+
   return {
-    title: `${collection.title} - ${SITE_CONFIG.name}`,
-    description: collection.description,
+    title,
+    description,
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/collections/${slug}`,
+    },
     openGraph: {
-      title: `${collection.title} - ${SITE_CONFIG.name}`,
-      description: collection.description,
+      title,
+      description,
       type: "website",
       url: `${SITE_CONFIG.url}/collections/${slug}`,
     },

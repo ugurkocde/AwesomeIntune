@@ -10,7 +10,24 @@
     "powershell",
     "azure-devops",
     "packaging",
-    "onboarding"
+    "onboarding",
+    "automate intune app deployment",
+    "win32 app packaging tool",
+    "intune application factory",
+    "automatic app updates intune",
+    "winget intune integration",
+    "evergreen app deployment",
+    "intunewin automation",
+    "how to automate win32 apps",
+    "intune app pipeline",
+    "azure devops intune deployment",
+    "auto package applications intune",
+    "psadt intune packaging",
+    "download intune app factory",
+    "install intuneappfactory powershell",
+    "how to set up app factory pipeline",
+    "troubleshoot intune app deployment",
+    "automatically update win32 apps"
   ],
   "author": "Nickolaj Andersen",
   "authorPicture": "",
@@ -22,6 +39,7 @@
   "websiteUrl": "https://msendpointmgr.com/intune-app-factory",
   "category": "automation",
   "type": "powershell-script",
+  "worksWith": ["windows", "win32-apps", "graph-api", "azure-devops", "winget"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-app-factory/screenshot-1.png"

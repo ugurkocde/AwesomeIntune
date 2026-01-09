@@ -10,7 +10,23 @@
     "admx import",
     "bulk operations",
     "document intune",
-    "policy management"
+    "policy management",
+    "intune backup",
+    "intune restore",
+    "backup intune configuration",
+    "migrate intune policies",
+    "intune policy export",
+    "intune tenant migration",
+    "how to backup intune",
+    "intune configuration backup tool",
+    "compare intune policies",
+    "intune policy documentation",
+    "intune powershell gui",
+    "intune bulk export",
+    "copy intune settings",
+    "intune migration tool",
+    "export intune to json",
+    "intune configuration as code"
   ],
   "author": "Micke Karlsson",
   "authorPicture": "/images/authors/Micke-Karlsson.jpg",
@@ -21,6 +37,7 @@
   "downloadUrl": "https://github.com/Micke-K/IntuneManagement/releases",
   "category": "automation",
   "type": "desktop-app",
+  "worksWith": ["windows", "macos", "ios", "android", "graph-api", "configuration-profiles", "admx"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-management/screenshot-1.png"

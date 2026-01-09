@@ -10,7 +10,19 @@
     "app icons",
     "teams notifications",
     "slack notifications",
-    "ci cd apps"
+    "ci cd apps",
+    "autopkg intune processor",
+    "automate app upload to intune",
+    "intune lob app automation",
+    "ci cd pipeline intune apps",
+    "automated intune app deployment",
+    "upload win32 apps automatically",
+    "intune app icon upload",
+    "devops intune integration",
+    "autopkg recipes intune",
+    "automated macos app deployment intune",
+    "intune deployment notifications",
+    "line of business app automation"
   ],
   "author": "Tobias Almen",
   "authorPicture": "/images/authors/tobias-almen.jpg",
@@ -20,6 +32,7 @@
   "repoUrl": "https://github.com/almenscorner/intune-uploader",
   "category": "automation",
   "type": "cli-tool",
+  "worksWith": ["macos", "graph-api"],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,

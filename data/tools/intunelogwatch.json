@@ -10,7 +10,19 @@
     "insights",
     "troubleshooting",
     "monitoring",
-    "diagnostics"
+    "diagnostics",
+    "how to analyze intune logs mac",
+    "troubleshoot intune macos issues",
+    "download intune log viewer",
+    "install log analysis tool",
+    "mac intune deployment errors",
+    "human readable log summaries",
+    "intune management extension logs",
+    "macos mdm troubleshooting",
+    "identify intune enrollment problems",
+    "actionable log insights",
+    "it admin log monitoring",
+    "debug intune mac deployments"
   ],
   "author": "Gil Burns",
   "authorPicture": "https://github.com/gilburns.png",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "desktop-app",
+  "worksWith": ["macos"],
   "dateAdded": "2026-01-05",
   "securityCheck": {
     "passed": 6,

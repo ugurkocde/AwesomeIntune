@@ -12,7 +12,17 @@
     "copilot",
     "mac management",
     "mvp",
-    "scripts"
+    "scripts",
+    "how to manage mac with intune",
+    "troubleshoot intune macos",
+    "intune mac enrollment guide",
+    "macos configuration profiles",
+    "open intune baseline mac",
+    "apple device management intune",
+    "mac mdm best practices",
+    "intune macos shell scripts",
+    "corporate mac setup guide",
+    "macos compliance policies"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",
@@ -61,6 +71,7 @@
   "websiteUrl": "https://www.intunemacadmins.com/",
   "category": "other",
   "type": "documentation",
+  "worksWith": ["macos", "configuration-profiles", "compliance-policies", "security-baselines"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-mac-admins/screenshot-1.png"

@@ -10,7 +10,19 @@
     "microsoft-intune",
     "app-management",
     "deployment-guides",
-    "how-to"
+    "how-to",
+    "generate intune app documentation",
+    "automated deployment documentation",
+    "intune app install guide generator",
+    "create user guides intune apps",
+    "intune application reference docs",
+    "auto generate how-to instructions",
+    "intune deployment step by step",
+    "app configuration documentation tool",
+    "end user intune app guide",
+    "template based intune docs",
+    "publish intune app instructions",
+    "intune managed app documentation"
   ],
   "author": "Morten Glimme",
   "authorPicture": "",
@@ -22,6 +34,7 @@
   "websiteUrl": "https://github.com/MrtnRQL/intune-doc-generator/blob/main/github/assets/IntuneHowto.gif",
   "category": "packaging",
   "type": "documentation",
+  "worksWith": ["windows", "win32-apps"],
   "dateAdded": "2026-01-06",
   "authors": [
     {

@@ -10,7 +10,19 @@
     "network shares",
     "map drives",
     "drive letters",
-    "file server"
+    "file server",
+    "intune drive mapping script",
+    "convert gpo drives to intune",
+    "powershell drive mapping",
+    "security group drive filtering",
+    "nested group drive mapping",
+    "recurring drive mapping",
+    "migrate group policy drives",
+    "windows 10 network drives intune",
+    "azure ad group drive mapping",
+    "intune network share access",
+    "replace gpo drive mappings",
+    "export gpo drive settings"
   ],
   "author": "Nicola Suter",
   "authorPicture": "/images/authors/Nicola-Suter.jpg",
@@ -21,6 +33,7 @@
   "websiteUrl": "https://intunedrivemapping.azurewebsites.net/",
   "category": "automation",
   "type": "web-app",
+  "worksWith": ["windows", "entra-id"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-drive-mapping/screenshot-1.png"

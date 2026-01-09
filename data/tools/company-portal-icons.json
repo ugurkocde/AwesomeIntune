@@ -10,7 +10,19 @@
     "enterprise icons",
     "free icons",
     "intune icons",
-    "app images"
+    "app images",
+    "download company portal icons",
+    "how to add app icons intune",
+    "intune app logo",
+    "transparent app icons",
+    "application artwork",
+    "intune documentation generator",
+    "company portal app images",
+    "how to customize company portal",
+    "enterprise app branding",
+    "mdm app icons",
+    "business app logos",
+    "intune app deployment icons"
   ],
   "author": "Morten Glimme",
   "authorPicture": "/images/authors/Morten-Glimme.jpg",
@@ -21,6 +33,7 @@
   "websiteUrl": "https://companyportalicons.com/",
   "category": "other",
   "type": "web-app",
+  "worksWith": ["windows", "macos", "ios", "android"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/company-portal-icons/screenshot-1.png"

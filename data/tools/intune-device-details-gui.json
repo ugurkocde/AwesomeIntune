@@ -11,7 +11,19 @@
     "filter assignments",
     "device info",
     "recovery key",
-    "device lookup"
+    "device lookup",
+    "how to find bitlocker recovery key intune",
+    "get laps password from intune",
+    "intune device information tool",
+    "check azure ad group membership",
+    "intune assignment troubleshooting",
+    "download intune device details gui",
+    "which apps assigned to device",
+    "intune filter assignment viewer",
+    "autopilot profile assignment check",
+    "intune remediation script status",
+    "intune device inventory tool",
+    "entra id device group membership"
   ],
   "author": "Petri Paavola",
   "authorPicture": "/images/authors/Petri-Paavola.jpg",
@@ -22,6 +34,7 @@
   "downloadUrl": "https://github.com/petripaavola/IntuneDeviceDetailsGUI/releases",
   "category": "troubleshooting",
   "type": "powershell-script",
+  "worksWith": ["windows", "graph-api", "bitlocker", "laps", "autopilot", "entra-id", "device-filters"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-device-details-gui/screenshot-1.gif"

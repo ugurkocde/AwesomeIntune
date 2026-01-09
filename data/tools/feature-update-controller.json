@@ -10,7 +10,19 @@
     "custom-actions",
     "script-modules",
     "manifest.json",
-    "remediation-scripts"
+    "remediation-scripts",
+    "how to control windows feature updates",
+    "troubleshoot windows upgrade intune",
+    "configure feature update settings",
+    "windows 11 upgrade management",
+    "intune remediation package",
+    "customize windows setup",
+    "post upgrade scripts intune",
+    "rollback feature update",
+    "windows upgrade automation",
+    "feature update deployment",
+    "setupconfig generator",
+    "intune proactive remediation upgrade"
   ],
   "author": "Nickolaj Andersen",
   "authorPicture": "",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "powershell-script",
+  "worksWith": ["windows", "remediation-scripts"],
   "dateAdded": "2026-01-06",
   "securityCheck": {
     "passed": 5,

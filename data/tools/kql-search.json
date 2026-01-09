@@ -12,7 +12,17 @@
     "detection rules",
     "azure data explorer",
     "security queries",
-    "query generator"
+    "query generator",
+    "kql query examples",
+    "hunting queries",
+    "microsoft sentinel queries",
+    "defender for endpoint kql",
+    "find kql queries",
+    "security incident queries",
+    "vulnerability detection kql",
+    "log analytics queries",
+    "siem queries",
+    "advanced hunting queries"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",

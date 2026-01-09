@@ -10,7 +10,19 @@
     "azure-functions",
     "client-side-validation",
     "security",
-    "embedded-modules"
+    "embedded-modules",
+    "how to validate device trust",
+    "troubleshoot entra device certificate",
+    "azure ad device authentication",
+    "device certificate validation",
+    "install entra device trust module",
+    "conditional access device trust",
+    "entra joined device verification",
+    "device identity validation",
+    "zero trust device authentication",
+    "powershell device trust",
+    "function app device binding",
+    "certificate based device auth"
   ],
   "author": "Nickolaj Andersen",
   "authorPicture": "",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-module",
+  "worksWith": ["windows", "entra-id", "conditional-access"],
   "dateAdded": "2026-01-06",
   "securityCheck": {
     "passed": 5,

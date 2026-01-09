@@ -12,7 +12,17 @@
     "gpo replacement",
     "group policy alternative",
     "desktop shortcuts",
-    "start menu"
+    "start menu",
+    "intune drive mapping solution",
+    "replace group policy preferences",
+    "user environment management intune",
+    "json based configuration",
+    "on-demand refresh",
+    "network printer deployment",
+    "application launcher intune",
+    "registry settings deployment",
+    "file actions intune",
+    "lightweight environment manager"
   ],
   "author": "Joey Verlinden",
   "authorPicture": "/images/authors/Joey-Verlinden.jpg",
@@ -24,6 +34,7 @@
   "websiteUrl": "https://www.envoycontrol.com/",
   "category": "configuration",
   "type": "desktop-app",
+  "worksWith": ["windows", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/envoy/screenshot-1.png"

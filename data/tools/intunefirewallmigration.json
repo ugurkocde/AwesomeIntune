@@ -10,7 +10,19 @@
     "group-policy",
     "migration",
     "graph-api",
-    "powershell"
+    "powershell",
+    "how to migrate firewall rules to intune",
+    "troubleshoot firewall migration",
+    "convert gpo firewall to intune",
+    "import firewall rules",
+    "export group policy firewall",
+    "download firewall migration tool",
+    "install firewall migration script",
+    "windows defender firewall intune",
+    "inbound outbound rules migration",
+    "domain private public firewall profiles",
+    "microsoft graph firewall policy",
+    "modernize firewall management"
   ],
   "author": "Nick Benton",
   "authorPicture": "https://github.com/ennnbeee.png",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "powershell-script",
+  "worksWith": ["windows", "graph-api", "settings-catalog"],
   "dateAdded": "2026-01-06",
   "authors": [
     {

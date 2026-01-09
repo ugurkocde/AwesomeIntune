@@ -11,7 +11,18 @@
     "csv export",
     "empty groups",
     "policy discovery",
-    "batch processing"
+    "batch processing",
+    "intune policy assignments",
+    "check intune assignments",
+    "find missing assignments",
+    "intune reporting tool",
+    "policy assignment audit",
+    "intune group membership",
+    "app assignment checker",
+    "configuration profile assignments",
+    "intune compliance reporting",
+    "troubleshoot intune assignments",
+    "who gets this policy"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",
@@ -23,6 +34,7 @@
   "websiteUrl": "https://intuneassignmentchecker.ugurkoc.de/",
   "category": "reporting",
   "type": "powershell-script",
+  "worksWith": ["windows", "graph-api", "configuration-profiles", "compliance-policies"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-assignment-checker/screenshot-1.png"

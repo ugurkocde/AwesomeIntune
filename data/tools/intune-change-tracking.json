@@ -11,7 +11,21 @@
     "configuration changes",
     "policy changes",
     "audit trail",
-    "compliance audit"
+    "compliance audit",
+    "intune audit log analysis",
+    "track intune policy changes",
+    "who modified intune policy",
+    "intune change history",
+    "intune configuration audit",
+    "autopilot hash tracking",
+    "intune device operations log",
+    "how to track intune changes",
+    "intune audit workbook",
+    "find intune configuration changes",
+    "intune profile change tracking",
+    "troubleshoot intune policy changes",
+    "intune value change history",
+    "monitor intune admin activity"
   ],
   "author": "Niklas Tinner",
   "authorPicture": "/images/authors/Niklas-Tinner.jpg",
@@ -22,6 +36,7 @@
   "websiteUrl": "https://www.oceanleaf.ch/intune-change-tracking/",
   "category": "monitoring",
   "type": "other",
+  "worksWith": ["windows", "graph-api", "autopilot", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-change-tracking/screenshot-1.png"

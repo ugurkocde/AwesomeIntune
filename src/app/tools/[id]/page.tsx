@@ -38,17 +38,40 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     };
   }
 
-  const description = tool.description.length > 155
-    ? tool.description.slice(0, 152) + "..."
-    : tool.description;
+  const categoryLabel = CATEGORY_CONFIG[tool.category]?.label ?? tool.category;
+  const typeLabel = TYPE_CONFIG[tool.type]?.label ?? tool.type;
+
+  // Optimized title for SEO: includes category and "Intune" keyword
+  const title = `${tool.name}: Free ${categoryLabel} Tool for Intune`;
+
+  // Optimized description with action-oriented language
+  const baseDescription = `Download ${tool.name}, a free ${typeLabel.toLowerCase()} for Microsoft Intune ${categoryLabel.toLowerCase()}. ${tool.description}`;
+  const description = baseDescription.length > 155
+    ? baseDescription.slice(0, 152) + "..."
+    : baseDescription;
 
   const ogImageUrl = `/api/og?title=${encodeURIComponent(tool.name)}&category=${encodeURIComponent(tool.category)}&type=${encodeURIComponent(tool.type)}&author=${encodeURIComponent(tool.author)}`;
 
+  // Build keywords array from tool keywords plus standard terms
+  const keywords = [
+    tool.name,
+    `${tool.name} download`,
+    `Intune ${categoryLabel}`,
+    `Intune ${categoryLabel} tools`,
+    `Microsoft Intune ${categoryLabel.toLowerCase()}`,
+    typeLabel,
+    ...(tool.keywords ?? []),
+  ];
+
   return {
-    title: `${tool.name} - ${SITE_CONFIG.name}`,
+    title,
     description,
+    keywords,
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/tools/${tool.id}`,
+    },
     openGraph: {
-      title: `${tool.name} - ${SITE_CONFIG.name}`,
+      title,
       description,
       type: "website",
       url: `${SITE_CONFIG.url}/tools/${tool.id}`,
@@ -57,13 +80,13 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${tool.name} - ${CATEGORY_CONFIG[tool.category]?.label} tool`,
+          alt: `${tool.name} - ${categoryLabel} tool for Microsoft Intune`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${tool.name} - ${SITE_CONFIG.name}`,
+      title,
       description,
       images: [ogImageUrl],
     },

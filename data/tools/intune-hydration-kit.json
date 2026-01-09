@@ -10,7 +10,24 @@
     "tenant bootstrap",
     "initial configuration",
     "greenfield",
-    "quick start"
+    "quick start",
+    "automate intune tenant setup",
+    "intune hydration kit download",
+    "deploy intune baselines powershell",
+    "how to configure new intune tenant",
+    "intune conditional access automation",
+    "bulk create intune policies",
+    "intune tenant automation tool",
+    "setup intune from scratch",
+    "intune kickstart script",
+    "one command intune deployment",
+    "intune app protection policy automation",
+    "fast intune tenant configuration",
+    "install intunehydrationkit module",
+    "troubleshoot intune hydration kit errors",
+    "how to deploy 70 security baselines",
+    "intune dynamic groups automation",
+    "powershell gallery intune hydration"
   ],
   "author": "Jorge Suarez",
   "authorPicture": "/images/authors/Jorge-Suarez.jpg",
@@ -22,6 +39,7 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneHydrationKit/",
   "category": "automation",
   "type": "powershell-module",
+  "worksWith": ["windows", "graph-api", "security-baselines", "configuration-profiles", "compliance-policies", "conditional-access", "device-filters", "app-protection-policies"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-hydration-kit/screenshot-1.png"

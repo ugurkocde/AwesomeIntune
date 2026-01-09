@@ -11,7 +11,18 @@
     "enroll computers",
     "rmm deployment",
     "unattended enrollment",
-    "bulk enrollment"
+    "bulk enrollment",
+    "how to enroll autopilot",
+    "how to register autopilot device",
+    "troubleshoot autopilot enrollment",
+    "import hardware hash",
+    "azure app registration autopilot",
+    "autopilot without hybrid join",
+    "get hardware hash powershell",
+    "autopilot device import script",
+    "mass device enrollment",
+    "silent autopilot registration",
+    "oobe autopilot enrollment"
   ],
   "author": "Johannes Geir Kristjansson",
   "authorPicture": "/images/authors/Johannes-Geir-Kristjansson.jpg",
@@ -21,6 +32,7 @@
   "websiteUrl": "https://johannesblog.com/2024/09/04/enrolling-devices-to-autopilot-using-a-app-registration/",
   "category": "automation",
   "type": "powershell-script",
+  "worksWith": ["windows", "autopilot", "entra-id", "graph-api"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/autopilot-app-registration-enrollment/screenshot-1.png"

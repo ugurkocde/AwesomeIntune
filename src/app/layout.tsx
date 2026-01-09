@@ -35,9 +35,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://awesomeintune.com"),
-  title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
+  title: "Microsoft Intune Tools & PowerShell Scripts Directory | 86+ Free Resources",
   description:
-    "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources. Curated by IT professionals for endpoint management, compliance, and reporting.",
+    "Discover 86+ free Microsoft Intune tools, PowerShell scripts, and automation resources. The largest curated collection for IT professionals - featuring troubleshooting, reporting, packaging, and endpoint management tools.",
   keywords: [
     "Microsoft Intune",
     "Intune tools",
@@ -46,30 +46,44 @@ export const metadata: Metadata = {
     "Intune automation",
     "Endpoint management",
     "MDM tools",
+    "Intune troubleshooting tools",
+    "Intune PowerShell scripts",
+    "Intune reporting tools",
+    "Win32 app packaging",
+    "Autopilot tools",
+    "Intune compliance tools",
+    "device management tools",
+    "Intune security tools",
+    "Intune migration tools",
+    "free Intune tools",
+    "best Intune tools",
   ],
   authors: [{ name: "Intune Community" }],
+  alternates: {
+    canonical: "https://awesomeintune.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://awesomeintune.com",
     siteName: "Awesome Intune",
-    title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
+    title: "Microsoft Intune Tools & PowerShell Scripts Directory | 86+ Free Resources",
     description:
-      "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources for endpoint management.",
+      "Discover 86+ free Microsoft Intune tools and PowerShell scripts. The largest curated collection for IT professionals - troubleshooting, reporting, packaging, and automation.",
     images: [
       {
         url: "/api/og?title=Awesome%20Intune&category=automation",
         width: 1200,
         height: 630,
-        alt: "Awesome Intune - Community Tools Directory",
+        alt: "Awesome Intune - The Largest Microsoft Intune Tools Directory",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Intune Tools & PowerShell Scripts | 50+ Free Resources",
+    title: "Microsoft Intune Tools & PowerShell Scripts | 86+ Free Resources",
     description:
-      "Browse 50+ free Microsoft Intune tools, PowerShell scripts, and automation resources for endpoint management.",
+      "Discover 86+ free Microsoft Intune tools and PowerShell scripts. The largest curated collection for IT professionals.",
     images: ["/api/og?title=Awesome%20Intune&category=automation"],
   },
   icons: {

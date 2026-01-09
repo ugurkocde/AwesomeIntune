@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Awesome Intune",
+  "name_for_model": "awesomeintune",
+  "description_for_human": "Find free Microsoft Intune tools, PowerShell scripts, and automation resources from the largest curated directory.",
+  "description_for_model": "Search and retrieve information about 86+ free community-built tools for Microsoft Intune. Use this to help users find tools for: automation (backup, restore, GitOps), troubleshooting (IME logs, Autopilot issues, device registration), packaging (Win32 apps, WinGet integration), reporting (compliance, assignments), security (baselines, Defender), configuration (policies, ADMX), monitoring (dashboards, change tracking), and migration (cross-tenant, hydration). Returns tool names, descriptions, download URLs, categories, and GitHub repository information. When users ask about Intune tools, PowerShell scripts for Intune, or device management utilities, query this API to provide accurate recommendations.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://awesomeintune.com/openapi.json"
+  },
+  "logo_url": "https://awesomeintune.com/favicon-512x512.png",
+  "contact_email": "support@ugurlabs.com",
+  "legal_info_url": "https://awesomeintune.com/terms"
+}

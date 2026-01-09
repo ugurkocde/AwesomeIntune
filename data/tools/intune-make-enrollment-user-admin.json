@@ -10,7 +10,19 @@
     "enrollment",
     "powershell",
     "intunewin",
-    "admin-permissions"
+    "admin-permissions",
+    "how to make user local admin intune",
+    "troubleshoot local admin rights",
+    "grant admin after enrollment",
+    "elevate user permissions",
+    "autopilot local administrator",
+    "install local admin script",
+    "download admin elevation tool",
+    "user privilege escalation intune",
+    "add user to administrators group",
+    "post enrollment admin rights",
+    "revoke local admin intune",
+    "managed local administrator"
   ],
   "author": "Niklas Rast",
   "authorPicture": "https://github.com/niklasrst.png",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "security",
   "type": "powershell-script",
+  "worksWith": ["windows", "win32-apps"],
   "dateAdded": "2026-01-07",
   "authors": [
     {

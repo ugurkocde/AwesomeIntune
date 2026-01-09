@@ -11,7 +11,19 @@
     "auto repair",
     "device health",
     "security hardening",
-    "compliance scripts"
+    "compliance scripts",
+    "intune proactive remediation examples",
+    "download remediation scripts intune",
+    "how to create detection script",
+    "intune script library",
+    "automate device fixes intune",
+    "ready to use intune scripts",
+    "endpoint analytics script collection",
+    "intune powershell remediation templates",
+    "device compliance automation",
+    "intune health check scripts",
+    "proactive remediation script samples",
+    "fix common windows issues intune"
   ],
   "author": "Jannik Reinhard",
   "authorPicture": "/images/authors/Jannik-Reinhard.jpg",
@@ -22,6 +34,7 @@
   "downloadUrl": "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip",
   "category": "troubleshooting",
   "type": "powershell-script",
+  "worksWith": ["windows", "remediation-scripts"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-1.png",

@@ -31,13 +31,20 @@ export async function generateMetadata({
   }
 
   const toolCount = author.tools.length;
-  const description = `Explore ${toolCount} Microsoft Intune ${toolCount === 1 ? "tool" : "tools"} created by ${author.name}`;
+
+  // Optimized title with tool count
+  const title = `${author.name}'s Intune Tools (${toolCount} ${toolCount === 1 ? "Script" : "Scripts"}) | ${SITE_CONFIG.name}`;
+
+  const description = `Explore ${toolCount} free Microsoft Intune ${toolCount === 1 ? "tool" : "tools"} created by ${author.name}. Download PowerShell scripts and automation resources.`;
 
   return {
-    title: `${author.name} - ${SITE_CONFIG.name}`,
+    title,
     description,
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/authors/${slug}`,
+    },
     openGraph: {
-      title: `${author.name} - ${SITE_CONFIG.name}`,
+      title,
       description,
       type: "profile",
       url: `${SITE_CONFIG.url}/authors/${slug}`,

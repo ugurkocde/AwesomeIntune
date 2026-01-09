@@ -12,7 +12,17 @@
     "msi packaging",
     "exe packaging",
     "visual packaging",
-    "gui packaging"
+    "gui packaging",
+    "drag and drop packaging",
+    "create psadt script without coding",
+    "psappdeploytoolkit gui editor",
+    "sccm application packaging tool",
+    "intune win32 app packaging gui",
+    "automated powershell deployment script",
+    "silent install script generator",
+    "windows software deployment builder",
+    "no code app packaging",
+    "task sequence deployment editor"
   ],
   "author": "Tugay Taskin",
   "authorPicture": "/images/authors/Tugay-Taskin.png",
@@ -23,6 +33,7 @@
   "downloadUrl": "https://github.com/tugich/DeploymentEditor/releases",
   "category": "packaging",
   "type": "desktop-app",
+  "worksWith": ["windows", "win32-apps"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/deployment-editor/screenshot-1.png"

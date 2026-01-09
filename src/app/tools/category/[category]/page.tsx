@@ -42,16 +42,39 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
+  // Get tool count for the title
+  const tools = getToolsByCategory(category);
+  const toolCount = tools.length;
+
+  // Optimized title with tool count and year for freshness
+  const title = `${toolCount}+ Free ${categoryConfig.label} Tools for Microsoft Intune (2026)`;
+
   const description = CATEGORY_DESCRIPTIONS[category as ToolCategory] ??
     `Browse ${categoryConfig.label} tools for Microsoft Intune`;
 
   const ogImageUrl = `/api/og?title=${encodeURIComponent(`${categoryConfig.label} Tools`)}&category=${encodeURIComponent(category)}`;
 
+  // SEO keywords for category pages
+  const keywords = [
+    `Intune ${categoryConfig.label} tools`,
+    `Microsoft Intune ${categoryConfig.label.toLowerCase()}`,
+    `Intune ${categoryConfig.label.toLowerCase()} scripts`,
+    `free Intune ${categoryConfig.label.toLowerCase()} tools`,
+    `best Intune ${categoryConfig.label.toLowerCase()} tools`,
+    "Intune tools",
+    "Microsoft Intune",
+    "endpoint management",
+  ];
+
   return {
-    title: `${categoryConfig.label} Tools - ${SITE_CONFIG.name}`,
+    title,
     description,
+    keywords,
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/tools/category/${category}`,
+    },
     openGraph: {
-      title: `${categoryConfig.label} Tools - ${SITE_CONFIG.name}`,
+      title,
       description,
       type: "website",
       url: `${SITE_CONFIG.url}/tools/category/${category}`,
@@ -66,7 +89,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     },
     twitter: {
       card: "summary_large_image",
-      title: `${categoryConfig.label} Tools - ${SITE_CONFIG.name}`,
+      title,
       description,
       images: [ogImageUrl],
     },

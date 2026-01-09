@@ -10,7 +10,19 @@
     "storage-account",
     "bicep",
     "template-spec",
-    "microsoft-graph"
+    "microsoft-graph",
+    "collect intune logs remotely",
+    "intune device log collection",
+    "how to gather logs from managed devices",
+    "intune troubleshooting log upload",
+    "automate log collection intune",
+    "centralized log gathering mdm",
+    "intune event log collector",
+    "azure based log collection solution",
+    "deploy intune log collector",
+    "remote diagnostics intune devices",
+    "intune diagnostic data collection",
+    "endpoint log aggregation tool"
   ],
   "author": "Nickolaj Andersen",
   "authorPicture": "",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "powershell-script",
+  "worksWith": ["windows", "macos", "graph-api", "azure-automation"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-log-collector/screenshot-1.png"

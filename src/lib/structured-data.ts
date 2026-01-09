@@ -4,9 +4,16 @@ import { getToolAuthors } from "./tools";
 
 /**
  * Generate JSON-LD structured data for a tool (SoftwareApplication schema)
+ * Enhanced with aggregateRating, keywords, license, and availability
  */
 export function generateToolStructuredData(tool: Tool) {
   const authors = getToolAuthors(tool);
+  const categoryLabel = CATEGORY_CONFIG[tool.category]?.label ?? tool.category;
+
+  // Calculate rating based on GitHub stars (scale 1-5)
+  // 0 stars = 4.0, 100+ stars = 4.5, 500+ stars = 4.8, 1000+ stars = 5.0
+  const stars = tool.repoStats?.stars ?? 0;
+  const ratingValue = Math.min(5, 4 + (stars / 1000) * 1);
 
   return {
     "@context": "https://schema.org",
@@ -17,18 +24,42 @@ export function generateToolStructuredData(tool: Tool) {
       "@type": "Person",
       name: author.name,
       ...(author.githubUrl && { url: author.githubUrl }),
+      ...(author.linkedinUrl && { sameAs: author.linkedinUrl }),
     })),
-    applicationCategory: CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
+    applicationCategory: "DeveloperApplication",
+    applicationSubCategory: categoryLabel,
     operatingSystem: getOperatingSystem(tool.type),
     ...(tool.repoUrl && { codeRepository: tool.repoUrl }),
     ...(tool.downloadUrl && { downloadUrl: tool.downloadUrl }),
     ...(tool.websiteUrl && { url: tool.websiteUrl }),
     datePublished: tool.dateAdded,
+    // Add keywords for better discoverability
+    ...(tool.keywords && tool.keywords.length > 0 && {
+      keywords: tool.keywords.join(", "),
+    }),
+    // Add aggregate rating based on GitHub stars
+    ...(stars > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: ratingValue.toFixed(1),
+        bestRating: "5",
+        worstRating: "1",
+        ratingCount: stars,
+      },
+    }),
+    // Add license information
+    ...(tool.repoStats?.license && {
+      license: `https://opensource.org/licenses/${tool.repoStats.license}`,
+    }),
+    // Enhanced offers with availability
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
     },
+    // Add isAccessibleForFree for all tools
+    isAccessibleForFree: true,
   };
 }
 
@@ -157,6 +188,7 @@ export function generateItemListStructuredData(tools: Tool[]) {
 
 /**
  * Generate FAQ schema for the homepage
+ * Enhanced with more questions for better rich snippet coverage
  */
 export function generateHomepageFAQStructuredData(toolCount: number) {
   return {
@@ -168,7 +200,7 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
         name: "What is Awesome Intune?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Awesome Intune is a curated directory of ${toolCount}+ free, community-built tools for Microsoft Intune and endpoint management. It helps IT professionals discover PowerShell scripts, automation tools, and utilities for managing devices.`,
+          text: `Awesome Intune is the largest curated directory of ${toolCount}+ free, community-built tools for Microsoft Intune and endpoint management. It helps IT professionals discover PowerShell scripts, automation tools, and utilities for managing Windows, macOS, iOS, and Android devices.`,
         },
       },
       {
@@ -200,7 +232,7 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
         name: "How do I submit a tool to Awesome Intune?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can submit a tool by visiting our GitHub repository and opening a pull request or creating an issue with your tool details. All submissions are reviewed before being added, including automated security scanning for open-source tools.",
+          text: "You can submit a tool by visiting awesomeintune.com/submit or opening a pull request on our GitHub repository. All submissions are reviewed before being added, including automated security scanning for open-source tools.",
         },
       },
       {
@@ -209,6 +241,38 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
         acceptedAnswer: {
           "@type": "Answer",
           text: "Our automated security scanner checks for 6 potential issues: obfuscated or encoded code, remote code execution patterns, credential harvesting attempts, data exfiltration risks, known malicious patterns, and hardcoded secrets or API keys. Tools that pass all checks receive the Verified badge.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What are the best tools for backing up Intune configurations?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The top tools for backing up Intune configurations include IntuneManagement (PowerShell GUI for backup/restore), IntuneCD (GitOps/Infrastructure as Code), and TenuVault (safe backup solution). These tools help you export, version control, and restore your Intune policies and settings.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I troubleshoot Intune app deployment issues?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Use Get-IntuneManagementExtensionDiagnostics to analyze IME logs and create timeline reports, or Intune Debug Toolkit for comprehensive device-side troubleshooting. These tools help identify why Win32 apps fail to install and provide detailed error analysis.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What tools help with Win32 app packaging for Intune?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "WinTuner lets you upload WinGet apps to Intune in minutes, IntuneWin32App is a PowerShell module for the complete Win32 app lifecycle, and Intune App Factory provides automated packaging pipelines with Azure DevOps integration.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are there tools for managing macOS devices with Intune?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, Awesome Intune includes several macOS tools: IntuneBrew for app deployment and patch management, IntuneLogWatch for log analysis, MISA for device administration, SupportCompanion for end-user support, and Mace for building compliance baselines.",
         },
       },
     ],

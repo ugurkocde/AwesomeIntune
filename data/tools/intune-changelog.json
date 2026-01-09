@@ -12,7 +12,17 @@
     "client-side",
     "privacy",
     "monitoring",
-    "audit trail"
+    "audit trail",
+    "how to track intune changes",
+    "how to view audit logs intune",
+    "troubleshoot intune configuration",
+    "intune policy changes",
+    "who changed intune settings",
+    "intune activity log viewer",
+    "configuration drift detection",
+    "intune compliance history",
+    "graph api audit logs",
+    "intune change history"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",
@@ -24,6 +34,7 @@
   "websiteUrl": "https://www.intunechangelog.com/",
   "category": "monitoring",
   "type": "web-app",
+  "worksWith": ["windows", "graph-api"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-changelog/screenshot-1.png"

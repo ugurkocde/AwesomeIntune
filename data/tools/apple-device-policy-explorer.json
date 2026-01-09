@@ -12,7 +12,21 @@
     "iphone management",
     "ipad management",
     "apple tv",
-    "policy reference"
+    "policy reference",
+    "apple mdm profile reference",
+    "ios configuration profile",
+    "macos mdm payloads",
+    "visionos device management",
+    "watchos mdm policies",
+    "tvos configuration",
+    "how to configure apple devices",
+    "apple device restrictions",
+    "mdm payload documentation",
+    "apple enterprise management",
+    "ios mdm settings list",
+    "macos policy explorer",
+    "find apple mdm settings",
+    "apple configuration profile keys"
   ],
   "author": "Neil Johnson",
   "authorPicture": "/images/authors/neil-johnson.jpg",
@@ -22,6 +36,7 @@
   "websiteUrl": "https://appledevicepolicy.tools/policy-explorer",
   "category": "configuration",
   "type": "web-app",
+  "worksWith": ["ios", "macos", "configuration-profiles"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/apple-device-policy-explorer/screenshot-1.png"

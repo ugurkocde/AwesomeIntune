@@ -11,7 +11,22 @@
     "cmtrace",
     "device not syncing",
     "policy not applying",
-    "all in one troubleshooting"
+    "all in one troubleshooting",
+    "intune device not syncing fix",
+    "intune troubleshooting tool",
+    "mdm diagnostics",
+    "intune syncml viewer",
+    "why is intune policy not applying",
+    "autopilot validation tool",
+    "intune event viewer",
+    "redeploy win32 app",
+    "intune registry debugging",
+    "device enrollment troubleshooting",
+    "intune diagnostic toolkit",
+    "fix intune sync issues",
+    "msendpointmgr tools",
+    "intune device details gui",
+    "intune live event monitoring"
   ],
   "author": "Mattias Melkersen",
   "authorPicture": "/images/authors/Mattias-Melkersen-Kalvag.jpg",
@@ -23,6 +38,7 @@
   "downloadUrl": "https://github.com/MSEndpointMgr/IntuneDebugToolkit/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
+  "worksWith": ["windows", "autopilot", "win32-apps"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-debug-toolkit/screenshot-1.png"

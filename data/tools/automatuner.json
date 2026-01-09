@@ -11,7 +11,18 @@
     "application packaging",
     "deploy software",
     "bulk app deployment",
-    "wintuner"
+    "wintuner",
+    "automate winget to intune",
+    "batch deploy apps intune",
+    "winget intune integration",
+    "how to deploy winget apps to intune",
+    "automated app packaging intune",
+    "intune win32 app automation",
+    "winget repository deployment",
+    "mass app deployment intune",
+    "azure ad app authentication",
+    "duplicate app detection intune",
+    "dependency handling intune apps"
   ],
   "author": "Ayoub Sekoum",
   "authorPicture": "/images/authors/Ayoub-Sekoum.jpg",
@@ -21,6 +32,7 @@
   "repoUrl": "https://github.com/Ayoub-Sekoum/automattuner",
   "category": "packaging",
   "type": "cli-tool",
+  "worksWith": ["windows", "win32-apps", "graph-api", "winget"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/automatuner/screenshot-2.jpg"

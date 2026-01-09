@@ -10,7 +10,19 @@
     "onboarding",
     "offboarding",
     "policy-import",
-    "work-profile"
+    "work-profile",
+    "how to deploy defender on mac",
+    "troubleshoot defender macos",
+    "install defender for endpoint mac",
+    "macos endpoint protection",
+    "configure defender intune mac",
+    "defender onboarding package",
+    "macos security policy",
+    "corporate owned mac defender",
+    "byod mac defender setup",
+    "microsoft defender business mac",
+    "macos antivirus intune",
+    "defender enrollment macos"
   ],
   "author": "Vlad Johansen",
   "authorPicture": "https://github.com/vladjoh.png",
@@ -22,6 +34,7 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "other",
+  "worksWith": ["macos", "defender", "configuration-profiles"],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/easydefendermacos/screenshot-1.png",

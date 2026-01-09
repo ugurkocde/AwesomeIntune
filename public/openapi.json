@@ -1,0 +1,334 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Awesome Intune API",
+    "description": "API for discovering Microsoft Intune tools and resources. Returns information about 86+ free community-built tools for Microsoft Intune and endpoint management.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Awesome Intune",
+      "url": "https://awesomeintune.com",
+      "email": "support@ugurlabs.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://awesomeintune.com",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/v1/tools": {
+      "get": {
+        "summary": "Get all Intune tools",
+        "description": "Returns a list of all 86+ Microsoft Intune tools with metadata including name, description, category, type, download URLs, and security status.",
+        "operationId": "getAllTools",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter tools by category",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["automation", "troubleshooting", "packaging", "reporting", "security", "configuration", "monitoring", "migration", "other"]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter tools by type",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["powershell-module", "powershell-script", "web-app", "desktop-app", "browser-extension", "cli-tool", "api-wrapper", "documentation", "other"]
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort order for results",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["name", "dateAdded", "stars"],
+              "default": "name"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of tools to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of tools",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tool"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of tools"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tools/{id}": {
+      "get": {
+        "summary": "Get a specific tool",
+        "description": "Returns detailed information about a single Microsoft Intune tool by its ID.",
+        "operationId": "getToolById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the tool (slug format)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "intuneManagement": {
+                "value": "intune-management",
+                "summary": "IntuneManagement tool"
+              },
+              "wintuner": {
+                "value": "wintuner",
+                "summary": "WinTuner tool"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with tool details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tool"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tool not found"
+          }
+        }
+      }
+    },
+    "/api/v1/categories": {
+      "get": {
+        "summary": "Get all categories",
+        "description": "Returns a list of all tool categories with their labels and tool counts.",
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": "Successful response with categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stats": {
+      "get": {
+        "summary": "Get aggregate statistics",
+        "description": "Returns aggregate statistics about the Awesome Intune directory.",
+        "operationId": "getStats",
+        "responses": {
+          "200": {
+            "description": "Successful response with statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalTools": {
+                      "type": "integer",
+                      "description": "Total number of tools"
+                    },
+                    "totalCategories": {
+                      "type": "integer",
+                      "description": "Total number of categories"
+                    },
+                    "totalAuthors": {
+                      "type": "integer",
+                      "description": "Total number of unique authors"
+                    },
+                    "categoryBreakdown": {
+                      "type": "object",
+                      "description": "Number of tools per category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tool": {
+        "type": "object",
+        "required": ["id", "name", "description", "category", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier (slug format)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the tool"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of what the tool does"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["automation", "troubleshooting", "packaging", "reporting", "security", "configuration", "monitoring", "migration", "other"],
+            "description": "Primary category"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["powershell-module", "powershell-script", "web-app", "desktop-app", "browser-extension", "cli-tool", "api-wrapper", "documentation", "other"],
+            "description": "Type of tool"
+          },
+          "author": {
+            "type": "string",
+            "description": "Primary author name"
+          },
+          "repoUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "GitHub repository URL"
+          },
+          "downloadUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Direct download URL"
+          },
+          "websiteUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Official website URL"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Search keywords"
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date",
+            "description": "Date the tool was added"
+          },
+          "repoStats": {
+            "type": "object",
+            "properties": {
+              "stars": {
+                "type": "integer"
+              },
+              "forks": {
+                "type": "integer"
+              },
+              "license": {
+                "type": "string"
+              }
+            },
+            "description": "GitHub repository statistics"
+          },
+          "securityCheck": {
+            "type": "object",
+            "properties": {
+              "passed": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              },
+              "lastChecked": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "description": "Security verification status"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Category identifier"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label"
+          },
+          "count": {
+            "type": "integer",
+            "description": "Number of tools in this category"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to browse this category"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "tools",
+      "description": "Microsoft Intune tools and resources"
+    },
+    {
+      "name": "categories",
+      "description": "Tool categories"
+    }
+  ]
+}

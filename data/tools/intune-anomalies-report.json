@@ -12,7 +12,21 @@
     "app failures",
     "stale devices",
     "anomaly detection",
-    "tenant health"
+    "tenant health",
+    "intune health check",
+    "intune environment report",
+    "find intune issues",
+    "intune inactive device report",
+    "troubleshoot intune compliance",
+    "intune bitlocker report",
+    "detect intune app failures",
+    "intune stale device cleanup",
+    "intune anomaly report script",
+    "download intune health report",
+    "autopilot hash issues",
+    "disabled user accounts intune",
+    "intune multi-user device report",
+    "how to audit intune environment"
   ],
   "author": "Roy Klooster",
   "authorPicture": "/images/authors/roy-klooster.jpg",
@@ -23,6 +37,7 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/Generate-IntuneAnomaliesReport/",
   "category": "reporting",
   "type": "powershell-script",
+  "worksWith": ["windows", "graph-api", "compliance-policies", "autopilot", "bitlocker"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-anomalies-report/screenshot-1.png"

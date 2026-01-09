@@ -10,7 +10,22 @@
     "app supersedence",
     "intunewin",
     "arm64 apps",
-    "publish apps"
+    "publish apps",
+    "intune win32 app powershell",
+    "deploy win32 app to intune",
+    "intune app detection script",
+    "create intune detection rule",
+    "win32 app requirement rule",
+    "intune app dependency chain",
+    "supersede intune app",
+    "upload intunewin to intune",
+    "intune app deployment powershell",
+    "intune win32 app module",
+    "automate win32 app deployment",
+    "intune app assignment powershell",
+    "msendpointmgr intunewin32app",
+    "powershell gallery intune",
+    "intune app lifecycle management"
   ],
   "author": "Nickolaj Andersen",
   "authorPicture": "/images/authors/Nickolaj-Andersen.jpg",
@@ -21,6 +36,7 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneWin32App",
   "category": "packaging",
   "type": "powershell-module",
+  "worksWith": ["windows", "win32-apps", "graph-api"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-win32-app/screenshot-1.png"

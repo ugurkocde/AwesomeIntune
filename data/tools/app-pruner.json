@@ -10,7 +10,19 @@
     "app removal",
     "homebrew",
     "macos cleanup",
-    "bulk uninstall"
+    "bulk uninstall",
+    "how to uninstall mac apps",
+    "how to remove mac applications completely",
+    "troubleshoot app removal mac",
+    "delete app leftover files",
+    "clean uninstall macos",
+    "command line uninstall mac",
+    "app manifest generator",
+    "intune mac app uninstall",
+    "silent app removal macos",
+    "enterprise mac app cleanup",
+    "remove app preferences plist",
+    "macos application management"
   ],
   "author": "Tobias Almen",
   "authorPicture": "/images/authors/tobias-almen.jpg",
@@ -21,6 +33,7 @@
   "downloadUrl": "https://github.com/almenscorner/AppPruner/releases",
   "category": "automation",
   "type": "cli-tool",
+  "worksWith": ["macos", "homebrew"],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/app-pruner/screenshot-1.png"

@@ -10,7 +10,24 @@
     "cis",
     "profiles",
     "import-export",
-    "enterprise"
+    "enterprise",
+    "cis benchmark intune",
+    "download intune security profiles",
+    "intune baseline templates",
+    "import intune configuration profiles",
+    "windows security baseline intune",
+    "macos intune baseline",
+    "ios intune security policy",
+    "android enterprise baseline",
+    "zero trust intune configuration",
+    "intune hardening profiles",
+    "ready-made intune policies",
+    "intune compliance policy templates",
+    "how to import baselines into intune",
+    "troubleshoot intune baseline deployment",
+    "install intunemanagement tool",
+    "export intune profiles json",
+    "intune json configuration files"
   ],
   "author": "Jan Mulder",
   "authorPicture": "https://github.com/IntuneAdmin.png",
@@ -22,6 +39,7 @@
   "websiteUrl": "https://wolkenman.nl",
   "category": "configuration",
   "type": "documentation",
+  "worksWith": ["windows", "macos", "ios", "android", "security-baselines", "configuration-profiles", "compliance-policies"],
   "dateAdded": "2026-01-05",
   "screenshots": [
     "screenshots/intune-baselines/screenshot-1.png"
