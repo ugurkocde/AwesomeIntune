@@ -420,26 +420,6 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
           </div>
         </div>
 
-        {/* Arrow indicator */}
-        <div
-          className="absolute bottom-3 right-3 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 sm:bottom-4 sm:right-4"
-          style={{ color: "var(--accent-primary)" }}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="sm:h-4 sm:w-4"
-          >
-            <path d="M5 12h14" />
-            <path d="M12 5l7 7-7 7" />
-          </svg>
-        </div>
       </div>
     </Link>
   );
