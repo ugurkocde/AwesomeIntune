@@ -273,7 +273,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
   return (
     <Link
       href={`/authors/${author.slug}`}
-      className="group relative flex h-[200px] w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:h-[220px] sm:w-[280px] sm:rounded-2xl"
+      className="group relative flex h-[220px] w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:h-[250px] sm:w-[280px] sm:rounded-2xl"
       style={{
         background: "rgba(255, 255, 255, 0.03)",
         border: "1px solid rgba(255, 255, 255, 0.08)",
