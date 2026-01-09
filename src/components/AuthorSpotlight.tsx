@@ -99,18 +99,18 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 flex items-end justify-between"
+          className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <h2
-                className="text-2xl font-bold sm:text-3xl"
+                className="text-xl font-bold sm:text-2xl md:text-3xl"
                 style={{ color: "var(--text-primary)" }}
               >
                 Community Contributors
               </h2>
               <span
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
+                className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium sm:gap-1.5 sm:px-3 sm:py-1 sm:text-xs"
                 style={{
                   background: "rgba(139, 92, 246, 0.12)",
                   border: "1px solid rgba(139, 92, 246, 0.2)",
@@ -118,14 +118,15 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
                 }}
               >
                 <svg
-                  width="12"
-                  height="12"
+                  width="10"
+                  height="10"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="sm:h-3 sm:w-3"
                 >
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                 </svg>
@@ -133,7 +134,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
               </span>
             </div>
             <p
-              className="mt-2 text-sm sm:text-base"
+              className="mt-1.5 text-xs sm:mt-2 sm:text-sm md:text-base"
               style={{ color: "var(--text-secondary)" }}
             >
               Top contributors sorted by total views across their tools
@@ -190,7 +191,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
         </motion.div>
 
         {/* Carousel Container */}
-        <div className="relative -mx-6 sm:mx-0">
+        <div className="relative -mx-4 sm:mx-0">
           {/* Gradient fade edges - desktop only */}
           <div
             className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 hidden w-8 sm:block"
@@ -210,7 +211,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
           {/* Scrollable container */}
           <div
             ref={scrollContainerRef}
-            className="scrollbar-hide flex gap-4 overflow-x-auto px-6 pb-4 sm:px-0"
+            className="scrollbar-hide flex gap-3 overflow-x-auto px-4 pb-4 sm:gap-4 sm:px-0"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {topAuthors.map((author, index) => (
@@ -234,6 +235,29 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
               </motion.div>
             ))}
           </div>
+
+          {/* Mobile scroll hint */}
+          <div className="mt-3 flex items-center justify-center gap-1.5 sm:hidden">
+            <span
+              className="text-[10px] uppercase tracking-wider"
+              style={{ color: "var(--text-tertiary)" }}
+            >
+              Swipe to explore
+            </span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--text-tertiary)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </div>
         </div>
       </div>
     </section>
@@ -249,7 +273,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
   return (
     <Link
       href={`/authors/${author.slug}`}
-      className="group relative flex w-[280px] flex-shrink-0 flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+      className="group relative flex w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:w-[280px] sm:rounded-2xl"
       style={{
         background: "rgba(255, 255, 255, 0.03)",
         border: "1px solid rgba(255, 255, 255, 0.08)",
@@ -273,12 +297,12 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
         }}
       />
 
-      <div className="relative p-5">
+      <div className="relative p-4 sm:p-5">
         {/* Avatar and Name */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Avatar */}
           <div
-            className="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
+            className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full sm:h-16 sm:w-16"
             style={{
               background: author.picture
                 ? undefined
@@ -296,7 +320,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
               />
             ) : (
               <span
-                className="text-xl font-bold"
+                className="text-base font-bold sm:text-xl"
                 style={{ color: "var(--accent-primary)" }}
               >
                 {author.name
@@ -312,13 +336,13 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
           {/* Name and Tool Count */}
           <div className="min-w-0 flex-1">
             <h3
-              className="truncate text-base font-semibold transition-colors duration-200 group-hover:text-[var(--accent-primary)]"
+              className="truncate text-sm font-semibold transition-colors duration-200 group-hover:text-[var(--accent-primary)] sm:text-base"
               style={{ color: "var(--text-primary)" }}
             >
               {author.name}
             </h3>
             <p
-              className="mt-0.5 text-xs"
+              className="mt-0.5 text-[11px] sm:text-xs"
               style={{ color: "var(--text-tertiary)" }}
             >
               {author.toolCount} {author.toolCount === 1 ? "tool" : "tools"}
@@ -327,34 +351,35 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
         </div>
 
         {/* Impact Score */}
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-3 flex items-center gap-2 sm:mt-4">
           <div
-            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
+            className="flex items-center gap-1 rounded-lg px-2 py-1 sm:gap-1.5 sm:px-3 sm:py-1.5"
             style={{
               background: "rgba(139, 92, 246, 0.12)",
               border: "1px solid rgba(139, 92, 246, 0.2)",
             }}
           >
             <svg
-              width="14"
-              height="14"
+              width="12"
+              height="12"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#8b5cf6"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="sm:h-3.5 sm:w-3.5"
             >
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
             {isLoading ? (
-              <span className="h-4 w-8 animate-pulse rounded bg-white/10" />
+              <span className="h-3 w-6 animate-pulse rounded bg-white/10 sm:h-4 sm:w-8" />
             ) : (
-              <span className="text-sm font-semibold" style={{ color: "#8b5cf6" }}>
+              <span className="text-xs font-semibold sm:text-sm" style={{ color: "#8b5cf6" }}>
                 {formatViewCount(author.impact)}
               </span>
             )}
-            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+            <span className="text-[10px] sm:text-xs" style={{ color: "var(--text-tertiary)" }}>
               impact
             </span>
           </div>
@@ -362,18 +387,18 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
 
         {/* Top Tools */}
         {author.topTools.length > 0 && (
-          <div className="mt-4">
+          <div className="mt-3 sm:mt-4">
             <p
-              className="mb-2 text-[10px] font-medium uppercase tracking-wider"
+              className="mb-1.5 text-[9px] font-medium uppercase tracking-wider sm:mb-2 sm:text-[10px]"
               style={{ color: "var(--text-tertiary)" }}
             >
               Top Tools
             </p>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {author.topTools.map((tool) => (
                 <span
                   key={tool.id}
-                  className="inline-block max-w-[120px] truncate rounded-md px-2 py-1 text-xs"
+                  className="inline-block max-w-[100px] truncate rounded-md px-1.5 py-0.5 text-[10px] sm:max-w-[120px] sm:px-2 sm:py-1 sm:text-xs"
                   style={{
                     background: "rgba(0, 212, 255, 0.08)",
                     color: "var(--text-secondary)",
@@ -390,18 +415,19 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
 
         {/* Arrow indicator */}
         <div
-          className="absolute bottom-4 right-4 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+          className="absolute bottom-3 right-3 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 sm:bottom-4 sm:right-4"
           style={{ color: "var(--accent-primary)" }}
         >
           <svg
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="sm:h-4 sm:w-4"
           >
             <path d="M5 12h14" />
             <path d="M12 5l7 7-7 7" />
