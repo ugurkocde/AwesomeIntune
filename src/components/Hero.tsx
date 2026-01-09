@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { CharReveal } from "./TextReveal";
 import { trackSponsorClick } from "~/lib/plausible";
 import { useIsMobile } from "~/hooks/useIsMobile";
@@ -217,15 +218,19 @@ export function Hero() {
                 onClick={() => trackSponsorClick("eido", "hero")}
               >
                 {/* Light logo for dark theme (default) */}
-                <img
+                <Image
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
+                  width={144}
+                  height={48}
                   className="sponsor-logo-dark h-auto w-[108px] sm:w-[144px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
-                <img
+                <Image
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
+                  width={144}
+                  height={48}
                   className="sponsor-logo-light h-auto w-[108px] sm:w-[144px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -237,15 +242,19 @@ export function Hero() {
                 onClick={() => trackSponsorClick("zerotouch", "hero")}
               >
                 {/* Light logo for dark theme (default) */}
-                <img
+                <Image
                   src="/sponsors/zerotouch-light.png"
                   alt="ZeroTouch - Sponsor"
+                  width={200}
+                  height={80}
                   className="sponsor-logo-dark h-[60px] sm:h-[80px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
                 {/* Dark logo for light theme */}
-                <img
+                <Image
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
+                  width={200}
+                  height={80}
                   className="sponsor-logo-light h-[60px] sm:h-[80px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -256,9 +265,11 @@ export function Hero() {
                 className="group block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("recast", "hero")}
               >
-                <img
+                <Image
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
+                  width={150}
+                  height={33}
                   className="h-[25px] sm:h-[33px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -269,9 +280,11 @@ export function Hero() {
                 className="group block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("devicie", "hero")}
               >
-                <img
+                <Image
                   src="/sponsors/devicie.png"
                   alt="Devicie - Sponsor"
+                  width={150}
+                  height={55}
                   className="h-[43px] sm:h-[55px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>

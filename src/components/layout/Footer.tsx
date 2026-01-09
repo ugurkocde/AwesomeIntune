@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { GITHUB_REPO_URL, SITE_CONFIG } from "~/lib/constants";
 import { SubscribeForm } from "~/components/newsletter/SubscribeForm";
 import { trackSponsorClick } from "~/lib/plausible";
@@ -203,14 +204,18 @@ export function Footer() {
                 className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("eido", "footer")}
               >
-                <img
+                <Image
                   src="/sponsors/eido-light.svg"
                   alt="eido - Sponsor"
+                  width={86}
+                  height={29}
                   className="sponsor-logo-dark h-auto w-[68px] sm:w-[86px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <img
+                <Image
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
+                  width={86}
+                  height={29}
                   className="sponsor-logo-light h-auto w-[68px] sm:w-[86px] transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -221,14 +226,18 @@ export function Footer() {
                 className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("zerotouch", "footer")}
               >
-                <img
+                <Image
                   src="/sponsors/zerotouch-light.png"
                   alt="ZeroTouch - Sponsor"
+                  width={125}
+                  height={50}
                   className="sponsor-logo-dark h-[38px] sm:h-[50px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <img
+                <Image
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
+                  width={125}
+                  height={50}
                   className="sponsor-logo-light h-[38px] sm:h-[50px] w-auto transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -239,9 +248,11 @@ export function Footer() {
                 className="group inline-block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("recast", "footer")}
               >
-                <img
+                <Image
                   src="/sponsors/recast.png"
                   alt="Recast - Sponsor"
+                  width={90}
+                  height={20}
                   className="h-[15px] sm:h-[20px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
@@ -252,9 +263,11 @@ export function Footer() {
                 className="group inline-block transition-all duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("devicie", "footer")}
               >
-                <img
+                <Image
                   src="/sponsors/devicie.png"
                   alt="Devicie - Sponsor"
+                  width={95}
+                  height={34}
                   className="h-[27px] sm:h-[34px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import type { AuthorForSpotlight } from "~/lib/tools.server";
 import type { ViewCounts } from "~/hooks/useViewTracking";
@@ -286,9 +287,11 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
             }}
           >
             {author.picture ? (
-              <img
+              <Image
                 src={author.picture}
                 alt={author.name}
+                width={64}
+                height={64}
                 className="h-full w-full object-cover"
               />
             ) : (
