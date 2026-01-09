@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (error) {
+  } catch (_error) {
     console.error("API error in categories");
     return NextResponse.json(
       {

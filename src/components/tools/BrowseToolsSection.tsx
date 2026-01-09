@@ -50,7 +50,6 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setSortBy,
     setViewMode,
     setSearchQuery,
-    clearAllFilters,
     hasActiveFilters,
     activeFilterCount,
   } = useUrlFilters();

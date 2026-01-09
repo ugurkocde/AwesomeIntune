@@ -56,20 +56,35 @@ export const WORKS_WITH_CONFIG: Record<
   WorksWithTag,
   { label: string; color: string }
 > = {
-  "graph-api": { label: "Graph API", color: "#0078d4" },
-  autopilot: { label: "Autopilot", color: "#00bcf2" },
-  "win32-apps": { label: "Win32 Apps", color: "#7c3aed" },
-  "configuration-profiles": { label: "Config Profiles", color: "#10b981" },
-  "remediation-scripts": { label: "Remediation Scripts", color: "#f59e0b" },
-  admx: { label: "ADMX", color: "#6366f1" },
+  // Platforms
+  windows: { label: "Windows", color: "#0078d4" },
   macos: { label: "macOS", color: "#a3a3a3" },
   ios: { label: "iOS", color: "#0ea5e9" },
   android: { label: "Android", color: "#22c55e" },
-  windows: { label: "Windows", color: "#0078d4" },
   linux: { label: "Linux", color: "#fbbf24" },
+  // Intune Features
+  autopilot: { label: "Autopilot", color: "#00bcf2" },
+  "win32-apps": { label: "Win32 Apps", color: "#7c3aed" },
+  "configuration-profiles": { label: "Config Profiles", color: "#10b981" },
   "compliance-policies": { label: "Compliance", color: "#8b5cf6" },
+  "remediation-scripts": { label: "Remediation Scripts", color: "#f59e0b" },
+  "security-baselines": { label: "Security Baselines", color: "#dc2626" },
+  "settings-catalog": { label: "Settings Catalog", color: "#059669" },
+  "app-protection-policies": { label: "App Protection", color: "#d946ef" },
+  "device-filters": { label: "Device Filters", color: "#14b8a6" },
   "conditional-access": { label: "Conditional Access", color: "#ec4899" },
+  // Microsoft Services
+  "graph-api": { label: "Graph API", color: "#0078d4" },
   defender: { label: "Defender", color: "#ef4444" },
+  "entra-id": { label: "Entra ID", color: "#0078d4" },
+  bitlocker: { label: "BitLocker", color: "#6366f1" },
+  laps: { label: "LAPS", color: "#84cc16" },
+  // External Integrations
+  admx: { label: "ADMX", color: "#6366f1" },
+  "azure-automation": { label: "Azure Automation", color: "#0078d4" },
+  "azure-devops": { label: "Azure DevOps", color: "#0078d4" },
+  winget: { label: "Winget", color: "#0ea5e9" },
+  homebrew: { label: "Homebrew", color: "#fbbf24" },
 };
 
 export const WORKS_WITH_TAGS = Object.entries(WORKS_WITH_CONFIG).map(

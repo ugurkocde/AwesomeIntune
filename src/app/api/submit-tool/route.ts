@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { turnstileToken, acceptTerms: _acceptTerms, ...submissionData } = result.data;
+    const { turnstileToken, acceptTerms: _acceptTerms = true, ...submissionData } = result.data;
+void _acceptTerms;
 
     // Verify Turnstile CAPTCHA
     const isValidToken = await verifyTurnstileToken(turnstileToken);
