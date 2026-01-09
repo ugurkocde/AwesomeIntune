@@ -24,6 +24,7 @@ interface ToolCardProps {
   hasVoted?: boolean;
   isVotePending?: boolean;
   onVote?: (toolId: string) => Promise<boolean>;
+  onBeforeNavigate?: () => void;
 }
 
 export const ToolCard = memo(function ToolCard({
@@ -37,6 +38,7 @@ export const ToolCard = memo(function ToolCard({
   hasVoted = false,
   isVotePending = false,
   onVote,
+  onBeforeNavigate,
 }: ToolCardProps) {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -74,6 +76,7 @@ export const ToolCard = memo(function ToolCard({
   }, [tool.id, onVisible]);
 
   const handleCardClick = () => {
+    onBeforeNavigate?.();
     trackToolClick(tool.name, tool.category);
     router.push(`/tools/${tool.id}`);
   };

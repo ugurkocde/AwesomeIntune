@@ -20,6 +20,7 @@ interface ToolListItemProps {
   hasVoted?: boolean;
   isVotePending?: boolean;
   onVote?: (toolId: string) => Promise<boolean>;
+  onBeforeNavigate?: () => void;
 }
 
 export const ToolListItem = memo(function ToolListItem({
@@ -31,6 +32,7 @@ export const ToolListItem = memo(function ToolListItem({
   hasVoted = false,
   isVotePending = false,
   onVote,
+  onBeforeNavigate,
 }: ToolListItemProps) {
   const router = useRouter();
   const itemRef = useRef<HTMLDivElement>(null);
@@ -64,6 +66,7 @@ export const ToolListItem = memo(function ToolListItem({
   }, [tool.id, onVisible]);
 
   const handleClick = () => {
+    onBeforeNavigate?.();
     trackToolClick(tool.name, tool.category);
     router.push(`/tools/${tool.id}`);
   };

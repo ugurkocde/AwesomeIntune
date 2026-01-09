@@ -151,7 +151,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
           {/* Back Navigation */}
           <Link
-            href="/"
+            href="/tools"
             className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
             style={{
               color: "var(--text-secondary)",

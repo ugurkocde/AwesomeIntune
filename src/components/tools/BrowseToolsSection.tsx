@@ -24,6 +24,33 @@ import type { AISearchResult } from "~/app/api/search/route";
 const INITIAL_LOAD = 18;
 const LOAD_MORE_COUNT = 9;
 const AI_SEARCH_THRESHOLD = 15;
+const SCROLL_STATE_KEY = "tools-list-scroll-state";
+
+interface ScrollState {
+  scrollPosition: number;
+  displayCount: number;
+}
+
+function saveScrollState(state: ScrollState) {
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem(SCROLL_STATE_KEY, JSON.stringify(state));
+  }
+}
+
+function getScrollState(): ScrollState | null {
+  if (typeof window === "undefined") return null;
+
+  const saved = sessionStorage.getItem(SCROLL_STATE_KEY);
+  if (saved) {
+    sessionStorage.removeItem(SCROLL_STATE_KEY);
+    try {
+      return JSON.parse(saved) as ScrollState;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
 
 type AIExplanations = Record<string, string>;
 type AIConfidenceScores = Record<string, number>;
@@ -182,12 +209,35 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setSearchQuery("");
   }, [clearAiSearch, setSearchQuery]);
 
-  // Load more state
-  const [displayCount, setDisplayCount] = useState(INITIAL_LOAD);
+  // Load more state - initialize from saved state if available
+  const savedScrollState = useRef<ScrollState | null>(null);
+  const [displayCount, setDisplayCount] = useState(() => {
+    // Only read once during initialization
+    if (savedScrollState.current === null && typeof window !== "undefined") {
+      savedScrollState.current = getScrollState();
+    }
+    return savedScrollState.current?.displayCount ?? INITIAL_LOAD;
+  });
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [pendingScrollRestore, setPendingScrollRestore] = useState<number | null>(() => {
+    return savedScrollState.current?.scrollPosition ?? null;
+  });
 
-  // Reset display count when filters change
+  // Callback to save scroll state before navigating to a tool
+  const handleBeforeNavigate = useCallback(() => {
+    saveScrollState({
+      scrollPosition: window.scrollY,
+      displayCount,
+    });
+  }, [displayCount]);
+
+  // Reset display count when filters change (but not on initial load)
+  const isInitialMount = useRef(true);
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     setDisplayCount(INITIAL_LOAD);
   }, [selectedCategory, selectedType, sortBy, debouncedSearchQuery, aiToolIds]);
 
@@ -268,6 +318,17 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const displayedTools = useMemo(() => {
     return filteredTools.slice(0, displayCount);
   }, [filteredTools, displayCount]);
+
+  // Restore scroll position after content has rendered
+  useEffect(() => {
+    if (pendingScrollRestore !== null && displayedTools.length > 0) {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        window.scrollTo(0, pendingScrollRestore);
+        setPendingScrollRestore(null);
+      });
+    }
+  }, [pendingScrollRestore, displayedTools.length]);
 
   const hasMore = displayCount < filteredTools.length;
 
@@ -617,6 +678,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                         isVotePending={isVotePending(tool.id)}
                         onVote={vote}
                         aiExplanation={aiExplanations[tool.id]}
+                        onBeforeNavigate={handleBeforeNavigate}
                       />
                     ))}
                   </div>
@@ -636,6 +698,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                         hasVoted={hasVoted(tool.id)}
                         isVotePending={isVotePending(tool.id)}
                         onVote={vote}
+                        onBeforeNavigate={handleBeforeNavigate}
                       />
                     ))}
                   </div>
