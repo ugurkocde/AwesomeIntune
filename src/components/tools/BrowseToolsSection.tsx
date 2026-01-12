@@ -199,7 +199,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setSearchQuery("");
     setCategory(null);
     setType(null);
-    setSortBy("alphabetical");
+    setSortBy("newest");
   }, [clearAiSearch, setSearchQuery, setCategory, setType, setSortBy]);
 
   // Clear just search (used when removing search filter pill)

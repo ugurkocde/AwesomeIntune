@@ -63,7 +63,7 @@ export function useToolFilters({
   );
   const [selectedType, setSelectedType] = useState<ToolType | null>(null);
   const [selectedWorksWith, setSelectedWorksWith] = useState<WorksWithTag[]>([]);
-  const [sortBy, setSortByState] = useState<SortOption>("alphabetical");
+  const [sortBy, setSortByState] = useState<SortOption>("newest");
 
   // AI Search state
   const [isAiSearching, setIsAiSearching] = useState(false);

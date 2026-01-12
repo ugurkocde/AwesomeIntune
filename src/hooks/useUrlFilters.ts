@@ -80,7 +80,7 @@ export function useUrlFilters(): UseUrlFiltersReturn {
   const selectedCategory = isValidCategory(categoryParam) ? categoryParam : null;
   const selectedType = isValidType(typeParam) ? typeParam : null;
   const selectedWorksWith = parseWorksWith(worksWithParam);
-  const sortBy: SortOption = isValidSort(sortParam) ? sortParam : "alphabetical";
+  const sortBy: SortOption = isValidSort(sortParam) ? sortParam : "newest";
   const searchQuery = queryParam ?? "";
 
   // View mode from localStorage (not URL - it's a UI preference, not a filter)
@@ -153,8 +153,8 @@ export function useUrlFilters(): UseUrlFiltersReturn {
 
   const setSortBy = useCallback(
     (sort: SortOption) => {
-      // Don't include alphabetical in URL since it's the default
-      updateParams({ sort: sort === "alphabetical" ? null : sort });
+      // Don't include newest in URL since it's the default
+      updateParams({ sort: sort === "newest" ? null : sort });
     },
     [updateParams]
   );
