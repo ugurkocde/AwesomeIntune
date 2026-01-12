@@ -178,6 +178,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "swiftDialog ESP Configurator",
+      "id": "swiftdialog-esp-configurator",
+      "url": "https://www.mac-esp.com/",
+      "reason": "No images in README"
+    },
+    {
       "name": "Windows Autopatch Fix",
       "id": "windows-autopatch-fix",
       "url": "https://github.com/roalhelm/WindowsAutopatchFix",
