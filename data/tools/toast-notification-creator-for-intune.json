@@ -1,0 +1,68 @@
+{
+  "id": "toast-notification-creator-for-intune",
+  "name": "Toast Notification Creator for Intune",
+  "description": "Toast Notification Creator for Intune is a remediation package that generates user-facing Windows toast alerts when issues are detected or remediation actions are applied. It integrates with the Intune Remediations framework, offering configurable message content, timing, and dismissal options to inform users and reduce unnecessary support. The package includes a detection script and a remediation script to trigger notifications and guide users through next steps.",
+  "keywords": [
+    "remediations",
+    "intune",
+    "toast-notifications",
+    "user-notifications",
+    "endpoint-management",
+    "windows",
+    "powershell",
+    "script-packages"
+  ],
+  "author": "Anthony Porter",
+  "authorPicture": "https://github.com/AntoPorter.png",
+  "githubUrl": "https://github.com/AntoPorter",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/AntoPorter/Intune-Remediations/tree/main/ToastCreator",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "other",
+  "type": "other",
+  "dateAdded": "2026-01-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-12",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 107,
+    "forks": 21,
+    "license": null,
+    "lastUpdated": "2026-01-08T05:58:38Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Anthony Porter",
+      "githubUrl": "https://github.com/AntoPorter",
+      "picture": "https://github.com/AntoPorter.png"
+    }
+  ]
+}
