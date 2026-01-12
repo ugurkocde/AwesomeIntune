@@ -13,7 +13,8 @@
     "https://raw.githubusercontent.com/KuShuSec/KuShu-Shimon/main/images/KuShu_Shimon_ISDF_Logo.png",
     "https://wintuner.app/img/wintuner-mascotte-two_100.png",
     "https://raw.githubusercontent.com/MrtnRQL/intune-doc-generator/main/github/assets/og-preview.png",
-    "https://github.com/user-attachments/assets/acfafa06-75ef-4988-aea6-5711fd9b6fc4"
+    "https://github.com/user-attachments/assets/acfafa06-75ef-4988-aea6-5711fd9b6fc4",
+    "https://github.com/user-attachments/assets/30429a4a-94b2-4edc-b954-92234843e8ba"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -98,6 +99,12 @@
       "name": "intune-uploader",
       "id": "intune-uploader",
       "url": "https://github.com/almenscorner/intune-uploader",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Intune Win32 Retry Reset Script",
+      "id": "intune-win32-retry-reset-script",
+      "url": "https://github.com/fatihturkoglu/intune-win32-retry-reset",
       "reason": "No images in README"
     },
     {
