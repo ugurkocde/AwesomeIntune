@@ -1,0 +1,68 @@
+{
+  "id": "intune-win32-retry-reset-script",
+  "name": "Intune Win32 Retry Reset Script",
+  "description": "PowerShell tool for Microsoft Intune that forces an immediate retry of a failed Win32 app deployment by clearing the local IME state for the target AppId and restarting the Intune Management Extension service. It does not uninstall the app or modify files; it only resets local Intune state to bypass the Global Re-evaluation Schedule (GRS) and prompt another install attempt. Includes a WhatIf preview and logs to C:\\ProgramData\\IME-DeepReset-<AppId>.log.",
+  "keywords": [
+    "intune",
+    "win32",
+    "retry",
+    "reset",
+    "ime",
+    "registry",
+    "powershell",
+    "troubleshooting"
+  ],
+  "author": "Faith Turkoglu",
+  "authorPicture": "https://github.com/fatihturkoglu.png",
+  "githubUrl": "https://github.com/fatihturkoglu",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/fatihturkoglu/intune-win32-retry-reset",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "other",
+  "dateAdded": "2026-01-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-12",
+    "forceApproved": false,
+    "aiSummary": "This script functions as a targeted admin utility to deep-clean IME registry traces for a specific AppId and subsequently restart the Intune Management Extension. It performs potentially destructive registry edits and a service restart, which are legitimate for remediation but carry risk if misused or misconfigured. The code does not obfuscate, download remote code, collect credentials, exfiltrate data, or embed secrets. It should be used with explicit AppId input, thorough testing (preferably in WhatIf mode), and appropriate auditing.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 1,
+    "license": null,
+    "lastUpdated": "2026-01-09T10:31:33Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Faith Turkoglu",
+      "githubUrl": "https://github.com/fatihturkoglu",
+      "picture": "https://github.com/fatihturkoglu.png"
+    }
+  ]
+}
