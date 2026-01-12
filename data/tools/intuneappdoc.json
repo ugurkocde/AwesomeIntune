@@ -35,7 +35,10 @@
   "websiteUrl": "https://intuneappdoc.com",
   "category": "packaging",
   "type": "documentation",
-  "worksWith": ["windows", "win32-apps"],
+  "worksWith": [
+    "windows",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-06",
   "authors": [
     {
@@ -45,7 +48,8 @@
     }
   ],
   "screenshots": [
-    "screenshots/intuneappdoc/screenshot-1.png"
+    "screenshots/intuneappdoc/screenshot-1.png",
+    "screenshots/intuneappdoc/screenshot-2.gif"
   ],
   "securityCheck": {
     "passed": 6,
