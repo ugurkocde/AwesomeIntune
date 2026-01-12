@@ -169,6 +169,9 @@ function generateEmailHtml(tools, unsubscribeUrl) {
         You're receiving this because you subscribed to Awesome Intune updates.<br>
         Know someone who'd find this useful? <a href="${SITE_URL}" style="color: #00d4ff; text-decoration: none;">Share Awesome Intune</a>
       </p>
+      <p style="color: #525252; font-size: 12px; margin: 0 0 16px;">
+        A project by <a href="https://ugurlabs.com" style="color: #00d4ff; text-decoration: none;">UgurLabs.com</a>
+      </p>
       <a href="${unsubscribeUrl}" style="color: #525252; font-size: 12px; text-decoration: underline;">Unsubscribe from these emails</a>
     </div>
 
