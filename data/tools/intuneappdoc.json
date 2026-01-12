@@ -1,7 +1,7 @@
 {
-  "id": "intune-app-documentation-generator",
-  "name": "Intune App - Documentation Generator",
-  "description": "Intune App - Documentation Generator automates creation of comprehensive documentation for Intune-managed apps, serving admins and end users. It extracts app details, deployment steps, and configuration notes to produce ready-to-publish how-to guides and reference materials. Key features include template-based docs, auto-generated step-by-step instructions, and support for common Intune deployment scenarios.",
+  "id": "intuneappdoc",
+  "name": "IntuneAppDoc.com",
+  "description": "IntuneAppDoc.com automates creation of comprehensive documentation for Intune-managed apps, serving admins and end users. It extracts app details, deployment steps, and configuration notes to produce ready-to-publish how-to guides and reference materials. Key features include template-based docs, auto-generated step-by-step instructions, and support for common Intune deployment scenarios.",
   "keywords": [
     "intune",
     "documentation",
@@ -22,16 +22,17 @@
     "end user intune app guide",
     "template based intune docs",
     "publish intune app instructions",
-    "intune managed app documentation"
+    "intune managed app documentation",
+    "intuneappdoc"
   ],
   "author": "Morten Glimme",
   "authorPicture": "/images/authors/Morten-Glimme.jpg",
   "githubUrl": "",
   "linkedinUrl": "https://linkedin.com/in/morten-glimme-31640535",
   "xUrl": "",
-  "repoUrl": "https://mrtnrql.github.io/intune-doc-generator/intune-doc-generator.html",
+  "repoUrl": "https://github.com/MrtnRQL/intune-doc-generator",
   "downloadUrl": "",
-  "websiteUrl": "https://github.com/MrtnRQL/intune-doc-generator/blob/main/github/assets/IntuneHowto.gif",
+  "websiteUrl": "https://intuneappdoc.com",
   "category": "packaging",
   "type": "documentation",
   "worksWith": ["windows", "win32-apps"],
@@ -44,7 +45,7 @@
     }
   ],
   "screenshots": [
-    "screenshots/intune-app-documentation-generator/screenshot-1.png"
+    "screenshots/intuneappdoc/screenshot-1.png"
   ],
   "securityCheck": {
     "passed": 6,
