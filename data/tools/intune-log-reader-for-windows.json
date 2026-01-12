@@ -1,0 +1,68 @@
+{
+  "id": "intune-log-reader-for-windows",
+  "name": "Intune Log Reader for Windows",
+  "description": "Intune Log Reader for Windows delivers real-time analysis and monitoring of the Microsoft Intune Management Extension logs on Windows endpoints. It automatically parses logs, categorizes entries into Device, Applications, Configurations, Compliance, and Sync Status, detects recurring error patterns, and presents insights in a professional dashboard with advanced search and export options. Optional live monitoring updates provide up-to-date visibility for troubleshooting and auditing, built for Windows desktop with Flutter and Dart.",
+  "keywords": [
+    "intune",
+    "log-reader",
+    "intune-management-extension",
+    "log-analysis",
+    "real-time-monitoring",
+    "error-patterns",
+    "dashboard",
+    "csv-export"
+  ],
+  "author": "Somesh Pathak",
+  "authorPicture": "https://github.com/pathaksomesh06.png",
+  "githubUrl": "https://github.com/pathaksomesh06",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/pathaksomesh06/Intune-Log-Reader-for-Windows",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "desktop-app",
+  "dateAdded": "2026-01-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-12",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 55,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2025-09-18T11:34:57Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Somesh Pathak",
+      "githubUrl": "https://github.com/pathaksomesh06",
+      "picture": "https://github.com/pathaksomesh06.png"
+    }
+  ]
+}
