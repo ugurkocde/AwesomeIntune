@@ -185,6 +185,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Toast Notification Creator for Intune",
+      "id": "toast-notification-creator-for-intune",
+      "url": "https://github.com/AntoPorter/Intune-Remediations/tree/main/ToastCreator",
+      "reason": "No images in README"
+    },
+    {
       "name": "Windows Autopatch Fix",
       "id": "windows-autopatch-fix",
       "url": "https://github.com/roalhelm/WindowsAutopatchFix",
