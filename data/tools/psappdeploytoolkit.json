@@ -1,0 +1,68 @@
+{
+  "id": "psappdeploytoolkit",
+  "name": "PSAppDeployToolkit",
+  "description": "PSAppDeployToolkit is a PowerShell-based, open-source framework for Windows software deployment that integrates with major deployment solutions (including Microsoft Intune). It provides a prescriptive deployment workflow, a rich library of functions, a customizable UI (Fluent or Classic), and full-fidelity logging to drive high deployment success rates. It enables complex, secure, user-friendly deployments across enterprise environments.",
+  "keywords": [
+    "powershell",
+    "intune",
+    "softwaredeployment",
+    "deploymenttoolkit",
+    "userinterface",
+    "logging",
+    "enterprise",
+    "automation"
+  ],
+  "author": "PSAppDeployToolkit",
+  "authorPicture": "https://github.com/PSAppDeployToolkit.png",
+  "githubUrl": "https://github.com/PSAppDeployToolkit",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/psappdeploytoolkit/psappdeploytoolkit",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "other",
+  "dateAdded": "2026-01-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-01-12",
+    "forceApproved": false,
+    "aiSummary": "The codebase largely consists of standard AppDeployToolkit invocations appropriate for Intune. The primary security concern is the use of PsExec-based SYSTEM-level execution in silent installation/repair scripts, which can be a vector for privilege escalation if misused. No evidence of obfuscated code, credential harvesting, data exfiltration, hardcoded secrets, or remote code fetching in the provided segments. Ensure proper auditing, signed binaries, and compliance with enterprise deployment policies when using elevated tools such as PsExec.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2212,
+    "forks": 546,
+    "license": "LGPL-3.0",
+    "lastUpdated": "2026-01-12T15:33:19Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "PSAppDeployToolkit",
+      "githubUrl": "https://github.com/PSAppDeployToolkit",
+      "picture": "https://github.com/PSAppDeployToolkit.png"
+    }
+  ]
+}
