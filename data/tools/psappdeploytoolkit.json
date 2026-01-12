@@ -64,5 +64,11 @@
       "githubUrl": "https://github.com/PSAppDeployToolkit",
       "picture": "https://github.com/PSAppDeployToolkit.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/psappdeploytoolkit/screenshot-1.png",
+    "screenshots/psappdeploytoolkit/screenshot-2.png",
+    "screenshots/psappdeploytoolkit/screenshot-3.png",
+    "screenshots/psappdeploytoolkit/screenshot-4.png"
   ]
 }

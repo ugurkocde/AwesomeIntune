@@ -64,5 +64,12 @@
       "githubUrl": "https://github.com/pathaksomesh06",
       "picture": "https://github.com/pathaksomesh06.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/intune-log-reader-for-windows/screenshot-1.png",
+    "screenshots/intune-log-reader-for-windows/screenshot-2.png",
+    "screenshots/intune-log-reader-for-windows/screenshot-3.png",
+    "screenshots/intune-log-reader-for-windows/screenshot-4.png",
+    "screenshots/intune-log-reader-for-windows/screenshot-5.png"
   ]
 }
