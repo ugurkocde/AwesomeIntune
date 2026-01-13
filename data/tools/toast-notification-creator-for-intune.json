@@ -13,11 +13,11 @@
     "script-packages"
   ],
   "author": "Anthony Porter",
-  "authorPicture": "https://github.com/AntoPorter.png",
+  "authorPicture": "/images/authors/Anthony-Porter.png",
   "githubUrl": "https://github.com/AntoPorter",
   "linkedinUrl": "",
   "xUrl": "",
-  "repoUrl": "https://github.com/AntoPorter/Intune-Remediations/tree/main/ToastCreator",
+  "repoUrl": "https://github.com/AntoPorter/Intune-ToastNotifications",
   "downloadUrl": "",
   "websiteUrl": "",
   "category": "other",
@@ -62,7 +62,7 @@
     {
       "name": "Anthony Porter",
       "githubUrl": "https://github.com/AntoPorter",
-      "picture": "https://github.com/AntoPorter.png"
+      "picture": "/images/authors/Anthony-Porter.png"
     }
   ]
 }
