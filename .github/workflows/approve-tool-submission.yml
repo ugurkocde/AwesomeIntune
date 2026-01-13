@@ -329,7 +329,8 @@ jobs:
                 ],
                 hardcodedSecrets: [
                   { pattern: '["\'][A-Za-z0-9]{32,}["\']\\s*#?\\s*(api.?key|secret|token|password)', desc: 'Potential hardcoded API key' },
-                  { pattern: '(password|pwd|secret|api.?key|token)\\s*[=:]\\s*["\'][^"\'\\s]{8,}["\']', desc: 'Hardcoded credential' },
+                  // Exclude common placeholder patterns: <...>, ${...}, YOUR-, REPLACE-, INSERT-, PLACEHOLDER, EXAMPLE-
+                  { pattern: '(password|pwd|secret|api.?key|token)\\s*[=:]\\s*["\'](?!<|\\$\\{|YOUR[-_]|REPLACE[-_]|INSERT[-_]|PLACEHOLDER|EXAMPLE[-_])[^"\'\\s]{8,}["\']', desc: 'Hardcoded credential' },
                   { pattern: 'AKIA[0-9A-Z]{16}', desc: 'AWS Access Key ID' },
                   { pattern: 'ghp_[a-zA-Z0-9]{36}', desc: 'GitHub Personal Access Token' },
                   { pattern: 'sk-[a-zA-Z0-9]{48}', desc: 'OpenAI API Key' },
