@@ -1,0 +1,70 @@
+{
+  "id": "winpeap",
+  "name": "WinPEAP",
+  "description": "WinPEAP is a WinPE-based workflow to transition devices to Entra Joined and auto-enroll them into Intune via Windows Autopilot. It uses OSDCloud to build a customized WinPE ISO, injects the 4kAutopilotHashUpload.ps1 script and oa3tool-based hardware hash capture, and uploads the Autopilot hash to Intune during WinPE. Automation spans OS deployment, driver injection, hash registration, and enrollment, with support for user-driven Autopilot profiles and VM testing considerations.",
+  "keywords": [
+    "winpe",
+    "autopilot",
+    "intune",
+    "entra-join",
+    "osdcloud",
+    "automation",
+    "hardware-hash",
+    "zero-touch"
+  ],
+  "author": "Beau LaWalt",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/blawalt/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/blawalt/WinPEAP",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-01-13",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-13",
+    "forceApproved": false,
+    "aiSummary": "Overall assessment: The script is a legitimate WinPE Autopilot hash collection and Graph API upload tool used in Microsoft Intune workflows. Key security considerations include guarding the AppSecret (prefer certificate-based authentication or managed identity), sanitizing error output to avoid leaking sensitive data, verifying the origin and signing of PCPKsp.dll used for TPM-related operations, and avoiding embedding secrets or credentials in logs or code. No evidence of unauthorized remote script downloads, obfuscated payloads, or hardcoded secrets beyond placeholders. Data transmitted to Graph (hardware hash, serial) is expected for Autopilot provisioning but should be tightly controlled with least-privilege permissions.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 14,
+    "forks": 3,
+    "license": null,
+    "lastUpdated": "2026-01-13T14:25:28Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Beau LaWalt",
+      "linkedinUrl": "https://www.linkedin.com/in/blawalt/"
+    },
+    {
+      "name": "Shane Conner"
+    }
+  ]
+}
