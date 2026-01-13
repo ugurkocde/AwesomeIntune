@@ -14,7 +14,8 @@
     "https://wintuner.app/img/wintuner-mascotte-two_100.png",
     "https://raw.githubusercontent.com/MrtnRQL/intune-doc-generator/main/github/assets/og-preview.png",
     "https://github.com/user-attachments/assets/acfafa06-75ef-4988-aea6-5711fd9b6fc4",
-    "https://github.com/user-attachments/assets/30429a4a-94b2-4edc-b954-92234843e8ba"
+    "https://github.com/user-attachments/assets/30429a4a-94b2-4edc-b954-92234843e8ba",
+    "https://github.com/user-attachments/assets/96b44640-1d2a-431b-8c74-8ba2c71a191f"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -186,6 +187,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Toast Notification Creator for Intune",
+      "id": "toast-notification-creator-for-intune",
+      "url": "https://github.com/AntoPorter/Intune-ToastNotifications",
+      "reason": "No images in README"
+    },
+    {
       "name": "Windows Autopatch Fix",
       "id": "windows-autopatch-fix",
       "url": "https://github.com/roalhelm/WindowsAutopatchFix",
@@ -195,6 +202,12 @@
       "name": "Windows Recovery Partition Editor",
       "id": "windows-recovery-partition-editor",
       "url": "https://github.com/niklasrst/windows-recovery-partition",
+      "reason": "No images in README"
+    },
+    {
+      "name": "WinPEAP",
+      "id": "winpeap",
+      "url": "https://github.com/blawalt/WinPEAP",
       "reason": "No images in README"
     }
   ]

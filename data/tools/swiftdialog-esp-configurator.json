@@ -50,5 +50,8 @@
       "picture": "https://github.com/artembrening.png",
       "linkedinUrl": "https://www.linkedin.com/in/artem-brening/"
     }
+  ],
+  "screenshots": [
+    "screenshots/swiftdialog-esp-configurator/screenshot-1.png"
   ]
 }
