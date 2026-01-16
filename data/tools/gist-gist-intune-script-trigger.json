@@ -72,5 +72,8 @@
       "githubUrl": "https://github.com/jonasatgit",
       "picture": "https://github.com/jonasatgit.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/gist-gist-intune-script-trigger/screenshot-1.png"
   ]
 }
