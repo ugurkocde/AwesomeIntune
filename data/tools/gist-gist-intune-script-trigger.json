@@ -1,0 +1,76 @@
+{
+  "id": "gist-gist-intune-script-trigger",
+  "name": "GIST - Gist Intune Script Trigger",
+  "description": "GIST - Gist Intune Script Trigger is a compact collection of PowerShell scripts for diagnosing and troubleshooting Intune devices. It features a menu-driven interface accessible via a simple one-liner (iwr gist.ittips.ch | iex) and supports direct gist IDs for quick runs. The scripts require no parameters, have no external dependencies, and prioritize safety by not altering system settings.",
+  "keywords": [
+    "intune",
+    "powershell",
+    "diagnostics",
+    "device-troubleshooting",
+    "script-menu",
+    "remote-script-loading",
+    "invoke-webrequest",
+    "it-operations"
+  ],
+  "author": "Marius",
+  "authorPicture": "https://github.com/jonasatgit.png",
+  "githubUrl": "https://github.com/jonasatgit",
+  "linkedinUrl": "https://www.linkedin.com/in/mariuswyss/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MrWyss-MSFT/gist",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "other",
+  "dateAdded": "2026-01-16",
+  "securityCheck": {
+    "passed": 4,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-16",
+    "forceApproved": true,
+    "aiSummary": "Remote code execution risk due to downloading and executing external scripts. No credential theft, data exfiltration, or obfuscation detected in the code. Recommend refactoring to use signed, verified modules or internal script repository, remove Invoke-Expression, implement integrity checks, and require explicit admin approval with source whitelisting.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "Character code obfuscation in GistIntuneScriptTrigger.ps1"
+      },
+      "noRemoteExecution": {
+        "passed": false,
+        "reason": "DownloadString execution in GistIntuneScriptTrigger.ps1"
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 2,
+    "license": null,
+    "lastUpdated": "2026-01-16T13:06:41Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Marius",
+      "githubUrl": "https://github.com/MrWyss-MSFT",
+      "picture": "https://github.com/MrWyss-MSFT.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mariuswyss/"
+    },
+    {
+      "name": "Jonas",
+      "githubUrl": "https://github.com/jonasatgit",
+      "picture": "https://github.com/jonasatgit.png"
+    }
+  ]
+}
