@@ -1,0 +1,52 @@
+{
+  "id": "nametune-ultimate-intune-naming-tool",
+  "name": "NameTune (Ultimate Intune Naming Tool)",
+  "description": "NameTune is a purpose-built Intune companion that helps teams design, apply, and document consistent naming standards across real-world Microsoft Intune environments.",
+  "keywords": [],
+  "author": "Fatih Turkoglu",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/turkoglufatih/",
+  "xUrl": "",
+  "repoUrl": "https://nametune.vercel.app/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-01-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-01-18",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Fatih Turkoglu",
+      "linkedinUrl": "https://www.linkedin.com/in/turkoglufatih/"
+    }
+  ]
+}
