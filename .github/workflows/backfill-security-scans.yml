@@ -178,6 +178,21 @@ jobs:
                 return new RegExp(patternStr, flags).test(content);
               };
 
+              // Helper to find line numbers for pattern matches
+              const findLineNumbers = (content, patternStr, flags = 'gi') => {
+                const lines = content.split('\n');
+                const lineNumbers = [];
+
+                lines.forEach((line, index) => {
+                  const regex = new RegExp(patternStr, flags);
+                  if (regex.test(line)) {
+                    lineNumbers.push(index + 1); // 1-based line numbers
+                  }
+                });
+
+                return lineNumbers;
+              };
+
               const patterns = {
                 obfuscation: [
                   { pattern: '\\[System\\.Convert\\]::FromBase64String\\s*\\([^)]*\\)\\s*\\)', desc: 'Base64 decode and execute' },
@@ -224,55 +239,79 @@ jobs:
                 const content = file.content;
 
                 for (const p of patterns.obfuscation) {
-                  if (testPattern(content, p.pattern)) {
+                  const lineNumbers = findLineNumbers(content, p.pattern);
+                  if (lineNumbers.length > 0) {
                     results.noObfuscatedCode.passed = false;
                     if (!results.noObfuscatedCode.reason) {
-                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
 
                 for (const p of patterns.remoteExecution) {
-                  if (testPattern(content, p.pattern)) {
+                  const lineNumbers = findLineNumbers(content, p.pattern);
+                  if (lineNumbers.length > 0) {
                     results.noRemoteExecution.passed = false;
                     if (!results.noRemoteExecution.reason) {
-                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
 
                 for (const p of patterns.credentialTheft) {
-                  if (testPattern(content, p.pattern, 'i')) {
+                  const lineNumbers = findLineNumbers(content, p.pattern, 'i');
+                  if (lineNumbers.length > 0) {
                     results.noCredentialTheft.passed = false;
                     if (!results.noCredentialTheft.reason) {
-                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
 
                 for (const p of patterns.dataExfiltration) {
-                  if (testPattern(content, p.pattern)) {
+                  const lineNumbers = findLineNumbers(content, p.pattern);
+                  if (lineNumbers.length > 0) {
                     results.noDataExfiltration.passed = false;
                     if (!results.noDataExfiltration.reason) {
-                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
 
                 for (const p of patterns.maliciousPatterns) {
-                  if (testPattern(content, p.pattern)) {
+                  const lineNumbers = findLineNumbers(content, p.pattern);
+                  if (lineNumbers.length > 0) {
                     results.noMaliciousPatterns.passed = false;
                     if (!results.noMaliciousPatterns.reason) {
-                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
 
                 for (const p of patterns.hardcodedSecrets) {
-                  if (testPattern(content, p.pattern)) {
+                  const lineNumbers = findLineNumbers(content, p.pattern);
+                  if (lineNumbers.length > 0) {
                     results.noHardcodedSecrets.passed = false;
                     if (!results.noHardcodedSecrets.reason) {
-                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path;
+                      const lineInfo = lineNumbers.length <= 5
+                        ? lineNumbers.join(', ')
+                        : lineNumbers.slice(0, 5).join(', ') + '...';
+                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
                     }
                   }
                 }
