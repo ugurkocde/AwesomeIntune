@@ -1,0 +1,68 @@
+{
+  "id": "intune-reporting",
+  "name": "Intune Reporting",
+  "description": "Entra ID Groups Inspector is a Log Analytics dashboard that tracks changes to Azure Entra (Azure AD) groups, including creations, deletions, and membership edits. It surfaces audit-log data with built-in visuals, time filters, and export options for security and compliance workflows. Designed for Intune and Entra ID environments, it helps admins quickly validate group governance and access changes.",
+  "keywords": [
+    "intune",
+    "entra-id",
+    "audit-logs",
+    "group-changes",
+    "log-analytics",
+    "dashboard",
+    "kusto",
+    "security-compliance"
+  ],
+  "author": "Damien VAN ROBAEYS",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/damien-van-robaeys/",
+  "xUrl": "https://x.com/syst_and_deploy",
+  "repoUrl": "https://github.com/damienvanrobaeys/Intune-Reporting/tree/main/Entra%20ID%20groups%20inspector",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "monitoring",
+  "type": "other",
+  "dateAdded": "2026-01-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 25,
+    "lastChecked": "2026-01-18",
+    "forceApproved": false,
+    "aiSummary": "The Intune Reporting suite primarily performs legitimate Graph / Intune operations but contains hardcoded secrets in multiple scripts, broad Graph permissions, and telemetry-like data collection. Key mitigations: remove hardcoded secrets by using Azure Key Vault or automation credentials, apply least-privilege permissions for App Roles, clearly authorize and document telemetry endpoints and data scopes, and ensure mandatory configuration values are supplied and validated before deployment.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 37,
+    "forks": 14,
+    "license": null,
+    "lastUpdated": "2026-01-08T09:14:26Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Damien VAN ROBAEYS",
+      "linkedinUrl": "https://www.linkedin.com/in/damien-van-robaeys/",
+      "xUrl": "https://x.com/syst_and_deploy"
+    }
+  ]
+}
