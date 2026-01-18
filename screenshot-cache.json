@@ -1,5 +1,6 @@
 {
   "blockedWebsites": [
+    "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://intunediff.com/",
     "https://www.kqlsearch.com/",
     "https://openintunebaseline.com",
@@ -53,6 +54,12 @@
       "id": "get-autopilot-diagnostics-community",
       "url": "https://github.com/andrew-s-taylor/public",
       "reason": "No images in README"
+    },
+    {
+      "name": "Get-IntuneAssignments",
+      "id": "get-intuneassignments",
+      "url": "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "InToolz",
