@@ -1,0 +1,69 @@
+{
+  "id": "autopilotprofilefunctions",
+  "name": "AutopilotProfileFunctions",
+  "description": "AutopilotProfileFunctions is a PowerShell toolkit for Microsoft Intune that automates the creation and management of Windows Autopilot deployment profiles via the Graph API. It enables bulk profile generation (including language, deployment mode, join type, and device type), assigns profiles to regional dynamic groups, and supports CSV-based mass provisioning with customizable device naming templates. The result is scalable, repeatable Autopilot setup across global populations with minimal manual effort.",
+  "keywords": [
+    "intune",
+    "autopilot",
+    "graph-api",
+    "powershell",
+    "deployment-profiles",
+    "dynamic-groups",
+    "bulk-provisioning",
+    "device-management"
+  ],
+  "author": "Amir Joseph Sayes",
+  "authorPicture": "https://github.com/amirjs.png",
+  "githubUrl": "https://github.com/amirjs",
+  "linkedinUrl": "https://www.linkedin.com/in/amir-joseph-sayes-b30b3930/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/amirjs/AutopilotProfileFunctions",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "other",
+  "dateAdded": "2026-01-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-18",
+    "forceApproved": false,
+    "aiSummary": "The Autopilot deployment script appears to be legitimate admin automation for Intune/Autopilot using Microsoft Graph. No obfuscated or malicious patterns are detected. Key security considerations include: (1) potential supply-chain risk from module installation without version control or signature verification; (2) input handling risks in Graph filters used to resolve groups; (3) the need for improved error handling and robust logging; (4) ensuring the trustworthiness of the sourced AutopilotProfileFunctions.ps1; and (5) safeguarding any sensitive data within Profiles.csv. Recommended mitigations: pin module versions and verify signatures, escape inputs in filters, implement try/catch and structured logging, sign/source trusted scripts, and enforce strict access controls on profile data.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 5,
+    "forks": 1,
+    "license": null,
+    "lastUpdated": "2025-04-07T19:33:17Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Amir Joseph Sayes",
+      "githubUrl": "https://github.com/amirjs",
+      "picture": "https://github.com/amirjs.png",
+      "linkedinUrl": "https://www.linkedin.com/in/amir-joseph-sayes-b30b3930/"
+    }
+  ]
+}
