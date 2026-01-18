@@ -31,6 +31,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "AutopilotProfileFunctions",
+      "id": "autopilotprofilefunctions",
+      "url": "https://github.com/amirjs/AutopilotProfileFunctions",
+      "reason": "No images in README"
+    },
+    {
       "name": "Entra ID Device Trust",
       "id": "entra-id-device-trust",
       "url": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
