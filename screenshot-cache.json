@@ -97,6 +97,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Intune Reporting",
+      "id": "intune-reporting",
+      "url": "https://github.com/damienvanrobaeys/Intune-Reporting/tree/main/Entra%20ID%20groups%20inspector",
+      "reason": "No images in README"
+    },
+    {
       "name": "intune-uploader",
       "id": "intune-uploader",
       "url": "https://github.com/almenscorner/intune-uploader",
