@@ -1,0 +1,69 @@
+{
+  "id": "get-intuneassignments",
+  "name": "Get-IntuneAssignments",
+  "description": "Get-IntuneAssignments retrieves all Intune configuration profile assignments (device configurations, policies, enrollment configurations, and more) and returns PowerShell objects for easy filtering, grid viewing, and exporting. It supports multiple authentication methods (Interactive, Certificate, ClientSecret, User/System Managed Identity), group filtering, and CSV export. It also includes coverage for Cloud PC role assignments and Intune role assignments.",
+  "keywords": [
+    "intune",
+    "powershell",
+    "device-configuration",
+    "configuration-profile",
+    "assignment",
+    "group-filtering",
+    "csv-export",
+    "gridview"
+  ],
+  "author": "Amir Joseph Sayes",
+  "authorPicture": "https://github.com/amirjs.png",
+  "githubUrl": "https://github.com/amirjs/Get-IntuneAssignments",
+  "linkedinUrl": "https://www.linkedin.com/in/amir-joseph-sayes-b30b3930/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/amirjs/Get-IntuneAssignments",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Get-IntuneAssignments/",
+  "websiteUrl": "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
+  "category": "reporting",
+  "type": "api-wrapper",
+  "dateAdded": "2026-01-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-18",
+    "forceApproved": false,
+    "aiSummary": "No code provided to analyze. Please supply the Get-IntuneAssignments PowerShell script for a security review focused on obfuscation, remote execution, credential theft, exfiltration, malicious patterns, and hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 32,
+    "forks": 6,
+    "license": "MIT",
+    "lastUpdated": "2025-11-18T21:57:13Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Amir Joseph Sayes",
+      "githubUrl": "https://github.com/amirjs/Get-IntuneAssignments",
+      "picture": "https://github.com/amirjs.png",
+      "linkedinUrl": "https://www.linkedin.com/in/amir-joseph-sayes-b30b3930/"
+    }
+  ]
+}
