@@ -1,0 +1,70 @@
+{
+  "id": "toast-notification-script",
+  "name": "Toast Notification Script",
+  "description": "Toast Notification Script is a Windows 10/11 tool designed for Intune Remediations to deliver native toast notifications to the logged-on user. It supports weekly reminders, reboot prompts, and general announcements with configurable scheduling, branding, languages, and snooze/dismiss actions. Includes a detection script, configuration validation, and robust logging to support reliable remote remediation.",
+  "keywords": [
+    "windows",
+    "toast-notifications",
+    "intune-remediations",
+    "powershell",
+    "remediation-scripting",
+    "scheduling",
+    "logging",
+    "user-notifications"
+  ],
+  "author": "Martin Bengtsson",
+  "authorPicture": "https://github.com/imabdk.png",
+  "githubUrl": "https://github.com/imabdk",
+  "linkedinUrl": "https://www.linkedin.com/in/martin-bengtsson/",
+  "xUrl": "https://x.com/mwbengtsson",
+  "repoUrl": "https://github.com/imabdk/Toast-Notification-Script",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.imab.dk/windows-10-toast-notification-script/",
+  "category": "automation",
+  "type": "other",
+  "dateAdded": "2026-01-20",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-20",
+    "forceApproved": false,
+    "aiSummary": "The script largely adheres to Intune detection patterns, with no credential theft, data exfiltration, or obfuscated code. The primary security concern is a likely bug in uptime calculation due to a misnamed WMI property (LastBootUptime vs LastBootUpTime) that can affect detection logic. Additionally, remote config fetching requires appropriate trust controls and robust validation to prevent config tampering. Minor robustness improvements around error handling are recommended.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 253,
+    "forks": 66,
+    "license": "MIT",
+    "lastUpdated": "2025-12-20T08:21:33Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Martin Bengtsson",
+      "githubUrl": "https://github.com/imabdk",
+      "picture": "https://github.com/imabdk.png",
+      "linkedinUrl": "https://www.linkedin.com/in/martin-bengtsson/",
+      "xUrl": "https://x.com/mwbengtsson"
+    }
+  ]
+}
