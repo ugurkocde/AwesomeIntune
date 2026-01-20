@@ -66,5 +66,10 @@
       "linkedinUrl": "https://www.linkedin.com/in/martin-bengtsson/",
       "xUrl": "https://x.com/mwbengtsson"
     }
+  ],
+  "screenshots": [
+    "screenshots/toast-notification-script/screenshot-1.png",
+    "screenshots/toast-notification-script/screenshot-2.png",
+    "screenshots/toast-notification-script/screenshot-3.png"
   ]
 }
