@@ -1,0 +1,69 @@
+{
+  "id": "win32-app-migration-tool",
+  "name": "Win32 App Migration Tool",
+  "description": "Win32 App Migration Tool inventories ConfigMgr applications and deployment types, builds .intunewin files, and creates Win32 apps in Intune. It automates exporting application details, deployment type data, and icons, prepares the Intune JSON payloads, and handles content upload to Intune. The tool supports end-to-end migration from ConfigMgr to Intune (Preview status) with configurable prerequisites and detailed logging.",
+  "keywords": [
+    "intune",
+    "win32app",
+    "configmgr",
+    "applicationmigration",
+    "intunewin",
+    "contentprep",
+    "automation",
+    "deployment"
+  ],
+  "author": "Ben Whitmore",
+  "authorPicture": "https://github.com/byteben.png",
+  "githubUrl": "https://github.com/byteben",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/byteben/Win32App-Migration-Tool",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-01-21",
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 33,
+    "lastChecked": "2026-01-21",
+    "forceApproved": true,
+    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Intune/Graph tooling module with no hardcoded credentials or hidden remote code execution. The primary security concern is the unconditional loading of all PS1 scripts from Public/Private folders during module import, which could be abused if untrusted content is present. Other concerns include broad Graph permissions and certificate store access with logging. Recommendations: tighten module import strategy, audit contents of Public/Private, implement explicit signed script loading, and apply least-privilege permissions with proper logging hygiene.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "Base64 decode and execute in Private/Get-DeploymentTypeInfo.ps1 ([lines: 146, 147](https://github.com/byteben/Win32App-Migration-Tool/blob/main/Private/Get-DeploymentTypeInfo.ps1#L146-L147))"
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 102,
+    "forks": 21,
+    "license": "NOASSERTION",
+    "lastUpdated": "2025-01-08T19:46:05Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Ben Whitmore",
+      "githubUrl": "https://github.com/byteben",
+      "picture": "https://github.com/byteben.png"
+    }
+  ]
+}
