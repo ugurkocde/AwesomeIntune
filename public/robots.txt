@@ -4,7 +4,7 @@
 User-agent: *
 Allow: /
 
-# Explicitly allow AI crawlers
+# Explicitly allow AI crawlers for GEO (Generative Engine Optimization)
 User-agent: GPTBot
 Allow: /
 
@@ -20,6 +20,9 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
@@ -32,5 +35,27 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# Sitemap location
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Sitemap and LLMs.txt locations
 Sitemap: https://awesomeintune.com/sitemap.xml
+# LLMs.txt: https://awesomeintune.com/llms.txt

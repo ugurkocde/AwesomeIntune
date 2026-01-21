@@ -112,6 +112,15 @@ export default function RootLayout({
     >
       <head>
         <meta name="msvalidate.01" content="3E85A4E6616AA104DB060F4E3AC73298" />
+        {/* Citation meta tags for GEO (Generative Engine Optimization) */}
+        <meta name="citation_title" content="Awesome Intune - Microsoft Intune Tools Directory" />
+        <meta name="citation_author" content="Ugur Koc" />
+        <meta name="citation_publication_date" content="2024" />
+        <meta name="citation_online_date" content={new Date().toISOString().split("T")[0]} />
+        <meta name="citation_publisher" content="Awesome Intune" />
+        <meta name="citation_abstract" content="The largest curated directory of free Microsoft Intune tools, PowerShell scripts, and automation resources for IT professionals managing endpoint devices." />
+        {/* AI crawler hints */}
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt - AI Crawler Instructions" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -394,6 +394,10 @@ export function generateCategoryFAQStructuredData(category: ToolCategory) {
  * Generate FAQ schema for a tool page
  */
 export function generateToolFAQStructuredData(tool: Tool) {
+  const authors = getToolAuthors(tool);
+  const authorNames = authors.map((a) => a.name).join(", ");
+  const categoryLabel = CATEGORY_CONFIG[tool.category]?.label ?? tool.category;
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -414,6 +418,152 @@ export function generateToolFAQStructuredData(tool: Tool) {
           text: `Yes, ${tool.name} is completely free to use. It is an open-source tool available to the Intune community.`,
         },
       },
+      {
+        "@type": "Question",
+        name: `Who created ${tool.name}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${tool.name} was created by ${authorNames}. You can find more of their tools on the Awesome Intune directory.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `What category does ${tool.name} belong to?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${tool.name} is a ${categoryLabel.toLowerCase()} tool for Microsoft Intune. Browse more ${categoryLabel.toLowerCase()} tools at awesomeintune.com/tools/category/${tool.category}.`,
+        },
+      },
+      ...(tool.repoUrl
+        ? [
+            {
+              "@type": "Question",
+              name: `Where can I download ${tool.name}?`,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: `${tool.name} is available on GitHub at ${tool.repoUrl}. Visit the repository to download the latest version and view the documentation.`,
+              },
+            },
+          ]
+        : []),
+      ...(tool.worksWith && tool.worksWith.length > 0
+        ? [
+            {
+              "@type": "Question",
+              name: `What platforms does ${tool.name} work with?`,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: `${tool.name} works with ${tool.worksWith.join(", ")}. It integrates with Microsoft Intune for endpoint management.`,
+              },
+            },
+          ]
+        : []),
     ],
+  };
+}
+
+/**
+ * Generate DataCatalog schema for the tools directory (GEO optimization)
+ * This helps AI tools understand that this site is a structured database of tools
+ */
+export function generateDataCatalogStructuredData(toolCount: number, _categoryCount?: number) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DataCatalog",
+    name: "Awesome Intune Tools Directory",
+    description: `A curated catalog of ${toolCount}+ free Microsoft Intune tools, PowerShell scripts, and automation resources for IT professionals.`,
+    url: SITE_CONFIG.url,
+    keywords: [
+      "Microsoft Intune",
+      "Intune tools",
+      "PowerShell scripts",
+      "endpoint management",
+      "MDM tools",
+      "device management",
+      "automation",
+      "IT tools",
+    ],
+    creator: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+    },
+    dateModified: new Date().toISOString(),
+    inLanguage: "en",
+    isAccessibleForFree: true,
+    license: "https://opensource.org/licenses/MIT",
+    numberOfItems: toolCount,
+    about: {
+      "@type": "Thing",
+      name: "Microsoft Intune",
+      description: "Cloud-based endpoint management solution from Microsoft",
+    },
+    hasPart: [
+      {
+        "@type": "Dataset",
+        name: "Intune Automation Tools",
+        description: "Tools for automating Microsoft Intune tasks and workflows",
+      },
+      {
+        "@type": "Dataset",
+        name: "Intune Troubleshooting Tools",
+        description: "Diagnostic and troubleshooting utilities for Intune",
+      },
+      {
+        "@type": "Dataset",
+        name: "Intune Packaging Tools",
+        description: "Application packaging tools for Win32 and macOS apps",
+      },
+      {
+        "@type": "Dataset",
+        name: "Intune Reporting Tools",
+        description: "Reporting and analytics tools for Intune environments",
+      },
+      {
+        "@type": "Dataset",
+        name: "Intune Security Tools",
+        description: "Security and compliance tools for Intune",
+      },
+    ],
+  };
+}
+
+/**
+ * Generate Statistics page structured data
+ */
+export function generateStatsPageStructuredData(stats: {
+  totalTools: number;
+  totalStars: number;
+  totalAuthors: number;
+  categories: { name: string; count: number }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Awesome Intune Statistics - Tool Directory Insights",
+    description: `Statistics and insights about the Awesome Intune directory with ${stats.totalTools} tools, ${stats.totalStars.toLocaleString()} GitHub stars, and ${stats.totalAuthors} contributors.`,
+    url: `${SITE_CONFIG.url}/stats`,
+    mainEntity: {
+      "@type": "Dataset",
+      name: "Awesome Intune Tool Statistics",
+      description: "Statistical overview of the Microsoft Intune tools directory",
+      variableMeasured: [
+        {
+          "@type": "PropertyValue",
+          name: "Total Tools",
+          value: stats.totalTools,
+        },
+        {
+          "@type": "PropertyValue",
+          name: "Total GitHub Stars",
+          value: stats.totalStars,
+        },
+        {
+          "@type": "PropertyValue",
+          name: "Total Contributors",
+          value: stats.totalAuthors,
+        },
+      ],
+    },
   };
 }
