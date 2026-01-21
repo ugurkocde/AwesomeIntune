@@ -1,0 +1,59 @@
+{
+  "id": "intunenetworkrequirements",
+  "name": "IntuneNetworkRequirements",
+  "description": "The Intune Network Requirements PowerShell tool is a comprehensive script designed to validate whether all required Microsoft Intune and related service endpoints are reachable from a given network. It performs layered tests, including DNS resolution, TCP/UDP connectivity, HTTP/S responses, TLS/SSL validation, and optional CRL verification, to detect issues such as blocked ports, incorrect routing, proxy or TLS interception, and missing endpoint access.",
+  "keywords": [],
+  "author": "Martin Himken",
+  "authorPicture": "https://github.com/MHimken.png",
+  "githubUrl": "https://github.com/MHimken",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MHimken/IntuneNetworkRequirements",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "other",
+  "dateAdded": "2026-01-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-21",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 15,
+    "forks": 1,
+    "license": null,
+    "lastUpdated": "2025-11-07T21:15:05Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Martin Himken",
+      "githubUrl": "https://github.com/MHimken",
+      "picture": "https://github.com/MHimken.png"
+    }
+  ]
+}
