@@ -146,6 +146,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "IntuneNetworkRequirements",
+      "id": "intunenetworkrequirements",
+      "url": "https://github.com/MHimken/IntuneNetworkRequirements",
+      "reason": "No images in README"
+    },
+    {
       "name": "Intuneomator",
       "id": "intuneomator",
       "url": "https://github.com/gilburns/Intuneomator",
