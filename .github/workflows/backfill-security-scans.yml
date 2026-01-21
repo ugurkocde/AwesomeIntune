@@ -164,7 +164,7 @@ jobs:
               return { files, branch: usedBranch };
             }
 
-            function runPatternChecks(files) {
+            function runPatternChecks(files, repoInfo = {}) {
               const results = {
                 noObfuscatedCode: { passed: true, reason: '', details: [] },
                 noRemoteExecution: { passed: true, reason: '', details: [] },
@@ -191,6 +191,17 @@ jobs:
                 });
 
                 return lineNumbers;
+              };
+
+              // Helper to generate GitHub URL with line anchor
+              const generateGitHubLink = (filePath, lineNumbers) => {
+                if (!repoInfo.owner || !repoInfo.repo || !repoInfo.branch || lineNumbers.length === 0) {
+                  return null;
+                }
+                const firstLine = lineNumbers[0];
+                const lastLine = lineNumbers.length > 1 ? lineNumbers[Math.min(lineNumbers.length - 1, 4)] : firstLine;
+                const lineAnchor = firstLine === lastLine ? '#L' + firstLine : '#L' + firstLine + '-L' + lastLine;
+                return 'https://github.com/' + repoInfo.owner + '/' + repoInfo.repo + '/blob/' + repoInfo.branch + '/' + filePath + lineAnchor;
               };
 
               const patterns = {
@@ -242,11 +253,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern);
                   if (lineNumbers.length > 0) {
                     results.noObfuscatedCode.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noObfuscatedCode.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noObfuscatedCode.githubLink = githubLink;
                     }
                   }
                 }
@@ -255,11 +268,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern);
                   if (lineNumbers.length > 0) {
                     results.noRemoteExecution.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noRemoteExecution.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noRemoteExecution.githubLink = githubLink;
                     }
                   }
                 }
@@ -268,11 +283,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern, 'i');
                   if (lineNumbers.length > 0) {
                     results.noCredentialTheft.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noCredentialTheft.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noCredentialTheft.githubLink = githubLink;
                     }
                   }
                 }
@@ -281,11 +298,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern);
                   if (lineNumbers.length > 0) {
                     results.noDataExfiltration.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noDataExfiltration.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noDataExfiltration.githubLink = githubLink;
                     }
                   }
                 }
@@ -294,11 +313,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern);
                   if (lineNumbers.length > 0) {
                     results.noMaliciousPatterns.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noMaliciousPatterns.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noMaliciousPatterns.githubLink = githubLink;
                     }
                   }
                 }
@@ -307,11 +328,13 @@ jobs:
                   const lineNumbers = findLineNumbers(content, p.pattern);
                   if (lineNumbers.length > 0) {
                     results.noHardcodedSecrets.passed = false;
+                    const githubLink = generateGitHubLink(file.path, lineNumbers);
                     if (!results.noHardcodedSecrets.reason) {
                       const lineInfo = lineNumbers.length <= 5
                         ? lineNumbers.join(', ')
                         : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path + ' (lines: ' + lineInfo + ')';
+                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
+                      results.noHardcodedSecrets.githubLink = githubLink;
                     }
                   }
                 }
@@ -370,8 +393,17 @@ jobs:
             }
 
             async function performSecurityScan(repoUrl, toolName) {
+              // Extract owner and repo from URL for GitHub links
+              const repoMatch = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+              const repoInfo = repoMatch ? {
+                owner: repoMatch[1],
+                repo: repoMatch[2].replace(/\.git$/, ''),
+                branch: null // Will be set after fetching files
+              } : {};
+
               const repoMeta = await fetchRepoMetadata(repoUrl);
               const { files, branch } = await fetchRepoFiles(repoUrl);
+              repoInfo.branch = branch; // Set the branch for GitHub links
 
               console.log('  Files scanned: ' + files.length + (branch ? ' (branch: ' + branch + ')' : ''));
               files.forEach(f => console.log('    - ' + f.path));
@@ -394,7 +426,7 @@ jobs:
                 };
               }
 
-              const patternResults = runPatternChecks(files);
+              const patternResults = runPatternChecks(files, repoInfo);
               const aiResults = await runAISecurityCheck(files, toolName);
 
               if (aiResults?.findings?.length > 0) {
