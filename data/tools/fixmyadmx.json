@@ -1,0 +1,68 @@
+{
+  "id": "fixmyadmx",
+  "name": "FixMyADMX",
+  "description": "FixMyADMX is a script-based tool that automatically repairs ADMX/ADML templates for Intune administrative templates. It replaces unsupported controls (comboBox) with textBox, injects explainText attributes for policies, and attempts to remove or report on Windows.admx references to improve import reliability. It builds on the approach used in Citrix ADMX cleanup and aims to streamline ADMX ingestion for Intune deployments.",
+  "keywords": [
+    "intune",
+    "admx",
+    "administrative-templates",
+    "policy-remediation",
+    "admx-fix",
+    "automation",
+    "scripting",
+    "citrix"
+  ],
+  "author": "Martin Himken",
+  "authorPicture": "https://github.com/MHimken.png",
+  "githubUrl": "https://github.com/MHimken",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MHimken/FixMyADMX",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-01-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-01-21",
+    "forceApproved": false,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 27,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2025-09-10T15:17:17Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Martin Himken",
+      "githubUrl": "https://github.com/MHimken",
+      "picture": "https://github.com/MHimken.png"
+    }
+  ]
+}
