@@ -50,6 +50,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "FixMyADMX",
+      "id": "fixmyadmx",
+      "url": "https://github.com/MHimken/FixMyADMX",
+      "reason": "No images in README"
+    },
+    {
       "name": "Get-AutopilotDiagnosticsCommunity",
       "id": "get-autopilot-diagnostics-community",
       "url": "https://github.com/andrew-s-taylor/public",
