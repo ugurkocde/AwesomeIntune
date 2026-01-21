@@ -65,5 +65,12 @@
       "githubUrl": "https://github.com/byteben",
       "picture": "https://github.com/byteben.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/win32-app-migration-tool/screenshot-1.jpg",
+    "screenshots/win32-app-migration-tool/screenshot-2.jpg",
+    "screenshots/win32-app-migration-tool/screenshot-3.jpg",
+    "screenshots/win32-app-migration-tool/screenshot-4.jpg",
+    "screenshots/win32-app-migration-tool/screenshot-5.jpg"
   ]
 }
