@@ -1,0 +1,97 @@
+name: Tool Request
+description: Request a tool that doesn't exist yet for Microsoft Intune
+title: "[Tool Request]: "
+labels: ["tool-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Request a New Tool
+
+        Have an idea for a tool that would help the Intune community? Submit your request here!
+
+        Popular requests may inspire developers to build them.
+
+  - type: input
+    id: title
+    attributes:
+      label: What tool do you need?
+      description: A brief title for the tool you're requesting
+      placeholder: e.g., Bulk Device Category Updater
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what the tool should do and what problem it would solve
+      placeholder: |
+        Describe the tool you'd like to see:
+        - What would it do?
+        - What problem does it solve?
+        - What features should it have?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: Describe a specific scenario where this tool would be helpful
+      placeholder: |
+        Example: "In my organization, we need to update device categories for 500+ devices
+        based on department. Currently, this requires manually editing each device..."
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What category would this tool fall under?
+      options:
+        - Reporting
+        - Automation
+        - Packaging
+        - Troubleshooting
+        - Security
+        - Configuration
+        - Monitoring
+        - Migration
+        - Other
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgently do you need this tool?
+      options:
+        - Nice to have
+        - Would be helpful
+        - Really need this
+        - Critical need
+
+  - type: input
+    id: existing_solutions
+    attributes:
+      label: Existing Solutions (if any)
+      description: Are there any partial solutions or workarounds you're currently using?
+      placeholder: e.g., Manual process, custom scripts, third-party tools
+
+  - type: checkboxes
+    id: developer_interest
+    attributes:
+      label: Developer Interest
+      description: Are you interested in helping build this tool?
+      options:
+        - label: I would be interested in contributing to or helping test this tool
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information (optional)
+      description: Any other details that might help developers understand your request
+      placeholder: |
+        - Technical requirements
+        - Platform preferences (PowerShell, Web App, etc.)
+        - Integration needs
+        - Similar tools in other ecosystems
