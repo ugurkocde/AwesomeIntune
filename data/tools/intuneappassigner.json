@@ -65,5 +65,12 @@
       "picture": "https://github.com/ennnbeee.png",
       "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
     }
+  ],
+  "screenshots": [
+    "screenshots/intuneappassigner/screenshot-1.gif",
+    "screenshots/intuneappassigner/screenshot-2.gif",
+    "screenshots/intuneappassigner/screenshot-3.gif",
+    "screenshots/intuneappassigner/screenshot-4.gif",
+    "screenshots/intuneappassigner/screenshot-5.gif"
   ]
 }
