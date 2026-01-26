@@ -102,8 +102,6 @@ ${data.description}
 
 ${data.use_case ? `### Use Case\n${data.use_case}` : ""}
 
-${data.submitter_email ? `### Contact\n- **Email:** ${data.submitter_email}` : ""}
-
 ---
 *Submitted via the Awesome Intune website tool request form*`;
 

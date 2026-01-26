@@ -10,7 +10,6 @@ export interface ToolRequest {
   category: string | null;
   github_issue_number: number;
   github_issue_url: string;
-  submitter_email: string | null;
   status: RequestStatus;
   fulfilled_tool_id: string | null;
   created_at: string;

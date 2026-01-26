@@ -190,7 +190,6 @@ export async function POST(request: NextRequest) {
         category: requestData.category ?? null,
         github_issue_number: issue.number,
         github_issue_url: issue.html_url,
-        submitter_email: requestData.submitter_email ?? null,
         status: "open",
       })
       .select("id")

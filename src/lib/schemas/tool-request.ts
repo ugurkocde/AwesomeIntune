@@ -33,11 +33,6 @@ export const toolRequestSchema = z.object({
     .optional()
     .or(z.literal("")),
   category: z.enum(REQUEST_CATEGORIES).optional(),
-  submitter_email: z
-    .string()
-    .email("Must be a valid email address")
-    .optional()
-    .or(z.literal("")),
 
   // Turnstile token (required)
   turnstileToken: z.string().min(1, "Please complete the CAPTCHA verification"),

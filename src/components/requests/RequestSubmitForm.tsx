@@ -14,7 +14,6 @@ interface FormData {
   description: string;
   use_case: string;
   category: string;
-  submitter_email: string;
 }
 
 type FormErrors = Record<string, string | undefined>;
@@ -68,7 +67,6 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
     description: "",
     use_case: "",
     category: "",
-    submitter_email: "",
   });
 
   const updateField = (field: keyof FormData, value: string) => {
@@ -101,12 +99,6 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
     }
     if (formData.use_case && formData.use_case.length > 1000) {
       newErrors.use_case = "Use case must be less than 1000 characters";
-    }
-    if (
-      formData.submitter_email &&
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.submitter_email)
-    ) {
-      newErrors.submitter_email = "Please enter a valid email address";
     }
     if (!turnstileToken) {
       newErrors.turnstile = "Please complete the CAPTCHA verification";
@@ -376,41 +368,6 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
             </option>
           ))}
         </select>
-      </motion.div>
-
-      {/* Email (Optional) */}
-      <motion.div variants={itemVariants}>
-        <label
-          htmlFor="submitter_email"
-          className="mb-2 block text-sm font-medium"
-          style={{ color: "var(--text-primary)" }}
-        >
-          Your Email{" "}
-          <span
-            className="font-normal"
-            style={{ color: "var(--text-tertiary)" }}
-          >
-            (optional)
-          </span>
-        </label>
-        <input
-          id="submitter_email"
-          type="email"
-          value={formData.submitter_email}
-          onChange={(e) => updateField("submitter_email", e.target.value)}
-          placeholder="you@example.com"
-          className="input"
-          disabled={state === "loading"}
-        />
-        {errors.submitter_email ? (
-          <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
-            {errors.submitter_email}
-          </p>
-        ) : (
-          <p className="mt-1 text-xs" style={{ color: "var(--text-tertiary)" }}>
-            We&apos;ll notify you when the tool is available
-          </p>
-        )}
       </motion.div>
 
       {/* Turnstile CAPTCHA */}
