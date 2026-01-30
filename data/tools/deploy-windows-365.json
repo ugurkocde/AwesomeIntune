@@ -1,0 +1,69 @@
+{
+  "id": "deploy-windows-365",
+  "name": "Deploy Windows 365",
+  "description": "Professional-grade PowerShell script that automates deploying Windows 365 Cloud PC environments in Azure and Microsoft Entra ID. It creates or reuses security groups, applies user/admin settings policies, and provisions Cloud PCs regionally with intelligent Enterprise assignment preservation. It uses a lightweight Microsoft Graph authentication module and includes robust error handling, scalable naming conventions, and license-driven provisioning.",
+  "keywords": [
+    "windows365",
+    "cloudpc",
+    "entraid",
+    "powershell",
+    "graphapi",
+    "automation",
+    "securitygroups",
+    "provisioning"
+  ],
+  "author": "Jon Jarvis",
+  "authorPicture": "https://github.com/jonjarvis87.png",
+  "githubUrl": "https://github.com/jonjarvis87/",
+  "linkedinUrl": "https://www.linkedin.com/in/jonjarvisuk/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/jonjarvis87/ImplementWindows365",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-01-30",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-01-30",
+    "forceApproved": false,
+    "aiSummary": "The Destroy-Windows365 script is a legitimate destructive cleanup tool for Intune/Graph-based artifacts. It does not contain obfuscated payloads, credential theft, or data exfiltration. A notable risk is dynamic module installation from the internet (PowerShell Gallery) at runtime; mitigate via module pinning, signature verification, or bundling dependencies. Additionally, review Graph API beta usage for stability and consider tightening the requested scopes to adhere to least-privilege practices.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-01-27T15:56:23Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Jon Jarvis",
+      "githubUrl": "https://github.com/jonjarvis87/",
+      "picture": "https://github.com/jonjarvis87.png",
+      "linkedinUrl": "https://www.linkedin.com/in/jonjarvisuk/"
+    }
+  ]
+}
