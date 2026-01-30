@@ -38,6 +38,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Deploy Windows 365",
+      "id": "deploy-windows-365",
+      "url": "https://github.com/jonjarvis87/ImplementWindows365",
+      "reason": "No images in README"
+    },
+    {
       "name": "Entra ID Device Trust",
       "id": "entra-id-device-trust",
       "url": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
