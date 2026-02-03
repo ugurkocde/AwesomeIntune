@@ -88,7 +88,7 @@ export default function RequestsPage() {
   // Refresh requests when modal closes (after submission)
   const handleModalClose = () => {
     setIsModalOpen(false);
-    // Refresh the list
+    // Refresh the list with cache bypass to ensure fresh data
     setIsLoading(true);
     const fetchRequests = async () => {
       try {
@@ -97,7 +97,9 @@ export default function RequestsPage() {
         if (categoryFilter) params.set("category", categoryFilter);
         params.set("sort", sortBy);
 
-        const response = await fetch(`/api/ideas?${params.toString()}`);
+        const response = await fetch(`/api/ideas?${params.toString()}`, {
+          cache: "no-store",
+        });
         if (response.ok) {
           const data = (await response.json()) as {
             requests: ToolRequestWithVotes[];

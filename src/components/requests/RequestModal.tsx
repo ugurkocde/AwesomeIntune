@@ -101,7 +101,7 @@ export function RequestModal({ isOpen, onClose }: RequestModalProps) {
               </div>
 
               {/* Form */}
-              <RequestSubmitForm onSuccess={onClose} />
+              <RequestSubmitForm isOpen={isOpen} />
             </div>
           </motion.div>
         </>

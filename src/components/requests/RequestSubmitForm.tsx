@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "~/env";
@@ -29,7 +29,7 @@ interface SubmitResponse {
 }
 
 interface RequestSubmitFormProps {
-  onSuccess?: () => void;
+  isOpen?: boolean;
 }
 
 const containerVariants = {
@@ -55,7 +55,7 @@ const itemVariants = {
   },
 };
 
-export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
+export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
   const [issueUrl, setIssueUrl] = useState("");
@@ -68,6 +68,18 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
     use_case: "",
     category: "",
   });
+
+  // Reset form when modal reopens
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({ title: "", description: "", use_case: "", category: "" });
+      setState("idle");
+      setErrors({});
+      setMessage("");
+      setIssueUrl("");
+      setTurnstileToken("");
+    }
+  }, [isOpen]);
 
   const updateField = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -134,7 +146,7 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
         setMessage(data.message ?? "Idea submitted successfully!");
         setIssueUrl(data.issueUrl ?? "");
         trackFormSubmission("tool-idea");
-        onSuccess?.();
+        // Don't auto-close - let user see success state and GitHub link
       } else {
         setState("error");
         if (data.details) {
@@ -247,15 +259,30 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
           className="input"
           disabled={state === "loading"}
         />
-        {errors.title ? (
-          <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
-            {errors.title}
-          </p>
-        ) : (
-          <p className="mt-1 text-xs" style={{ color: "var(--text-tertiary)" }}>
-            Minimum 10 characters
-          </p>
-        )}
+        <div className="mt-1 flex justify-between">
+          {errors.title ? (
+            <p className="text-xs" style={{ color: "var(--signal-error)" }}>
+              {errors.title}
+            </p>
+          ) : (
+            <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+              Minimum 10 characters
+            </p>
+          )}
+          <span
+            className="text-xs"
+            style={{
+              color:
+                formData.title.length > 200
+                  ? "var(--signal-error)"
+                  : formData.title.length < 10
+                  ? "var(--text-tertiary)"
+                  : "var(--signal-success)",
+            }}
+          >
+            {formData.title.length}/200
+          </span>
+        </div>
       </motion.div>
 
       {/* Description */}
