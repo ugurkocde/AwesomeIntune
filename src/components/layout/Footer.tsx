@@ -97,7 +97,7 @@ export function Footer() {
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}
               >
-                Request a Tool
+                Tool Ideas
               </Link>
               <Link
                 href="/developers"

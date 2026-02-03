@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message:
-          "Tool request submitted successfully! Your request is being tracked on GitHub.",
+          "Tool idea submitted successfully! Your idea is being tracked on GitHub.",
         issueNumber: issue.number,
         issueUrl: issue.html_url,
         requestId: null,
@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message:
-        "Tool request submitted successfully! Your request is being tracked on GitHub.",
+        "Tool idea submitted successfully! Your idea is being tracked on GitHub.",
       issueNumber: issue.number,
       issueUrl: issue.html_url,
       requestId: requestId,

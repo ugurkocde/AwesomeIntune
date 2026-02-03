@@ -50,11 +50,11 @@ export const RequestVoteButton = memo(function RequestVoteButton({
           ? "1px solid rgba(16, 185, 129, 0.3)"
           : "1px solid rgba(255, 255, 255, 0.08)",
       }}
-      title={hasVoted ? "You voted for this request" : "Vote for this request"}
+      title={hasVoted ? "You voted for this idea" : "Vote for this idea"}
       aria-label={
         hasVoted
-          ? `You voted for this request. ${voteCount} votes.`
-          : `Vote for this request. ${voteCount} votes.`
+          ? `You voted for this idea. ${voteCount} votes.`
+          : `Vote for this idea. ${voteCount} votes.`
       }
     >
       {/* Upvote Arrow */}

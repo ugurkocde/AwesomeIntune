@@ -89,7 +89,7 @@ export function RequestModal({ isOpen, onClose }: RequestModalProps) {
                   className="font-display text-xl font-bold"
                   style={{ color: "var(--text-primary)" }}
                 >
-                  Request a Tool
+                  Submit a Tool Idea
                 </h2>
                 <p
                   className="mt-1 text-sm"

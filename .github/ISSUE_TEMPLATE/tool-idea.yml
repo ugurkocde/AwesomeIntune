@@ -1,22 +1,22 @@
-name: Tool Request
-description: Request a tool that doesn't exist yet for Microsoft Intune
-title: "[Tool Request]: "
-labels: ["tool-request"]
+name: Tool Idea
+description: Submit an idea for a tool that doesn't exist yet for Microsoft Intune
+title: "[Tool Idea]: "
+labels: ["tool-idea"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## Request a New Tool
+        ## Submit a Tool Idea
 
-        Have an idea for a tool that would help the Intune community? Submit your request here!
+        Have an idea for a tool that would help the Intune community? Submit your idea here!
 
-        Popular requests may inspire developers to build them.
+        Popular ideas may inspire developers to build them.
 
   - type: input
     id: title
     attributes:
       label: What tool do you need?
-      description: A brief title for the tool you're requesting
+      description: A brief title for the tool you're suggesting
       placeholder: e.g., Bulk Device Category Updater
     validations:
       required: true
@@ -89,7 +89,7 @@ body:
     id: additional_info
     attributes:
       label: Additional Information (optional)
-      description: Any other details that might help developers understand your request
+      description: Any other details that might help developers understand your idea
       placeholder: |
         - Technical requirements
         - Platform preferences (PowerShell, Web App, etc.)

@@ -170,17 +170,17 @@ export default function RequestsPage() {
               className="font-display text-4xl font-bold md:text-5xl"
               style={{ color: "var(--text-primary)" }}
             >
-              Tool Requests
+              Tool Ideas
             </h1>
             <p
               className="mt-4 text-lg"
               style={{ color: "var(--text-secondary)" }}
             >
-              Request tools that don&apos;t exist yet and vote for the ones you
-              need most
+              Submit ideas for tools that don&apos;t exist yet and vote for the
+              ones you need most
             </p>
 
-            {/* Request Button */}
+            {/* Submit Idea Button */}
             <motion.button
               onClick={() => setIsModalOpen(true)}
               className="btn btn-primary mt-6 inline-flex px-6 py-3"
@@ -200,7 +200,7 @@ export default function RequestsPage() {
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
-              Request a Tool
+              Submit an Idea
             </motion.button>
           </motion.div>
 
@@ -277,11 +277,11 @@ export default function RequestsPage() {
             style={{ color: "var(--text-tertiary)" }}
           >
             {isLoading ? (
-              "Loading requests..."
+              "Loading ideas..."
             ) : (
               <>
                 {sortedRequests.length}{" "}
-                {sortedRequests.length === 1 ? "request" : "requests"} found
+                {sortedRequests.length === 1 ? "idea" : "ideas"} found
               </>
             )}
           </motion.div>
@@ -353,15 +353,15 @@ export default function RequestsPage() {
                   className="mb-2 text-lg font-semibold"
                   style={{ color: "var(--text-primary)" }}
                 >
-                  No requests found
+                  No ideas found
                 </h3>
                 <p
                   className="mb-6 text-sm"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {statusFilter || categoryFilter
-                    ? "Try adjusting your filters or be the first to make a request!"
-                    : "Be the first to request a tool!"}
+                    ? "Try adjusting your filters or be the first to submit an idea!"
+                    : "Be the first to submit a tool idea!"}
                 </p>
                 <button
                   onClick={() => setIsModalOpen(true)}
@@ -380,7 +380,7 @@ export default function RequestsPage() {
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                   </svg>
-                  Request a Tool
+                  Submit an Idea
                 </button>
               </motion.div>
             ) : (

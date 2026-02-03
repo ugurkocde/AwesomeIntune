@@ -91,9 +91,9 @@ export async function createToolRequestIssue(
     : "Uncategorized";
 
   // Build issue body in a structured format
-  const body = `## Tool Request
+  const body = `## Tool Idea
 
-### Request Details
+### Idea Details
 - **Title:** ${data.title}
 - **Category:** ${categoryLabel}
 
@@ -103,7 +103,7 @@ ${data.description}
 ${data.use_case ? `### Use Case\n${data.use_case}` : ""}
 
 ---
-*Submitted via the Awesome Intune website tool request form*`;
+*Submitted via the Awesome Intune website tool ideas form*`;
 
   const response = await fetch(
     `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`,
@@ -116,9 +116,9 @@ ${data.use_case ? `### Use Case\n${data.use_case}` : ""}
         "X-GitHub-Api-Version": "2022-11-28",
       },
       body: JSON.stringify({
-        title: `[Tool Request]: ${data.title}`,
+        title: `[Tool Idea]: ${data.title}`,
         body,
-        labels: ["tool-request"],
+        labels: ["tool-idea"],
       }),
     }
   );

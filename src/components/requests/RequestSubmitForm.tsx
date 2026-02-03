@@ -131,9 +131,9 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
 
       if (response.ok && data.success) {
         setState("success");
-        setMessage(data.message ?? "Request submitted successfully!");
+        setMessage(data.message ?? "Idea submitted successfully!");
         setIssueUrl(data.issueUrl ?? "");
-        trackFormSubmission("tool-request");
+        trackFormSubmission("tool-idea");
         onSuccess?.();
       } else {
         setState("error");
@@ -191,14 +191,14 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
           className="font-display text-xl font-bold"
           style={{ color: "var(--text-primary)" }}
         >
-          Request Submitted!
+          Idea Submitted!
         </h3>
         <p
           className="mx-auto mt-2 max-w-sm text-sm"
           style={{ color: "var(--text-secondary)" }}
         >
-          Your tool request has been submitted. A GitHub issue has been created
-          for community discussion.
+          Your tool idea has been submitted. A GitHub issue has been created for
+          community discussion.
         </p>
 
         {issueUrl && (
@@ -451,7 +451,7 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                Submit Request
+                Submit Idea
               </motion.span>
             )}
           </AnimatePresence>
