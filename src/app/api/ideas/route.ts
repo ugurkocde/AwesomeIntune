@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.error("Error in GET /api/requests:", error);
+    console.error("Error in GET /api/ideas:", error);
 
     // Return cached data if available, even if stale
     if (cachedRequests !== null) {

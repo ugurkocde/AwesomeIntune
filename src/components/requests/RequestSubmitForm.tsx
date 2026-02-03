@@ -118,7 +118,7 @@ export function RequestSubmitForm({ onSuccess }: RequestSubmitFormProps) {
     setState("loading");
 
     try {
-      const response = await fetch("/api/requests", {
+      const response = await fetch("/api/ideas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

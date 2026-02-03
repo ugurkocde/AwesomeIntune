@@ -146,7 +146,7 @@ export function Header() {
               <span>Collections</span>
             </Link>
             <Link
-              href="/requests"
+              href="/ideas"
               className="btn btn-ghost"
             >
               <svg
@@ -330,7 +330,7 @@ export function Header() {
                 </Link>
 
                 <Link
-                  href="/requests"
+                  href="/ideas"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
                   style={{ color: "var(--text-primary)" }}

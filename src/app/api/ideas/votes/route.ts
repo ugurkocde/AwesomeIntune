@@ -57,7 +57,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error("Error in GET /api/requests/votes:", error);
+    console.error("Error in GET /api/ideas/votes:", error);
 
     // Return cached data if available, even if stale
     if (cachedCounts !== null) {
@@ -143,7 +143,7 @@ export async function POST(request: Request) {
       result: isNewVote ? "voted" : "already_voted",
     });
   } catch (error) {
-    console.error("Error in POST /api/requests/votes:", error);
+    console.error("Error in POST /api/ideas/votes:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

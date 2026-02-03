@@ -93,7 +93,7 @@ export function Footer() {
                 Submit a Tool
               </Link>
               <Link
-                href="/requests"
+                href="/ideas"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}
               >

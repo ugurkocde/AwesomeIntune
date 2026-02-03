@@ -68,7 +68,7 @@ export default function RequestsPage() {
         if (categoryFilter) params.set("category", categoryFilter);
         params.set("sort", sortBy);
 
-        const response = await fetch(`/api/requests?${params.toString()}`);
+        const response = await fetch(`/api/ideas?${params.toString()}`);
         if (response.ok) {
           const data = (await response.json()) as {
             requests: ToolRequestWithVotes[];
@@ -97,7 +97,7 @@ export default function RequestsPage() {
         if (categoryFilter) params.set("category", categoryFilter);
         params.set("sort", sortBy);
 
-        const response = await fetch(`/api/requests?${params.toString()}`);
+        const response = await fetch(`/api/ideas?${params.toString()}`);
         if (response.ok) {
           const data = (await response.json()) as {
             requests: ToolRequestWithVotes[];

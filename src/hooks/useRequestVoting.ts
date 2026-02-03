@@ -83,7 +83,7 @@ export function useRequestVoting() {
 
     const fetchVoteCounts = async () => {
       try {
-        const response = await fetch("/api/requests/votes");
+        const response = await fetch("/api/ideas/votes");
         if (response.ok && isMounted) {
           const counts = (await response.json()) as RequestVoteCounts;
           setVoteCounts(counts);
@@ -188,7 +188,7 @@ export function useRequestVoting() {
       }));
 
       try {
-        const response = await fetch("/api/requests/votes", {
+        const response = await fetch("/api/ideas/votes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ requestId, voterId }),

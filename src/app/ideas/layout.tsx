@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description:
       "Submit ideas for tools that don't exist yet for Microsoft Intune. Vote for the features you need most.",
     type: "website",
-    url: `${SITE_CONFIG.url}/requests`,
+    url: `${SITE_CONFIG.url}/ideas`,
     images: [
       {
         url: "/api/og?title=Tool%20Ideas&category=other",
