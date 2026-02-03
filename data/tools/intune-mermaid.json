@@ -1,0 +1,51 @@
+{
+  "id": "intune-mermaid",
+  "name": "Intune Mermaid",
+  "description": "IntuneMermaid is a web application designed to turn complex Microsoft Intune configurations into clear, visual Mermaid diagrams. By automatically mapping policy and application assignments, it transforms raw Intune data into intuitive, human-readable architecture diagrams.",
+  "keywords": [],
+  "author": "Jose Schenardie",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://intunemermaid.com/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "web-app",
+  "dateAdded": "2026-02-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-03",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Jose Schenardie"
+    }
+  ]
+}
