@@ -14,6 +14,56 @@ interface GitHubIssueResponse {
   title: string;
 }
 
+interface GitHubIssueStatus {
+  number: number;
+  state: "open" | "closed";
+}
+
+// Fetch the status of multiple GitHub issues
+export async function getIssueStatuses(
+  issueNumbers: number[]
+): Promise<Map<number, "open" | "closed">> {
+  const statuses = new Map<number, "open" | "closed">();
+
+  // Fetch issues in parallel with a limit to avoid rate limiting
+  const batchSize = 10;
+  for (let i = 0; i < issueNumbers.length; i += batchSize) {
+    const batch = issueNumbers.slice(i, i + batchSize);
+    const promises = batch.map(async (issueNumber) => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues/${issueNumber}`,
+          {
+            headers: {
+              Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+              Accept: "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+            },
+            next: { revalidate: 60 }, // Cache for 60 seconds
+          }
+        );
+
+        if (response.ok) {
+          const data = (await response.json()) as GitHubIssueStatus;
+          return { number: issueNumber, state: data.state };
+        }
+      } catch (error) {
+        console.error(`Failed to fetch issue #${issueNumber}:`, error);
+      }
+      return null;
+    });
+
+    const results = await Promise.all(promises);
+    for (const result of results) {
+      if (result) {
+        statuses.set(result.number, result.state);
+      }
+    }
+  }
+
+  return statuses;
+}
+
 export async function createToolSubmissionIssue(
   data: Omit<ToolSubmissionData, "turnstileToken" | "acceptTerms">
 ): Promise<GitHubIssueResponse> {

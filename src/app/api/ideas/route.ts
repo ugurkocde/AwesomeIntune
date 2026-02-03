@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { toolRequestSchema } from "~/lib/schemas/tool-request";
 import { verifyTurnstileToken } from "~/lib/turnstile";
-import { createToolRequestIssue } from "~/lib/github";
+import { createToolRequestIssue, getIssueStatuses } from "~/lib/github";
 import { supabase } from "~/lib/supabase";
 import type { ToolRequestWithVotes, RequestStatus } from "~/types/request";
 
@@ -81,6 +81,44 @@ export async function GET(request: NextRequest) {
     if (requestsError) {
       console.error("Error fetching tool requests:", requestsError);
       throw requestsError;
+    }
+
+    // Sync GitHub issue statuses for open/closed items
+    const requestsList = (requests as ToolRequestRow[]) ?? [];
+    const itemsToSync = requestsList.filter(
+      (r) => r.status === "open" || r.status === "closed"
+    );
+
+    if (itemsToSync.length > 0) {
+      const issueNumbers = itemsToSync.map((r) => r.github_issue_number);
+      const githubStatuses = await getIssueStatuses(issueNumbers);
+
+      // Find items that need updating
+      const updates: { id: string; newStatus: "open" | "closed" }[] = [];
+      for (const item of itemsToSync) {
+        const githubState = githubStatuses.get(item.github_issue_number);
+        if (githubState && githubState !== item.status) {
+          updates.push({ id: item.id, newStatus: githubState });
+        }
+      }
+
+      // Batch update out-of-sync items
+      if (updates.length > 0) {
+        for (const update of updates) {
+          await supabase
+            .from("tool_requests")
+            .update({ status: update.newStatus, updated_at: new Date().toISOString() })
+            .eq("id", update.id);
+
+          // Update local data
+          const item = requestsList.find((r) => r.id === update.id);
+          if (item) {
+            item.status = update.newStatus;
+          }
+        }
+        // Invalidate cache since we updated data
+        cachedRequests = null;
+      }
     }
 
     // Fetch vote counts
