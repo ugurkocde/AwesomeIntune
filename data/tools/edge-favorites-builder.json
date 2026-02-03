@@ -1,0 +1,68 @@
+{
+  "id": "edge-favorites-builder",
+  "name": "Edge Favorites Builder",
+  "description": "Edge Favorites Builder is a web-based tool that creates and manages Microsoft Edge bookmarks configurations for enterprise deployment. It offers a visual drag-and-drop interface, supports nested folders, and provides real-time previews. It exports to Windows Intune JSON and macOS mobileconfig for deployment via Intune or other MDMs; it runs offline with zero dependencies and requires no backend, and it can import existing configurations for quick updates.",
+  "keywords": [
+    "edge",
+    "favorites",
+    "intune",
+    "mdm",
+    "drag-and-drop",
+    "nested-folders",
+    "json",
+    "mobileconfig"
+  ],
+  "author": "Simon Hartmann Eriksen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
+  "xUrl": "https://x.com/Sim0nEriksen",
+  "repoUrl": "https://github.com/Simsen/Edge-Favorit-Builder",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-02-03",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-02-03",
+    "forceApproved": false,
+    "aiSummary": "No code provided for analysis. Please supply the Edge Favorites Builder code to assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-02-01T19:46:32Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Simon Hartmann Eriksen",
+      "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
+      "xUrl": "https://x.com/Sim0nEriksen"
+    }
+  ]
+}
