@@ -249,21 +249,6 @@ export function Footer() {
                 />
               </a>
               <a
-                href="https://www.recastsoftware.com/?utm_source=sponsored_writer&utm_medium=referral&utm_campaign=awesomeintune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-block transition-all duration-300 hover:scale-[1.02]"
-                onClick={() => trackSponsorClick("recast", "footer")}
-              >
-                <Image
-                  src="/sponsors/recast.png"
-                  alt="Recast - Sponsor"
-                  width={90}
-                  height={20}
-                  className="h-[15px] sm:h-[20px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </a>
-              <a
                 href="https://devicie.com/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"

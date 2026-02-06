@@ -259,21 +259,6 @@ export function Hero() {
                 />
               </a>
               <a
-                href="https://www.recastsoftware.com/?utm_source=sponsored_writer&utm_medium=referral&utm_campaign=awesomeintune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block transition-all duration-300 hover:scale-[1.02]"
-                onClick={() => trackSponsorClick("recast", "hero")}
-              >
-                <Image
-                  src="/sponsors/recast.png"
-                  alt="Recast - Sponsor"
-                  width={150}
-                  height={33}
-                  className="h-[25px] sm:h-[33px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </a>
-              <a
                 href="https://devicie.com/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
