@@ -58,7 +58,7 @@
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true,
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true
