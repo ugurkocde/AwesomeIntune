@@ -273,6 +273,29 @@ export function Hero() {
                   className="h-[43px] sm:h-[55px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </a>
+              <a
+                href="https://glueckkanja.com/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => trackSponsorClick("glueckkanja", "hero")}
+              >
+                <Image
+                  src="/sponsors/glueckkanja.png"
+                  alt="glueckkanja - Sponsor"
+                  width={200}
+                  height={40}
+                  className="sponsor-logo-dark h-auto w-[140px] sm:w-[200px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <Image
+                  src="/sponsors/glueckkanja.png"
+                  alt="glueckkanja - Sponsor"
+                  width={200}
+                  height={40}
+                  className="sponsor-logo-light h-auto w-[140px] sm:w-[200px] transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ filter: "brightness(0)" }}
+                />
+              </a>
             </div>
           </motion.div>
 
