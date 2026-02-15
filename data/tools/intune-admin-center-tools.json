@@ -34,7 +34,10 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "browser-extension",
-  "worksWith": ["windows", "graph-api"],
+  "worksWith": [
+    "windows",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
     "passed": 6,
@@ -63,5 +66,12 @@
         "passed": true
       }
     }
-  }
+  },
+  "screenshots": [
+    "screenshots/intune-admin-center-tools/screenshot-1.png",
+    "screenshots/intune-admin-center-tools/screenshot-2.png",
+    "screenshots/intune-admin-center-tools/screenshot-3.png",
+    "screenshots/intune-admin-center-tools/screenshot-4.png",
+    "screenshots/intune-admin-center-tools/screenshot-5.png"
+  ]
 }

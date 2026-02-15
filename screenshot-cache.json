@@ -44,6 +44,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Edge Favorites Builder",
+      "id": "edge-favorites-builder",
+      "url": "https://github.com/Simsen/Edge-Favorit-Builder",
+      "reason": "No images in README"
+    },
+    {
       "name": "Entra ID Device Trust",
       "id": "entra-id-device-trust",
       "url": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
@@ -80,12 +86,6 @@
       "reason": "No images in README"
     },
     {
-      "name": "Intune Admin Center Tools",
-      "id": "intune-admin-center-tools",
-      "url": "https://microsoftedge.microsoft.com/addons/detail/intune-admin-center-tools/iglpbhebeofeaiimjejamnicpfdagnhk",
-      "reason": "No images in README"
-    },
-    {
       "name": "IntuneCD",
       "id": "intune-cd",
       "url": "https://github.com/almenscorner/IntuneCD",
@@ -108,6 +108,12 @@
       "id": "intune-diff",
       "url": "https://intunediff.com/",
       "reason": "Website blocked"
+    },
+    {
+      "name": "Intune Mermaid",
+      "id": "intune-mermaid",
+      "url": "https://intunemermaid.com/",
+      "reason": "No images in README"
     },
     {
       "name": "Intune Registry Builder",
