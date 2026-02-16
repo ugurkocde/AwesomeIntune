@@ -1,0 +1,51 @@
+{
+  "id": "pim-portal",
+  "name": "PIM Portal",
+  "description": "Quick and Consistent PIM activation with bulk option",
+  "keywords": [],
+  "author": "Jan Ketil Skanke",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://pimportal.cloud",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "web-app",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Jan Ketil Skanke"
+    }
+  ]
+}
