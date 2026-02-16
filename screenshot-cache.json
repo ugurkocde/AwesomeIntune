@@ -38,6 +38,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Conditional Access simulator",
+      "id": "conditional-access-simulator",
+      "url": "https://ca.haakonwibe.com/",
+      "reason": "No images in README"
+    },
+    {
       "name": "Deploy Windows 365",
       "id": "deploy-windows-365",
       "url": "https://github.com/jonjarvis87/ImplementWindows365",
