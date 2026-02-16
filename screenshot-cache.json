@@ -146,6 +146,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "IntuneAdminTemplateMigrator",
+      "id": "intuneadmintemplatemigrator",
+      "url": "https://admintemplate.intunestuff.com/",
+      "reason": "No images in README"
+    },
+    {
       "name": "IntuneAssistant",
       "id": "intuneassistant",
       "url": "https://intuneassistant.cloud/",
