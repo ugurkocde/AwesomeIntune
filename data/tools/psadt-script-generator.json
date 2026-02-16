@@ -1,0 +1,52 @@
+{
+  "id": "psadt-script-generator",
+  "name": "PSADT Script Generator",
+  "description": "Automatically generate PSADT deployment scripts for new applications or update existing packages while preserving custom code.",
+  "keywords": [],
+  "author": "Robert L",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/robertl84/",
+  "xUrl": "",
+  "repoUrl": "https://psadt.workplacebuilder.nl/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "other",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Robert L",
+      "linkedinUrl": "https://www.linkedin.com/in/robertl84/"
+    }
+  ]
+}
