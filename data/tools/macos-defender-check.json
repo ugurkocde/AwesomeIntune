@@ -1,0 +1,68 @@
+{
+  "id": "macos-defender-check",
+  "name": "macOS Defender Check",
+  "description": "macOS Defender Check is a testing toolkit for Microsoft Defender for Endpoint on macOS. It validates MDE installation and health, tests Tamper Protection and Web Protection across multiple browsers, and supports custom URL indicators with CSV import. The suite produces detailed logs and CSV reports to aid pre- and post-deployment validation, troubleshooting, and compliance auditing.",
+  "keywords": [
+    "macos",
+    "defender_for_endpoint",
+    "tamper_protection",
+    "web_protection",
+    "url_indicators",
+    "web_content_filtering",
+    "logs",
+    "testing_toolkit"
+  ],
+  "author": "Niklas Bruhn",
+  "authorPicture": "https://github.com/SSMacAdmin.png",
+  "githubUrl": "https://github.com/SSMacAdmin",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/SSMacAdmin/macOS_DefenderCheck",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.ssmacadmin.com/posts/2026-02-06-macos%20defender%20check/",
+  "category": "troubleshooting",
+  "type": "other",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 3,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": "Overall, the code appears to be legitimate Intune/Microsoft Defender for Endpoint validation tooling. The primary security consideration is the deliberate attempt to disable Real-Time Protection during Tamper Protection testing, which could be risky if misused. No obfuscated code, no remote script download, no credential theft, and no data exfiltration detected.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-02-06T14:46:38Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Niklas Bruhn",
+      "githubUrl": "https://github.com/SSMacAdmin",
+      "picture": "https://github.com/SSMacAdmin.png"
+    }
+  ]
+}
