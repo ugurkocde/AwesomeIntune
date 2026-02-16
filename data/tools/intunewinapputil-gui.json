@@ -1,0 +1,70 @@
+{
+  "id": "intunewinapputil-gui",
+  "name": "IntuneWinAppUtil GUI",
+  "description": "IntuneWinAppUtil GUI is a PowerShell-based WPF wrapper for Microsoft's IntuneWinAppUtil.exe. It streamlines packaging Win32 apps for Intune with auto-download of the latest tool, input validation, path-length checks, and configuration persistence across launches. It also detects PSAppDeployToolkit usage to suggest names and sanitizes invalid filename characters.",
+  "keywords": [
+    "intune",
+    "win32",
+    "packaging",
+    "wpf",
+    "powershell",
+    "autodownload",
+    "validation",
+    "persistence"
+  ],
+  "author": "Giovanni Solone",
+  "authorPicture": "https://github.com/gioxx.png",
+  "githubUrl": "https://github.com/gioxx",
+  "linkedinUrl": "https://www.linkedin.com/in/gioxx",
+  "xUrl": "https://x.com/gioxx",
+  "repoUrl": "https://github.com/gioxx/IntuneWinAppUtilGUI",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneWinAppUtilGUI",
+  "websiteUrl": "https://kb.gioxx.org/Projects/M365/intunewinapputilgui",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 9,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": "The codebase appears to be a GUI wrapper around IntuneWinAppUtil with update/download helpers. The principal security concerns are: (1) automatic loading of all Private/Public .ps1 scripts at module import time (potential for unintended code execution if contents are untrusted), and (2) unverified remote binary downloads to populate a local cache (supply-chain risk). No credential harvesting, data exfiltration, or hardcoded secrets are evident in the provided code. Recommendations include tightening script loading (explicit imports, module manifests, signing), and adding integrity verification for downloaded binaries (hashes/signatures, official release channels).",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-02-02T09:22:02Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Giovanni Solone",
+      "githubUrl": "https://github.com/gioxx",
+      "picture": "https://github.com/gioxx.png",
+      "linkedinUrl": "https://www.linkedin.com/in/gioxx",
+      "xUrl": "https://x.com/gioxx"
+    }
+  ]
+}
