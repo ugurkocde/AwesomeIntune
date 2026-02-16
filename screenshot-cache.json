@@ -3,6 +3,7 @@
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://intunediff.com/",
     "https://www.kqlsearch.com/",
+    "https://www.ssmacadmin.com/posts/2026-02-06-macos%20defender%20check/",
     "https://openintunebaseline.com",
     "https://www.osdeploy.com/",
     "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/"
@@ -210,6 +211,12 @@
       "id": "mace",
       "url": "https://github.com/mace-app/mace",
       "reason": "No images in README"
+    },
+    {
+      "name": "macOS Defender Check",
+      "id": "macos-defender-check",
+      "url": "https://www.ssmacadmin.com/posts/2026-02-06-macos%20defender%20check/",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "Microsoft Team Rooms Wallpaper package wrapper",
