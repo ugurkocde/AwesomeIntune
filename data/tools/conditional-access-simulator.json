@@ -1,0 +1,51 @@
+{
+  "id": "conditional-access-simulator",
+  "name": "Conditional Access simulator",
+  "description": "CA Simulator is a free, open-source tool that simulates Microsoft Entra ID Conditional Access policy evaluation. It is designed to help administrators visualize and understand their policy configurations.",
+  "keywords": [],
+  "author": "Haakon Wibe",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://ca.haakonwibe.com/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "monitoring",
+  "type": "web-app",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Haakon Wibe"
+    }
+  ]
+}
