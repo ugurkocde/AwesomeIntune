@@ -66,5 +66,9 @@
       "linkedinUrl": "https://www.linkedin.com/in/gioxx",
       "xUrl": "https://x.com/gioxx"
     }
+  ],
+  "screenshots": [
+    "screenshots/intunewinapputil-gui/screenshot-1.png",
+    "screenshots/intunewinapputil-gui/screenshot-2.png"
   ]
 }
