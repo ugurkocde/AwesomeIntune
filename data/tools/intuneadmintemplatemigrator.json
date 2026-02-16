@@ -1,0 +1,52 @@
+{
+  "id": "intuneadmintemplatemigrator",
+  "name": "IntuneAdminTemplateMigrator",
+  "description": "Converts Administrative Template policies to Settings Catalog — reads your existing policies and creates the equivalent Settings Catalog profiles with the same settings and values.",
+  "keywords": [],
+  "author": "Joery Van den Bosch",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/joery/",
+  "xUrl": "",
+  "repoUrl": "https://admintemplate.intunestuff.com/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Joery Van den Bosch",
+      "linkedinUrl": "https://www.linkedin.com/in/joery/"
+    }
+  ]
+}
