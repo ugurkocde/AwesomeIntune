@@ -1,0 +1,68 @@
+{
+  "id": "jump-in",
+  "name": "JUMP-IN",
+  "description": "JUMP-IN is an all-in-one macOS application that simplifies migrating between MDM solutions, enabling migration to Microsoft Intune or between Intune tenants without data loss. It performs system compatibility checks, automatic MDM detection, backups, profile removal, Company Portal installation, tenant enrollment, and FileVault key rotation to maintain security; typical migration runs in about 15-20 minutes per device.",
+  "keywords": [
+    "mdm-migration",
+    "macos",
+    "intune",
+    "abm",
+    "smjobbless",
+    "filevault",
+    "backup",
+    "non-destructive"
+  ],
+  "author": "Somesh Pathak",
+  "authorPicture": "https://github.com/pathaksomesh06.png",
+  "githubUrl": "https://github.com/pathaksomesh06/JUMP-IN",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/pathaksomesh06/JUMP-IN",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "migration",
+  "type": "other",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": "Overall assessment: The script appears to be a legitimate Intune/endpoint-management admin tool for rotating the FileVault recovery key. It does not obfuscate its intent, fetch remote code, or embed hardcoded secrets. The primary security concern is handling of the user-supplied password and the resulting recovery key: the password is captured and stored temporarily in a plist and memory, and the recovery key is displayed to the user. Recommend enhancing credential handling (minimize in-memory exposure, secure ephemeral storage, explicit cleanup), auditing access to the script and /tmp artifacts, and considering integration with a secure secret vault or Intune-managed policy to reduce exposure. If possible, avoid echoing sensitive data in logs or error messages.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 6,
+    "forks": 0,
+    "license": "Apache-2.0",
+    "lastUpdated": "2025-04-21T17:06:10Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Somesh Pathak",
+      "githubUrl": "https://github.com/pathaksomesh06/JUMP-IN",
+      "picture": "https://github.com/pathaksomesh06.png"
+    }
+  ]
+}
