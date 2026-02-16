@@ -261,6 +261,12 @@
       "reason": "Website blocked"
     },
     {
+      "name": "PIM Portal",
+      "id": "pim-portal",
+      "url": "https://pimportal.cloud",
+      "reason": "No images in README"
+    },
+    {
       "name": "PowerShell ADMX wizard",
       "id": "powershell-admx-wizard",
       "url": "https://github.com/niklasrst/windows-admx-wizard",
