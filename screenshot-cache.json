@@ -267,6 +267,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "PSADT Script Generator",
+      "id": "psadt-script-generator",
+      "url": "https://psadt.workplacebuilder.nl/",
+      "reason": "No images in README"
+    },
+    {
       "name": "Toast Notification Creator for Intune",
       "id": "toast-notification-creator-for-intune",
       "url": "https://github.com/AntoPorter/Intune-ToastNotifications",
