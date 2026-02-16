@@ -1,0 +1,53 @@
+{
+  "id": "nuketool",
+  "name": "NukeTool",
+  "description": "Reset your tenant.",
+  "keywords": [],
+  "author": "jorgeasaurus",
+  "authorPicture": "https://github.com/jorgeasaurus.png",
+  "githubUrl": "https://github.com/jorgeasaurus",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://www.nuketune.com/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-02-16",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-16",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "jorgeasaurus",
+      "githubUrl": "https://github.com/jorgeasaurus",
+      "picture": "https://github.com/jorgeasaurus.png"
+    }
+  ]
+}
