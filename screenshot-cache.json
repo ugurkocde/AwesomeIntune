@@ -273,6 +273,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "PSADT Helper",
+      "id": "psadt-helper",
+      "url": "https://psadt.cloudcook.ch/",
+      "reason": "No images in README"
+    },
+    {
       "name": "PSADT Script Generator",
       "id": "psadt-script-generator",
       "url": "https://psadt.workplacebuilder.nl/",
