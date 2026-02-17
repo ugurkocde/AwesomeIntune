@@ -267,6 +267,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "PIMBuddy",
+      "id": "pimbuddy",
+      "url": "https://pimbuddy.cloudcook.ch/",
+      "reason": "No images in README"
+    },
+    {
       "name": "PowerShell ADMX wizard",
       "id": "powershell-admx-wizard",
       "url": "https://github.com/niklasrst/windows-admx-wizard",
