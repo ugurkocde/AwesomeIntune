@@ -1,0 +1,54 @@
+{
+  "id": "pimbuddy",
+  "name": "PIMBuddy",
+  "description": "PIMBuddy helps you get a better overview about your PIM. It even let's you deploy PIM Policies and Groups within Seconds.",
+  "keywords": [],
+  "author": "Roman Padrun",
+  "authorPicture": "https://github.com/CLOUDCOOKCH.png",
+  "githubUrl": "https://github.com/CLOUDCOOKCH",
+  "linkedinUrl": "https://www.linkedin.com/in/roman-padrun-1040386a/",
+  "xUrl": "",
+  "repoUrl": "https://pimbuddy.cloudcook.ch/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "web-app",
+  "dateAdded": "2026-02-17",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-17",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Roman Padrun",
+      "githubUrl": "https://github.com/CLOUDCOOKCH",
+      "picture": "https://github.com/CLOUDCOOKCH.png",
+      "linkedinUrl": "https://www.linkedin.com/in/roman-padrun-1040386a/"
+    }
+  ]
+}
