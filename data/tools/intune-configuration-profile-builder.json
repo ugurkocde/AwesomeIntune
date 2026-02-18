@@ -1,0 +1,52 @@
+{
+  "id": "intune-configuration-profile-builder",
+  "name": "Intune Configuration Profile Builder",
+  "description": "An AI-powered tool for IT administrators that generates exact Microsoft Intune configuration profiles from plain English descriptions.",
+  "keywords": [],
+  "author": "Ryan Foster",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/ryanfosteruk/",
+  "xUrl": "",
+  "repoUrl": "https://claude.ai/public/artifacts/3bea1779-21c9-47fe-9bfc-d85bfb43c5ad",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "documentation",
+  "dateAdded": "2026-02-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-18",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Ryan Foster",
+      "linkedinUrl": "https://www.linkedin.com/in/ryanfosteruk/"
+    }
+  ]
+}
