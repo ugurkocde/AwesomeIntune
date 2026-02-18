@@ -99,6 +99,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Intune Configuration Profile Builder",
+      "id": "intune-configuration-profile-builder",
+      "url": "https://claude.ai/public/artifacts/3bea1779-21c9-47fe-9bfc-d85bfb43c5ad",
+      "reason": "No images in README"
+    },
+    {
       "name": "IntuneDebug",
       "id": "intune-debug",
       "url": "https://github.com/jonasatgit/IntuneDebug",
