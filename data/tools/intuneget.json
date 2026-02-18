@@ -1,0 +1,80 @@
+{
+  "id": "intuneget",
+  "name": "IntuneGet",
+  "description": "A web-based tool that automates deploying Windows applications from the Winget package repository directly into Microsoft Intune. Handles the entire deployment pipeline - searching, packaging apps into .intunewin format, and uploading to your Intune tenant. Features AI-powered app discovery, auto-generated detection rules, PSADT v4 support, configurable update policies, pre-upload permission checks, and multi-channel notifications via Slack, Teams, Discord, email, and webhooks. Self-hostable via Docker with embedded SQLite.",
+  "keywords": [
+    "winget",
+    "app deployment",
+    "windows apps",
+    "intunewin",
+    "automated packaging",
+    "ai discovery",
+    "detection rules",
+    "psadt",
+    "update management",
+    "docker",
+    "deploy winget apps intune",
+    "winget to intune",
+    "automate intune app deployment",
+    "intunewin packaging tool",
+    "intune windows app automation",
+    "winget intune bridge",
+    "deploy windows apps intune automatically",
+    "intune app packaging tool",
+    "winget app catalog intune",
+    "bulk deploy apps intune",
+    "intune app deployment automation",
+    "self-hosted intune deployment",
+    "intune psadt deployment",
+    "winget package intune upload",
+    "intuneget download"
+  ],
+  "author": "Ugur Koc",
+  "authorPicture": "https://github.com/ugurkocde.png",
+  "githubUrl": "https://github.com/ugurkocde",
+  "linkedinUrl": "https://www.linkedin.com/in/ugurkocde/",
+  "xUrl": "https://x.com/UgurKocDe",
+  "repoUrl": "https://github.com/ugurkocde/IntuneGet",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.intuneget.com/",
+  "category": "packaging",
+  "type": "web-app",
+  "worksWith": ["windows", "win32-apps", "graph-api", "winget"],
+  "dateAdded": "2026-02-18",
+  "screenshots": [],
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false
+      },
+      "noRemoteExecution": {
+        "passed": false
+      },
+      "noCredentialTheft": {
+        "passed": false
+      },
+      "noDataExfiltration": {
+        "passed": false
+      },
+      "noMaliciousPatterns": {
+        "passed": false
+      },
+      "noHardcodedSecrets": {
+        "passed": false
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 59,
+    "forks": 15,
+    "license": "AGPL-3.0",
+    "lastUpdated": "2026-02-18T10:23:07Z",
+    "archived": false
+  }
+}

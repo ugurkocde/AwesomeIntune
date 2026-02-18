@@ -9,6 +9,7 @@
     "intune-prep-tool",
     "wintuner",
     "intune-uploader",
+    "intuneget",
     "app-pruner",
     "company-portal-icons"
   ],
