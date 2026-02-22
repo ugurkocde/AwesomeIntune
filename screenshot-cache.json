@@ -147,6 +147,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Intune Settings Catalog Viewer",
+      "id": "intune-settings-catalog-viewer",
+      "url": "https://intunesettings.app/",
+      "reason": "No images in README"
+    },
+    {
       "name": "intune-uploader",
       "id": "intune-uploader",
       "url": "https://github.com/almenscorner/intune-uploader",
