@@ -1,0 +1,54 @@
+{
+  "id": "intune-settings-catalog-viewer",
+  "name": "Intune Settings Catalog Viewer",
+  "description": "This is a faster way to see what's in the Intune settings catalog, with an additional page to track changes made by Microsoft.",
+  "keywords": [],
+  "author": "Lewis Barry",
+  "authorPicture": "https://github.com/Lewis-Barry.png",
+  "githubUrl": "https://github.com/Lewis-Barry/IntuneSettingsCatalogViewer",
+  "linkedinUrl": "https://www.linkedin.com/in/lewis-barry/",
+  "xUrl": "",
+  "repoUrl": "https://intunesettings.app/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-02-22",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-02-22",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Lewis Barry",
+      "githubUrl": "https://github.com/Lewis-Barry/IntuneSettingsCatalogViewer",
+      "picture": "https://github.com/Lewis-Barry.png",
+      "linkedinUrl": "https://www.linkedin.com/in/lewis-barry/"
+    }
+  ]
+}
