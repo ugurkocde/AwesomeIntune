@@ -39,9 +39,17 @@
   "websiteUrl": "https://www.intuneget.com/",
   "category": "packaging",
   "type": "web-app",
-  "worksWith": ["windows", "win32-apps", "graph-api", "winget"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "graph-api",
+    "winget"
+  ],
   "dateAdded": "2026-02-18",
-  "screenshots": [],
+  "screenshots": [
+    "screenshots/intuneget/screenshot-1.png",
+    "screenshots/intuneget/screenshot-2.png"
+  ],
   "securityCheck": {
     "passed": 0,
     "total": 6,
