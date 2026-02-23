@@ -291,6 +291,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "PPPC Builder for macOS",
+      "id": "pppc-builder-for-macos",
+      "url": "https://github.com/Simsen/PPPC-Builder",
+      "reason": "No images in README"
+    },
+    {
       "name": "PSADT Helper",
       "id": "psadt-helper",
       "url": "https://psadt.cloudcook.ch/",
