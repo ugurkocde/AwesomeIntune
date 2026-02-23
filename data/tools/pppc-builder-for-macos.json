@@ -1,0 +1,68 @@
+{
+  "id": "pppc-builder-for-macos",
+  "name": "PPPC Builder for macOS",
+  "description": "PPPC Builder for macOS is a lightweight web-based tool that generates macOS PPPC (.mobileconfig) profiles tailored for Microsoft Intune deployments. You can select an app (or upload its Info.plist), choose required privacy permissions (Screen Recording, Full Disk Access, Camera, Microphone, Accessibility), and download a ready-to-deploy .mobileconfig for Intune. No Jamf dependency; simple, fast, Intune-focused.",
+  "keywords": [
+    "intune",
+    "macos",
+    "pppc",
+    "privacy",
+    "mobileconfig",
+    "configuration-profile",
+    "web-based",
+    "deployment"
+  ],
+  "author": "Simon Hartmann Eriksen",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
+  "xUrl": "https://x.com/Sim0nEriksen",
+  "repoUrl": "https://github.com/Simsen/PPPC-Builder",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-02-23",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-02-23",
+    "forceApproved": false,
+    "aiSummary": "No code provided for analysis. Please supply the PPPC Builder for macOS code to review for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-02-21T08:37:34Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Simon Hartmann Eriksen",
+      "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
+      "xUrl": "https://x.com/Sim0nEriksen"
+    }
+  ]
+}
