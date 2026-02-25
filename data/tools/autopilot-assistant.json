@@ -1,0 +1,69 @@
+{
+  "id": "autopilot-assistant",
+  "name": "Autopilot Assistant",
+  "description": "Autopilot Assistant is a modern WPF-based PowerShell tool that streamlines Windows Autopilot onboarding and device provisioning via a secure Microsoft Graph workflow. It collects hardware hash, prevents duplicates, and supports uploading to Intune Autopilot with optional group tagging and assigned user/computer name. The app offers a structured results view, a real-time log center, and local data storage for offline preparation and auditing.",
+  "keywords": [
+    "endpoint-management",
+    "autopilot",
+    "intune",
+    "microsoft-graph",
+    "powershell",
+    "wpf",
+    "device-provisioning",
+    "logging-monitoring"
+  ],
+  "author": "Mohammed Omar",
+  "authorPicture": "https://github.com/mabdulkadr.png",
+  "githubUrl": "https://github.com/mabdulkadr",
+  "linkedinUrl": "https://www.linkedin.com/in/mabdulkadr/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mabdulkadr/Autopilot-Assistant",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-02-25",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-02-25",
+    "forceApproved": false,
+    "aiSummary": "No code snippet provided for analysis. Unable to assess potential security issues such as obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-02-25T10:36:27Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mohammed Omar",
+      "githubUrl": "https://github.com/mabdulkadr",
+      "picture": "https://github.com/mabdulkadr.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mabdulkadr/"
+    }
+  ]
+}
