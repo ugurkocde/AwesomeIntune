@@ -66,5 +66,12 @@
       "linkedinUrl": "https://www.linkedin.com/in/dhiraj-dhote-604993127/",
       "xUrl": "https://x.com/Dhirajdhruv007"
     }
+  ],
+  "screenshots": [
+    "screenshots/winget-psadt-gui-tool/screenshot-1.png",
+    "screenshots/winget-psadt-gui-tool/screenshot-2.png",
+    "screenshots/winget-psadt-gui-tool/screenshot-3.png",
+    "screenshots/winget-psadt-gui-tool/screenshot-4.png",
+    "screenshots/winget-psadt-gui-tool/screenshot-5.png"
   ]
 }
