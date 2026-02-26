@@ -1,0 +1,70 @@
+{
+  "id": "winget-psadt-gui-tool",
+  "name": "WinGet-PSADT-GUI-Tool",
+  "description": "WinGet-PSADT-GUI-Tool is a Windows PowerShell WPF GUI that streamlines Win32 app packaging and Intune deployment. It integrates WinGet search, installer download, PSADT scaffolding, and GUI-driven configuration of install/uninstall/repair logic, enabling generation of .intunewin packages and direct upload to Intune via Microsoft Graph. It outputs standard PSADT/Intune artifacts and provides live monitoring of packaging and upload steps.",
+  "keywords": [
+    "intune",
+    "winget",
+    "psadt",
+    "powershell",
+    "gui",
+    "packaging",
+    "deployment",
+    "automation"
+  ],
+  "author": "Dhiraj Dhote",
+  "authorPicture": "https://github.com/Dhirajdh.png",
+  "githubUrl": "https://github.com/Dhirajdh/WinGet-PSADT-GUI-Tool",
+  "linkedinUrl": "https://www.linkedin.com/in/dhiraj-dhote-604993127/",
+  "xUrl": "https://x.com/Dhirajdhruv007",
+  "repoUrl": "https://github.com/Dhirajdh/WinGet-PSADT-GUI-Tool",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-02-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 18,
+    "lastChecked": "2026-02-26",
+    "forceApproved": false,
+    "aiSummary": "The WinGet-PSADT-GUI-Tool shows typical admin-tool behavior with legitimate module loading and GUI startup. However, notable security considerations include: (1) existence of an encoded-commands pattern (obfuscation) in a helper function, (2) runtime remote module installation from PSGallery which could introduce supply-chain risk, and (3) execution policy bypass in the launcher which lowers defense-in-depth. No evidence of credential theft, data exfiltration, or hardcoded secrets in the provided code. Recommendations: sign all scripts, avoid or minimize -ExecutionPolicy Bypass, verify modules via signing or checksum validation, and consider removing or auditing the dot-sourcing startup approach to ensure only trusted components are loaded.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 1,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-02-26T15:54:34Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Dhiraj Dhote",
+      "githubUrl": "https://github.com/Dhirajdh/WinGet-PSADT-GUI-Tool",
+      "picture": "https://github.com/Dhirajdh.png",
+      "linkedinUrl": "https://www.linkedin.com/in/dhiraj-dhote-604993127/",
+      "xUrl": "https://x.com/Dhirajdhruv007"
+    }
+  ]
+}
