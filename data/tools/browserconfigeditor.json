@@ -1,0 +1,69 @@
+{
+  "id": "browserconfigeditor",
+  "name": "BrowserConfigEditor",
+  "description": "BrowserConfigEditor is a macOS GUI tool that creates and edits browser policy configurations for enterprise deployments. It supports multiple browsers (Chrome, Edge, Safari, Firefox, Brave, and other Chromium-based browsers) and exports policies in plist, JSON, Intune XML, or shell scripts for deployment. It includes features like visual policy configuration, import/export, search/filter, built-in documentation, and deployment-ready outputs for MDM and Intune.",
+  "keywords": [
+    "macos",
+    "mdm",
+    "intune",
+    "browser-policies",
+    "policy-editor",
+    "export-formats",
+    "plist",
+    "json"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns",
+  "linkedinUrl": "https://www.linkedin.com/in/gilburns/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/BrowserConfigEditor",
+  "downloadUrl": "https://github.com/gilburns/BrowserConfigEditor/releases/",
+  "websiteUrl": "https://github.com/gilburns/BrowserConfigEditor/wiki",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-03-02",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-03-02",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 32,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-01-25T23:09:47Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Gil Burns",
+      "githubUrl": "https://github.com/gilburns",
+      "picture": "https://github.com/gilburns.png",
+      "linkedinUrl": "https://www.linkedin.com/in/gilburns/"
+    }
+  ]
+}
