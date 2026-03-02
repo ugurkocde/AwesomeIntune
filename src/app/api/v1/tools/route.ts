@@ -225,7 +225,7 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (_error) {
+  } catch {
     console.error("API error in tools list");
     return NextResponse.json(
       {

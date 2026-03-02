@@ -116,7 +116,7 @@ export async function GET(
         },
       }
     );
-  } catch (_error) {
+  } catch {
     console.error("API error in tools/[id]");
     return NextResponse.json(
       {

@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (_error) {
+  } catch {
     console.error("API error in stats");
     return NextResponse.json(
       {
