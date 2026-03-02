@@ -65,5 +65,8 @@
       "picture": "https://github.com/gilburns.png",
       "linkedinUrl": "https://www.linkedin.com/in/gilburns/"
     }
+  ],
+  "screenshots": [
+    "screenshots/browserconfigeditor/screenshot-1.png"
   ]
 }
