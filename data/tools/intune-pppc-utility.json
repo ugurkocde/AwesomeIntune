@@ -1,0 +1,69 @@
+{
+  "id": "intune-pppc-utility",
+  "name": "Intune PPPC Utility",
+  "description": "Intune PPPC Utility is a native macOS app for creating and editing PPPC profiles to deploy via Microsoft Intune as Settings Catalog configurations. It enforces a single permission model per entry (Allowed or Authorization), supports per-app entries and Apple Events, and can read code requirements via codesign. It can import mobileconfig payloads and live TCC data, and outputs JSON compatible with the Microsoft Graph API deviceManagement/configurationPolicies.",
+  "keywords": [
+    "macos",
+    "pppc",
+    "intune",
+    "settingscatalog",
+    "json",
+    "codesign",
+    "tcc",
+    "mobileconfig"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns",
+  "linkedinUrl": "https://www.linkedin.com/in/gilburns/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/Intune-PPPC-Utility",
+  "downloadUrl": "https://github.com/gilburns/Intune-PPPC-Utility/releases",
+  "websiteUrl": "https://github.com/gilburns/Intune-PPPC-Utility/wiki",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-03-02",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-03-02",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-03-02T02:51:14Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Gil Burns",
+      "githubUrl": "https://github.com/gilburns",
+      "picture": "https://github.com/gilburns.png",
+      "linkedinUrl": "https://www.linkedin.com/in/gilburns/"
+    }
+  ]
+}
