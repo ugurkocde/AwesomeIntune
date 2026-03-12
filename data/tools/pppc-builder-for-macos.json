@@ -22,6 +22,7 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "web-app",
+  "worksWith": ["macos"],
   "dateAdded": "2026-02-23",
   "securityCheck": {
     "passed": 6,
