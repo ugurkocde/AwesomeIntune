@@ -66,5 +66,11 @@
       "linkedinUrl": "https://www.linkedin.com/in/danielpetri666",
       "xUrl": "https://x.com/danielpetri666"
     }
+  ],
+  "screenshots": [
+    "screenshots/dude-manager/screenshot-1.png",
+    "screenshots/dude-manager/screenshot-2.png",
+    "screenshots/dude-manager/screenshot-3.png",
+    "screenshots/dude-manager/screenshot-4.png"
   ]
 }
