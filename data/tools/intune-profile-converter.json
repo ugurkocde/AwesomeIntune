@@ -64,5 +64,9 @@
       "githubUrl": "https://github.com/gilburns/",
       "picture": "https://github.com/gilburns.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/intune-profile-converter/screenshot-1.png",
+    "screenshots/intune-profile-converter/screenshot-2.png"
   ]
 }
