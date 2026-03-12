@@ -1,0 +1,68 @@
+{
+  "id": "windows-laps-selfservice-portal",
+  "name": "Windows LAPS Self‑Service Portal",
+  "description": "Windows LAPS Self-Service Portal lets users securely retrieve the LAPS password for their own device without helpdesk tickets. Built on Azure Static Web Apps + Azure Functions and Entra ID, it enforces an only-my-device rule, requires a justification, and auto-hides the password after 60 seconds. Every access is auditable in Azure Table Storage, with a zero-stored-secrets design and Graph access via a Managed Identity.",
+  "keywords": [
+    "endpoint-management",
+    "laps",
+    "self-service-password",
+    "entra-id",
+    "azure-functions",
+    "azure-static-web-apps",
+    "audit-logging",
+    "only-my-device"
+  ],
+  "author": "Daniel Fraubaum",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/daniel-fraubaum/laps-self-service-portal",
+  "downloadUrl": "",
+  "websiteUrl": "https://headsinthecloud.blog/2026/03/02/windows-laps-self-service-portal/",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-03-12",
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 11,
+    "lastChecked": "2026-03-12",
+    "forceApproved": true,
+    "aiSummary": "The codebase adheres to secure authentication flows (Easy Auth or JWKS) and Graph API usage for Intune/Graph integration. No evidence of remote code execution, obfuscated payloads, credential harvesting, data exfiltration via external endpoints, or hardcoded production secrets in code paths. Primary concerns are inadvertent exposure of PII through telemetry/audit logs and the presence of secret placeholders in a config template that must be replaced before deployment.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": false,
+        "reason": "Hardcoded credential in infra/deploy.sh ([lines: 297, 320](https://github.com/daniel-fraubaum/laps-self-service-portal/blob/main/infra/deploy.sh#L297-L320))"
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-03-02T19:36:53Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Daniel Fraubaum",
+      "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/"
+    }
+  ]
+}
