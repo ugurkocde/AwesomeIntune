@@ -1,0 +1,70 @@
+{
+  "id": "dude-manager",
+  "name": "DUDE Manager",
+  "description": "DUDE Manager is a Windows PowerShell WPF GUI that configures, deploys, and monitors the DUDE automation engine, which dynamically synchronizes Intune device groups with Entra ID user groups. The sync runs in Azure Functions with a Managed Identity, supports transitive membership and nested groups, and includes safety rails (no shared credentials, prefix allowlists, blast-radius limiter, debug mode). The GUI handles deployment and monitoring, with ARM64 browser login for devices lacking WAM, and supports delegation features via Administrative Units and Defender tags.",
+  "keywords": [
+    "intune",
+    "device-groups",
+    "user-groups",
+    "entra-id",
+    "dynamic-group-sync",
+    "azure-functions",
+    "powershell",
+    "wpf"
+  ],
+  "author": "Daniel Petri",
+  "authorPicture": "https://github.com/danielpetri666.png",
+  "githubUrl": "https://github.com/danielpetri666",
+  "linkedinUrl": "https://www.linkedin.com/in/danielpetri666",
+  "xUrl": "https://x.com/danielpetri666",
+  "repoUrl": "https://github.com/danielpetri666/DUDE-Manager",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "desktop-app",
+  "dateAdded": "2026-03-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-03-12",
+    "forceApproved": false,
+    "aiSummary": "Moderate security risk due to execution policy bypass in the launcher. No evidence of credential theft, remote code download, data exfiltration, or other malicious patterns in the provided code. The tool appears aligned with Intune/Graph usage expectations; focus on script signing and secure authentication practices to mitigate the bypass risk.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-03-11T06:25:11Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Daniel Petri",
+      "githubUrl": "https://github.com/danielpetri666",
+      "picture": "https://github.com/danielpetri666.png",
+      "linkedinUrl": "https://www.linkedin.com/in/danielpetri666",
+      "xUrl": "https://x.com/danielpetri666"
+    }
+  ]
+}
