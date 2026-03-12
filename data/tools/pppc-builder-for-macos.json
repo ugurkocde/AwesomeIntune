@@ -22,7 +22,7 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "web-app",
-  "worksWith": ["macos"],
+  "worksWith": ["macos", "configuration-profiles"],
   "dateAdded": "2026-02-23",
   "securityCheck": {
     "passed": 6,
