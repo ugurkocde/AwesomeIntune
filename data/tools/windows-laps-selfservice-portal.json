@@ -64,5 +64,13 @@
       "name": "Daniel Fraubaum",
       "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/"
     }
+  ],
+  "screenshots": [
+    "screenshots/windows-laps-selfservice-portal/screenshot-1.png",
+    "screenshots/windows-laps-selfservice-portal/screenshot-2.png",
+    "screenshots/windows-laps-selfservice-portal/screenshot-3.png",
+    "screenshots/windows-laps-selfservice-portal/screenshot-4.png",
+    "screenshots/windows-laps-selfservice-portal/screenshot-5.png",
+    "screenshots/windows-laps-selfservice-portal/screenshot-6.png"
   ]
 }
