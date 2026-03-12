@@ -1,0 +1,68 @@
+{
+  "id": "intune-profile-converter",
+  "name": "Intune Profile Converter",
+  "description": "Intune Profile Converter is a native macOS app that transforms Apple .mobileconfig profiles into Microsoft Intune-compatible formats. It supports Settings Catalog JSON and Preference File XML, automatically strips CMS/PKCS#7 signatures, and can batch process multiple profiles. It also handles MCX managed preferences, provides a session log with per-file results, and includes a built-in Settings Catalog reference browser with auto-updates via Sparkle.",
+  "keywords": [
+    "mdm",
+    "intune",
+    "settings-catalog",
+    "mobileconfig",
+    "xml",
+    "json",
+    "signing-removal",
+    "batch-processing"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns/",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/Intune-Profile-Converter",
+  "downloadUrl": "https://github.com/gilburns/Intune-Profile-Converter/releases",
+  "websiteUrl": "https://github.com/gilburns/Intune-Profile-Converter/wiki",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-03-12",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-03-12",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 1,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-03-12T03:17:55Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Gil Burns",
+      "githubUrl": "https://github.com/gilburns/",
+      "picture": "https://github.com/gilburns.png"
+    }
+  ]
+}
