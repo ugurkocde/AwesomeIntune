@@ -335,6 +335,12 @@
       "id": "winpeap",
       "url": "https://github.com/blawalt/WinPEAP",
       "reason": "No images in README"
+    },
+    {
+      "name": "Wintuner GUI",
+      "id": "wintuner-gui",
+      "url": "https://github.com/manuelhoefler17-gif/WinTuner-GUI",
+      "reason": "No images in README"
     }
   ]
 }
