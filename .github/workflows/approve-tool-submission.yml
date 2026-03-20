@@ -719,7 +719,7 @@ jobs:
             const fields = {};
             const authors = [];
 
-            // Parse standard fields with - **Label:** value format
+            // Parse standard fields with - **Label:** value format (website submissions)
             const fieldPattern = /- \*\*([^:*]+):\*\*\s*(.+?)(?=\n|$)/g;
             let match;
             while ((match = fieldPattern.exec(body)) !== null) {
@@ -733,6 +733,24 @@ jobs:
               };
               const ignoredValues = ['not provided', 'n/a', 'none', '-', ''];
               if (mapping[label] && value && !ignoredValues.includes(value.toLowerCase())) fields[mapping[label]] = value;
+            }
+
+            // Parse GitHub issue form template format: ### Label\n\nValue
+            const formFieldMapping = {
+              'tool name': 'name', 'description': 'description', 'author name': 'author',
+              'repository url': 'repoUrl', 'category': 'category', 'type': 'type',
+              'author url (optional)': 'githubUrl', 'download url (optional)': 'downloadUrl',
+              'website url (optional)': 'websiteUrl'
+            };
+            const formPattern = /### ([^\n]+)\n\n([\s\S]*?)(?=\n### |\n---|\s*$)/g;
+            while ((match = formPattern.exec(body)) !== null) {
+              const label = match[1].trim().toLowerCase();
+              const value = match[2].trim();
+              const mapped = formFieldMapping[label];
+              const ignoredValues = ['not provided', 'n/a', 'none', '-', '', '_no response_'];
+              if (mapped && value && !ignoredValues.includes(value.toLowerCase()) && !fields[mapped]) {
+                fields[mapped] = value;
+              }
             }
 
             // Parse multi-author format from website submissions: #### Author N: Name
