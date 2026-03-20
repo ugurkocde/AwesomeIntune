@@ -13,7 +13,7 @@
     "diagnostics"
   ],
   "author": "Adam Gell",
-  "authorPicture": "",
+  "authorPicture": "https://avatars.githubusercontent.com/u/27519?v=4",
   "githubUrl": "https://github.com/adamgell",
   "linkedinUrl": "",
   "xUrl": "",
@@ -61,7 +61,8 @@
   "authors": [
     {
       "name": "Adam Gell",
-      "githubUrl": "https://github.com/adamgell"
+      "githubUrl": "https://github.com/adamgell",
+      "picture": "https://avatars.githubusercontent.com/u/27519?v=4"
     }
   ],
   "screenshots": [
