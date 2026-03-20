@@ -1,0 +1,69 @@
+{
+  "id": "wintuner-gui",
+  "name": "Wintuner GUI",
+  "description": "WinTuner GUI is a modern PowerShell-based graphical interface for managing Microsoft Intune Win32 apps via WinGet packages. Search WinGet packages, create .wtpackage files, and deploy them to Intune, with update checks for existing apps. Features include fuzzy app discovery, persistent settings, interactive M365 login, and a JSON settings store for end-to-end Intune app lifecycle management.",
+  "keywords": [
+    "intune",
+    "win32",
+    "winget",
+    "powershell",
+    "gui",
+    "deployment",
+    "updates",
+    "discovery"
+  ],
+  "author": "Manuel Höfler",
+  "authorPicture": "https://github.com/manuelhoefler17-gif.png",
+  "githubUrl": "https://github.com/manuelhoefler17-gif",
+  "linkedinUrl": "https://www.linkedin.com/in/manuel-h%C3%B6fler-0872481bb/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/manuelhoefler17-gif/WinTuner-GUI",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "other",
+  "dateAdded": "2026-03-20",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-03-20",
+    "forceApproved": false,
+    "aiSummary": "The script is a straightforward launcher delegating to a local PowerShell script. The main security concern is the use of -ExecutionPolicy Bypass, which can undermine script execution policy if the local PS1 is modified or if the environment is compromised. No remote downloads, credential harvesting, or data exfiltration detected in this snippet.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-03-20T11:12:26Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Manuel Höfler",
+      "githubUrl": "https://github.com/manuelhoefler17-gif",
+      "picture": "https://github.com/manuelhoefler17-gif.png",
+      "linkedinUrl": "https://www.linkedin.com/in/manuel-h%C3%B6fler-0872481bb/"
+    }
+  ]
+}
