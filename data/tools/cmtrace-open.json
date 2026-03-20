@@ -63,5 +63,9 @@
       "name": "Adam Gell",
       "githubUrl": "https://github.com/adamgell"
     }
+  ],
+  "screenshots": [
+    "screenshots/cmtrace-open/screenshot-1.png",
+    "screenshots/cmtrace-open/screenshot-2.png"
   ]
 }
