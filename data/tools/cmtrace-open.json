@@ -1,0 +1,67 @@
+{
+  "id": "cmtrace-open",
+  "name": "CMTrace Open",
+  "description": "CMTrace Open is an open-source log viewer (Tauri v2, React/TypeScript, Rust) inspired by CMTrace.exe. It supports CCM, simple, and plain text logs with real-time tailing, virtual scrolling, filtering, highlighting, and color-coded severities. It includes embedded error lookup and diagnostics (IME log analysis, event timeline, download statistics, and a summary dashboard) for quick Intune-oriented insights. Flexible input from files, folders, or drag-and-drop.",
+  "keywords": [
+    "log-viewer",
+    "cmtrace",
+    "tauri",
+    "react",
+    "typescript",
+    "rust",
+    "intune",
+    "diagnostics"
+  ],
+  "author": "Adam Gell",
+  "authorPicture": "",
+  "githubUrl": "https://github.com/adamgell",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/adamgell/cmtraceopen",
+  "downloadUrl": "https://github.com/adamgell/cmtraceopen/releases",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "desktop-app",
+  "dateAdded": "2026-03-20",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-03-20",
+    "forceApproved": false,
+    "aiSummary": "No explicit credential harvesting, data exfiltration, or remote code execution detected. Code appears to be a legitimate Intune/CMTrace Open desktop tool using standard admin tooling patterns. The only notable potential risk is the ExecutionPolicy Bypass in the Windows launcher script; treat with proper signing, integrity checks, and least-privilege consideration.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 36,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-03-18T12:35:13Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Adam Gell",
+      "githubUrl": "https://github.com/adamgell"
+    }
+  ]
+}
