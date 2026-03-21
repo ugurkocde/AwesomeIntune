@@ -1,0 +1,69 @@
+{
+  "id": "autopilot-monitor",
+  "name": "Autopilot Monitor",
+  "description": "Autopilot Monitor provides real-time visibility into Windows Autopilot enrollments with live telemetry, intelligent diagnostics, and automated troubleshooting. It includes a bootstrap script deployed via Intune, a lightweight Monitoring Agent, a Backend API (Azure Functions), and a Next.js web dashboard for fleet analytics. It tracks enrollment phases, runs customizable analyze rules, collects diagnostics, and notifies teams to accelerate issue resolution.",
+  "keywords": [
+    "autopilot",
+    "intune",
+    "real-time-monitoring",
+    "diagnostics",
+    "automated-troubleshooting",
+    "bootstrapper",
+    "telemetry",
+    "azure-functions"
+  ],
+  "author": "Oliver Kieselbach",
+  "authorPicture": "https://avatars.githubusercontent.com/u/26136457?v=4",
+  "githubUrl": "https://github.com/okieselbach",
+  "linkedinUrl": "https://www.linkedin.com/in/oliver-kieselbach/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/okieselbach/Autopilot-Monitor",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.autopilotmonitor.com/",
+  "category": "monitoring",
+  "type": "web-app",
+  "dateAdded": "2026-03-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-03-21",
+    "forceApproved": false,
+    "aiSummary": "Two security concerns were identified: (1) Client-exposed Application Insights connection string may allow misuse of telemetry ingestion; (2) The bootstrapper route downloads a PowerShell script from an external URL which could be tampered. No credential theft patterns detected. The rest of the code appears aligned with intended Intune/Graph usage; ensure proper authentication flows, signing, and server-side handling of secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 13,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-03-21T07:14:27Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Oliver Kieselbach",
+      "githubUrl": "https://github.com/okieselbach",
+      "picture": "https://avatars.githubusercontent.com/u/26136457?v=4",
+      "linkedinUrl": "https://www.linkedin.com/in/oliver-kieselbach/"
+    }
+  ]
+}
