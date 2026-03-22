@@ -65,5 +65,11 @@
       "picture": "https://github.com/manuelhoefler17-gif.png",
       "linkedinUrl": "https://www.linkedin.com/in/manuel-h%C3%B6fler-0872481bb/"
     }
+  ],
+  "screenshots": [
+    "screenshots/wintuner-gui/screenshot-1.png",
+    "screenshots/wintuner-gui/screenshot-2.png",
+    "screenshots/wintuner-gui/screenshot-3.png",
+    "screenshots/wintuner-gui/screenshot-4.png"
   ]
 }
