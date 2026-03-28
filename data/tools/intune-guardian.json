@@ -1,0 +1,84 @@
+{
+  "id": "intune-guardian",
+  "name": "Intune Guardian",
+  "description": "Intune Guardian provides real-time monitoring and auditing of your Microsoft Intune environment, delivering visibility into device enrollment, policy changes, app deployments, and access controls. It features anomaly detection, security risk scoring, and comprehensive audit trails with exportable reports and dashboards for governance and compliance. Use it to detect misconfigurations, enforce policies, and accelerate incident response.",
+  "keywords": [
+    "mdm",
+    "intune",
+    "device-management",
+    "audit-trails",
+    "security-monitoring",
+    "anomaly-detection",
+    "compliance-reporting",
+    "incident-response"
+  ],
+  "author": "Simon Skotheimsvik",
+  "authorPicture": "https://github.com/NickolajA.png",
+  "githubUrl": "https://github.com/NickolajA",
+  "linkedinUrl": "https://www.linkedin.com/in/simonskotheimsvik/",
+  "xUrl": "https://twitter.com/sskotheimsvik",
+  "repoUrl": "https://intuneguardian.com/",
+  "downloadUrl": "",
+  "websiteUrl": "https://intuneguardian.com/",
+  "category": "reporting",
+  "type": "web-app",
+  "dateAdded": "2026-03-28",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-03-28",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Simon Skotheimsvik",
+      "githubUrl": "https://github.com/SimonSkotheimsvik",
+      "picture": "https://github.com/SimonSkotheimsvik.png",
+      "linkedinUrl": "https://www.linkedin.com/in/simonskotheimsvik/",
+      "xUrl": "https://twitter.com/sskotheimsvik"
+    },
+    {
+      "name": "Maurice Daly",
+      "githubUrl": "https://github.com/maurice-daly",
+      "picture": "https://github.com/maurice-daly.png"
+    },
+    {
+      "name": "Jan Ketil Skanke",
+      "githubUrl": "https://github.com/JankeSkanke",
+      "picture": "https://github.com/JankeSkanke.png"
+    },
+    {
+      "name": "Sandy Zeng",
+      "githubUrl": "https://github.com/sandytsang",
+      "picture": "https://github.com/sandytsang.png"
+    },
+    {
+      "name": "Nickolaj Andersen",
+      "githubUrl": "https://github.com/NickolajA",
+      "picture": "https://github.com/NickolajA.png"
+    }
+  ]
+}
