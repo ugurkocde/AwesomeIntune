@@ -1,0 +1,64 @@
+{
+  "id": "cloud-policy-preferences",
+  "name": "Cloud Policy Preferences",
+  "description": "Cloud Policy Preferences is a cloud-native Intune policy platform that restores Group Policy-like control: deploy registry, files, drives, printers, and more, with real-time monitoring and granular targeting. It offers RBAC, What-If analysis, auditing and reporting, automated validation, and Teams notifications, all secured by per-tenant TDEK, end-to-end encryption, and Entra ID authentication.",
+  "keywords": [
+    "intune",
+    "policy-management",
+    "group-policy-preferences",
+    "registry",
+    "drive-mapping",
+    "rbac",
+    "auditing",
+    "encryption"
+  ],
+  "author": "Maurice Daly",
+  "authorPicture": "https://github.com/maurice-daly.png",
+  "githubUrl": "https://github.com/maurice-daly",
+  "linkedinUrl": "https://ie.linkedin.com/in/mauricedaly",
+  "xUrl": "https://x.com/modaly_it",
+  "repoUrl": "https://app.cloudpolicypreferences.com",
+  "downloadUrl": "",
+  "websiteUrl": "https://www.cloudpolicypreferences.com/",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-03-29",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-03-29",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Maurice Daly",
+      "githubUrl": "https://github.com/maurice-daly",
+      "picture": "https://github.com/maurice-daly.png",
+      "linkedinUrl": "https://ie.linkedin.com/in/mauricedaly",
+      "xUrl": "https://x.com/modaly_it"
+    }
+  ]
+}
