@@ -1,5 +1,6 @@
 {
   "blockedWebsites": [
+    "https://www.cloudpolicypreferences.com/",
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://intunediff.com/",
     "https://intuneguardian.com/",
@@ -42,6 +43,12 @@
       "id": "autopilotprofilefunctions",
       "url": "https://github.com/amirjs/AutopilotProfileFunctions",
       "reason": "No images in README"
+    },
+    {
+      "name": "Cloud Policy Preferences",
+      "id": "cloud-policy-preferences",
+      "url": "https://www.cloudpolicypreferences.com/",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "Conditional Access simulator",
