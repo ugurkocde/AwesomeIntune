@@ -1,0 +1,69 @@
+{
+  "id": "eam-autoupdater",
+  "name": "EAM-AutoUpdater",
+  "description": "EAM-AutoUpdater is a PowerShell-based automation tool for Microsoft Intune Enterprise Application Management (EAM) that detects available updates in the EAM catalog and automatically deploys new app versions. It migrates assignments, metadata, and Enrollment Status Page (ESP) configurations to the new version, handles supersedence by keeping only the latest two versions, and supports update rings, custom command-line parameters, app exclusions, and Teams notifications; it runs as an Azure Automation runbook with a managed identity or interactively for testing.",
+  "keywords": [
+    "intune",
+    "eam",
+    "automation",
+    "powershell",
+    "azure-automation",
+    "update-rings",
+    "app-management",
+    "enrollment-status-page"
+  ],
+  "author": "Janic Verboon",
+  "authorPicture": "https://github.com/JanicVerboon.png",
+  "githubUrl": "https://github.com/JanicVerboon",
+  "linkedinUrl": "https://www.linkedin.com/in/janic-verboon-04b11b114/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/JanicVerboon/EAM-AutoUpdater/tree/main",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "other",
+  "dateAdded": "2026-04-22",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-04-22",
+    "forceApproved": false,
+    "aiSummary": "No code provided for analysis. Please supply the code snippet or file to review for security issues (PowerShell/Intune tool EAM-AutoUpdater).",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-04-14T12:36:06Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Janic Verboon",
+      "githubUrl": "https://github.com/JanicVerboon",
+      "picture": "https://github.com/JanicVerboon.png",
+      "linkedinUrl": "https://www.linkedin.com/in/janic-verboon-04b11b114/"
+    }
+  ]
+}
