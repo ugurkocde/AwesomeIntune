@@ -1,0 +1,70 @@
+{
+  "id": "intune-adaptive-engine",
+  "name": "Intune Adaptive Engine",
+  "description": "The Intune Adaptive Engine is a PowerShell automation tool that keeps Entra ID group membership in sync with live Intune device inventory through YAML-driven rules. It queries Graph API for Intune devices and detectedApps, evaluates per-rule conditions, and performs the minimal add/remove actions to keep groups in sync—no agents, no P1/P2 licensing, and no custom code; WhatIf/dry-run, per-rule dry runs, auto group creation, platform filtering, and CI/CD-ready rule sets are supported.",
+  "keywords": [
+    "intune",
+    "endpoint-management",
+    "entra-id",
+    "graph-api",
+    "yaml",
+    "powershell",
+    "dryrun",
+    "cicd"
+  ],
+  "author": "Niklas Bruhn",
+  "authorPicture": "https://github.com/ssmacadmin.png",
+  "githubUrl": "https://github.com/ssmacadmin",
+  "linkedinUrl": "https://www.linkedin.com/in/niklas-bruhn-b19ab728/?skipRedirect=true",
+  "xUrl": "",
+  "repoUrl": "https://github.com/SSMacAdmin/intune-adaptive-engine",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "other",
+  "dateAdded": "2026-04-22",
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 10,
+    "lastChecked": "2026-04-22",
+    "forceApproved": true,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "String building obfuscation in setup/Invoke-IAEDeployment.ps1 ([lines: 641](https://github.com/SSMacAdmin/intune-adaptive-engine/blob/main/setup/Invoke-IAEDeployment.ps1#L641))"
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-04-10T13:31:54Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Niklas Bruhn",
+      "githubUrl": "https://github.com/ssmacadmin",
+      "picture": "https://github.com/ssmacadmin.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklas-bruhn-b19ab728/?skipRedirect=true"
+    }
+  ]
+}
