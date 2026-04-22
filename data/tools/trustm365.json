@@ -1,0 +1,70 @@
+{
+  "id": "trustm365",
+  "name": "TrustM365",
+  "description": "TrustM365 is a free, self-hosted dashboard for Microsoft 365 administrators and MSSPs. It connects to multiple tenants via Graph, baselines exact resources and properties to monitor, detects drift with property-level diffs on every sync, and restores baseline values with one click. It provides branded reports, webhook alerts, and a full audit trail, plus auto-restore and multi-tenant views for MSSP workflows.",
+  "keywords": [
+    "microsoft-365",
+    "intune",
+    "drift-detection",
+    "baseline",
+    "restore",
+    "graph-api",
+    "webhooks",
+    "mssp"
+  ],
+  "author": "Anthony Porter",
+  "authorPicture": "https://github.com/antoporter.png",
+  "githubUrl": "https://github.com/antoporter",
+  "linkedinUrl": "https://www.linkedin.com/in/anthonyantoporter/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/antoporter/trustm365",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-04-22",
+  "securityCheck": {
+    "passed": 5,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-04-22",
+    "forceApproved": true,
+    "aiSummary": "The codebase largely appears suitable for an Intune-like administration tool. However, production CORS permissiveness, outbound webhook data handling, and logging of webhook URLs present medium-severity risks related to data exposure and cross-origin misuse. No obfuscated code, credential theft, or hardcoded secrets detected in the provided excerpts.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": false,
+        "reason": "Hardcoded credential in frontend/src/pages/AddTenant.jsx ([lines: 136](https://github.com/antoporter/trustm365/blob/main/frontend/src/pages/AddTenant.jsx#L136))"
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 35,
+    "forks": 7,
+    "license": "MIT",
+    "lastUpdated": "2026-04-12T02:43:20Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Anthony Porter",
+      "githubUrl": "https://github.com/antoporter",
+      "picture": "https://github.com/antoporter.png",
+      "linkedinUrl": "https://www.linkedin.com/in/anthonyantoporter/"
+    }
+  ]
+}
