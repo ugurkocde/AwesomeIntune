@@ -112,6 +112,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Intune Adaptive Engine",
+      "id": "intune-adaptive-engine",
+      "url": "https://github.com/SSMacAdmin/intune-adaptive-engine",
+      "reason": "No images in README"
+    },
+    {
       "name": "IntuneCD",
       "id": "intune-cd",
       "url": "https://github.com/almenscorner/IntuneCD",
