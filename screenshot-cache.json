@@ -27,6 +27,12 @@
   ],
   "manualScreenshotsNeeded": [
     {
+      "name": "ADMX Web Viewer – Group Policy Browser",
+      "id": "admx-web-viewer-group-policy-browser",
+      "url": "https://admscope.com/",
+      "reason": "No images in README"
+    },
+    {
       "name": "AppLocker Policy Creator",
       "id": "applocker-policy-creator",
       "url": "https://app-locker-cloud.vercel.app/",
