@@ -1,0 +1,70 @@
+{
+  "id": "intune-device-migration",
+  "name": "Intune Device Migration",
+  "description": "Intune Device Migration off-boards devices from one tenant and automatically joins them to a destination tenant, preserving user data during the transition. Built with PowerShell, Microsoft Graph, and Windows provisioning packages, it enables near-zero downtime cross-tenant migrations, with detailed logging, registry updates, and post-install validation to ensure provisioning packages are applied correctly.",
+  "keywords": [
+    "intune",
+    "device-migration",
+    "tenant-migration",
+    "cross-tenant",
+    "ppkg",
+    "provisioning-package",
+    "powershell",
+    "microsoft-graph"
+  ],
+  "author": "Steve Weiner",
+  "authorPicture": "https://github.com/stevecapacity.png",
+  "githubUrl": "https://github.com/stevecapacity",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/stevecapacity/intunemigration-v9",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "migration",
+  "type": "powershell-module",
+  "dateAdded": "2026-04-22",
+  "securityCheck": {
+    "passed": 4,
+    "total": 6,
+    "filesScanned": 5,
+    "lastChecked": "2026-04-22",
+    "forceApproved": true,
+    "aiSummary": "The Intune Device Migration tooling primarily uses Microsoft Graph API for device and user management, which is appropriate for Intune/Entra workflows. However, key security concerns exist: plaintext credentials in config.json for Graph authentication, a high-risk BitLocker decryption capability, and potential cleanup patterns that could obscure audit trails. Recommendations: move secrets to a secure vault or managed identity, avoid or strictly control BitLocker decryption usage, enhance auditing around task/user cleanup, and consider avoiding Beta Graph endpoints in production or implement strict versioning and fallback plans. Overall, legitimate admin tooling is present, but these security considerations should be addressed to reduce risk.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": false,
+        "reason": "decryptDrive invokes Disable-BitLocker on the system drive (C:), potentially leaving data unencrypted and enabling data exposure. While intended for migration, this is a powerful operation that could be misused. Recommendation: strictly gate this behind explicit admin consent, logging, and ensure encryption is re-enabled if required."
+      },
+      "noHardcodedSecrets": {
+        "passed": false,
+        "reason": "Hardcoded credential in StartMigrate.ps1 ([lines: 546](https://github.com/stevecapacity/intunemigration-v9/blob/main/StartMigrate.ps1#L546))"
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 18,
+    "forks": 4,
+    "license": "GPL-3.0",
+    "lastUpdated": "2025-11-12T14:59:28Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Steve Weiner",
+      "githubUrl": "https://github.com/stevecapacity",
+      "picture": "https://github.com/stevecapacity.png"
+    }
+  ]
+}
