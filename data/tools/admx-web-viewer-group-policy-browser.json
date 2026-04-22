@@ -1,0 +1,51 @@
+{
+  "id": "admx-web-viewer-group-policy-browser",
+  "name": "ADMX Web Viewer – Group Policy Browser",
+  "description": "Browse and search ADMX Group Policy templates from 60+ vendors. Windows 11, Edge, Chrome, Office, Citrix and more. All languages supported.",
+  "keywords": [],
+  "author": "admscope",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://admscope.com/",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-04-22",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-04-22",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "admscope"
+    }
+  ]
+}
