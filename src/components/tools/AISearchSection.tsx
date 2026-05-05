@@ -1,11 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { ToolCard } from "./ToolCard";
 import type { AIExplanations, AIConfidenceScores } from "~/hooks/useToolFilters";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import type { VoteCounts } from "~/hooks/useVoting";
+
+const AI_SEARCH_STAGES = [
+  "Analyzing your query…",
+  "Understanding search intent…",
+  "Scanning tool database…",
+  "Finding relevant matches…",
+];
 
 interface AISearchSectionProps {
   tools: Tool[];
@@ -100,6 +108,81 @@ function Spinner() {
   );
 }
 
+function LoadingProgress() {
+  const [stage, setStage] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    const tick = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => clearInterval(tick);
+  }, []);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    const next = () => {
+      const delay = 3500 + Math.random() * 1000;
+      timeout = setTimeout(() => {
+        setStage((prev) => {
+          if (prev >= AI_SEARCH_STAGES.length - 1) return prev;
+          next();
+          return prev + 1;
+        });
+      }, delay);
+    };
+    next();
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <div className="mb-6 flex flex-wrap items-center gap-3">
+      <div
+        className="flex items-center gap-2 rounded-full px-3 py-1.5"
+        style={{
+          background: "rgba(255, 255, 255, 0.03)",
+          border: "1px solid rgba(255, 255, 255, 0.06)",
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={stage}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+            className="text-xs"
+            style={{ color: "rgba(255, 255, 255, 0.7)" }}
+          >
+            {AI_SEARCH_STAGES[stage]}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+
+      <div className="flex items-center gap-1.5">
+        {AI_SEARCH_STAGES.map((_, index) => (
+          <motion.div
+            key={index}
+            className="h-1.5 w-1.5 rounded-full"
+            animate={{
+              scale: index === stage ? 1.3 : 1,
+              backgroundColor:
+                index === stage
+                  ? "var(--accent-primary)"
+                  : index < stage
+                    ? "rgba(255, 255, 255, 0.4)"
+                    : "rgba(255, 255, 255, 0.15)",
+            }}
+            transition={{ duration: 0.2 }}
+          />
+        ))}
+      </div>
+
+      <span className="text-xs" style={{ color: "rgba(255, 255, 255, 0.4)" }}>
+        {elapsed}s elapsed
+      </span>
+    </div>
+  );
+}
+
 export function AISearchSection({
   tools,
   isLoading,
@@ -144,14 +227,17 @@ export function AISearchSection({
       </div>
 
       {isLoading ? (
-        <div
-          className="grid gap-6"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}
-        >
-          {[0, 1, 2].map((index) => (
-            <SkeletonCard key={index} index={index} />
-          ))}
-        </div>
+        <>
+          <LoadingProgress />
+          <div
+            className="grid gap-6"
+            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}
+          >
+            {[0, 1, 2].map((index) => (
+              <SkeletonCard key={index} index={index} />
+            ))}
+          </div>
+        </>
       ) : (
         <div
           className="grid gap-6"
