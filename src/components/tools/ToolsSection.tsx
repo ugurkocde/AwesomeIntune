@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { useToolFilters } from "~/hooks/useToolFilters";
@@ -9,7 +10,7 @@ import { SearchBar } from "./SearchBar";
 import { SearchExamples } from "./SearchExamples";
 import { FilterBar } from "./FilterBar";
 import { ToolGrid } from "./ToolGrid";
-import { SearchLoadingSkeleton } from "./SearchLoadingSkeleton";
+import { AISearchSection } from "./AISearchSection";
 import { TextReveal } from "../TextReveal";
 
 interface ToolsSectionProps {
@@ -25,24 +26,41 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
     selectedCategory,
     selectedType,
     sortBy,
-    filteredTools,
+    keywordTools,
+    aiTools,
     isAiSearching,
     aiExplanations,
     aiConfidenceScores,
-    isAiMode,
+    shouldRunAi,
     setQuery,
     setCategory,
     setType,
     setSortBy,
   } = useToolFilters({ tools, viewCounts, voteCounts });
 
+  // Dedupe: tools shown in the AI section should not appear again in the keyword grid
+  const aiIdSet = useMemo(() => new Set(aiTools.map((t) => t.id)), [aiTools]);
+  const dedupedKeywordTools = useMemo(
+    () => keywordTools.filter((t) => !aiIdSet.has(t.id)),
+    [keywordTools, aiIdSet]
+  );
+
+  const showAiSection = shouldRunAi && (isAiSearching || aiTools.length > 0);
+  const visibleResultCount = aiTools.length + dedupedKeywordTools.length;
+
+  // Unified empty state — only when both sections are genuinely empty
+  const showEmptyState =
+    !isAiSearching &&
+    aiTools.length === 0 &&
+    dedupedKeywordTools.length === 0;
+
   return (
     <section id="tools" className="relative scroll-mt-24 py-24 md:py-32">
-      {/* Section Background */}
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(180deg, transparent 0%, var(--bg-secondary) 20%, var(--bg-secondary) 80%, transparent 100%)",
+          background:
+            "linear-gradient(180deg, transparent 0%, var(--bg-secondary) 20%, var(--bg-secondary) 80%, transparent 100%)",
         }}
       />
 
@@ -66,9 +84,7 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
           </motion.span>
 
           <h2 className="font-display text-4xl font-bold md:text-5xl lg:text-6xl">
-            <TextReveal className="text-gradient">
-              Community Tools
-            </TextReveal>
+            <TextReveal className="text-gradient">Community Tools</TextReveal>
           </h2>
 
           <motion.p
@@ -79,8 +95,8 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
             className="mx-auto mt-6 max-w-2xl text-lg"
             style={{ color: "var(--text-secondary)" }}
           >
-            Discover powerful tools built by the Intune community. Describe your problem
-            or search by keyword to find exactly what you need.
+            Discover powerful tools built by the Intune community. Describe your
+            problem or search by keyword to find exactly what you need.
           </motion.p>
         </motion.div>
 
@@ -96,29 +112,13 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
             value={query}
             onChange={setQuery}
             isAiSearching={isAiSearching}
-            isAiMode={isAiMode}
+            isAiMode={shouldRunAi}
           />
 
-          {/* Example queries - shown when search is empty */}
           <SearchExamples
             isVisible={query.length === 0}
             onExampleClick={setQuery}
           />
-
-          {/* AI Mode Hint - shown when typing but not yet in AI mode */}
-          <AnimatePresence>
-            {!isAiMode && query.length > 0 && query.length < 15 && (
-              <motion.p
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="mt-3 text-center text-xs"
-                style={{ color: "var(--text-tertiary)" }}
-              >
-                Keep typing to enable AI-powered search
-              </motion.p>
-            )}
-          </AnimatePresence>
         </motion.div>
 
         {/* Filters */}
@@ -142,71 +142,66 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
               onCategoryChange={setCategory}
               onTypeChange={setType}
               onSortChange={setSortBy}
-              resultCount={filteredTools.length}
+              resultCount={visibleResultCount}
               totalCount={tools.length}
               isAiSearching={isAiSearching}
             />
           </div>
         </motion.div>
 
-        {/* AI Search Results Indicator */}
+        {/* AI Suggestions Section — parallel to keyword grid */}
         <AnimatePresence>
-          {isAiMode && !isAiSearching && Object.keys(aiExplanations).length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mb-6 flex items-center justify-center gap-2"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--accent-primary)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
-              </svg>
-              <span
-                className="text-sm font-medium"
-                style={{ color: "var(--accent-primary)" }}
-              >
-                AI-powered results
-              </span>
-            </motion.div>
+          {showAiSection && (
+            <AISearchSection
+              key="ai-section"
+              tools={aiTools}
+              isLoading={isAiSearching}
+              aiExplanations={aiExplanations}
+              aiConfidenceScores={aiConfidenceScores}
+              viewCounts={viewCounts}
+              onToolVisible={recordView}
+              voteCounts={voteCounts}
+              hasVoted={hasVoted}
+              isVotePending={isVotePending}
+              onVote={vote}
+            />
           )}
         </AnimatePresence>
 
-        {/* Tools Grid or Loading Skeleton */}
+        {/* Keyword Section */}
         <div className="min-h-[400px]">
-          <AnimatePresence mode="wait">
-            {isAiSearching ? (
-              <SearchLoadingSkeleton key="skeleton" />
-            ) : (
-              <motion.div
-                key="grid"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+          {showAiSection && dedupedKeywordTools.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="mb-5 flex items-center gap-3"
+            >
+              <h3
+                className="font-display text-base font-semibold tracking-tight"
+                style={{ color: "var(--text-secondary)" }}
               >
-                <ToolGrid
-                  tools={filteredTools}
-                  aiExplanations={aiExplanations}
-                  aiConfidenceScores={aiConfidenceScores}
-                  viewCounts={viewCounts}
-                  onToolVisible={recordView}
-                  voteCounts={voteCounts}
-                  hasVoted={hasVoted}
-                  isVotePending={isVotePending}
-                  onVote={vote}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                More matching tools
+              </h3>
+              <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+                {dedupedKeywordTools.length} match
+                {dedupedKeywordTools.length === 1 ? "" : "es"}
+              </span>
+            </motion.div>
+          )}
+
+          <ToolGrid
+            tools={dedupedKeywordTools}
+            aiExplanations={aiExplanations}
+            aiConfidenceScores={aiConfidenceScores}
+            viewCounts={viewCounts}
+            onToolVisible={recordView}
+            voteCounts={voteCounts}
+            hasVoted={hasVoted}
+            isVotePending={isVotePending}
+            onVote={vote}
+            hideEmptyState={!showEmptyState}
+          />
         </div>
       </div>
     </section>

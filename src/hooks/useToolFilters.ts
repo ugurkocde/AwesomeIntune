@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { Tool, ToolCategory, ToolType, WorksWithTag } from "~/types/tool";
 import { filterTools } from "~/lib/tools";
+import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { useDebounce } from "./useDebounce";
 import { trackSearch, trackCategoryFilter } from "~/lib/plausible";
 import type { AISearchResult } from "~/app/api/search/route";
@@ -29,15 +30,16 @@ interface UseToolFiltersReturn {
   selectedWorksWith: WorksWithTag[];
   sortBy: SortOption;
 
-  // Derived
-  filteredTools: Tool[];
+  // Derived — parallel result tracks
+  keywordTools: Tool[];
+  aiTools: Tool[];
   isFiltering: boolean;
 
   // AI Search
   isAiSearching: boolean;
   aiExplanations: AIExplanations;
   aiConfidenceScores: AIConfidenceScores;
-  isAiMode: boolean;
+  shouldRunAi: boolean;
 
   // Actions
   setQuery: (query: string) => void;
@@ -48,8 +50,6 @@ interface UseToolFiltersReturn {
   setSortBy: (sortBy: SortOption) => void;
   clearFilters: () => void;
 }
-
-const AI_SEARCH_THRESHOLD = 15;
 
 export function useToolFilters({
   tools,
@@ -74,12 +74,12 @@ export function useToolFilters({
   const debouncedQuery = useDebounce(query, debounceMs);
   const lastTrackedQuery = useRef<string>("");
 
-  // Determine if we should use AI search (longer, sentence-like queries)
-  const isAiMode = debouncedQuery.length >= AI_SEARCH_THRESHOLD;
+  const shouldRunAi = shouldUseAiSearch(debouncedQuery);
 
   // AI Search effect
   useEffect(() => {
-    if (!isAiMode || !debouncedQuery) {
+    if (!shouldRunAi) {
+      setIsAiSearching(false);
       setAiExplanations({});
       setAiConfidenceScores({});
       setAiToolIds(null);
@@ -142,65 +142,34 @@ export function useToolFilters({
     void performAiSearch();
 
     return () => controller.abort();
-  }, [debouncedQuery, isAiMode]);
+  }, [debouncedQuery, shouldRunAi]);
 
   // Keyword search tracking effect
   useEffect(() => {
     if (
-      !isAiMode &&
+      !shouldRunAi &&
       debouncedQuery.length > 0 &&
       lastTrackedQuery.current !== debouncedQuery
     ) {
       trackSearch(debouncedQuery, "keyword");
       lastTrackedQuery.current = debouncedQuery;
     }
-  }, [debouncedQuery, isAiMode]);
+  }, [debouncedQuery, shouldRunAi]);
 
-  const filteredTools = useMemo(() => {
-    // If AI search returned results, use those (filtered by category/type if set)
-    if (isAiMode && aiToolIds !== null) {
-      let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
-
-      // Apply category/type/worksWith filters on top of AI results
-      if (selectedCategory) {
-        aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
-      }
-      if (selectedType) {
-        aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
-      }
-      if (selectedWorksWith.length > 0) {
-        aiFiltered = aiFiltered.filter((t) =>
-          t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
-        );
-      }
-
-      // Sort by AI confidence, using popularity as tiebreaker
-      return aiFiltered.sort((a, b) => {
-        const confA = aiConfidenceScores[a.id] ?? 0;
-        const confB = aiConfidenceScores[b.id] ?? 0;
-        if (confA !== confB) return confB - confA; // Higher confidence first
-        // Same confidence - use popularity as tiebreaker
-        const viewsA = viewCounts[a.id] ?? 0;
-        const viewsB = viewCounts[b.id] ?? 0;
-        return viewsB - viewsA;
-      });
-    }
-
-    // Regular keyword search
+  // Keyword-filtered tools — always populated, never gated on AI
+  const keywordTools = useMemo(() => {
     let filtered = filterTools(tools, {
       query: debouncedQuery,
       category: selectedCategory,
       type: selectedType,
     });
 
-    // Apply worksWith filter
     if (selectedWorksWith.length > 0) {
       filtered = filtered.filter((t) =>
         t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
       );
     }
 
-    // Apply sorting
     if (sortBy === "popular") {
       filtered = [...filtered].sort((a, b) => {
         const viewsA = viewCounts[a.id] ?? 0;
@@ -218,7 +187,6 @@ export function useToolFilters({
         return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
       });
     } else {
-      // Alphabetical (default)
       filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     }
 
@@ -229,12 +197,48 @@ export function useToolFilters({
     selectedCategory,
     selectedType,
     selectedWorksWith,
-    isAiMode,
-    aiToolIds,
-    aiConfidenceScores,
+    sortBy,
     viewCounts,
     voteCounts,
-    sortBy,
+  ]);
+
+  // AI-recommended tools — only populated when AI returned results
+  const aiTools = useMemo(() => {
+    if (!shouldRunAi || aiToolIds === null || aiToolIds.length === 0) {
+      return [];
+    }
+
+    let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
+
+    if (selectedCategory) {
+      aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
+    }
+    if (selectedType) {
+      aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
+    }
+    if (selectedWorksWith.length > 0) {
+      aiFiltered = aiFiltered.filter((t) =>
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+      );
+    }
+
+    return aiFiltered.sort((a, b) => {
+      const confA = aiConfidenceScores[a.id] ?? 0;
+      const confB = aiConfidenceScores[b.id] ?? 0;
+      if (confA !== confB) return confB - confA;
+      const viewsA = viewCounts[a.id] ?? 0;
+      const viewsB = viewCounts[b.id] ?? 0;
+      return viewsB - viewsA;
+    });
+  }, [
+    tools,
+    shouldRunAi,
+    aiToolIds,
+    aiConfidenceScores,
+    selectedCategory,
+    selectedType,
+    selectedWorksWith,
+    viewCounts,
   ]);
 
   const isFiltering = query !== debouncedQuery || isAiSearching;
@@ -280,12 +284,13 @@ export function useToolFilters({
     selectedType,
     selectedWorksWith,
     sortBy,
-    filteredTools,
+    keywordTools,
+    aiTools,
     isFiltering,
     isAiSearching,
     aiExplanations,
     aiConfidenceScores,
-    isAiMode,
+    shouldRunAi,
     setQuery,
     setCategory,
     setType,

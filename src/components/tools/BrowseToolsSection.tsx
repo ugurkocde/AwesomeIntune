@@ -10,10 +10,11 @@ import { useVoting } from "~/hooks/useVoting";
 import { useDebounce } from "~/hooks/useDebounce";
 import { filterTools } from "~/lib/tools";
 import { CATEGORY_CONFIG } from "~/lib/constants";
+import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { trackSearch } from "~/lib/plausible";
 import { SearchBar } from "./SearchBar";
 import { SearchExamples } from "./SearchExamples";
-import { SearchLoadingSkeleton } from "./SearchLoadingSkeleton";
+import { AISearchSection } from "./AISearchSection";
 import { FilterSidebar, FilterDrawer } from "./FilterSidebar";
 import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
@@ -23,7 +24,6 @@ import type { AISearchResult } from "~/app/api/search/route";
 
 const INITIAL_LOAD = 18;
 const LOAD_MORE_COUNT = 9;
-const AI_SEARCH_THRESHOLD = 15;
 const SCROLL_STATE_KEY = "tools-list-scroll-state";
 
 interface ScrollState {
@@ -108,8 +108,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const lastTrackedQuery = useRef<string>("");
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  // Determine if we should use AI search (longer, sentence-like queries)
-  const isAiMode = debouncedSearchQuery.length >= AI_SEARCH_THRESHOLD;
+  // Determine if we should use AI search (multi-word, sentence-like queries)
+  const isAiMode = shouldUseAiSearch(debouncedSearchQuery);
 
   // Clear AI search state immediately
   const clearAiSearch = useCallback(() => {
@@ -244,55 +244,24 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setDisplayCount(INITIAL_LOAD);
   }, [selectedCategory, selectedType, sortBy, debouncedSearchQuery, aiToolIds]);
 
-  // Filter and sort tools
   // Use empty string if localSearchQuery is cleared (bypass debounce delay)
   const effectiveSearchQuery = localSearchQuery === "" ? "" : debouncedSearchQuery;
-  const effectiveIsAiMode = effectiveSearchQuery.length >= AI_SEARCH_THRESHOLD;
+  const effectiveIsAiMode = shouldUseAiSearch(effectiveSearchQuery);
 
-  const filteredTools = useMemo(() => {
-    // If AI search returned results, use those (filtered by category/type if set)
-    if (effectiveIsAiMode && aiToolIds !== null) {
-      let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
-
-      // Apply category/type/worksWith filters on top of AI results
-      if (selectedCategory) {
-        aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
-      }
-      if (selectedType) {
-        aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
-      }
-      if (selectedWorksWith.length > 0) {
-        aiFiltered = aiFiltered.filter((t) =>
-          t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
-        );
-      }
-
-      // Sort by AI confidence, using popularity as tiebreaker
-      return aiFiltered.sort((a, b) => {
-        const confA = aiConfidenceScores[a.id] ?? 0;
-        const confB = aiConfidenceScores[b.id] ?? 0;
-        if (confA !== confB) return confB - confA;
-        const viewsA = viewCounts[a.id] ?? 0;
-        const viewsB = viewCounts[b.id] ?? 0;
-        return viewsB - viewsA;
-      });
-    }
-
-    // Regular keyword search
+  // Keyword-filtered list — always populated, never gated on AI
+  const keywordTools = useMemo(() => {
     let filtered = filterTools(tools, {
       query: effectiveSearchQuery,
       category: selectedCategory,
       type: selectedType,
     });
 
-    // Apply worksWith filter
     if (selectedWorksWith.length > 0) {
       filtered = filtered.filter((t) =>
         t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
       );
     }
 
-    // Sort
     if (sortBy === "popular") {
       filtered = [...filtered].sort((a, b) => {
         const viewsA = viewCounts[a.id] ?? 0;
@@ -310,17 +279,58 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
         return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
       });
     } else {
-      // Alphabetical (default)
       filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     }
 
     return filtered;
-  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, selectedWorksWith, sortBy, viewCounts, voteCounts, effectiveIsAiMode, aiToolIds, aiConfidenceScores]);
+  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, selectedWorksWith, sortBy, viewCounts, voteCounts]);
 
-  // Tools to display (with infinite scroll)
+  // AI-recommended tools — only populated when AI returned results
+  const aiTools = useMemo(() => {
+    if (!effectiveIsAiMode || aiToolIds === null || aiToolIds.length === 0) {
+      return [];
+    }
+
+    let aiFiltered = tools.filter((t) => aiToolIds.includes(t.id));
+
+    if (selectedCategory) {
+      aiFiltered = aiFiltered.filter((t) => t.category === selectedCategory);
+    }
+    if (selectedType) {
+      aiFiltered = aiFiltered.filter((t) => t.type === selectedType);
+    }
+    if (selectedWorksWith.length > 0) {
+      aiFiltered = aiFiltered.filter((t) =>
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+      );
+    }
+
+    return aiFiltered.sort((a, b) => {
+      const confA = aiConfidenceScores[a.id] ?? 0;
+      const confB = aiConfidenceScores[b.id] ?? 0;
+      if (confA !== confB) return confB - confA;
+      const viewsA = viewCounts[a.id] ?? 0;
+      const viewsB = viewCounts[b.id] ?? 0;
+      return viewsB - viewsA;
+    });
+  }, [tools, effectiveIsAiMode, aiToolIds, aiConfidenceScores, selectedCategory, selectedType, selectedWorksWith, viewCounts]);
+
+  // Dedupe: tools already shown in the AI section don't appear again in the keyword grid
+  const aiIdSet = useMemo(() => new Set(aiTools.map((t) => t.id)), [aiTools]);
+  const dedupedKeywordTools = useMemo(
+    () => keywordTools.filter((t) => !aiIdSet.has(t.id)),
+    [keywordTools, aiIdSet]
+  );
+
+  // Tools to display (with infinite scroll) — applies to keyword section only
   const displayedTools = useMemo(() => {
-    return filteredTools.slice(0, displayCount);
-  }, [filteredTools, displayCount]);
+    return dedupedKeywordTools.slice(0, displayCount);
+  }, [dedupedKeywordTools, displayCount]);
+
+  const showAiSection = effectiveIsAiMode && (isAiSearching || aiTools.length > 0);
+  const visibleResultCount = aiTools.length + dedupedKeywordTools.length;
+  const showEmptyState =
+    !isAiSearching && aiTools.length === 0 && dedupedKeywordTools.length === 0;
 
   // Restore scroll position after content has rendered
   useEffect(() => {
@@ -333,19 +343,20 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
   }, [pendingScrollRestore, displayedTools.length]);
 
-  const hasMore = displayCount < filteredTools.length;
+  const hasMore = displayCount < dedupedKeywordTools.length;
 
   // Load more handler
   const loadMore = useCallback(() => {
     if (isLoadingMore || !hasMore) return;
 
     setIsLoadingMore(true);
-    // Simulate a small delay for smoother UX
     setTimeout(() => {
-      setDisplayCount((prev) => Math.min(prev + LOAD_MORE_COUNT, filteredTools.length));
+      setDisplayCount((prev) =>
+        Math.min(prev + LOAD_MORE_COUNT, dedupedKeywordTools.length)
+      );
       setIsLoadingMore(false);
     }, 300);
-  }, [isLoadingMore, hasMore, filteredTools.length]);
+  }, [isLoadingMore, hasMore, dedupedKeywordTools.length]);
 
   // Calculate category stats
   const categoryStats = useMemo(() => {
@@ -475,7 +486,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
             />
             {/* AI Mode Hint */}
             <AnimatePresence>
-              {!effectiveIsAiMode && localSearchQuery.length > 0 && localSearchQuery.length < 15 && (
+              {!effectiveIsAiMode && localSearchQuery.trim().length > 0 && (
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -483,7 +494,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   className="mt-2 text-xs"
                   style={{ color: "var(--text-tertiary)" }}
                 >
-                  Keep typing to enable AI-powered search
+                  Try a multi-word question to get AI suggestions
                 </motion.p>
               )}
             </AnimatePresence>
@@ -540,9 +551,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               style={{ color: "var(--text-tertiary)" }}
             >
               <span style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
-                {filteredTools.length}
+                {visibleResultCount}
               </span>{" "}
-              {filteredTools.length === 1 ? "tool" : "tools"}
+              {visibleResultCount === 1 ? "tool" : "tools"}
             </p>
           </div>
         </div>
@@ -620,48 +631,49 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               )}
             </AnimatePresence>
 
-            {/* AI Search Results Indicator */}
+            {/* AI Suggestions Section — runs in parallel with keyword grid */}
             <AnimatePresence>
-              {effectiveIsAiMode && !isAiSearching && Object.keys(aiExplanations).length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mb-6 flex items-center gap-2"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--accent-primary)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z" />
-                  </svg>
-                  <span
-                    className="text-sm font-medium"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
-                    AI-powered results
-                  </span>
-                </motion.div>
+              {showAiSection && (
+                <AISearchSection
+                  key="ai-section"
+                  tools={aiTools}
+                  isLoading={isAiSearching}
+                  aiExplanations={aiExplanations}
+                  aiConfidenceScores={aiConfidenceScores}
+                  viewCounts={viewCounts}
+                  onToolVisible={recordView}
+                  voteCounts={voteCounts}
+                  hasVoted={hasVoted}
+                  isVotePending={isVotePending}
+                  onVote={vote}
+                  onBeforeNavigate={handleBeforeNavigate}
+                />
               )}
             </AnimatePresence>
 
-            {/* Loading State */}
-            {isAiSearching ? (
-              <SearchLoadingSkeleton />
-            ) : filteredTools.length === 0 ? (
+            {/* Keyword Section */}
+            {showEmptyState ? (
               <EmptyState
                 searchQuery={debouncedSearchQuery}
                 onClearFilters={handleClearAll}
               />
-            ) : (
+            ) : dedupedKeywordTools.length > 0 ? (
               <>
-                {/* Grid View */}
+                {showAiSection && (
+                  <div className="mb-5 flex items-center gap-3">
+                    <h3
+                      className="font-display text-base font-semibold tracking-tight"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      More matching tools
+                    </h3>
+                    <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+                      {dedupedKeywordTools.length} match
+                      {dedupedKeywordTools.length === 1 ? "" : "es"}
+                    </span>
+                  </div>
+                )}
+
                 {viewMode === "grid" && (
                   <div
                     className="grid gap-6"
@@ -680,14 +692,12 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                         hasVoted={hasVoted(tool.id)}
                         isVotePending={isVotePending(tool.id)}
                         onVote={vote}
-                        aiExplanation={aiExplanations[tool.id]}
                         onBeforeNavigate={handleBeforeNavigate}
                       />
                     ))}
                   </div>
                 )}
 
-                {/* List View */}
                 {viewMode === "list" && (
                   <div className="space-y-3">
                     {displayedTools.map((tool, index) => (
@@ -707,16 +717,15 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   </div>
                 )}
 
-                {/* Load More Button */}
                 <LoadMoreButton
                   onLoadMore={loadMore}
                   isLoading={isLoadingMore}
                   hasMore={hasMore}
                   shownCount={displayedTools.length}
-                  totalCount={filteredTools.length}
+                  totalCount={dedupedKeywordTools.length}
                 />
               </>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

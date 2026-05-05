@@ -22,6 +22,7 @@ interface ToolGridProps {
   hasVoted?: (toolId: string) => boolean;
   isVotePending?: (toolId: string) => boolean;
   onVote?: (toolId: string) => Promise<boolean>;
+  hideEmptyState?: boolean;
 }
 
 export function ToolGrid({
@@ -34,6 +35,7 @@ export function ToolGrid({
   hasVoted,
   isVotePending,
   onVote,
+  hideEmptyState = false,
 }: ToolGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -69,6 +71,7 @@ export function ToolGrid({
   };
 
   if (tools.length === 0) {
+    if (hideEmptyState) return null;
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
