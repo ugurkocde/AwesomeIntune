@@ -156,6 +156,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
 
         const data = (await response.json()) as AISearchResult;
 
+        if (controller.signal.aborted) return;
+
         const explanations: AIExplanations = {};
         const confidenceScores: AIConfidenceScores = {};
         const ids: string[] = [];
@@ -169,6 +171,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
         setAiExplanations(explanations);
         setAiConfidenceScores(confidenceScores);
         setAiToolIds(ids);
+        setIsAiSearching(false);
+
         if (lastTrackedQuery.current !== debouncedSearchQuery) {
           trackSearch(debouncedSearchQuery, "ai");
           lastTrackedQuery.current = debouncedSearchQuery;
@@ -177,12 +181,11 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
         if (error instanceof Error && error.name === "AbortError") {
           return;
         }
+        if (controller.signal.aborted) return;
         console.error("AI search error:", error);
-        // Fall back to regular search
         setAiExplanations({});
         setAiConfidenceScores({});
         setAiToolIds(null);
-      } finally {
         setIsAiSearching(false);
       }
     }
