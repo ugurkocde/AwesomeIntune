@@ -10,7 +10,10 @@ import { Header } from "~/components/layout/Header";
 import { Footer } from "~/components/layout/Footer";
 import { SubscriptionToast } from "~/components/newsletter/SubscriptionToast";
 import { FloatingSubscribe } from "~/components/newsletter/FloatingSubscribe";
-import { generateOrganizationStructuredData } from "~/lib/structured-data";
+import {
+  generateOrganizationStructuredData,
+  generateWebsiteWithSearchActionStructuredData,
+} from "~/lib/structured-data";
 
 // Outfit - Display font (similar to Cabinet Grotesk)
 const outfit = Outfit({
@@ -88,12 +91,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
@@ -104,6 +107,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const organizationSchema = generateOrganizationStructuredData();
+  const websiteSchema = generateWebsiteWithSearchActionStructuredData();
+  const siteGraphSchema = {
+    "@context": "https://schema.org",
+    "@graph": [organizationSchema, websiteSchema],
+  };
 
   return (
     <html
@@ -124,7 +132,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: JSON.stringify(siteGraphSchema),
           }}
         />
         {/* Plausible Analytics */}

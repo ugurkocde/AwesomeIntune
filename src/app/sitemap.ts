@@ -28,7 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const collectionSlugs = getAllCollectionSlugs();
   const baseUrl = SITE_CONFIG.url;
 
-  // Static pages
+  // Static pages — top-level routes get high priority so Google
+  // recognises them as primary site sections (prerequisite for sitelinks).
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -37,16 +38,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/submit`,
+      url: `${baseUrl}/tools`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
+      changeFrequency: "daily",
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/collections`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/ideas`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/submit`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/stats`,

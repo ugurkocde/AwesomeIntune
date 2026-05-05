@@ -148,9 +148,38 @@ export function generateOrganizationStructuredData() {
     "@type": "Organization",
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/logo.png`,
+    logo: `${SITE_CONFIG.url}/favicon-512x512.png`,
     description: SITE_CONFIG.description,
-    sameAs: ["https://github.com/ugurkocde/awesomeintune"],
+    sameAs: [
+      "https://github.com/ugurkocde/awesomeintune",
+      "https://github.com/ugurkocde",
+      "https://www.linkedin.com/in/ugurkocde/",
+      "https://x.com/UgurKocDe",
+    ],
+  };
+}
+
+/**
+ * Generate JSON-LD for the website with sitelinks search box.
+ * The SearchAction tells Google that /tools?q=… is a working site search,
+ * which is one of the prerequisites for the sitelinks search box in SERPs.
+ */
+export function generateWebsiteWithSearchActionStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_CONFIG.name,
+    alternateName: "AwesomeIntune",
+    url: SITE_CONFIG.url,
+    description: SITE_CONFIG.description,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_CONFIG.url}/tools?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
