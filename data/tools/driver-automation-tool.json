@@ -1,0 +1,46 @@
+{
+  "id": "driver-automation-tool",
+  "name": "Driver Automation Tool",
+  "description": "Enterprise-grade automation for downloading, extracting, and packaging driver and BIOS update packages for ConfigMgr and Microsoft Intune. Provides accelerated downloads with HTTP resume support, configurable retry logic, and automatic hash verification. Supports HP, Dell, Lenovo, Microsoft Surface, and Acer with automatic catalog discovery and per-manufacturer extraction logic. Full Intune integration with device code or app registration auth, chunked Azure Blob uploads, parallel threading, and Win32 app packaging.",
+  "keywords": [
+    "driver automation",
+    "bios updates",
+    "driver packages",
+    "configmgr drivers",
+    "intune drivers",
+    "win32 app packaging",
+    "hp drivers",
+    "dell drivers",
+    "lenovo drivers",
+    "microsoft surface drivers",
+    "acer drivers",
+    "driver catalog",
+    "hash verification",
+    "azure blob upload",
+    "parallel driver downloads",
+    "enterprise driver management",
+    "automate driver deployment",
+    "driver intunewin",
+    "configmgr to intune driver migration"
+  ],
+  "author": "Maurice Daly",
+  "authorPicture": "https://github.com/maurice-daly.png",
+  "githubUrl": "https://github.com/maurice-daly",
+  "linkedinUrl": "https://www.linkedin.com/in/mauricedaly/",
+  "xUrl": "https://x.com/modaly_it",
+  "repoUrl": "https://github.com/maurice-daly/DriverAutomationTool",
+  "downloadUrl": "https://github.com/maurice-daly/DriverAutomationTool/archive/refs/heads/master.zip",
+  "websiteUrl": "https://www.driverautomationtool.com/",
+  "category": "packaging",
+  "type": "powershell-script",
+  "worksWith": ["windows", "win32-apps", "autopilot"],
+  "dateAdded": "2026-05-10",
+  "authors": [
+    {
+      "name": "Maurice Daly",
+      "githubUrl": "https://github.com/maurice-daly",
+      "linkedinUrl": "https://www.linkedin.com/in/mauricedaly/",
+      "xUrl": "https://x.com/modaly_it"
+    }
+  ]
+}
