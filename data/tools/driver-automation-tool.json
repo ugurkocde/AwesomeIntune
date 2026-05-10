@@ -68,5 +68,12 @@
       "linkedinUrl": "https://www.linkedin.com/in/mauricedaly/",
       "xUrl": "https://x.com/modaly_it"
     }
+  ],
+  "screenshots": [
+    "screenshots/driver-automation-tool/screenshot-1.png",
+    "screenshots/driver-automation-tool/screenshot-2.png",
+    "screenshots/driver-automation-tool/screenshot-3.png",
+    "screenshots/driver-automation-tool/screenshot-4.png",
+    "screenshots/driver-automation-tool/screenshot-5.png"
   ]
 }
