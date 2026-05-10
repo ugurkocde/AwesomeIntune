@@ -1,0 +1,35 @@
+# Maintainer config for AwesomeIntune
+
+triage:
+  enabled: true
+  auto_label: true
+  auto_dedupe: true
+
+fix:
+  enabled: true
+  # Conservative initial setting: triage runs automatically, but fix
+  # PRs only happen when explicitly invoked via /maintainer fix.
+  # Flip to true once a few rounds land cleanly.
+  auto_attempt: false
+  # Sonnet is plenty for a focused TS/Next.js codebase. Switch to
+  # claude-opus-4-7 if quality drops on more complex fixes.
+  model: claude-sonnet-4-6
+  # The project's check script lints and typechecks, which is the
+  # right gate for "did the agent introduce a regression" since
+  # there is no test suite.
+  test_command: "npm run check"
+
+review:
+  enabled: true
+  model: claude-sonnet-4-6
+  block_on_reject: true
+
+commands:
+  enabled: true
+  require_write_permission: true
+
+stale:
+  enabled: true
+  days_until_stale: 90
+  days_until_close: 14
+  exempt_labels: [pinned, security, enhancement]
