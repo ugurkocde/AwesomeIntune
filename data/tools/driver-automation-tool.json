@@ -1,0 +1,72 @@
+{
+  "id": "driver-automation-tool",
+  "name": "Driver Automation Tool",
+  "description": "Driver Automation Tool is a PowerShell WPF desktop app that automates the full lifecycle of OEM driver and BIOS package management for ConfigMgr and Intune. It automatically discovers vendor catalogs, downloads with resume-enabled curl, extracts, builds WIMs, and wraps packages as .intunewin for Intune Win32 deployment. The tool supports multiple OEMs, BIOS update handling, hash verification, and configurable packaging (DISM/wimlib/7-Zip) to streamline ConfigMgr and Intune workflows.",
+  "keywords": [
+    "intune",
+    "configmgr",
+    "oem-drivers",
+    "bios-updates",
+    "wim-packaging",
+    "dism",
+    "wimlib",
+    "7zip"
+  ],
+  "author": "Maurice Daly",
+  "authorPicture": "https://github.com/maurice-daly.png",
+  "githubUrl": "https://github.com/maurice-daly",
+  "linkedinUrl": "https://www.linkedin.com/in/mauricedaly/",
+  "xUrl": "https://x.com/modaly_it",
+  "repoUrl": "https://github.com/maurice-daly/DriverAutomationTool",
+  "downloadUrl": "https://github.com/maurice-daly/DriverAutomationTool/archive/refs/heads/master.zip",
+  "websiteUrl": "https://www.driverautomationtool.com/",
+  "category": "packaging",
+  "type": "other",
+  "dateAdded": "2026-05-10",
+  "securityCheck": {
+    "passed": 4,
+    "total": 6,
+    "filesScanned": 24,
+    "lastChecked": "2026-05-10",
+    "forceApproved": true,
+    "aiSummary": "The Driver Automation Tool codebase aligns with legitimate enterprise management tooling, including Intune/Graph usage and BIOS password handling. The notable security concerns are a hardcoded BIOS password placeholder that must be replaced before deployment and telemetry/privacy considerations. No evidence of obfuscated code or overt remote code execution was found in the provided snippets. Recommended actions: remove/rotate hardcoded secrets, harden registry/DPAPI handling with strict ACLs, audit telemetry data flows, and verify any potential startup/persistence mechanisms against organizational security policies.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": false,
+        "reason": "Base64 decode and execute in Driver Automation Tool/Modules/DriverAutomationToolCore/DriverAutomationToolCore.psm1 ([lines: 74](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Modules/DriverAutomationToolCore/DriverAutomationToolCore.psm1#L74))"
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": false,
+        "reason": "Hardcoded credential in Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1 ([lines: 34](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1#L34))"
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 519,
+    "forks": 133,
+    "license": "NOASSERTION",
+    "lastUpdated": "2026-05-01T12:15:51Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Maurice Daly",
+      "githubUrl": "https://github.com/maurice-daly",
+      "picture": "https://github.com/maurice-daly.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mauricedaly/",
+      "xUrl": "https://x.com/modaly_it"
+    }
+  ]
+}
