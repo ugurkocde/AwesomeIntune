@@ -16,6 +16,13 @@ permissions:
 jobs:
   maintain:
     runs-on: ubuntu-latest
+    # @t3-oss/env-nextjs validates env vars at module load (next lint
+    # triggers it), so npm run check needs every secret present even
+    # though the runner only needs to typecheck/lint. Skipping the
+    # runtime env validation lets the test gate run cleanly without
+    # putting RESEND, TURNSTILE, etc. into the Maintainer pipeline.
+    env:
+      SKIP_ENV_VALIDATION: 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: ugurkocde/Maintainer@v2
