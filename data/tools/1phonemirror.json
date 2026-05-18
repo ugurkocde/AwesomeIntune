@@ -1,0 +1,69 @@
+{
+  "id": "1phonemirror",
+  "name": "1PhoneMirror",
+  "description": "1PhoneMirror is a Windows-based screen-mirroring receiver designed for Intune admins to capture consistent, framed mobile-device screens for documentation and training. It supports iOS/macOS AirPlay with optional PIN, Android wireless debugging via bundled adb/scrcpy, and experimental Miracast, delivering one-click screenshots or MP4/GIF recordings inside a device frame. Multiple devices can stay paired and be switched from a bottom bezel, with no app installations on phones.",
+  "keywords": [
+    "intune",
+    "screen-mirroring",
+    "windows",
+    "airplay",
+    "scrcpy",
+    "wireless-debugging",
+    "screenshots",
+    "recordings"
+  ],
+  "author": "Simon Skotheimsvik",
+  "authorPicture": "https://github.com/SimonSkotheimsvik.png",
+  "githubUrl": "https://github.com/SimonSkotheimsvik/",
+  "linkedinUrl": "https://www.linkedin.com/in/simonskotheimsvik/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MSEndpointMgr/1PhoneMirror",
+  "downloadUrl": "",
+  "websiteUrl": "https://msendpointmgr.com/2026/05/18/1phonemirror-free-screen-mirroring-tool-for-intune-admin/",
+  "category": "other",
+  "type": "desktop-app",
+  "dateAdded": "2026-05-18",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-05-18",
+    "forceApproved": false,
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    }
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "GPL-3.0",
+    "lastUpdated": "2026-05-18T15:36:59Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Simon Skotheimsvik",
+      "githubUrl": "https://github.com/SimonSkotheimsvik/",
+      "picture": "https://github.com/SimonSkotheimsvik.png",
+      "linkedinUrl": "https://www.linkedin.com/in/simonskotheimsvik/"
+    }
+  ]
+}
