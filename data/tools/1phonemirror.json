@@ -65,5 +65,11 @@
       "picture": "https://github.com/SimonSkotheimsvik.png",
       "linkedinUrl": "https://www.linkedin.com/in/simonskotheimsvik/"
     }
+  ],
+  "screenshots": [
+    "screenshots/1phonemirror/screenshot-1.png",
+    "screenshots/1phonemirror/screenshot-2.png",
+    "screenshots/1phonemirror/screenshot-3.png",
+    "screenshots/1phonemirror/screenshot-4.png"
   ]
 }
