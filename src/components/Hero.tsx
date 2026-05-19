@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useInView, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import { CharReveal } from "./TextReveal";
@@ -10,7 +10,6 @@ import { useStats, formatNumber } from "~/hooks/useStats";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const { isMobile } = useIsMobile();
   const { stats } = useStats();
@@ -18,9 +17,6 @@ export function Hero() {
   // Disable heavy animations on mobile or when user prefers reduced motion
   // prefersReducedMotion returns true/false/null, so we check explicitly
   const shouldReduceMotion = prefersReducedMotion === true || isMobile;
-
-  // Single viewport detection for both text animations to prevent race conditions on mobile
-  const isHeadlineInView = useInView(headlineRef, { once: true, margin: "-50px" });
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -56,22 +52,21 @@ export function Hero() {
         <div className="mx-auto max-w-5xl text-center">
           {/* Main Headline */}
           <h1
-            ref={headlineRef}
             className="font-display text-6xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[9rem]"
           >
             <span className="block">
-              <CharReveal className="text-gradient" delay={0.2} isAnimating={isHeadlineInView}>
+              <CharReveal className="text-gradient" delay={0.2}>
                 AWESOME
               </CharReveal>
             </span>
             <span className="block" style={{ color: "var(--text-primary)" }}>
-              <CharReveal delay={0.6} isAnimating={isHeadlineInView}>INTUNE</CharReveal>
+              <CharReveal delay={0.6}>INTUNE</CharReveal>
             </span>
           </h1>
 
           {/* Single Tagline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-8 max-w-xl text-lg md:text-xl"
@@ -86,7 +81,7 @@ export function Hero() {
 
           {/* Single CTA - Simple button without magnetic effect */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="mt-12"
@@ -135,7 +130,7 @@ export function Hero() {
           {/* Stats Bar */}
           {stats && (stats.toolCount > 0 || stats.totalViews > 0) && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
               className="mt-8 flex items-center justify-center gap-3 sm:gap-4"
@@ -198,7 +193,7 @@ export function Hero() {
 
           {/* Sponsor Section */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.1, ease: [0.22, 1, 0.36, 1] }}
             className="mt-16 flex flex-col items-center gap-3"
@@ -280,7 +275,7 @@ export function Hero() {
 
         {/* Scroll Indicator - Positioned at bottom, hidden on short viewports to avoid overlap with sponsors */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.3, duration: 1 }}
           className="absolute bottom-8 hidden [@media(min-height:800px)]:block"
