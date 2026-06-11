@@ -14,6 +14,8 @@ import { UpvoteButton } from "./UpvoteButton";
 interface ToolListItemProps {
   tool: Tool;
   index?: number;
+  aiExplanation?: string;
+  confidenceScore?: number;
   viewCount?: number;
   onVisible?: (toolId: string) => void;
   voteCount?: number;
@@ -26,6 +28,8 @@ interface ToolListItemProps {
 export const ToolListItem = memo(function ToolListItem({
   tool,
   index = 0,
+  aiExplanation,
+  confidenceScore,
   viewCount,
   onVisible,
   voteCount = 0,
@@ -171,12 +175,27 @@ export const ToolListItem = memo(function ToolListItem({
               >
                 {categoryConfig.label}
               </span>
+              {confidenceScore !== undefined && (
+                <span
+                  className="flex-shrink-0 rounded px-2 py-0.5 text-xs font-semibold"
+                  style={{
+                    background:
+                      confidenceScore >= 90
+                        ? "rgba(16, 185, 129, 0.15)"
+                        : "rgba(0, 212, 255, 0.12)",
+                    color:
+                      confidenceScore >= 90 ? "#10b981" : "var(--accent-primary)",
+                  }}
+                >
+                  {confidenceScore}% match
+                </span>
+              )}
             </div>
             <p
               className="mt-1 line-clamp-1 text-sm"
               style={{ color: "var(--text-secondary)" }}
             >
-              {tool.description}
+              {aiExplanation ?? tool.description}
             </p>
           </div>
 

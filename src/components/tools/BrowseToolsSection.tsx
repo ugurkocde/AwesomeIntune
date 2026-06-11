@@ -546,6 +546,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   isLoading={isAiSearching}
                   aiExplanations={aiExplanations}
                   aiConfidenceScores={aiConfidenceScores}
+                  viewMode={viewMode}
                   viewCounts={viewCounts}
                   onToolVisible={recordView}
                   voteCounts={voteCounts}

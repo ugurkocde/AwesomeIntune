@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { ToolCard } from "./ToolCard";
+import { ToolListItem } from "./ToolListItem";
 import type { AIExplanations, AIConfidenceScores } from "~/hooks/useAiSearch";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import type { VoteCounts } from "~/hooks/useVoting";
+import type { ViewMode } from "~/hooks/useUrlFilters";
 
 const AI_SEARCH_STAGES = [
   "Analyzing your query…",
@@ -20,6 +22,7 @@ interface AISearchSectionProps {
   isLoading: boolean;
   aiExplanations: AIExplanations;
   aiConfidenceScores: AIConfidenceScores;
+  viewMode?: ViewMode;
   viewCounts?: ViewCounts;
   onToolVisible?: (toolId: string) => void;
   voteCounts?: VoteCounts;
@@ -188,6 +191,7 @@ export function AISearchSection({
   isLoading,
   aiExplanations,
   aiConfidenceScores,
+  viewMode = "grid",
   viewCounts,
   onToolVisible,
   voteCounts,
@@ -238,6 +242,25 @@ export function AISearchSection({
             ))}
           </div>
         </>
+      ) : viewMode === "list" ? (
+        <div className="space-y-3">
+          {tools.map((tool, index) => (
+            <ToolListItem
+              key={tool.id}
+              tool={tool}
+              index={index}
+              aiExplanation={aiExplanations[tool.id]}
+              confidenceScore={aiConfidenceScores[tool.id]}
+              viewCount={viewCounts?.[tool.id]}
+              onVisible={onToolVisible}
+              voteCount={voteCounts?.[tool.id] ?? 0}
+              hasVoted={hasVoted?.(tool.id) ?? false}
+              isVotePending={isVotePending?.(tool.id) ?? false}
+              onVote={onVote}
+              onBeforeNavigate={onBeforeNavigate}
+            />
+          ))}
+        </div>
       ) : (
         <div
           className="grid gap-6"
