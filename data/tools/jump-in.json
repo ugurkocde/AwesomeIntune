@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-02-16",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 2,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The code is a legitimate macOS admin script for rotating FileVault keys. The primary security concern is the handling of plaintext user credentials being written to a temporary plist. There is no evidence of remote code execution, data exfiltration, obfuscation, or hardcoded secrets. Minor hardening suggestions focus on credential handling and memory hygiene to minimize exposure.",
+    "status": "failed",
+    "aiSummary": "The script rotates the FileVault recovery key via fdesetup but handles user credentials in plaintext on disk, creating a credential exposure risk. No remote code, exfiltration, or hardcoded secrets detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,7 +39,8 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "The script prompts the actual user for their login password and writes it to a temporary plist file containing the Username and Password, which is then consumed by fdesetup to rotate the FileVault key. The password is stored in plaintext on disk for a brief period and removed after use. Although the file is created with mode 600 and immediately cleaned up, the approach presents a credential exposure risk, especially if the system is compromised, swapped, or if the cleanup fails. Consider avoiding writing credentials to disk, using secure API or Keychain storage, and ensuring robust cleanup (trap on exit, secure deletion)."
       },
       "noDataExfiltration": {
         "passed": true

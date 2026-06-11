@@ -47,12 +47,12 @@
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-5.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -71,8 +71,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in Copy-FilesToBlobStorage/remediation_Copy-FilesToBlobStorageRemediation.ps1 ([lines: 16](https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/blob/main/Copy-FilesToBlobStorage/remediation_Copy-FilesToBlobStorageRemediation.ps1#L16))"
+        "passed": true
       }
     },
     "notes": []

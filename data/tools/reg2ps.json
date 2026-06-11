@@ -42,13 +42,13 @@
     "screenshots/reg2ps/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 28,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "REG2CI appears to be a legitimate admin-oriented tool for converting registry data to configuration items and packaging them into a CAB. No explicit malicious patterns detected. Minor concerns include silent exception handling and lack of logging. No hardcoded secrets or credential harvesting observed. Recommend adding logging, validating external process inputs, and improving error reporting to improve security posture.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -66,8 +66,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in Source/REG2PS/Scripts/bootstrap.bundle.js ([lines: 5589](https://github.com/rzander/REG2CI/blob/master/Source/REG2PS/Scripts/bootstrap.bundle.js#L5589))"
+        "passed": true
       }
     },
     "notes": []

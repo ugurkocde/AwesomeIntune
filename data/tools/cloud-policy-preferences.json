@@ -29,7 +29,7 @@
     "filesScanned": 0,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "scan_error",
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {

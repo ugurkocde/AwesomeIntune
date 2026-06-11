@@ -60,7 +60,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: No active malware or credential theft patterns detected. Obfuscation is absent, and code largely adheres to expected admin tooling. A notable consideration is the external data flow to OpenAI for categorization, which may raise data privacy concerns; ensure alignment with data handling and governance policies. No hardcoded secrets found.",
+    "aiSummary": "Moderate to high risk primarily due to unsanitized dynamic modification of code (potential injection when injecting URLs into collect_app_info.py) and data exfiltration concerns from external AI categorization. Logging of potentially sensitive input in CI logs is another privacy risk. No hardcoded secrets detected in the provided snippets, but data handling and input sanitization policies should be tightened. Recommend input validation/sanitization, redaction of sensitive logs, and explicit data handling policies for external AI integrations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -87,7 +87,7 @@
     "stars": 249,
     "forks": 47,
     "license": "MIT",
-    "lastUpdated": "2026-06-11T01:46:05Z",
+    "lastUpdated": "2026-06-11T07:33:44Z",
     "archived": false
   }
 }

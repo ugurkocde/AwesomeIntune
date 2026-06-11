@@ -45,13 +45,13 @@
   ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 5,
+    "passed": 4,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Overall assessment: The codebase primarily implements backup/restore tooling with OneDrive integration, which can be legitimate in Intune/Autopilot contexts. However, there are notable security concerns: (1) broad data exfiltration to OneDrive/OneDriveCommercial without explicit consent or encryption controls; (2) hidden/invisible execution patterns via VBScript, which could enable unsupervised tasks; (3) brittle/erroneous variable usage in NEWrestore.bat that could lead to failed or misrouted restores; (4) registry data being logged/exported to external storage; and (5) no credential harvesting or hardcoded secrets detected. Recommend tightening governance: document data handling policy, obtain consent, implement signed/auditable scheduled tasks, ensure encryption, validate and fix faulty variable usage in restore scripts, and review registry-logging practices for privacy impact.",
+    "aiSummary": "The codebase includes two hidden, stealthy execution wrappers for backup/restore workflows, which is a red flag for potential misuse or covert data collection. Additionally, the backup script transfers a wide range of user data to cloud storage, which, while common for enterprise backups, requires rigorous data governance and auditing to mitigate privacy and data exposure risks.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -67,7 +67,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "VBScript wrapper executes backup.bat with a hidden window (0). Hidden execution is a common tactic for stealth data collection or exfiltration; requires justification, auditing, and strict execution controls."
       },
       "noHardcodedSecrets": {
         "passed": true

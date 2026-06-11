@@ -24,12 +24,12 @@
   "type": "other",
   "dateAdded": "2026-05-10",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 29,
     "lastChecked": "2026-06-11",
-    "forceApproved": true,
-    "status": "failed",
+    "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -48,8 +48,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1 ([lines: 34](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1#L34))"
+        "passed": true
       }
     },
     "notes": []

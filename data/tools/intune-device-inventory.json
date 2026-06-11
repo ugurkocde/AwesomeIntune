@@ -56,11 +56,11 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Overall assessment: The codebase legitimately implements Intune Graph integration and device inventory features, but contains notable security concerns. Primary risk stems from obfuscated/corrupted module content (IntuneDeviceInventory.psm1 and .psd1) that require immediate integrity verification. Secondary concerns include plaintext secret handling when establishing Graph connections, potential sensitive data collection in get-clientDataDetection.ps1, and reliance on external metadata URLs. Actionable mitigations: verify and restore module files from signed sources, implement secure secret management, minimize and protect collected data, and replace fragile control flow constructs with robust error handling.",
+    "aiSummary": "The IntuneDeviceInventory codebase largely aligns with expected Intune/Graph patterns, but there are notable concerns: (1) garbled/encoded module files that obscure content and raise integrity concerns, (2) use of client-secret based Graph authentication which can expose secrets if not stored securely, (3) collection of potentially sensitive device identifiers and tenant details that require governance, and (4) a few questionable error-handling practices. Immediate actions: verify and restore the binary-encoded module files from trusted sources, replace client-secret auth with more secure methods (managed identity/certificates), implement data minimization and encryption for inventory data, and standardize error handling in runbooks. No explicit remote code download/execution was detected, and there are no obvious hardcoded API keys present in the visible code, but ensure all secrets are externalized and signed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Script module appears as non-human readable with binary-like characters (��<...). This strongly suggests obfuscated or corrupted content. Such packaging can hide malicious payloads and prevents reliable code review. Requires verification against trusted sources and re-extraction from a known-good repository."
+        "reason": "Module file contains non-ASCII characters and what appears to be garbled or encoded content (binary-like). This can hide malicious payloads or indicate integrity issues. Action: verify source integrity, re-export the module with UTF-8 encoding, and sign the module before deployment."
       },
       "noRemoteExecution": {
         "passed": true

@@ -24,17 +24,16 @@
   "type": "powershell-module",
   "dateAdded": "2026-01-21",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 33,
     "lastChecked": "2026-06-11",
-    "forceApproved": true,
-    "status": "failed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No evidence of remote code execution, credential theft, data exfiltration, or hardcoded secrets. The scripts appear to be legitimate Windows ConfigMgr/Intune admin tooling. However, there are code quality and correctness issues (invalid SiteCode regex; stray debug line; logging variable name mismatch) that should be fixed to avoid runtime errors and to maintain clean, accurate logs. Ensure trusted module loading paths and review for interactive prompts in automated contexts.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in Private/Get-DeploymentTypeInfo.ps1 ([lines: 146, 147](https://github.com/byteben/Win32App-Migration-Tool/blob/main/Private/Get-DeploymentTypeInfo.ps1#L146-L147))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

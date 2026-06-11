@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall: No malware-like patterns detected. Primary concerns are telemetry data exfiltration and the anonymous download redirect endpoint. Recommend auditing telemetry scope and privacy controls, tightening input validation and access controls for downloads, and using HTTPS for timestamping where applicable.",
+    "aiSummary": "No evidence of obfuscated code, remote code execution, credential theft, or hardcoded secrets. The tool appears to use telemetry (Application Insights) to report usage data, which introduces data exfiltration/privacy considerations. A potential redirect risk exists via RELEASE_BASE_URL; ensure strict URL allowlisting. Overall, patterns align with expected Intune/endpoint tooling, but privacy/compliance and redirect security should be reviewed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

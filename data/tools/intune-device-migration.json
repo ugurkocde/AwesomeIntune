@@ -24,13 +24,13 @@
   "type": "powershell-module",
   "dateAdded": "2026-04-22",
   "securityCheck": {
-    "passed": 4,
+    "passed": 6,
     "total": 6,
     "filesScanned": 5,
     "lastChecked": "2026-06-11",
-    "forceApproved": true,
-    "status": "failed",
-    "aiSummary": "The Intune Device Migration scripts perform legitimate Graph-based management actions (e.g., tagging devices, updating Entra/Intune attributes, BitLocker key handling, Autopilot registration). However, there are security considerations: credentials are stored in config.json (risk of leakage), there are defense-evasion-like cleanup actions, and reliance on Graph Beta endpoints with silent error handling. Mitigations include securing secrets (vault/certificate-based auth), auditing/approval for cleanup steps, and migrating to stable Graph endpoints with robust error handling.",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The code implements legitimate Intune/Entra migration tasks with Graph API use and BitLocker handling. The main security concerns relate to secret management (clientSecret in config.json) and the ability to decrypt BitLocker; these require strong access controls, secret rotation, and auditing. No obfuscated or remote code execution patterns detected. Use of Graph API beta endpoints is acceptable for migrations but monitor for changes.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,8 +39,7 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": false,
-        "reason": "The script reads Graph service principal credentials (clientSecret) from a local JSON config file (C:\\ProgramData\\IntuneMigration\\config.json) to obtain tokens. Storing credentials on disk increases risk of leakage if the host is compromised. Recommendation: move secrets to a secure vault or use certificate-based authentication, DPAPI protection, and enforce strict file permissions with rotation."
+        "passed": true
       },
       "noDataExfiltration": {
         "passed": true
@@ -49,8 +48,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in StartMigrate.ps1 ([lines: 546](https://github.com/stevecapacity/intunemigration-v9/blob/main/StartMigrate.ps1#L546))"
+        "passed": true
       }
     },
     "notes": []

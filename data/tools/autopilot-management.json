@@ -58,13 +58,13 @@
     "screenshots/autopilot-management/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 6,
+    "filesScanned": 1,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "No code snippet provided for analysis. Unable to assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets. Please provide the code to analyze.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -82,8 +82,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in Old version/1.1.2/Autopilot_Management_1.1.2.ps1 ([lines: 802, 845, 894, 1148, 1197...](https://github.com/Jaekty/Autopilot-Management/blob/main/Old version/1.1.2/Autopilot_Management_1.1.2.ps1#L802-L1197))"
+        "passed": true
       }
     },
     "notes": []

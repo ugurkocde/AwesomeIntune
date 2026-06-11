@@ -52,17 +52,16 @@
     "screenshots/get-intune-management-extension-diagnostics/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 4,
+    "filesScanned": 2,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in DeveloperVersion/Get-IntuneManagementExtensionDiagnostics.ps1 ([lines: 6010, 6059](https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics/blob/main/DeveloperVersion/Get-IntuneManagementExtensionDiagnostics.ps1#L6010-L6059))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

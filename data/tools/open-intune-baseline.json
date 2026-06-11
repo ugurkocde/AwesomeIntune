@@ -52,7 +52,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No security issues detected in the provided code snippets. The OpenIntuneBaseline scripts implement manifest management and standard Intune/Windows management tasks without obfuscated payloads, remote code execution, credential harvesting, data exfiltration, malicious patterns, or hardcoded secrets. Recommendations: ensure script signing and access controls on policy manifests, maintain proper logging and monitor changes to PolicyManifest.json, and review location-related settings for privacy impact within organizational policy.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,7 +76,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 1341,
+    "stars": 1343,
     "forks": 253,
     "license": "GPL-3.0",
     "lastUpdated": "2026-05-08T12:33:27Z",

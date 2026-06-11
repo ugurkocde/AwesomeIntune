@@ -56,17 +56,16 @@
     "screenshots/m365-documentation/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall, the codebase mostly aligns with legitimate admin tooling for Microsoft Graph/Intune workflows. The notable security concerns are external data submission to a hardcoded Logic Apps endpoint with a signature and unsanitized inputs for HTTP headers, which could enable data exposure or header manipulation. The timestamp signing step should use HTTPS. Recommend removing or securing hardcoded webhook URLs, implementing proper authentication/authorization for submissions, sanitizing inputs, and ensuring external services are trusted and compliant with data handling requirements.",
+    "status": "passed",
+    "aiSummary": "Overall security posture: The codebase employs standard authentication flows suitable for a Microsoft Graph/Intune context. However, there is a notable data exfiltration/privacy risk in the translation submission flow to an external endpoint without authentication, including user-provided identifiers in headers. Additional concerns include a hardcoded environment-specific path and the use of an HTTP timestamp server for code signing. Recommend addressing data submission authentication/authorization, making file paths configurable, and switching to HTTPS for timestamping to improve security and maintainability.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in PSModule/M365Documentation/Internal/Collector/Intune/Get-MdmDeviceComplianceScript.ps1 ([lines: 29](https://github.com/ThomasKur/M365Documentation/blob/main/PSModule/M365Documentation/Internal/Collector/Intune/Get-MdmDeviceComplianceScript.ps1#L29))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

@@ -50,7 +50,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall, the code appears safe for an Intune management tool. The main considerations are the inclusion of a public clientId in frontend code and telemetry exposure to an external domain. No obfuscated code, remote code execution, credential harvesting, or explicit exfiltration of sensitive data was detected beyond standard usage telemetry.",
+    "aiSummary": "Code appears generally safe for an Intune management tool with standard MSAL/Graph usage. No remote code execution, credential harvesting, or hardcoded secrets detected. The primary concern is outbound analytics data to a third-party domain, which could introduce privacy/compliance considerations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

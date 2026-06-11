@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No evidence of obfuscation, remote script downloads, credential harvesting, data exfiltration, malicious behavior, or hardcoded secrets in the provided code. The DUDE orchestration appears aligned with Intune/Graph usage. Minor risks include potential information disclosure from verbose startup/error logs and token handling occurring inside modules; ensure module signing, secure secret handling in App Settings, and RBAC controls are robust.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -46,7 +46,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code snippet not provided. Unable to perform security analysis. Please paste the Windows Autopatch Fix code to review. The analysis will assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets, while considering legitimate Intune/Graph usage, scheduled tasks, registry Run keys, and authentication flows.",
+    "aiSummary": "No code provided for analysis. Please provide the PowerShell/Intune script or manifest to review for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

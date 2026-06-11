@@ -54,13 +54,13 @@
     "screenshots/intune-app-sandbox/screenshot-2.gif"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 11,
+    "filesScanned": 10,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The Intune-App-Sandbox tool uses Windows Sandbox to test Intune Win32 packages. While the approach is legitimate for IT admins, there are obfuscated code patterns and a mechanism to run installations as SYSTEM via a scheduled task, which warrants strict access control, code signing, and integrity checks. No credentials, tokens, or network exfiltration are observed; verify manifest integrity and ensure only trusted code and binaries are used.",
+    "status": "failed",
+    "aiSummary": "The codebase implements a Windows Sandbox workflow for Intune app testing. While much is standard for admin tooling (sandbox config, PSADT-based packaging, toast notifications), there are notable security concerns: garbled/obfuscated manifest, execution policy bypass in pre-logon, a SYSTEM-level scheduled task to perform installation, data enumeration/export, and dynamic loading of Public modules. These patterns require strict supply-chain controls, code signing, and minimized exposure to ensure no misuse outside controlled Intune management contexts.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,7 +75,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "The generated logon script creates a scheduled task that runs an installer as SYSTEM after a short delay. This pattern can enable privilege escalation and persistence; within a sandbox this may be expected but could be misused outside containment."
       },
       "noHardcodedSecrets": {
         "passed": true

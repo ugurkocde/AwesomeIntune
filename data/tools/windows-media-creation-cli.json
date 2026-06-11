@@ -42,13 +42,13 @@
     "screenshots/windows-media-creation-cli/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 5,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Two scripts in Windows Media Creation CLI paths (add-driver.ps1 and add-multi-driver.ps1) download and execute external driver installers from vendor catalogs without verifying digital signatures or download integrity. This constitutes a remote code execution risk. Hardenings recommended: enforce strict source trust, verify signatures/checksums of downloaded artifacts, and consider using signed catalogs or a vetted artifact repository. Other aspects (credential theft, data exfiltration, obfuscation, hardcoded secrets) are not evident in the provided code.",
+    "status": "passed",
+    "aiSummary": "The code relies on downloading and executing external OEM driver packages to augment Windows install media. This introduces a high risk of remote code execution if the downloaded artifacts or catalogs are compromised, due to lack of integrity verification (signatures or checksums). No credential harvesting, data exfiltration, obfuscation, or hardcoded secrets were observed. To mitigate risk, implement signature/checksum verification, use trusted/catalog-provided signing, consider sandboxing or staged validation before integrating drivers into the WIM, and prefer vendor-approved APIs or signed catalogs. Ensure least-privilege execution and robust error handling around external tooling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -66,8 +66,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in mctcli.ps1 ([lines: 638, 650](https://github.com/niklasrst/windows-mediacreation-cli/blob/main/mctcli.ps1#L638-L650))"
+        "passed": true
       }
     },
     "notes": []

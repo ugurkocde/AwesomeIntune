@@ -52,7 +52,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The IntuneWin32App toolset is primarily designed for legitimate Intune/Graph interactions and file downloads of Win32 content. No obfuscated code is evident, and credentials are not embedded. However, there are notable security considerations: (1) a hardcoded default ApplicationID (secrets category) that should be removed or parameterized, (2) potential data exfiltration risk via AzCopy-based uploads to Azure Storage, requiring strict access controls and auditing, (3) the ability to download installer payloads from storage which should be protected with integrity checks/signing before deployment. Recommend removing hardcoded values, enforcing signed content, restricting storage access, and implementing robust monitoring/auditing for download/upload operations.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,7 +77,7 @@
   },
   "repoStats": {
     "stars": 492,
-    "forks": 116,
+    "forks": 117,
     "license": "MIT",
     "lastUpdated": "2026-01-25T16:46:56Z",
     "archived": false

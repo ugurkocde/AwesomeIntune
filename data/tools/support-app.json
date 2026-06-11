@@ -60,7 +60,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No security issues detected. The script appears safe for Intune management tooling. A minor code quality issue is present: 'unset $rules' likely does not clear the array as intended.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

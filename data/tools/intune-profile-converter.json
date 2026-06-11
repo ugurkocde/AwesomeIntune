@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate concern due to in-memory extraction and reuse of an active Graph access token (cred_theft pattern). The rest of the script uses standard Graph API calls to fetch settings and categories and writes results to disk. No obfuscated code, no remote script execution, no hardcoded secrets, and no external data exfiltration observed. Recommendations: avoid manual token extraction; rely on built-in authentication flow with automatic token handling; ensure logging does not capture tokens; consider using Graph SDK session management instead of manual token parsing.",
+    "aiSummary": "Code appears safe for an Intune management tool. The only notable concern is the in-memory extraction of the Graph bearer token for subsequent API calls. This is a known technique but could present token exposure risk if logs or memory are inspected. Recommend relying on the Graph SDK authentication flow without manual token extraction, and ensure token handling does not log or persist sensitive information. Otherwise, no obfuscated code, no remote script execution, no exfiltration to external endpoints, and no hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

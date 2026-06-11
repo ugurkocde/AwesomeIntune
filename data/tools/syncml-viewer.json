@@ -49,7 +49,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No explicit security threats detected (no obfuscated code, no remote script execution, no credential theft, no data exfiltration, no hardcoded secrets). The code is generally safe for an Intune management tool. A minor robustness improvement is recommended: validate registry access results (null checks) before dereferencing registry keys.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

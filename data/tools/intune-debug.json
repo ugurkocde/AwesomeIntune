@@ -48,7 +48,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: IntuneDebug appears to be a legitimate Intune debugging tool with no direct evidence of remote code execution, credential theft, or data exfiltration in the provided code. However, there are attack-surface concerns: dynamic loading of private/public helper scripts at module import, potential exposure of certificate metadata, and unescaped HTML rendering in reports. Remediate by ensuring integrity of helper scripts, restricting access to certificate stores, and escaping all untrusted data when generating HTML reports.",
+    "aiSummary": "Two notable risks detected: (1) dynamic dot-sourcing of private/public scripts during module import, which can be a supply-chain integrity risk if the package is tampered; (2) potential HTML injection (XSS) in HTML reports due to unsanitized output. No evidence of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets in the provided code paths. Overall, IntuneDebug appears to be a debugging/reporting tool; mitigate by tightening module import discipline and ensuring output escaping.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "The tool functions as a launcher that presents a menu of scripts and downloads/runs the selected script from external URLs. The primary security concern is remote code execution via Invoke-Expression, which can run arbitrary code with the current user's privileges. While there is no direct credential harvesting or hardcoded secrets in this file, the ability to execute remote scripts means trusted validation, code signing, and URL whitelisting are essential mitigations. Consider replacing Invoke-Expression with safer invocation patterns, enforcing signed scripts, and auditing/tracking script sources for Intune/Graph-based management scenarios.",
+    "aiSummary": "High-risk remote code execution pattern: the tool fetches and executes code from external URLs at runtime without integrity checks or signing. This creates significant supply-chain and endpoint risk for an Intune script trigger. Mitigations include: remove or replace Invoke-Expression with a safe, signed/script-block execution path, implement strict hash/signature verification or a trusted allowlist, require code signing for remote scripts, reduce non-interactive execution, and add robust logging/telemetry.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Dell BIOS update reporting and Azure AD permission assignment scripts show legitimate admin tooling patterns. No obfuscated code or remote execution detected. Potential issues include hardcoded/secrets placeholders and permission automation that should be tightly controlled and audited. Recommend secure secret management, RBAC reviews, and telemetry data minimization.",
+    "aiSummary": "The Intune Reporting tooling contains legitimate telemetry and Azure AD permission management patterns. Key concerns include data exfiltration risk through Log Analytics telemetry, hardcoded/secrets handling practices, potential XML processing risks, and a substantive privilege-assignment flow that could enable broader Graph access. Recommendations center on tightening data minimization and opt-in for telemetry, securing credentials (Key Vault/Managed Identity), validating external XML, and enforcing least-privilege and robust change control for permission changes.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

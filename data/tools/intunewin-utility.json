@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Unable to identify obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns or hardcoded secrets. Please provide the IntuneWin Utility code (PowerShell and related scripts) to perform a security review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

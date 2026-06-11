@@ -42,24 +42,23 @@
     "screenshots/deployment-editor/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 4,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Moderate-to-high risk primarily due to potential remote code execution from adtSession handling in the Intune upload workflow and plaintext credential handling in Graph authentication. No evidence of data exfiltration. The code otherwise aligns with legitimate Intune/PSADT tooling, but the Invoke-Expression pattern and execution policy bypass warrant remediation.",
+    "aiSummary": "The codebase largely implements legitimate Intune deployment tooling (PSADT packaging, Graph authentication, and Intune Win32 app uploads). However, it contains notable security concerns: (1) credentials are converted to plaintext in memory for Graph authentication, (2) dynamic code execution via Invoke-Expression to extract PSADT metadata, and (3) a PowerShell execution policy bypass for MSI property extraction. Additionally, there are hardcoded placeholders that should be replaced with secure parameter handling. Recommend refactoring to remove plaintext credential exposure, avoid Invoke-Expression for metadata extraction, remove execution policy bypass, and ensure all sensitive values are supplied securely (e.g., via vault or secure parameter binding) before deployment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "The script uses Invoke-Expression to evaluate the Right-hand side of an assignment extracted from the PSADT project (adtSession). This can lead to remote code execution if the PSADT file is tampered with, enabling attackers to execute arbitrary code during the Intune app packaging/upload workflow."
+        "reason": "Reads the PSADT project and uses Invoke-Expression on the right-hand side of an assignment to construct adtSession. This dynamically executes code from a project file and can allow arbitrary code execution if the project content is compromised or contains malicious payloads."
       },
       "noCredentialTheft": {
-        "passed": false,
-        "reason": "The script obtains a client secret as a SecureString and converts it to plaintext via ConvertFrom-SecureStringToPlainText for Graph authentication. Although it attempts to clear the plaintext, it remains in memory and could be leaked through memory dumps or verbose logging."
+        "passed": true
       },
       "noDataExfiltration": {
         "passed": true

@@ -48,7 +48,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase implements legitimate Microsoft Intune Graph-based operations (device categorization, reporting, and a device rename workflow). There are no signs of obfuscated code, remote code downloads, credential harvesting, external data exfiltration, or hardcoded secrets. A notable risk is the use of a scheduled task to rename devices on shutdown (Install.ps1), which can be a valid admin tactic but also a potential persistence vector if compromised. Recommend enabling code signing, auditing, least-privilege tokens, and strict governance around startup/shutdown automation. Ensure compatibility with naming policies and test changes in a controlled environment.",
+    "aiSummary": "The Sync-IntuneDeviceCategories.ps1 script appears to be a standard Intune Graph API integration for device categorization with no obfuscated code, credential harvesting, or data exfiltration evident. However, the installation flow (Install.ps1) and the shutdown-based rename script (Rename-Device-on-Shutdown.ps1) introduce persistence and potentially disruptive behavior (automatic renaming) that could be misused for unauthorized control. If these are legitimate admin tools, ensure governance: document purpose, restrict scope, obtain approvals, add auditing, and provide safe-guards and cleanup steps. No hardcoded secrets detected; Graph API usage aligns with expected flows for Intune management.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -46,13 +46,13 @@
     "screenshots/intune-toolkit/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 35,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The Intune Toolkit script appears to be a legitimate endpoint-management tool integrating with Microsoft Graph and Intune. However, there are security concerns worth addressing: (1) data exposure risk from logging tenant and user details to a local log file, and (2) a potentially risky pattern of unblocking and loading many local scripts which could be exploited if the Scripts folder is compromised. No hardcoded secrets or obvious remote code execution are detected. Recommended mitigations include tightening log handling to avoid PIIs, signing and validating loaded scripts, and enforcing strict execution and source trust policies.",
+    "status": "passed",
+    "aiSummary": "No direct remote code download or hardcoded secrets detected in the main wrapper. Primary risk lies in trust and integrity of locally loaded scripts (.\\Scripts); ensure script signing, integrity checks, and strict access controls. Graph API usage aligns with Intune/Graph integration; monitor for privacy/policy compliance in displaying/logging tenant and user data.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,8 +70,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in Scripts/AssignmentReportButton.ps1 ([lines: 766, 768](https://github.com/MG-Cloudflow/Intune-Toolkit/blob/main/Scripts/AssignmentReportButton.ps1#L766-L768))"
+        "passed": true
       }
     },
     "notes": []

@@ -88,7 +88,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The code appears safe for an Intune management tool from a security perspective. No obfuscated payloads, no remote code execution, no credential theft, and no hardcoded secrets detected. The only external data flow is standard website analytics to Plausible; ensure privacy/compliance considerations are addressed and consent mechanisms are in place if required.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

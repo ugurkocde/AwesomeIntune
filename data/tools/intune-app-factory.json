@@ -57,7 +57,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase appears to be standard Intune App Factory deployment scripts with no remote fetch, credential theft, or data exfiltration. Potential security concerns include (1) use of ByPass execution policy in a process scope, which can weaken defense-in-depth, and (2) loading a local toolkit script via dot-sourcing, which introduces supply-chain/integrity risks if the toolkit is compromised. Recommendations: minimize or remove ByPass usage where possible, enforce strict code integrity (signature validation) for AppDeployToolkitMain.ps1, and ensure the toolkit and all dependencies come from trusted, signed sources. Placeholders indicate configurable values but should be reviewed to ensure no secrets are embedded in actual deployments.",
+    "aiSummary": "Low to moderate risk patterns detected. No remote code downloads, credential theft, data exfiltration, or obfuscated payloads observed. Primary concern is deliberate PowerShell execution policy bypasses used to facilitate deployment; this should be reviewed and mitigated (e.g., signing scripts, restricting bypass, and ensuring trusted sources). Uninstall logic and local toolkit dot-sourcing are typical admin patterns for Intune/MDM-managed deployments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

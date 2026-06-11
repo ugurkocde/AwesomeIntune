@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script is a legitimate WinPE Autopilot hash collection and upload tool, but it contains several security concerns worth addressing: hardcoded placeholder credentials (and a malformed AppSecret), a default behavior that may auto-upload without explicit opt-in, error handling that could disclose sensitive data, use of a beta Graph API endpoint, and handling of sensitive data in temporary files. Recommended mitigations include removing hardcoded credentials, providing secure means to supply AppSecret (e.g., secure vault or interactive prompt), aligning defaults with documentation, redacting error payloads, using GA endpoints when possible, and ensuring proper cleanup and access controls for temporary data.",
+    "aiSummary": "The script is a legitimate Intune/Graph API integration for Windows Autopilot hash upload in WinPE. Security concerns center on credential handling (AppSecret and defaults), integrity and trust of the TPM-related PCPKsp.dll loading, and logging of sensitive identifiers. No obfuscated payloads, no direct remote code execution, and no evident data exfiltration beyond required API interactions. Recommendations: replace placeholder/default credentials with secure vault retrieval, validate and sign any loaded DLLs, minimize logging of sensitive identifiers, and prefer stable Graph API endpoints with robust auditing.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

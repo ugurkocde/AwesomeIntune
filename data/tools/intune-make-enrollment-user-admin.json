@@ -59,7 +59,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No obfuscated code, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets detected. The scripts implement a legitimate but powerful privilege escalation mechanism to grant local administrator rights for enrollment. This is expected for Intune/Graph-based enrollment workflows but requires strict authorization, auditing, and signing to prevent misuse.",
+    "aiSummary": "The code mainly handles enrolling a user as a local administrator, which is a sensitive privileged operation appropriate for Intune enrollment tooling. No obfuscated code, remote script downloads, credential theft, data exfiltration, or hardcoded secrets detected. Primary security consideration is controlled, auditable privilege escalation. Improve locale handling to ensure reliability across multilingual Windows environments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

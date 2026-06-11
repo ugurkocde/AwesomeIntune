@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script is an admin utility intended to deep-clean Intune IME registry traces for a specified Win32 AppId and then restart the Intune Management Extension service. It does not exhibit remote code execution, credential theft, data exfiltration, or obfuscated payloads. The primary security considerations are the potentially destructive registry deletions and service restart actions, which could disrupt Intune functionality if misconfigured. Use -WhatIf for verification, ensure AppId is set correctly, and apply standard change-management controls.",
+    "aiSummary": "The Intune Win32 Retry Reset script appears to be a legitimate admin utility with safeguards (WhatIf support, ShouldProcess) and localized logging. No obfuscation, remote code execution, credential harvesting, or data exfiltration found. The main risk is its destructive registry deletion behavior under a specific AppId; ensure proper validation and use in a controlled, well-audited environment. The AppId placeholder should be replaced or made a parameter to avoid accidental misuse.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

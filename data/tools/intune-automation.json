@@ -56,7 +56,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No obfuscated code, remote code execution, credential theft, or hardcoded secrets detected. The code interacts with legitimate services (Supabase, Resend) for Intune Automation operations. Minor concerns include potential HTML injection risk from unescaped script metadata in email content and an edge-case unsubscribe link when no subscribers exist. Recommend input sanitization for email content and validation of subscriber lists; ensure data privacy controls for third-party services.",
+    "aiSummary": "No critical security issues detected. The code is a legitimate Intune Automation admin tool for script version tracking and notifications. Minor concerns include handling of subscriber emails (PII) and reliance on environment-based secrets; enforce access controls, secret management, and data privacy practices.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

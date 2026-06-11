@@ -57,19 +57,20 @@
     "screenshots/intune-prep-tool/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 5,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The IntunePrepTool uses Microsoft Graph to register apps and assign permissions, which is legitimate for Intune/Graph workflows. However, there are notable security concerns: (1) remote code execution risk from downloading and installing Winget via MicrosoftDesktopApp.ps1; (2) plaintext storage of secrets in addAppRegPlainText.ps1; and (3) local credential storage/handling in addAppReg.ps1 that could be exposed if the host is compromised. Mitigations include validating and signing downloaded content, eliminating plaintext secret exports, and adopting centralized secret management with least-privilege access.",
+    "status": "failed",
+    "aiSummary": "The IntunePrepTool scripts perform legitimate Graph-based app registration and credential management tasks but contain significant security considerations: plaintext storage of generated secrets in addAppRegPlainText.ps1, credential persistence on the endpoint via New-StoredCredential in addAppReg.ps1, and remote code execution risk from downloading and installing Winget via MicrosoftDesktopApp.ps1. No obfuscated code, no hardcoded secrets in the scripts, and Graph/API usage aligns with expected Intune/Graph workflows. Recommendations: enforce secret handling best practices (secure vault, encryption at rest, minimize plaintext exposure), audit credential storage usage, and implement integrity checks for downloaded binaries.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "Downloads a Winget installer from an external URL (GitHub) and installs it, effectively performing remote code execution on the host. This introduces supply-chain and integrity risks; consider signature verification, pinned versions, and alternative trusted distribution methods."
       },
       "noCredentialTheft": {
         "passed": true
@@ -81,7 +82,8 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Generated client secret is stored in plaintext in a CSV file (c:\\Users\\$env:username\\.IntunePrepTool\\$customername.csv). This exposes credentials to users with access to the machine and risks leakage."
       }
     },
     "notes": []

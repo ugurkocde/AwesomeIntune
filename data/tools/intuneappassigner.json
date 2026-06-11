@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code input not provided in prompt. Unable to assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets. Please provide the PowerShell/IntuneAppAssigner code snippet for analysis.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

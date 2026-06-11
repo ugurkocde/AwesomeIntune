@@ -51,7 +51,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The script appears to be a legitimate Intune/Graph automation tool for granting necessary Graph permissions to a managed identity. It contains no obfuscation, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets. However, it does grant high-privilege Graph permissions to a managed identity, which introduces potential abuse risk if the automation identity is compromised or misconfigured. Recommend enforcing least privilege, audit trails for permission grants, role-based access control, and monitoring of automation accounts. No malicious patterns detected beyond the elevated permissions grant, which is expected for this use case when properly controlled.",
+    "aiSummary": "Overall assessment: The code is generally safe for an Intune management tool, focusing on granting Graph permissions to a managed identity. Key security considerations are the privileged nature of the operation and potential OData injection if input is not sanitized. Implement input validation, auditable logs, and least-privilege scopes.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

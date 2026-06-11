@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears suitable for a Microsoft Intune/Windows LAPS self-service portal with normal Graph API usage and telemetry integration. Key concerns to address are: potential NaN handling in justification validation which could bypass length checks, and the exposure of plaintext LAPS passwords via the API (mitigated by ownership checks but warrants strict access controls and auditing). Additionally, telemetry includes potentially sensitive data; ensure privacy controls and data minimization are enforced. No remote code execution, no hardcoded secrets, and no malicious patterns detected.",
+    "aiSummary": "The code follows proper authentication and Graph API usage for the Windows LAPS self-service workflow. The primary security concerns relate to privacy/telemetry data exposure (PII in logs and telemetry) and a configuration edge case that can bypass justification length checks due to NaN MIN_JUSTIFICATION. No evidence of remote code execution, credential theft beyond legitimate Graph-based credential access, hardcoded secrets, or malicious patterns. Address privacy controls and fix the justification-length NaN issue to strengthen security posture.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

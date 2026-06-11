@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Unable to assess for security issues (obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets) in the Wintuner GUI Intune tool.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code appears to be a normal admin utility for generating and exporting toast notifications for Intune remediation workflows. There are no explicit signs of obfuscated payloads, remote code execution, credential theft, data exfiltration, or hardcoded secrets. The primary security considerations are input sanitization when embedding user-supplied values into XML/PowerShell strings and ensuring that any ActionButtonUrl used in toast actions is trusted and reviewed to avoid phishing or unintended protocol launches.",
+    "aiSummary": "The Toast Notification Creator for Intune primarily operates in the local Windows user context and does not download or execute remote code nor harvest credentials. However, there are input handling risks: unescaped user-provided Title/Message can break or corrupt generated XML; inputs embedded into a generated remediation script can cause syntax or injection issues; and the ActionButtonUrl opens external pages that could be abused for phishing. No hardcoded secrets or credential harvesting are present. Recommend escaping user inputs when building XML, escaping or parameterizing content in generated scripts, and validating/whitelisting external URLs to mitigate potential abuse. Overall, safe for legitimate admin use with these mitigations in place.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

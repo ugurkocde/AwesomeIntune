@@ -54,17 +54,16 @@
     "screenshots/intune-hydration-kit/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The Intune Hydration Kit codebase generally aligns with expected Intune/Graph usage, but notable security concerns exist: hardcoded client identifiers, dynamic loading of all scripts from Private/Public, potential in-memory exposure of tokens during authentication, and reliance on remote module downloads. Mitigations include parameterizing identifiers, restricting and signing imported scripts, ensuring token handling minimizes plaintext exposure, and hardening dependency management and supply-chain controls.",
+    "status": "passed",
+    "aiSummary": "The codebase appears to be a legitimate Intune management tool scaffold with common patterns (Graph auth, module loading, PSGallery usage). However, security considerations include hardcoded client identifiers, in-memory token handling that could be exposed in memory dumps, remote module installation during bootstrap (supply-chain risk), and dynamic loading of code from Private/Public directories. Address these areas with parameterization, secure handling of tokens, module provenance controls, and signed/explicit imports to reduce risk.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in Private/Auth/Get-HydrationTenantIdFromAccessToken.ps1 ([lines: 28](https://github.com/jorgeasaurus/IntuneHydrationKit/blob/main/Private/Auth/Get-HydrationTenantIdFromAccessToken.ps1#L28))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

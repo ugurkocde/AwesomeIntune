@@ -42,16 +42,17 @@
     "screenshots/intune-drive-mapping/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 16,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The IntuneDriveMapping tool primarily handles configuration and generation of drive-mapping scripts, which is expected for an admin tool. However, there are notable security concerns: (1) a SYSTEM-level persistence mechanism with a hidden VBScript wrapper and ByPass execution policy, (2) potential XXE risk in XML parsing, (3) logs/transcripts that may expose sensitive data, (4) CSRF risk on file upload due to missing AntiForgeryToken, and (5) missing authorization on API endpoints for template access. remediation should focus on securing persistence behavior (limit/system-initiated tasks, avoid hidden wrappers), hardening XML parsing, tightening logging, adding CSRF protection where missing, and ensuring API endpoints are properly authorized.",
+    "status": "failed",
+    "aiSummary": "Overall, the codebase contains normal admin tooling patterns (Intune/Drive Mapping management) but also notable secure-design concerns: (1) a stealthy execution path using VBScript and transcript logging, (2) a persistence mechanism via a scheduled task that can auto-run at user logon, and (3) potential local data exposure through transcripts and LDAP-based group filtering. There are no remote code executions, credential theft, hardcoded secrets, or external data exfiltration detected in these snippets. Review should ensure transparent use of persistence features, proper logging/data protection, and hardened input validation for uploads.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Hidden/obfuscated execution path: The PowerShell script uses Start-Transcript and a VBScript wrapper (IntuneDriveMapping-VBSHelper.vbs) to launch PowerShell in a concealed manner, and a scheduled task wrapper to trigger execution. This pattern can be used to evade monitoring."
       },
       "noRemoteExecution": {
         "passed": true

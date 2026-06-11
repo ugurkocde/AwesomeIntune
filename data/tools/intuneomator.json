@@ -50,16 +50,17 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 7,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The Intuneomator codebase largely implements standard macOS packaging and release workflows (label processing, package building, signing, and notarization). Key concerns identified: (1) label processing uses eval to load label data which can enable code execution if labels aren’t strictly controlled; (2) the integrate-daemon-sync.sh script injects a build-phase shell script into the Xcode project, creating a potential attack surface if project files are tampered with; (3) signing identifiers are hard-coded in build scripts, which could be exposed if the repository is compromised. No explicit credential harvesting, data exfiltration, or remote code execution patterns were detected in these excerpts. Recommend hardening input parsing, build-script integrity, and externalizing secrets to secure storage.",
+    "status": "failed",
+    "aiSummary": "The Intuneomator codebase includes automation patterns that are legitimate for management tooling but introduce security risks if inputs or build environments are compromised. Key concerns are: (1) eval-based parsing of label data enabling potential code injection; (2) automated modification of build configuration to inject a shell script during builds, which could be abused in a compromised CI/dev environment; (3) remote download logic that, if not properly validated, could lead to remote code execution via manipulated labels. No hard-coded secrets or credential theft patterns are evident in the provided snippets.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "The script uses eval to load label definitions: eval 'case \"$label\" in '\"$labelFile\"'; esac'. This binds untrusted label content into the shell's execution context. If a label file is crafted or tampered with, it could lead to code execution or command injections during label processing. This presents a non-trivial risk for arbitrary code execution through manipulated manifests."
       },
       "noRemoteExecution": {
         "passed": true

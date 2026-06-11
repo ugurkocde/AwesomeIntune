@@ -49,17 +49,16 @@
     "screenshots/tenuvault/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 1,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Code not provided for analysis. Unable to assess security posture without the source snippet.",
+    "status": "passed",
+    "aiSummary": "No code provided to analyze. Please provide the TenuVault code snippet or repository for a thorough security review focusing on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in TenuVault.ps1 ([lines: 714](https://github.com/ugurkocde/TenuVault/blob/main/TenuVault.ps1#L714))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

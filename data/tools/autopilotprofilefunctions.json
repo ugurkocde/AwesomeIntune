@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall assessment: The code is aligned with legitimate Intune Autopilot deployment workflows. Primary security considerations are the elevated Microsoft Graph permissions required for deployment management and the automatic installation of modules from external repositories. No evidence of credential harvesting, data exfiltration, hardcoded secrets, or malicious patterns. Recommend applying least-privilege principles for Graph access, proper module signing/validation, and logging/auditing of profile creation actions.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

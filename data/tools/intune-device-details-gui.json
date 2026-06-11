@@ -48,17 +48,16 @@
     "screenshots/intune-device-details-gui/screenshot-1.gif"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 6,
+    "filesScanned": 2,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in IntuneDeviceDetailsGUI.ps1 ([lines: 1476, 1511, 1690, 1835](https://github.com/petripaavola/IntuneDeviceDetailsGUI/blob/main/IntuneDeviceDetailsGUI.ps1#L1476-L1835))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

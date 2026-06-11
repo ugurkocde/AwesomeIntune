@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No malicious patterns detected in Detect-ToastNotification.ps1. The script appears to be a standard Intune detection script that loads configuration (potentially remote), validates feature settings, and exits with appropriate codes. Although remote config retrieval is common in managed tooling, enforce source trust and data integrity. Recommendations: (1) implement allow-list and TLS/cert validation for remote config, (2) optionally verify XML against a schema or signature, (3) strengthen logging/audit trails and avoid leaking sensitive logging in logs, and (4) maintain clear separation between admin tooling and production data flows.",
+    "aiSummary": "The Detect-ToastNotification.ps1 script is largely aligned with expected Intune tooling behavior, but it contains a potential XML External Entity (XXE) risk when loading configurations from URLs. No evidence of remote code execution, credential theft, data exfiltration, or hardcoded secrets in the provided sample. Recommend hardening XML parsing and input validation to reduce XXE exposure.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

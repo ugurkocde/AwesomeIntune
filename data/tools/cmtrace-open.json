@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Two medium-severity findings related to remote update flow and signature verification. The codebase otherwise shows no obfuscated code, credential harvesting, data exfiltration, malicious patterns, or hardcoded secrets. The updates/manifest logic is legitimate for an Intune/CMTrace Open workflow but requires robust signature verification and asset pinning to mitigate supply-chain risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -41,17 +41,16 @@
   ],
   "dateAdded": "2026-01-06",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 17,
+    "filesScanned": 15,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall, the EntraIDDeviceTrust codebase is aligned with expected Intune/Entra ID device trust patterns and does not contain obfuscation or hardcoded secrets. A critical functional bug exists in the signing path (undefined variable used to select the certificate) that can disable the attestation flow. There is a legitimate data-exfiltration vector where device identity and attestation data are sent to an external Function App endpoint; ensure the endpoint is trusted, authenticated, and that data minimization/privacy controls are in place. Private key usage for signing is expected for device attestation but should be protected with strong key management and restricted access.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase largely aligns with legitimate Intune/Entra ID device trust tooling, featuring certificate-based signing and Graph API usage. No evidence of obfuscated code, remote script downloads, credential harvesting, data exfiltration, reverse shells, security bypass, or hardcoded secrets. However, a bug in New-RSACertificateSignature could prevent signing operations, and the dynamic dot-sourcing of script files could pose a risk if integrity checks are not enforced.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in EntraIDDeviceTrust.FunctionApp/Public/Get-EntraIDDeviceAlternativeSecurityIds.ps1 ([lines: 27](https://github.com/MSEndpointMgr/EntraIDDeviceTrust/blob/main/EntraIDDeviceTrust.FunctionApp/Public/Get-EntraIDDeviceAlternativeSecurityIds.ps1#L27))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

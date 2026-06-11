@@ -51,17 +51,16 @@
     "screenshots/intune-management/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 30,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase implements a PowerShell Intune/Graph management tool with UI and credential handling. There is no obfuscated code, no direct remote script download, and no hardcoded secrets. However, there are areas of potential risk: UI hiding capabilities, in-memory credential storage, and dynamic module loading which warrants integrity protection. Enforce vault-based secret management, module signing, and explicit trust boundaries for local script loading to reduce attack surface.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase implements standard Intune/Azure Graph management tooling with typical admin capabilities. It does not exhibit active obfuscated payloads, external code downloads, credential theft, or data exfiltration in the provided snippet. However, several risk vectors are present: in-memory handling of credentials, silent/hidden execution paths, recursive file unblocking, and dynamic loading from disk without explicit integrity checks. To improve security, enforce vault-backed credential retrieval, minimize or tightly constrain silent operation, sign modules, and add robust integrity checks and auditing for all dynamic loads and file operations.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in Core.psm1 ([lines: 703, 764, 2632, 2633, 2815](https://github.com/Micke-K/IntuneManagement/blob/master/Core.psm1#L703-L2815))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

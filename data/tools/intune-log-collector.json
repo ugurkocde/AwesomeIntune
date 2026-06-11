@@ -45,17 +45,16 @@
     "screenshots/intune-log-collector/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 12,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The Intune Log Collector code uses standard authentication flows (Managed Identity for AAD tokens) and Intune/Graph integrations with device attestation. Primary concerns are around data exposure via blob content in responses and SAS token generation for storage access. No obfuscated code, no hardcoded secrets visible, and no evident credential theft, remote code execution, or malware-like patterns. Actionable mitigations focus on restricting blob data exposure and tightening SAS token scopes and lifetimes to minimize risk if tokens are leaked.",
+    "status": "passed",
+    "aiSummary": "The Intune Log Collector codebase appears to implement strong device/app authentication and graph access via Managed Identity. Primary security concerns are around the SAS token methodology in GetSASUri (data access scope and token lifecycle), logging of sensitive header data in GetBlobContent, and partial input validation (container name not on an allowlist). Recommend tightening SAS token scopes and lifetimes, expanding redaction in logs, and enforcing container-level validation to align with account allowlists. Overall, no evidence of credential theft or remote code execution observed; the pattern is consistent with a legitimate admin tool, given proper hardening of the identified risks.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1 ([lines: 27](https://github.com/MSEndpointMgr/IntuneLogCollector/blob/main/Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1#L27))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

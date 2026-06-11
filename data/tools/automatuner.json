@@ -49,7 +49,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate risk due to remote code installation dependencies (PSGallery, NuGet, Winget) that fetch and execute code at install time. No credentials, data exfiltration, or obvious malware patterns detected. Treat as legitimate admin tooling but enforce strict source trust, version pinning, and signing to minimize attack surface.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

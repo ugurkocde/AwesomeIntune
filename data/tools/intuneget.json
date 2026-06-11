@@ -51,13 +51,13 @@
     "screenshots/intuneget/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
     "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "No obfuscated code, no remote code execution, and no explicit credential theft or hardcoded secrets detected. The tool uses legitimate admin flows (Intune/Graph usage, Supabase, and OpenAI integration). A notable concern is an external callback in the duplicate-check flow that transmits app details; ensure the endpoint is secure and properly authenticated, and minimize data sent. Secret management via environment variables should be enforced with best practices to avoid leakage.",
+    "status": "passed",
+    "aiSummary": "The IntuneGet-related codebase aligns with legitimate Intune/Graph API tooling but contains notable security considerations. Primary concerns include data being sent to external AI services for classification (potential data exfiltration), potential exposure of privileged secrets via environment variable naming (NEXT_PUBLIC_ and service role key), and external callbacks that may leak deployment data. No evidence of malware or remote code execution patterns. Recommended mitigations: limit and redact data sent to OpenAI, move privileged keys to secure secret management with server-only scope, and audit external callbacks for data minimization and trust.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,8 +75,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in app/api/intune/apps/updates/route.test.ts ([lines: 104, 132, 194, 254, 311](https://github.com/ugurkocde/IntuneGet/blob/main/app/api/intune/apps/updates/route.test.ts#L104-L311))"
+        "passed": true
       }
     },
     "notes": []
@@ -85,7 +84,7 @@
     "stars": 92,
     "forks": 29,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-06-11T06:00:02Z",
+    "lastUpdated": "2026-06-11T07:05:53Z",
     "archived": false
   }
 }

@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Autopilot Monitor bootstrap flow contains a legitimate endpoint management pattern (downloading and installing an agent via Intune) but presents notable security considerations. The most significant risk is remote code execution from a remote artifact; this requires stringent artifact integrity and signing controls. Integrity verification currently uses SHA-256 when possible but may fallback to MD5, which is weak. Recommend enforcing signed artifacts, certificate pinning, and removing MD5-based checks in favor of stronger, tamper-evident verification. No credential harvesting or data exfiltration patterns were observed in the analyzed code; normal Intune/Graph-related workflow appears (with appropriate elevation and scheduling handled by the agent).",
+    "aiSummary": "The Autopilot Monitor bootstrap automation is aligned with Intune deployment practices but introduces remote code delivery risks. Key concerns are the remote download and execution of an agent, reliance on manifest-based integrity with a weak MD5 fallback, and lack of explicit digital-signature verification for the binary. Mitigations include enforcing TLS and download pinning, requiring and verifying Authenticode signatures, removing MD5 fallbacks in favor of strong SHA-256 (and signed manifests), and ensuring proper lifecycle management of any scheduled tasks or persistence mechanisms used during enrollment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -57,7 +57,7 @@
     "stars": 28,
     "forks": 3,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-06-10T16:10:09Z",
+    "lastUpdated": "2026-06-11T11:17:55Z",
     "archived": false
   },
   "authors": [

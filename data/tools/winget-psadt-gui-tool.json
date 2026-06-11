@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase shows a legitimate Intune/PSADT tooling pattern with structured modules. The primary security concerns are the presence of a base64-encoded command execution helper that can run arbitrary PowerShell code, which constitutes a potential remote code execution surface if inputs are not tightly controlled. There is no evidence of credential theft, data exfiltration, or hardcoded secrets in the provided snippets. However, supply-chain risks due to dot-sourcing multiple scripts and execution policy bypass for sub-processes warrant mitigations: tighten input validation, remove or restrict -EncodedCommand usage, enable code signing and integrity checks, and audit logs for sensitive data.",
+    "aiSummary": "The reviewed code appears to be an Intune-related GUI/Toolkit with normal admin tooling patterns (module loading, logging, UI). Two patterns warrant caution: (1) The use of encoded PowerShell command execution (Invoke-WindowsPowerShellCommand) which can be leveraged to obfuscate or bypass policy if inputs are not validated; (2) Dot-sourcing multiple module files at startup introduces supply-chain risk and relies on file integrity. There is no evidence of credential theft, data exfiltration, reverse shells, or hardcoded secrets in the provided snippets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

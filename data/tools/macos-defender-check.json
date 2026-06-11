@@ -30,7 +30,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script performs tamper testing against Microsoft Defender for Endpoint on macOS, including an attempted disable of Real-Time Protection. This constitutes a security risk if misused; no obfuscated code, no remote script execution, no credential theft, no data exfiltration, and no hardcoded secrets. Treat as legitimate admin tooling with proper safeguards.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -48,7 +48,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The script is a straightforward macOS uninstaller for ESET products with cleanup of related LaunchAgents. It does not exhibit obfuscation, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets. The main security concern is that uninstalling security software can leave endpoints unprotected; ensure strict access controls, logging, and approved maintenance windows when using such scripts, and consider compensating controls (e.g., re-enrollment or EDR coverage) after uninstall.",
+    "aiSummary": "The uninstall script itself is not obfuscated or performing remote code execution, and it contains no credential harvesting or data exfiltration. However, it uninstalls security software and cleans up related startup items, which can create a security gap if performed without proper authorization, auditing, or governance. Recommend requiring explicit admin approval, centralized logging/auditing of uninstall actions, and alignment with Intune/RuleForge governance to avoid unintended removal of protection.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

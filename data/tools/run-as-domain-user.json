@@ -59,7 +59,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Two notable security concerns in the Run as Domain User flow: (1) invocation of a PowerShell script with -ExecutionPolicy Bypass, which can weaken defenses if not strictly controlled; (2) unvalidated external inputs used to build command-line arguments for a domain-privileged helper process, which could be exploited to run unintended code. No evidence of remote script download, credential harvesting, data exfiltration, or hardcoded secrets is present. The tooling aligns with Intune/ManagementExtension patterns, but the bypass and input handling should be tightened (code signing, allow-lists, least-privilege execution) to reduce risk in a managed environment.",
+    "aiSummary": "Overall, the code is a packaged admin utility that installs a component and a Start Menu shortcut to run a domain-credentialed application via ShellRunas.exe. No hardcoded secrets or remote script downloads detected. Not malicious per se, but notable risks include execution policy bypass, persistence via Start Menu shortcut, and credential handling flow via /netonly and external ShellRunas.exe. Recommend code signing, avoid -ExecutionPolicy Bypass, use AppLocker, validate and sanitize app/domain inputs, and ensure uninstall removes all artifacts. Consider using Intune-managed deployment rather than per-machine All Users shortcuts, and add robust logging with secure log retention.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

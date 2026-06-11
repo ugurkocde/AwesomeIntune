@@ -60,7 +60,7 @@
     "lastChecked": "2026-06-11",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is primarily a local data collector for macOS as part of the SupportCompanion tool. No remote code execution, credential harvesting, or hardcoded secrets detected. Primary concerns are privacy/data protection around collecting and storing system information locally, and the use of shell=True with static commands (low risk).",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
