@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-04-22",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided for analysis. Please supply the code snippet or file to review for security issues (PowerShell/Intune tool EAM-AutoUpdater).",
+    "status": "passed",
+    "aiSummary": "No code provided for analysis. Please supply the EAM-AutoUpdater source to review for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,10 +50,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 4,
+    "stars": 7,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-04-14T12:36:06Z",

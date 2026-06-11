@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-01-18",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The Autopilot deployment script appears to be legitimate admin automation for Intune/Autopilot using Microsoft Graph. No obfuscated or malicious patterns are detected. Key security considerations include: (1) potential supply-chain risk from module installation without version control or signature verification; (2) input handling risks in Graph filters used to resolve groups; (3) the need for improved error handling and robust logging; (4) ensuring the trustworthiness of the sourced AutopilotProfileFunctions.ps1; and (5) safeguarding any sensitive data within Profiles.csv. Recommended mitigations: pin module versions and verify signatures, escape inputs in filters, implement try/catch and structured logging, sign/source trusted scripts, and enforce strict access controls on profile data.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,10 +50,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 5,
+    "stars": 7,
     "forks": 1,
     "license": null,
     "lastUpdated": "2025-04-07T19:33:17Z",

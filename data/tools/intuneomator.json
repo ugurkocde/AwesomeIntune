@@ -44,15 +44,19 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "desktop-app",
-  "worksWith": ["macos", "graph-api"],
+  "worksWith": [
+    "macos",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No major security issues detected. The codebase primarily contains legitimate build, packaging, and uninstall tooling for a macOS Intune management utility. No obfuscated code, remote code execution, credential harvesting, data exfiltration, or malicious patterns observed. A minor hardcoded signing identity is the primary improvement area.",
+    "status": "passed",
+    "aiSummary": "The Intuneomator codebase largely implements standard macOS packaging and release workflows (label processing, package building, signing, and notarization). Key concerns identified: (1) label processing uses eval to load label data which can enable code execution if labels aren’t strictly controlled; (2) the integrate-daemon-sync.sh script injects a build-phase shell script into the Xcode project, creating a potential attack surface if project files are tampered with; (3) signing identifiers are hard-coded in build scripts, which could be exposed if the repository is compromised. No explicit credential harvesting, data exfiltration, or remote code execution patterns were detected in these excerpts. Recommend hardening input parsing, build-script integrity, and externalizing secrets to secure storage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -72,13 +76,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 57,
-    "forks": 1,
+    "stars": 67,
+    "forks": 2,
     "license": "MIT",
-    "lastUpdated": "2025-10-12T02:52:22Z",
+    "lastUpdated": "2026-02-09T02:29:22Z",
     "archived": false
   }
 }

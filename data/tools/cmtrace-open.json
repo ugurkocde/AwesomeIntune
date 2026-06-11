@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-03-20",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No explicit credential harvesting, data exfiltration, or remote code execution detected. Code appears to be a legitimate Intune/CMTrace Open desktop tool using standard admin tooling patterns. The only notable potential risk is the ExecutionPolicy Bypass in the Windows launcher script; treat with proper signing, integrity checks, and least-privilege consideration.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 36,
-    "forks": 1,
+    "stars": 206,
+    "forks": 10,
     "license": "MIT",
-    "lastUpdated": "2026-03-18T12:35:13Z",
+    "lastUpdated": "2026-06-08T23:54:56Z",
     "archived": false
   },
   "authors": [

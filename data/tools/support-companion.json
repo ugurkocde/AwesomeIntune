@@ -43,7 +43,9 @@
   "downloadUrl": "https://github.com/macadmins/SupportCompanion/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
-  "worksWith": ["macos"],
+  "worksWith": [
+    "macos"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/support-companion/screenshot-2.png",
@@ -55,9 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "The code is primarily a local data collector for macOS as part of the SupportCompanion tool. No remote code execution, credential harvesting, or hardcoded secrets detected. Primary concerns are privacy/data protection around collecting and storing system information locally, and the use of shell=True with static commands (low risk).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,13 +80,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 166,
-    "forks": 11,
+    "stars": 180,
+    "forks": 13,
     "license": "Apache-2.0",
-    "lastUpdated": "2025-12-12T08:56:34Z",
+    "lastUpdated": "2026-03-24T14:37:41Z",
     "archived": false
   }
 }

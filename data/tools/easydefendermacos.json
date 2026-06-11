@@ -34,7 +34,11 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "other",
-  "worksWith": ["macos", "defender", "configuration-profiles"],
+  "worksWith": [
+    "macos",
+    "defender",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/easydefendermacos/screenshot-1.png",
@@ -44,11 +48,12 @@
     "screenshots/easydefendermacos/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -69,10 +74,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 7,
+    "stars": 8,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2025-08-18T14:35:25Z",

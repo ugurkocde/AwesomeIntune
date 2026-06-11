@@ -39,45 +39,47 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/Get-AutopilotDiagnosticsCommunity",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "autopilot"],
+  "worksWith": [
+    "windows",
+    "autopilot"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 2,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "High-severity issues detected: remote code fetch and execution from external URLs (backupprofile.ps1), and data exfiltration of hardware identifiers to an external webhook (remediate-harvest.ps1). Several hardcoded secrets/placeholders (WEBHOOK URL HERE) and potential persistence mechanisms (scheduled tasks for driver updates, user backup, hidden execution) present risks for abuse or covert activity. Additionally, a function demonstrates Graph API usage for device enrollment, which could be misused if not properly secured. Recommendations: remove or harden remote script downloads; sign and verify scripts; avoid hidden/invisible execution; store credentials and tokens securely (e.g., Azure Key Vault); implement least-privilege scheduling and auditing; validate and restrict Graph API operations; replace hardcoded endpoints with configurable, access-controlled controls; monitor and log script executions and webhook activity.",
+    "status": "failed",
+    "aiSummary": "Overall assessment: The codebase primarily implements backup/restore tooling with OneDrive integration, which can be legitimate in Intune/Autopilot contexts. However, there are notable security concerns: (1) broad data exfiltration to OneDrive/OneDriveCommercial without explicit consent or encryption controls; (2) hidden/invisible execution patterns via VBScript, which could enable unsupervised tasks; (3) brittle/erroneous variable usage in NEWrestore.bat that could lead to failed or misrouted restores; (4) registry data being logged/exported to external storage; and (5) no credential harvesting or hardcoded secrets detected. Recommend tightening governance: document data handling policy, obtain consent, implement signed/auditable scheduled tasks, ensure encryption, validate and fix faulty variable usage in restore scripts, and review registry-logging practices for privacy impact.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "Downloads remote scripts (backup.bat, NEWrestore.bat, run-invisible.vbs) from GitHub and creates a scheduled task to run them, enabling remote code execution and potential persistence without validation or integrity checks."
+        "reason": "IEX with WebClient download in Powershell Scripts/AVD/avd-box-config-generic.ps1 ([lines: 224](https://github.com/andrew-s-taylor/public/blob/main/Powershell Scripts/AVD/avd-box-config-generic.ps1#L224))"
       },
       "noCredentialTheft": {
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "Collects hardware identifiers (serialNumber, hardwareId, groupTag) and posts them to an external webhook, effectively exfiltrating device identifiers."
+        "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "VBScript launches a backup script invisibly, enabling covert execution that may evade user awareness."
+        "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Contains a hardcoded placeholder webhook URL (WEBHOOK URL HERE); embedding or shipping secrets/endpoints in code increases risk of leakage."
+        "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 677,
+    "stars": 715,
     "forks": 266,
     "license": "GPL-3.0",
-    "lastUpdated": "2025-12-16T11:29:26Z",
+    "lastUpdated": "2026-06-04T07:42:17Z",
     "archived": false
   }
 }

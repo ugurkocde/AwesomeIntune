@@ -52,11 +52,12 @@
     "screenshots/intuneappdoc/screenshot-2.gif"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -77,6 +78,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 3,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-01-12T09:47:19Z",
+    "archived": false
   }
 }

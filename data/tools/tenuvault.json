@@ -37,22 +37,29 @@
   "websiteUrl": "https://www.tenuvault.com/",
   "category": "automation",
   "type": "web-app",
-  "worksWith": ["windows", "graph-api", "configuration-profiles", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "configuration-profiles",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-04",
   "screenshots": [
     "screenshots/tenuvault/screenshot-1.png",
     "screenshots/tenuvault/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 1,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "Code not provided for analysis. Unable to assess security posture without the source snippet.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Base64 decode and execute in TenuVault.ps1 ([lines: 714](https://github.com/ugurkocde/TenuVault/blob/main/TenuVault.ps1#L714))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -69,11 +76,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 45,
-    "forks": 3,
+    "stars": 56,
+    "forks": 4,
     "license": "MIT",
     "lastUpdated": "2025-08-09T16:05:22Z",
     "archived": false

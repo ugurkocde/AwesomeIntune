@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 9,
-    "lastChecked": "2026-02-16",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase appears to be a GUI wrapper around IntuneWinAppUtil with update/download helpers. The principal security concerns are: (1) automatic loading of all Private/Public .ps1 scripts at module import time (potential for unintended code execution if contents are untrusted), and (2) unverified remote binary downloads to populate a local cache (supply-chain risk). No credential harvesting, data exfiltration, or hardcoded secrets are evident in the provided code. Recommendations include tightening script loading (explicit imports, module manifests, signing), and adding integrity verification for downloaded binaries (hashes/signatures, official release channels).",
+    "status": "passed",
+    "aiSummary": "Identified security concerns around remote binary download without integrity or signing verification, dynamic code loading from local directories, and hard-coded external resource usage. No evidence of credential theft, data exfiltration, obfuscated payloads, reverse shells, or hard-coded secrets. Recommendations: implement code signing and hash verification for downloaded binaries, pin to a specific release/version, sign and restrict included scripts, and prefer Import-Module over dot-sourcing with strict module signing checks.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 4,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-02-02T09:22:02Z",
+    "lastUpdated": "2026-06-08T10:22:10Z",
     "archived": false
   },
   "authors": [

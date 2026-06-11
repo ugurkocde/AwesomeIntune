@@ -26,10 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-03-20",
+    "filesScanned": 1,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The script is a straightforward launcher delegating to a local PowerShell script. The main security concern is the use of -ExecutionPolicy Bypass, which can undermine script execution policy if the local PS1 is modified or if the environment is compromised. No remote downloads, credential harvesting, or data exfiltration detected in this snippet.",
+    "status": "passed",
+    "aiSummary": "No code provided for analysis. Unable to assess for security issues (obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets) in the Wintuner GUI Intune tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
-    "forks": 0,
+    "stars": 36,
+    "forks": 1,
     "license": null,
-    "lastUpdated": "2026-03-20T11:12:26Z",
+    "lastUpdated": "2026-05-12T14:03:28Z",
     "archived": false
   },
   "authors": [

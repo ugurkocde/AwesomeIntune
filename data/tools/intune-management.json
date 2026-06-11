@@ -37,22 +37,31 @@
   "downloadUrl": "https://github.com/Micke-K/IntuneManagement/releases",
   "category": "automation",
   "type": "desktop-app",
-  "worksWith": ["windows", "macos", "ios", "android", "graph-api", "configuration-profiles", "admx"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "ios",
+    "android",
+    "graph-api",
+    "configuration-profiles",
+    "admx"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-management/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 3,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 24,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 30,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase includes several security concerns related to execution policy bypass and potential data exposure. Key issues: (1) policy bypass via -ex bypass in multiple startup wrappers, (2) possible data exfiltration risk from exporting sensitive encryption keys from Intune packages, (3) local credential/token storage using DPAPI with a per-user scope, and (4) UI/hiding mechanisms that could obscure execution. There are no evident hardcoded secrets nor confirmed remote code downloads in the provided snippets. Recommendations: remove or restrict execution policy bypass, restrict and audit encryption-key exporting, ensure strict access control on token caches, and document/limit UI hiding features with proper auditing.",
+    "status": "failed",
+    "aiSummary": "The codebase implements a PowerShell Intune/Graph management tool with UI and credential handling. There is no obfuscated code, no direct remote script download, and no hardcoded secrets. However, there are areas of potential risk: UI hiding capabilities, in-memory credential storage, and dynamic module loading which warrants integrity protection. Enforce vault-based secret management, module signing, and explicit trust boundaries for local script loading to reduce attack surface.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Base64 decode and execute in Core.psm1"
+        "reason": "Base64 decode and execute in Core.psm1 ([lines: 703, 764, 2632, 2633, 2815](https://github.com/Micke-K/IntuneManagement/blob/master/Core.psm1#L703-L2815))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -61,23 +70,22 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "Export-EncryptionKeys traverses Intune .intunewin packages to extract sensitive encryption information (encryptionKey, macKey, initializationVector, mac, fileDigest, etc.) and writes JSON files to disk. This constitutes potential data exfiltration or misuse of cryptographic material that could enable decryption of app content if accessed by unauthorized parties."
+        "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "PowerShell invoked with -ex bypass and console window handling to run scripts in the background, potentially bypassing policy and hiding execution. This can be used to execute code with reduced user awareness."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1777,
-    "forks": 337,
+    "stars": 1965,
+    "forks": 363,
     "license": "MIT",
-    "lastUpdated": "2025-12-14T08:15:20Z",
+    "lastUpdated": "2026-05-12T09:54:16Z",
     "archived": false
   }
 }

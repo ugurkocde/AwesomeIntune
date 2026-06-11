@@ -32,15 +32,19 @@
   "repoUrl": "https://github.com/almenscorner/intune-uploader",
   "category": "automation",
   "type": "cli-tool",
-  "worksWith": ["macos", "graph-api"],
+  "worksWith": [
+    "macos",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 9,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Data exfiltration risk via Slack webhook; no obfuscated/remote code execution or hardcoded secrets detected. A minor logic bug in AppIconGetter was identified; fix recommended. Ensure webhook data minimization and secure handling.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -60,13 +64,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 70,
+    "stars": 78,
     "forks": 10,
     "license": "Apache-2.0",
-    "lastUpdated": "2026-01-08T10:05:27Z",
+    "lastUpdated": "2026-05-26T15:03:39Z",
     "archived": false
   }
 }

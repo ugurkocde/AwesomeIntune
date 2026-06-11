@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-02-16",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Overall assessment: The script appears to be a legitimate Intune/endpoint-management admin tool for rotating the FileVault recovery key. It does not obfuscate its intent, fetch remote code, or embed hardcoded secrets. The primary security concern is handling of the user-supplied password and the resulting recovery key: the password is captured and stored temporarily in a plist and memory, and the recovery key is displayed to the user. Recommend enhancing credential handling (minimize in-memory exposure, secure ephemeral storage, explicit cleanup), auditing access to the script and /tmp artifacts, and considering integration with a secure secret vault or Intune-managed policy to reduce exposure. If possible, avoid echoing sensitive data in logs or error messages.",
+    "status": "passed",
+    "aiSummary": "The code is a legitimate macOS admin script for rotating FileVault keys. The primary security concern is the handling of plaintext user credentials being written to a temporary plist. There is no evidence of remote code execution, data exfiltration, obfuscation, or hardcoded secrets. Minor hardening suggestions focus on credential handling and memory hygiene to minimize exposure.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,14 +50,15 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 6,
+    "stars": 11,
     "forks": 0,
     "license": "Apache-2.0",
     "lastUpdated": "2025-04-21T17:06:10Z",
-    "archived": false
+    "archived": true
   },
   "authors": [
     {

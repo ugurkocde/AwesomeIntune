@@ -34,7 +34,12 @@
   "websiteUrl": "https://intuneassignmentchecker.ugurkoc.de/",
   "category": "reporting",
   "type": "powershell-script",
-  "worksWith": ["windows", "graph-api", "configuration-profiles", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "configuration-profiles",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-assignment-checker/screenshot-1.png"
@@ -42,9 +47,10 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -65,13 +71,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 385,
-    "forks": 62,
+    "stars": 439,
+    "forks": 75,
     "license": "MIT",
-    "lastUpdated": "2025-12-05T21:59:15Z",
+    "lastUpdated": "2026-04-28T10:11:23Z",
     "archived": false
   }
 }

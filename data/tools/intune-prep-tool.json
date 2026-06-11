@@ -43,7 +43,12 @@
   "downloadUrl": "https://github.com/rink-turksma/IntunePrepTool/releases",
   "category": "packaging",
   "type": "desktop-app",
-  "worksWith": ["windows", "win32-apps", "graph-api", "winget"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "graph-api",
+    "winget"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-prep-tool/screenshot-1.png",
@@ -55,9 +60,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase contains credential handling weaknesses (plaintext export to CSV, credential storage) and a high risk from downloading/installing external binaries without integrity checks. Also uses broad Graph permissions. No obfuscation detected.",
+    "status": "passed",
+    "aiSummary": "The IntunePrepTool uses Microsoft Graph to register apps and assign permissions, which is legitimate for Intune/Graph workflows. However, there are notable security concerns: (1) remote code execution risk from downloading and installing Winget via MicrosoftDesktopApp.ps1; (2) plaintext storage of secrets in addAppRegPlainText.ps1; and (3) local credential storage/handling in addAppReg.ps1 that could be exposed if the host is compromised. Mitigations include validating and signing downloaded content, eliminating plaintext secret exports, and adopting centralized secret management with least-privilege access.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,13 +83,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 87,
-    "forks": 12,
+    "stars": 95,
+    "forks": 13,
     "license": "MIT",
-    "lastUpdated": "2025-11-25T13:21:26Z",
+    "lastUpdated": "2026-01-29T13:29:54Z",
     "archived": false
   }
 }

@@ -22,15 +22,20 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "web-app",
-  "worksWith": ["windows", "macos", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-02-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-02-03",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided for analysis. Please supply the Edge Favorites Builder code to assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "status": "passed",
+    "aiSummary": "No code snippet provided for analysis. Please supply the Edge Favorites Builder PowerShell/Script content to enable a security review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -50,13 +55,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 0,
+    "stars": 2,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-02-01T19:46:32Z",
+    "lastUpdated": "2026-03-29T22:58:52Z",
     "archived": false
   },
   "authors": [

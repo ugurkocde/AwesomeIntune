@@ -33,15 +33,20 @@
   "downloadUrl": "https://github.com/mtniehaus/AutopilotBranding/releases",
   "category": "configuration",
   "type": "powershell-script",
-  "worksWith": ["autopilot", "windows", "win32-apps"],
+  "worksWith": [
+    "autopilot",
+    "windows",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Packaging script for Autopilot Branding relies on external PowerShell modules and a bypassed execution policy, posing remote code execution and supply-chain risks. No credential harvesting or data exfiltration detected. No hardcoded secrets.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -61,11 +66,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 470,
-    "forks": 102,
+    "stars": 490,
+    "forks": 106,
     "license": "MIT",
     "lastUpdated": "2025-11-08T06:48:41Z",
     "archived": false

@@ -27,9 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 33,
-    "lastChecked": "2026-01-21",
+    "lastChecked": "2026-06-11",
     "forceApproved": true,
-    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Intune/Graph tooling module with no hardcoded credentials or hidden remote code execution. The primary security concern is the unconditional loading of all PS1 scripts from Public/Private folders during module import, which could be abused if untrusted content is present. Other concerns include broad Graph permissions and certificate store access with logging. Recommendations: tighten module import strategy, audit contents of Public/Private, implement explicit signed script loading, and apply least-privilege permissions with proper logging hygiene.",
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
@@ -50,13 +51,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 102,
+    "stars": 106,
     "forks": 21,
     "license": "NOASSERTION",
-    "lastUpdated": "2025-01-08T19:46:05Z",
+    "lastUpdated": "2026-06-08T08:45:49Z",
     "archived": false
   },
   "authors": [

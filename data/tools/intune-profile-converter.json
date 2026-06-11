@@ -26,10 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-03-12",
+    "filesScanned": 1,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "passed",
+    "aiSummary": "Moderate concern due to in-memory extraction and reuse of an active Graph access token (cred_theft pattern). The rest of the script uses standard Graph API calls to fetch settings and categories and writes results to disk. No obfuscated code, no remote script execution, no hardcoded secrets, and no external data exfiltration observed. Recommendations: avoid manual token extraction; rely on built-in authentication flow with automatic token handling; ensure logging does not capture tokens; consider using Graph SDK session management instead of manual token parsing.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1,
+    "stars": 17,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-03-12T03:17:55Z",
+    "lastUpdated": "2026-03-13T11:57:37Z",
     "archived": false
   },
   "authors": [

@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-02-16",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Overall, the code appears to be legitimate Intune/Microsoft Defender for Endpoint validation tooling. The primary security consideration is the deliberate attempt to disable Real-Time Protection during Tamper Protection testing, which could be risky if misused. No obfuscated code, no remote script download, no credential theft, and no data exfiltration detected.",
+    "status": "passed",
+    "aiSummary": "The script performs tamper testing against Microsoft Defender for Endpoint on macOS, including an attempted disable of Real-Time Protection. This constitutes a security risk if misused; no obfuscated code, no remote script execution, no credential theft, no data exfiltration, and no hardcoded secrets. Treat as legitimate admin tooling with proper safeguards.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,10 +50,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 0,
+    "stars": 2,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-02-06T14:46:38Z",

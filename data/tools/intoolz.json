@@ -44,7 +44,11 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "desktop-app",
-  "worksWith": ["windows", "graph-api", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -57,10 +61,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 31,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No obfuscated code, no remote code execution, no credential harvesting beyond in-memory token exposure, and no malicious patterns detected. Primary concern is in-memory exposure of access tokens via public static field and public exposure of authentication configuration. Recommend securing token handling and restricting access to token-related data.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,13 +85,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 5,
+    "stars": 11,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2025-12-17T13:17:32Z",
+    "lastUpdated": "2026-06-08T12:41:31Z",
     "archived": false
   }
 }

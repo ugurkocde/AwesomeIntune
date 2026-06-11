@@ -34,29 +34,46 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "documentation",
-  "worksWith": ["windows", "remediation-scripts"],
+  "worksWith": [
+    "windows",
+    "remediation-scripts"
+  ],
   "dateAdded": "2026-01-08",
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 3,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "Code snippet not provided. Unable to perform security analysis. Please paste the Windows Autopatch Fix code to review. The analysis will assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets, while considering legitimate Intune/Graph usage, scheduled tasks, registry Run keys, and authentication flows.",
     "checks": {
-      "noObfuscatedCode": true,
-      "noRemoteExecution": true,
-      "noCredentialTheft": true,
-      "noDataExfiltration": true,
-      "noMaliciousPatterns": true,
-      "noHardcodedSecrets": true
-    }
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1,
+    "stars": 6,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2025-12-11T12:20:36Z",
+    "lastUpdated": "2026-06-02T09:57:09Z",
     "archived": false
   },
   "authors": [

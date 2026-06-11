@@ -34,21 +34,31 @@
   "downloadUrl": "https://github.com/petripaavola/IntuneDeviceDetailsGUI/releases",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "graph-api", "bitlocker", "laps", "autopilot", "entra-id", "device-filters"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "bitlocker",
+    "laps",
+    "autopilot",
+    "entra-id",
+    "device-filters"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-device-details-gui/screenshot-1.gif"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 6,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Base64 decode and execute in IntuneDeviceDetailsGUI.ps1 ([lines: 1476, 1511, 1690, 1835](https://github.com/petripaavola/IntuneDeviceDetailsGUI/blob/main/IntuneDeviceDetailsGUI.ps1#L1476-L1835))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -65,13 +75,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 373,
-    "forks": 37,
+    "stars": 410,
+    "forks": 43,
     "license": "MIT",
-    "lastUpdated": "2024-09-17T22:05:34Z",
+    "lastUpdated": "2026-03-31T20:53:06Z",
     "archived": false
   }
 }

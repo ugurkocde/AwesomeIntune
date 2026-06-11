@@ -22,15 +22,19 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "web-app",
-  "worksWith": ["macos", "configuration-profiles"],
+  "worksWith": [
+    "macos",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-02-23",
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 1,
-    "lastChecked": "2026-02-23",
+    "filesScanned": 43,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided for analysis. Please supply the PPPC Builder for macOS code to review for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -50,13 +54,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 0,
-    "forks": 0,
+    "stars": 14,
+    "forks": 1,
     "license": null,
-    "lastUpdated": "2026-02-21T08:37:34Z",
+    "lastUpdated": "2026-06-10T05:24:47Z",
     "archived": false
   },
   "authors": [

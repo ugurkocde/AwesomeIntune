@@ -44,7 +44,10 @@
   "websiteUrl": "https://www.intunebrew.com/",
   "category": "packaging",
   "type": "web-app",
-  "worksWith": ["macos", "graph-api"],
+  "worksWith": [
+    "macos",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intunebrew/screenshot-1.png",
@@ -54,9 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: No active malware or credential theft patterns detected. Obfuscation is absent, and code largely adheres to expected admin tooling. A notable consideration is the external data flow to OpenAI for categorization, which may raise data privacy concerns; ensure alignment with data handling and governance policies. No hardcoded secrets found.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,13 +80,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 210,
-    "forks": 42,
+    "stars": 249,
+    "forks": 47,
     "license": "MIT",
-    "lastUpdated": "2026-01-07T00:43:11Z",
+    "lastUpdated": "2026-06-11T01:46:05Z",
     "archived": false
   }
 }

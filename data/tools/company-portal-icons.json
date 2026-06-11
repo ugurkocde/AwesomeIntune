@@ -33,7 +33,12 @@
   "websiteUrl": "https://companyportalicons.com/",
   "category": "other",
   "type": "web-app",
-  "worksWith": ["windows", "macos", "ios", "android"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "ios",
+    "android"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/company-portal-icons/screenshot-1.png"
@@ -41,10 +46,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 1,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 2,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided for analysis. Please provide the code sample for review.",
+    "status": "passed",
+    "aiSummary": "Overall, the code appears safe for an Intune management tool. The main considerations are the inclusion of a public clientId in frontend code and telemetry exposure to an external domain. No obfuscated code, remote code execution, credential harvesting, or explicit exfiltration of sensitive data was detected beyond standard usage telemetry.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -64,13 +70,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 12,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-01-07T08:39:09Z",
+    "lastUpdated": "2026-05-22T08:28:24Z",
     "archived": false
   }
 }

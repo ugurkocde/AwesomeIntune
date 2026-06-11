@@ -15,11 +15,12 @@
   "type": "web-app",
   "dateAdded": "2026-02-16",
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-02-16",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "scan_error",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -40,7 +41,8 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": null,
   "authors": [

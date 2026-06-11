@@ -35,18 +35,24 @@
   "downloadUrl": "https://github.com/MG-Cloudflow/Intune-Toolkit/releases",
   "category": "automation",
   "type": "desktop-app",
-  "worksWith": ["graph-api", "windows", "configuration-profiles", "win32-apps"],
+  "worksWith": [
+    "graph-api",
+    "windows",
+    "configuration-profiles",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-toolkit/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 32,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 35,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Two notable security concerns identified: 1) policy data backups export sensitive data to local JSON files without encryption, posing risk if the machine is compromised; 2) logging reveals Graph API URLs and query parameters, potentially exposing internal data structures. No evidence of remote code execution, hardcoded secrets, or credential theft was found in the provided code. The tool otherwise appears to be admin-oriented for Intune management.",
+    "status": "failed",
+    "aiSummary": "The Intune Toolkit script appears to be a legitimate endpoint-management tool integrating with Microsoft Graph and Intune. However, there are security concerns worth addressing: (1) data exposure risk from logging tenant and user details to a local log file, and (2) a potentially risky pattern of unblocking and loading many local scripts which could be exploited if the Scripts folder is compromised. No hardcoded secrets or obvious remote code execution are detected. Recommended mitigations include tightening log handling to avoid PIIs, signing and validating loaded scripts, and enforcing strict execution and source trust policies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -64,15 +70,17 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded credential in Scripts/AssignmentReportButton.ps1 ([lines: 766, 768](https://github.com/MG-Cloudflow/Intune-Toolkit/blob/main/Scripts/AssignmentReportButton.ps1#L766-L768))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 315,
-    "forks": 47,
+    "stars": 338,
+    "forks": 49,
     "license": "MIT",
-    "lastUpdated": "2025-09-15T08:23:22Z",
+    "lastUpdated": "2026-03-16T15:22:19Z",
     "archived": false
   }
 }

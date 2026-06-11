@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-03-12",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Moderate security risk due to execution policy bypass in the launcher. No evidence of credential theft, remote code download, data exfiltration, or other malicious patterns in the provided code. The tool appears aligned with Intune/Graph usage expectations; focus on script signing and secure authentication practices to mitigate the bypass risk.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 17,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-03-11T06:25:11Z",
+    "lastUpdated": "2026-05-20T10:55:35Z",
     "archived": false
   },
   "authors": [

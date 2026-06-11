@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-01-20",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The script largely adheres to Intune detection patterns, with no credential theft, data exfiltration, or obfuscated code. The primary security concern is a likely bug in uptime calculation due to a misnamed WMI property (LastBootUptime vs LastBootUpTime) that can affect detection logic. Additionally, remote config fetching requires appropriate trust controls and robust validation to prevent config tampering. Minor robustness improvements around error handling are recommended.",
+    "status": "passed",
+    "aiSummary": "No malicious patterns detected in Detect-ToastNotification.ps1. The script appears to be a standard Intune detection script that loads configuration (potentially remote), validates feature settings, and exits with appropriate codes. Although remote config retrieval is common in managed tooling, enforce source trust and data integrity. Recommendations: (1) implement allow-list and TLS/cert validation for remote config, (2) optionally verify XML against a schema or signature, (3) strengthen logging/audit trails and avoid leaking sensitive logging in logs, and (4) maintain clear separation between admin tooling and production data flows.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 253,
+    "stars": 270,
     "forks": 66,
     "license": "MIT",
-    "lastUpdated": "2025-12-20T08:21:33Z",
+    "lastUpdated": "2026-02-16T07:03:29Z",
     "archived": false
   },
   "authors": [

@@ -27,9 +27,10 @@
     "passed": 4,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-04-22",
+    "lastChecked": "2026-06-11",
     "forceApproved": true,
-    "aiSummary": "The Intune Device Migration tooling primarily uses Microsoft Graph API for device and user management, which is appropriate for Intune/Entra workflows. However, key security concerns exist: plaintext credentials in config.json for Graph authentication, a high-risk BitLocker decryption capability, and potential cleanup patterns that could obscure audit trails. Recommendations: move secrets to a secure vault or managed identity, avoid or strictly control BitLocker decryption usage, enhance auditing around task/user cleanup, and consider avoiding Beta Graph endpoints in production or implement strict versioning and fallback plans. Overall, legitimate admin tooling is present, but these security considerations should be addressed to reduce risk.",
+    "status": "failed",
+    "aiSummary": "The Intune Device Migration scripts perform legitimate Graph-based management actions (e.g., tagging devices, updating Entra/Intune attributes, BitLocker key handling, Autopilot registration). However, there are security considerations: credentials are stored in config.json (risk of leakage), there are defense-evasion-like cleanup actions, and reliance on Graph Beta endpoints with silent error handling. Mitigations include securing secrets (vault/certificate-based auth), auditing/approval for cleanup steps, and migrating to stable Graph endpoints with robust error handling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -38,24 +39,25 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "The script reads Graph service principal credentials (clientSecret) from a local JSON config file (C:\\ProgramData\\IntuneMigration\\config.json) to obtain tokens. Storing credentials on disk increases risk of leakage if the host is compromised. Recommendation: move secrets to a secure vault or use certificate-based authentication, DPAPI protection, and enforce strict file permissions with rotation."
       },
       "noDataExfiltration": {
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "decryptDrive invokes Disable-BitLocker on the system drive (C:), potentially leaving data unencrypted and enabling data exposure. While intended for migration, this is a powerful operation that could be misused. Recommendation: strictly gate this behind explicit admin consent, logging, and ensure encryption is re-enabled if required."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": false,
         "reason": "Hardcoded credential in StartMigrate.ps1 ([lines: 546](https://github.com/stevecapacity/intunemigration-v9/blob/main/StartMigrate.ps1#L546))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 18,
-    "forks": 4,
+    "stars": 22,
+    "forks": 5,
     "license": "GPL-3.0",
     "lastUpdated": "2025-11-12T14:59:28Z",
     "archived": false

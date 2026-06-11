@@ -24,16 +24,16 @@
   "type": "other",
   "dateAdded": "2026-05-10",
   "securityCheck": {
-    "passed": 4,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 24,
-    "lastChecked": "2026-05-10",
+    "filesScanned": 29,
+    "lastChecked": "2026-06-11",
     "forceApproved": true,
-    "aiSummary": "The Driver Automation Tool codebase aligns with legitimate enterprise management tooling, including Intune/Graph usage and BIOS password handling. The notable security concerns are a hardcoded BIOS password placeholder that must be replaced before deployment and telemetry/privacy considerations. No evidence of obfuscated code or overt remote code execution was found in the provided snippets. Recommended actions: remove/rotate hardcoded secrets, harden registry/DPAPI handling with strict ACLs, audit telemetry data flows, and verify any potential startup/persistence mechanisms against organizational security policies.",
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Base64 decode and execute in Driver Automation Tool/Modules/DriverAutomationToolCore/DriverAutomationToolCore.psm1 ([lines: 74](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Modules/DriverAutomationToolCore/DriverAutomationToolCore.psm1#L74))"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true
@@ -51,13 +51,14 @@
         "passed": false,
         "reason": "Hardcoded credential in Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1 ([lines: 34](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Modules/DriverAutomationToolCore/Templates/Deploy-BIOSPassword-Remediation.ps1#L34))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 519,
-    "forks": 133,
+    "stars": 542,
+    "forks": 136,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-05-01T12:15:51Z",
+    "lastUpdated": "2026-06-10T16:37:25Z",
     "archived": false
   },
   "authors": [

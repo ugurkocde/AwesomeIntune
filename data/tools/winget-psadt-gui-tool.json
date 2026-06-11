@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 18,
-    "lastChecked": "2026-02-26",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The WinGet-PSADT-GUI-Tool shows typical admin-tool behavior with legitimate module loading and GUI startup. However, notable security considerations include: (1) existence of an encoded-commands pattern (obfuscation) in a helper function, (2) runtime remote module installation from PSGallery which could introduce supply-chain risk, and (3) execution policy bypass in the launcher which lowers defense-in-depth. No evidence of credential theft, data exfiltration, or hardcoded secrets in the provided code. Recommendations: sign all scripts, avoid or minimize -ExecutionPolicy Bypass, verify modules via signing or checksum validation, and consider removing or auditing the dot-sourcing startup approach to ensure only trusted components are loaded.",
+    "status": "passed",
+    "aiSummary": "The codebase shows a legitimate Intune/PSADT tooling pattern with structured modules. The primary security concerns are the presence of a base64-encoded command execution helper that can run arbitrary PowerShell code, which constitutes a potential remote code execution surface if inputs are not tightly controlled. There is no evidence of credential theft, data exfiltration, or hardcoded secrets in the provided snippets. However, supply-chain risks due to dot-sourcing multiple scripts and execution policy bypass for sub-processes warrant mitigations: tighten input validation, remove or restrict -EncodedCommand usage, enable code signing and integrity checks, and audit logs for sensitive data.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,11 +50,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1,
-    "forks": 0,
+    "stars": 13,
+    "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-02-26T15:54:34Z",
     "archived": false

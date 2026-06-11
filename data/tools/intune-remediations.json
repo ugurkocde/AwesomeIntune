@@ -38,15 +38,21 @@
   "downloadUrl": "https://github.com/AntoPorter/Intune-Remediations/archive/refs/heads/main.zip",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "remediation-scripts", "defender", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "remediation-scripts",
+    "defender",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Overall, the codebase does not exhibit obfuscated code, remote script downloads, credential harvesting, or data exfiltration. The primary concerns are some detection scripts with boolean-vs-string comparisons that can misreport device state, a hardcoded DNS configuration, and a registry change with unclear intent. These should be reviewed and corrected to avoid misconfiguration or inaccurate compliance reporting.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase appears to be legitimate Intune remediation content with standard security hardening steps (BitLocker, Credential Guard, WDAC, Defender, etc.). No obfuscated code or credential harvesting patterns detected. Some scripts pull templates/policies from network shares; ensure proper access controls and integrity verification to prevent tampering. No hardcoded secrets or exfiltration channels observed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -66,13 +72,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 100,
-    "forks": 21,
+    "stars": 116,
+    "forks": 23,
     "license": null,
-    "lastUpdated": "2026-01-08T05:58:38Z",
+    "lastUpdated": "2026-01-13T22:14:55Z",
     "archived": false
   }
 }

@@ -40,12 +40,13 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 10,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "High risk due to credential harvesting of Microsoft Graph tokens (background.js). The extension captures and persists access tokens, which could be misused or exfiltrated. Mitigations include removing token capture, preventing storage of sensitive tokens, and avoiding logging such data. Additionally, hardcoded secret placeholders in analytics.js should be moved to secure build-time configuration or environment variables.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -63,9 +64,11 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded credential in analytics.js ([lines: 28](https://github.com/UniverseCitiz3n/Intune-Admin-Center-Tools/blob/main/analytics.js#L28))"
       }
-    }
+    },
+    "notes": []
   },
   "screenshots": [
     "screenshots/intune-admin-center-tools/screenshot-1.png",
@@ -73,5 +76,12 @@
     "screenshots/intune-admin-center-tools/screenshot-3.png",
     "screenshots/intune-admin-center-tools/screenshot-4.png",
     "screenshots/intune-admin-center-tools/screenshot-5.png"
-  ]
+  ],
+  "repoStats": {
+    "stars": 14,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-05-11T08:50:43Z",
+    "archived": false
+  }
 }

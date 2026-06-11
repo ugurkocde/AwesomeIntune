@@ -44,7 +44,10 @@
   "downloadUrl": "https://github.com/NateHutch365/MDEValidator/releases",
   "category": "security",
   "type": "powershell-module",
-  "worksWith": ["windows", "defender"],
+  "worksWith": [
+    "windows",
+    "defender"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/mde-validator/screenshot-1.png"
@@ -52,9 +55,10 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -75,13 +79,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 39,
-    "forks": 0,
+    "stars": 44,
+    "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-01-06T21:36:34Z",
+    "lastUpdated": "2026-05-17T22:35:21Z",
     "archived": false
   }
 }

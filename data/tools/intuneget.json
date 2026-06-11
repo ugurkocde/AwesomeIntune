@@ -51,38 +51,41 @@
     "screenshots/intuneget/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 0,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "No obfuscated code, no remote code execution, and no explicit credential theft or hardcoded secrets detected. The tool uses legitimate admin flows (Intune/Graph usage, Supabase, and OpenAI integration). A notable concern is an external callback in the duplicate-check flow that transmits app details; ensure the endpoint is secure and properly authenticated, and minimize data sent. Secret management via environment variables should be enforced with best practices to avoid leakage.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false
+        "passed": true
       },
       "noRemoteExecution": {
-        "passed": false
+        "passed": true
       },
       "noCredentialTheft": {
-        "passed": false
+        "passed": true
       },
       "noDataExfiltration": {
-        "passed": false
+        "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false
+        "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false
+        "passed": false,
+        "reason": "Hardcoded credential in app/api/intune/apps/updates/route.test.ts ([lines: 104, 132, 194, 254, 311](https://github.com/ugurkocde/IntuneGet/blob/main/app/api/intune/apps/updates/route.test.ts#L104-L311))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 59,
-    "forks": 15,
-    "license": "AGPL-3.0",
-    "lastUpdated": "2026-02-18T10:23:07Z",
+    "stars": 92,
+    "forks": 29,
+    "license": "NOASSERTION",
+    "lastUpdated": "2026-06-11T06:00:02Z",
     "archived": false
   }
 }

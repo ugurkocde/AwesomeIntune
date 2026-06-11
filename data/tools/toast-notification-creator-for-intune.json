@@ -26,10 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 50,
-    "lastChecked": "2026-01-12",
+    "filesScanned": 1,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "The code appears to be a normal admin utility for generating and exporting toast notifications for Intune remediation workflows. There are no explicit signs of obfuscated payloads, remote code execution, credential theft, data exfiltration, or hardcoded secrets. The primary security considerations are input sanitization when embedding user-supplied values into XML/PowerShell strings and ensuring that any ActionButtonUrl used in toast actions is trusted and reviewed to avoid phishing or unintended protocol launches.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 107,
-    "forks": 21,
-    "license": null,
-    "lastUpdated": "2026-01-08T05:58:38Z",
+    "stars": 24,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-01-13T22:10:27Z",
     "archived": false
   },
   "authors": [

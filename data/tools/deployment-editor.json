@@ -33,27 +33,33 @@
   "downloadUrl": "https://github.com/tugich/DeploymentEditor/releases",
   "category": "packaging",
   "type": "desktop-app",
-  "worksWith": ["windows", "win32-apps"],
+  "worksWith": [
+    "windows",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/deployment-editor/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "failed",
+    "aiSummary": "Moderate-to-high risk primarily due to potential remote code execution from adtSession handling in the Intune upload workflow and plaintext credential handling in Graph authentication. No evidence of data exfiltration. The code otherwise aligns with legitimate Intune/PSADT tooling, but the Invoke-Expression pattern and execution policy bypass warrant remediation.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "The script uses Invoke-Expression to evaluate the Right-hand side of an assignment extracted from the PSADT project (adtSession). This can lead to remote code execution if the PSADT file is tampered with, enabling attackers to execute arbitrary code during the Intune app packaging/upload workflow."
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "The script obtains a client secret as a SecureString and converts it to plaintext via ConvertFrom-SecureStringToPlainText for Graph authentication. Although it attempts to clear the plaintext, it remains in memory and could be leaked through memory dumps or verbose logging."
       },
       "noDataExfiltration": {
         "passed": true
@@ -64,13 +70,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 111,
-    "forks": 10,
+    "stars": 148,
+    "forks": 14,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-01-04T14:18:29Z",
+    "lastUpdated": "2026-04-12T10:06:43Z",
     "archived": false
   }
 }

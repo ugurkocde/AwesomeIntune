@@ -34,7 +34,10 @@
   "websiteUrl": "",
   "category": "security",
   "type": "powershell-script",
-  "worksWith": ["windows", "win32-apps"],
+  "worksWith": [
+    "windows",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -53,9 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The code primarily enables privilege elevation for an enrollment admin scenario (adding the user to Administrators). No credential theft or data exfiltration detected. Primary security considerations are the privilege escalation risk, potential execution-policy bypass, and error-suppression practices; mitigate with strict authorization, signing, and improved error handling.",
+    "status": "passed",
+    "aiSummary": "No obfuscated code, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets detected. The scripts implement a legitimate but powerful privilege escalation mechanism to grant local administrator rights for enrollment. This is expected for Intune/Graph-based enrollment workflows but requires strict authorization, auditing, and signing to prevent misuse.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,10 +79,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 0,
+    "stars": 1,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2025-06-14T20:24:46Z",

@@ -34,7 +34,11 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "powershell-script",
-  "worksWith": ["windows", "graph-api", "settings-catalog"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "settings-catalog"
+  ],
   "dateAdded": "2026-01-06",
   "authors": [
     {
@@ -48,19 +52,19 @@
     "screenshots/intunefirewallmigration/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 22,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase for IntuneFirewallMigration presents security/reliability concerns primarily around runtime dependency installation from external sources without robust verification, potential error handling weaknesses (Break in catch), and a logic-case mismatch in direction filtering that could affect firewall rule processing. No hardcoded secrets detected in the provided segments.",
+    "status": "passed",
+    "aiSummary": "The code appears safe for an Intune management tool. One potential risk is exposure of app secrets passed on the command line. No obfuscated code, remote code execution, credential theft patterns, or exfiltration behavior detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": false,
-        "reason": "Automatic runtime installation and update of dependencies (Microsoft.Graph.Authentication and ImportExcel) from the PowerShell Gallery without explicit signature verification or pinned versions beyond a few hard-coded checks. This creates a supply-chain risk: downloaded modules could be compromised or malicious if gallery integrity is breached or a rogue package is published."
+        "passed": true
       },
       "noCredentialTheft": {
         "passed": true
@@ -74,13 +78,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 18,
+    "stars": 23,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2025-11-06T14:47:00Z",
+    "lastUpdated": "2026-05-06T11:49:52Z",
     "archived": false
   }
 }

@@ -34,7 +34,10 @@
   "downloadUrl": "https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/archive/refs/heads/main.zip",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "remediation-scripts"],
+  "worksWith": [
+    "windows",
+    "remediation-scripts"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-1.png",
@@ -44,12 +47,13 @@
     "screenshots/endpoint-analytics-remediation-scripts/screenshot-5.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The collection contains several legitimate admin/remediation tasks, but with notable security concerns: (1) data-loss risk from clearing Downloads, (2) destructive OS-component removal, (3) potential persistence/privilege-change risk via a Local Admin remediation, (4) risky use of Win32_Product for software detection, and (5) configuration hazards from hardcoded placeholders and registry policy changes. No obfuscated code, credential harvesting, or external data exfiltration detected.",
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -67,15 +71,17 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded credential in Copy-FilesToBlobStorage/remediation_Copy-FilesToBlobStorageRemediation.ps1 ([lines: 16](https://github.com/JayRHa/EndpointAnalyticsRemediationScripts/blob/main/Copy-FilesToBlobStorage/remediation_Copy-FilesToBlobStorageRemediation.ps1#L16))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 557,
-    "forks": 120,
+    "stars": 620,
+    "forks": 129,
     "license": "MIT",
-    "lastUpdated": "2025-07-01T18:16:40Z",
+    "lastUpdated": "2026-05-15T08:09:19Z",
     "archived": false
   }
 }

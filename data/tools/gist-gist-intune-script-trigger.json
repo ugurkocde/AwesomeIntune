@@ -24,20 +24,20 @@
   "type": "other",
   "dateAdded": "2026-01-16",
   "securityCheck": {
-    "passed": 4,
+    "passed": 5,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-16",
+    "lastChecked": "2026-06-11",
     "forceApproved": true,
-    "aiSummary": "Remote code execution risk due to downloading and executing external scripts. No credential theft, data exfiltration, or obfuscation detected in the code. Recommend refactoring to use signed, verified modules or internal script repository, remove Invoke-Expression, implement integrity checks, and require explicit admin approval with source whitelisting.",
+    "status": "failed",
+    "aiSummary": "The tool functions as a launcher that presents a menu of scripts and downloads/runs the selected script from external URLs. The primary security concern is remote code execution via Invoke-Expression, which can run arbitrary code with the current user's privileges. While there is no direct credential harvesting or hardcoded secrets in this file, the ability to execute remote scripts means trusted validation, code signing, and URL whitelisting are essential mitigations. Consider replacing Invoke-Expression with safer invocation patterns, enforcing signed scripts, and auditing/tracking script sources for Intune/Graph-based management scenarios.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Character code obfuscation in GistIntuneScriptTrigger.ps1"
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "DownloadString execution in GistIntuneScriptTrigger.ps1"
+        "reason": "DownloadString execution in GistIntuneScriptTrigger.ps1 ([lines: 461](https://github.com/MrWyss-MSFT/gist/blob/main/GistIntuneScriptTrigger.ps1#L461))"
       },
       "noCredentialTheft": {
         "passed": true
@@ -51,13 +51,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 0,
+    "stars": 1,
     "forks": 2,
     "license": null,
-    "lastUpdated": "2026-01-16T13:06:41Z",
+    "lastUpdated": "2026-03-22T16:07:47Z",
     "archived": false
   },
   "authors": [

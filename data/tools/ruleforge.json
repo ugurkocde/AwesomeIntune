@@ -32,7 +32,10 @@
   "repoUrl": "https://github.com/NateHutch365/Microsoft-Intune/tree/main/Tools/RuleForge",
   "category": "configuration",
   "type": "powershell-script",
-  "worksWith": ["windows", "defender"],
+  "worksWith": [
+    "windows",
+    "defender"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/ruleforge/screenshot-1.png",
@@ -41,17 +44,18 @@
   "securityCheck": {
     "passed": 5,
     "total": 6,
-    "filesScanned": 25,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 26,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase contains multiple remote download-and-execute patterns (GSA client installer, Chocolatey install, and GSA prerequisites) that lack integrity verification, increasing risk of supply-chain compromise. A BitLocker decryption script represents a critical security risk by decrypting all drives. A minor logic bug in a detection script could reduce effectiveness of remediation. No explicit credential harvesting or data exfiltration observed, but the remote install patterns should be hardened with signature checks, TLS verification, and least privilege.",
+    "status": "failed",
+    "aiSummary": "The script is a straightforward macOS uninstaller for ESET products with cleanup of related LaunchAgents. It does not exhibit obfuscation, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets. The main security concern is that uninstalling security software can leave endpoints unprotected; ensure strict access controls, logging, and approved maintenance windows when using such scripts, and consider compensating controls (e.g., re-enrollment or EDR coverage) after uninstall.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "Invoke-Expression with download in Windows/Win32-Apps/chocolately/chocoInstall.ps1"
+        "reason": "Invoke-Expression with download in Windows/Win32-Apps/chocolately/chocoInstall.ps1 ([lines: 34](https://github.com/NateHutch365/Microsoft-Intune/blob/main/Windows/Win32-Apps/chocolately/chocoInstall.ps1#L34))"
       },
       "noCredentialTheft": {
         "passed": true
@@ -65,13 +69,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 10,
+    "stars": 14,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2025-12-08T17:10:09Z",
+    "lastUpdated": "2026-05-19T15:59:08Z",
     "archived": false
   }
 }

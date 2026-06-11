@@ -36,7 +36,11 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneWin32App",
   "category": "packaging",
   "type": "powershell-module",
-  "worksWith": ["windows", "win32-apps", "graph-api"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-win32-app/screenshot-1.png"
@@ -45,9 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Moderate security concerns: in-memory handling of access tokens (cred_theft), a generic executable launcher (malicious) that could be misused, and potential XML injection risk when finalizing Azure Storage blob uploads (exfiltration). No obfuscated code, no hardcoded secrets, and no remote code execution detected. The codebase appears to be a legitimate IntuneWin32App tooling library, but apply token minimization, input validation, and safe XML construction to mitigate the identified risks.",
+    "status": "passed",
+    "aiSummary": "The IntuneWin32App toolset is primarily designed for legitimate Intune/Graph interactions and file downloads of Win32 content. No obfuscated code is evident, and credentials are not embedded. However, there are notable security considerations: (1) a hardcoded default ApplicationID (secrets category) that should be removed or parameterized, (2) potential data exfiltration risk via AzCopy-based uploads to Azure Storage, requiring strict access controls and auditing, (3) the ability to download installer payloads from storage which should be protected with integrity checks/signing before deployment. Recommend removing hardcoded values, enforcing signed content, restricting storage access, and implementing robust monitoring/auditing for download/upload operations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -67,13 +72,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 447,
-    "forks": 110,
+    "stars": 492,
+    "forks": 116,
     "license": "MIT",
-    "lastUpdated": "2026-01-04T23:09:47Z",
+    "lastUpdated": "2026-01-25T16:46:56Z",
     "archived": false
   }
 }

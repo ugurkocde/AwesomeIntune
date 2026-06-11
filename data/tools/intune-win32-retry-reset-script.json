@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-12",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "This script functions as a targeted admin utility to deep-clean IME registry traces for a specific AppId and subsequently restart the Intune Management Extension. It performs potentially destructive registry edits and a service restart, which are legitimate for remediation but carry risk if misused or misconfigured. The code does not obfuscate, download remote code, collect credentials, exfiltrate data, or embed secrets. It should be used with explicit AppId input, thorough testing (preferably in WhatIf mode), and appropriate auditing.",
+    "status": "passed",
+    "aiSummary": "The script is an admin utility intended to deep-clean Intune IME registry traces for a specified Win32 AppId and then restart the Intune Management Extension service. It does not exhibit remote code execution, credential theft, data exfiltration, or obfuscated payloads. The primary security considerations are the potentially destructive registry deletions and service restart actions, which could disrupt Intune functionality if misconfigured. Use -WhatIf for verification, ensure AppId is set correctly, and apply standard change-management controls.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,10 +50,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 4,
+    "stars": 12,
     "forks": 1,
     "license": null,
     "lastUpdated": "2026-01-09T10:31:33Z",

@@ -38,17 +38,22 @@
   "downloadUrl": "https://github.com/MSEndpointMgr/IntuneDebugToolkit/releases",
   "category": "troubleshooting",
   "type": "desktop-app",
-  "worksWith": ["windows", "autopilot", "win32-apps"],
+  "worksWith": [
+    "windows",
+    "autopilot",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-debug-toolkit/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -69,11 +74,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 112,
-    "forks": 19,
+    "stars": 124,
+    "forks": 17,
     "license": "MIT",
     "lastUpdated": "2024-10-01T03:59:52Z",
     "archived": false

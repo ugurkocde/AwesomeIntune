@@ -33,7 +33,10 @@
   "websiteUrl": "https://intunedrivemapping.azurewebsites.net/",
   "category": "automation",
   "type": "web-app",
-  "worksWith": ["windows", "entra-id"],
+  "worksWith": [
+    "windows",
+    "entra-id"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-drive-mapping/screenshot-1.png"
@@ -41,10 +44,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 15,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 16,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Potential security considerations identified. No evidence of code obfuscation, remote code execution, credential theft, data exfiltration, malicious persistence, or hardcoded secrets. The main concerns are missing access controls on admin endpoints and potential leakage of internal error details through the UI.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The IntuneDriveMapping tool primarily handles configuration and generation of drive-mapping scripts, which is expected for an admin tool. However, there are notable security concerns: (1) a SYSTEM-level persistence mechanism with a hidden VBScript wrapper and ByPass execution policy, (2) potential XXE risk in XML parsing, (3) logs/transcripts that may expose sensitive data, (4) CSRF risk on file upload due to missing AntiForgeryToken, and (5) missing authorization on API endpoints for template access. remediation should focus on securing persistence behavior (limit/system-initiated tasks, avoid hidden wrappers), hardening XML parsing, tightening logging, adding CSRF protection where missing, and ensuring API endpoints are properly authorized.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -64,11 +68,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 191,
-    "forks": 24,
+    "stars": 199,
+    "forks": 25,
     "license": "MIT",
     "lastUpdated": "2022-02-04T23:09:12Z",
     "archived": false

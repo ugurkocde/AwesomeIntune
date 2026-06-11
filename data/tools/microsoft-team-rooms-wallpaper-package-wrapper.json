@@ -34,7 +34,10 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "desktop-app",
-  "worksWith": ["windows", "win32-apps"],
+  "worksWith": [
+    "windows",
+    "win32-apps"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -48,8 +51,9 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -70,10 +74,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1,
+    "stars": 2,
     "forks": 0,
     "license": null,
     "lastUpdated": "2025-06-14T20:25:39Z",

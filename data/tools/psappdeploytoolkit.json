@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-12",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase largely consists of standard AppDeployToolkit invocations appropriate for Intune. The primary security concern is the use of PsExec-based SYSTEM-level execution in silent installation/repair scripts, which can be a vector for privilege escalation if misused. No evidence of obfuscated code, credential harvesting, data exfiltration, hardcoded secrets, or remote code fetching in the provided segments. Ensure proper auditing, signed binaries, and compliance with enterprise deployment policies when using elevated tools such as PsExec.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2212,
-    "forks": 546,
+    "stars": 2327,
+    "forks": 565,
     "license": "LGPL-3.0",
-    "lastUpdated": "2026-01-12T15:33:19Z",
+    "lastUpdated": "2026-06-10T13:24:08Z",
     "archived": false
   },
   "authors": [

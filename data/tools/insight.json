@@ -44,7 +44,12 @@
   "websiteUrl": "",
   "category": "reporting",
   "type": "desktop-app",
-  "worksWith": ["windows", "graph-api", "configuration-profiles", "remediation-scripts"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "configuration-profiles",
+    "remediation-scripts"
+  ],
   "dateAdded": "2026-01-05",
   "screenshots": [
     "screenshots/insight/screenshot-1.png",
@@ -57,12 +62,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase contains several remediation scripts that present significant risk: (1) data-destructive operations clearing user Downloads across multiple accounts; (2) ambiguous Local Admin management with placeholder values that could enable privilege abuse; (3) registry-based changes that weaken security controls for Adobe products (JavaScript, Flash); and (4) potential attempts to uninstall or evade device management (SCCM). These issues warrant strict access controls, safe-guarding (dry-run, prompts, backups), and thorough review before deployment in Intune/InSight workflows.",
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "String building obfuscation in Resources/RemediationScripts/Create-LocalAdmin/remediation_Create-LocalAdminLAPSRemediation.ps1 ([lines: 18](https://github.com/MrOlof/InSight/blob/main/Resources/RemediationScripts/Create-LocalAdmin/remediation_Create-LocalAdminLAPSRemediation.ps1#L18))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -74,19 +81,19 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "Deletes contents of all users' Downloads folders (Get-ChildItem C:\\Users\\*\\Downloads\\* | Remove-Item -recurse -force). High risk of data loss."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 20,
+    "stars": 36,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-01-07T17:51:15Z",
+    "lastUpdated": "2026-01-14T22:51:24Z",
     "archived": false
   }
 }

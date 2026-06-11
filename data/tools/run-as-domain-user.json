@@ -34,7 +34,11 @@
   "websiteUrl": "",
   "category": "security",
   "type": "desktop-app",
-  "worksWith": ["windows", "win32-apps", "entra-id"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "entra-id"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -49,12 +53,13 @@
     "screenshots/run-as-domain-user/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase shows potential security concerns related to stealthy PowerShell execution, persistence-like installer behavior, and config-driven command construction. There is no evidence of remote script downloads, credential harvesting, or data exfiltration in the provided snippets. Treat as potentially risky admin tooling: enforce input validation, code signing, least privilege execution, and avoid bypassing PowerShell security policies.",
+    "status": "passed",
+    "aiSummary": "Two notable security concerns in the Run as Domain User flow: (1) invocation of a PowerShell script with -ExecutionPolicy Bypass, which can weaken defenses if not strictly controlled; (2) unvalidated external inputs used to build command-line arguments for a domain-privileged helper process, which could be exploited to run unintended code. No evidence of remote script download, credential harvesting, data exfiltration, or hardcoded secrets is present. The tooling aligns with Intune/ManagementExtension patterns, but the bypass and input handling should be tightened (code signing, allow-lists, least-privilege execution) to reduce risk in a managed environment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -69,16 +74,16 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "Launcher uses PowerShell with -ExecutionPolicy Bypass and -WindowStyle Hidden to execute runasdomainuser.ps1. This enables stealthy execution and potential evasion of security controls, which can be abused for persistence or privilege escalation."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 4,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2025-06-14T20:21:59Z",

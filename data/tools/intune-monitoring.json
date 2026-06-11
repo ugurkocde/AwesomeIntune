@@ -54,18 +54,23 @@
   "websiteUrl": "https://www.intunemonitoring.com/",
   "category": "monitoring",
   "type": "other",
-  "worksWith": ["windows", "graph-api", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-monitoring/screenshot-1.png",
     "screenshots/intune-monitoring/screenshot-2.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -86,13 +91,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 39,
-    "forks": 6,
+    "stars": 48,
+    "forks": 5,
     "license": "MIT",
-    "lastUpdated": "2025-10-15T06:03:15Z",
+    "lastUpdated": "2026-02-12T06:20:42Z",
     "archived": false
   }
 }

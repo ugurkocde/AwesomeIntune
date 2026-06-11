@@ -39,21 +39,32 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneHydrationKit/",
   "category": "automation",
   "type": "powershell-module",
-  "worksWith": ["windows", "graph-api", "security-baselines", "configuration-profiles", "compliance-policies", "conditional-access", "device-filters", "app-protection-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "security-baselines",
+    "configuration-profiles",
+    "compliance-policies",
+    "conditional-access",
+    "device-filters",
+    "app-protection-policies"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-hydration-kit/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 45,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "High risk: remote repository download without verification; potential RCE risk if the downloaded baseline is malicious. Moderate risk: bypass of WhatIf for destructive actions could cause data loss. Moderate risk: logging of sensitive Data to logs if misused. No embedded hardcoded secrets or obvious credential harvesting. The tool appears to be legitimate administrative tooling for Intune hydration, but must enforce code-signing, artifact verification, and safer logging.",
+    "status": "failed",
+    "aiSummary": "The Intune Hydration Kit codebase generally aligns with expected Intune/Graph usage, but notable security concerns exist: hardcoded client identifiers, dynamic loading of all scripts from Private/Public, potential in-memory exposure of tokens during authentication, and reliance on remote module downloads. Mitigations include parameterizing identifiers, restricting and signing imported scripts, ensuring token handling minimizes plaintext exposure, and hardening dependency management and supply-chain controls.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Base64 decode and execute in Private/Auth/Get-HydrationTenantIdFromAccessToken.ps1 ([lines: 28](https://github.com/jorgeasaurus/IntuneHydrationKit/blob/main/Private/Auth/Get-HydrationTenantIdFromAccessToken.ps1#L28))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -70,13 +81,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 98,
-    "forks": 8,
+    "stars": 141,
+    "forks": 10,
     "license": "MIT",
-    "lastUpdated": "2026-01-05T03:47:49Z",
+    "lastUpdated": "2026-05-31T16:35:16Z",
     "archived": false
   }
 }

@@ -34,7 +34,11 @@
   "websiteUrl": "",
   "category": "configuration",
   "type": "powershell-script",
-  "worksWith": ["windows", "admx", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "admx",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -48,9 +52,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "The code does not perform remote code execution, credential theft, data exfiltration, or hardcoded secret usage. It appears to be a legitimate helper for generating ADMX/ADML definitions from a CSV for Intune deployment, but it contains a minor control-flow bug (break outside a loop) and a mismatch between documented output location and actual file writes.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,13 +75,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 3,
+    "stars": 7,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2025-06-14T20:22:53Z",
+    "lastUpdated": "2026-04-30T07:19:27Z",
     "archived": false
   }
 }

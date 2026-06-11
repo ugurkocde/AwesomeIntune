@@ -24,12 +24,13 @@
   "type": "web-app",
   "dateAdded": "2026-03-12",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 11,
-    "lastChecked": "2026-03-12",
-    "forceApproved": true,
-    "aiSummary": "The codebase adheres to secure authentication flows (Easy Auth or JWKS) and Graph API usage for Intune/Graph integration. No evidence of remote code execution, obfuscated payloads, credential harvesting, data exfiltration via external endpoints, or hardcoded production secrets in code paths. Primary concerns are inadvertent exposure of PII through telemetry/audit logs and the presence of secret placeholders in a config template that must be replaced before deployment.",
+    "lastChecked": "2026-06-11",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase appears suitable for a Microsoft Intune/Windows LAPS self-service portal with normal Graph API usage and telemetry integration. Key concerns to address are: potential NaN handling in justification validation which could bypass length checks, and the exposure of plaintext LAPS passwords via the API (mitigated by ownership checks but warrants strict access controls and auditing). Additionally, telemetry includes potentially sensitive data; ensure privacy controls and data minimization are enforced. No remote code execution, no hardcoded secrets, and no malicious patterns detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -47,16 +48,16 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in infra/deploy.sh ([lines: 297, 320](https://github.com/daniel-fraubaum/laps-self-service-portal/blob/main/infra/deploy.sh#L297-L320))"
+        "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 4,
-    "forks": 0,
+    "stars": 7,
+    "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-03-02T19:36:53Z",
+    "lastUpdated": "2026-05-18T03:26:38Z",
     "archived": false
   },
   "authors": [

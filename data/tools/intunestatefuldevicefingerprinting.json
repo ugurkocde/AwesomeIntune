@@ -34,7 +34,12 @@
   "websiteUrl": "",
   "category": "security",
   "type": "powershell-script",
-  "worksWith": ["windows", "entra-id", "compliance-policies", "conditional-access"],
+  "worksWith": [
+    "windows",
+    "entra-id",
+    "compliance-policies",
+    "conditional-access"
+  ],
   "dateAdded": "2026-01-06",
   "authors": [
     {
@@ -48,12 +53,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase shows obfuscated inline PowerShell in a watchdog component, SYSTEM-level persistence via a scheduled task, and an optional data exfiltration path to an external webhook in the fingerprinting/detection flow. No hardcoded secrets detected.",
+    "status": "failed",
+    "aiSummary": "The codebase contains obfuscated command execution, persistent scheduled task creation, and Cloud-based data reporting to external webhooks that may expose sensitive identifiers. While many components align with Intune/Graph-based workflows, these patterns warrant careful review for governance, auditing, and minimal data exposure. No hardcoded secrets observed.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Uses a -EncodedCommand with an inline PowerShell script and -ExecutionPolicy Bypass. This encodes the inner script to base64 and executes it under bypassed policy, which hides the intent and bypasses standard logging/auditing."
       },
       "noRemoteExecution": {
         "passed": true
@@ -62,8 +69,7 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "Cloud mode sends a structured payload to an external webhook including device identifiers and fingerprint data. This constitutes data exfiltration risk if the webhook endpoint is not trusted or properly secured."
+        "passed": true
       },
       "noMaliciousPatterns": {
         "passed": true
@@ -71,13 +77,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 9,
+    "stars": 10,
     "forks": 1,
     "license": "NOASSERTION",
-    "lastUpdated": "2025-12-19T09:40:51Z",
+    "lastUpdated": "2026-01-19T04:26:34Z",
     "archived": false
   }
 }

@@ -34,15 +34,21 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/IntuneDebug/",
   "category": "troubleshooting",
   "type": "powershell-module",
-  "worksWith": ["windows", "win32-apps", "laps", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "laps",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 38,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No evidence of obfuscated code, remote download/execution, credential theft, or data exfiltration. Some risks include long-running registry monitoring for persistence, local user data collection, exposure of Passport for Work settings, and loading private helpers without validation. A syntax issue in Get-ValidDateTime should be fixed.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: IntuneDebug appears to be a legitimate Intune debugging tool with no direct evidence of remote code execution, credential theft, or data exfiltration in the provided code. However, there are attack-surface concerns: dynamic loading of private/public helper scripts at module import, potential exposure of certificate metadata, and unescaped HTML rendering in reports. Remediate by ensuring integrity of helper scripts, restricting access to certificate stores, and escaping all untrusted data when generating HTML reports.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -62,10 +68,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 8,
+    "stars": 11,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2025-12-11T16:19:16Z",

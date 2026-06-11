@@ -38,7 +38,12 @@
   "websiteUrl": "https://www.intuneautomation.com/",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "graph-api", "azure-automation", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "azure-automation",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-automation/screenshot-1.png",
@@ -47,10 +52,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 48,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 50,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "No obfuscated code, remote code execution, credential theft, or hardcoded secrets detected. The code interacts with legitimate services (Supabase, Resend) for Intune Automation operations. Minor concerns include potential HTML injection risk from unescaped script metadata in email content and an edge-case unsubscribe link when no subscribers exist. Recommend input sanitization for email content and validation of subscriber lists; ensure data privacy controls for third-party services.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,13 +76,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 78,
-    "forks": 11,
+    "stars": 104,
+    "forks": 18,
     "license": "MIT",
-    "lastUpdated": "2026-01-08T02:42:03Z",
+    "lastUpdated": "2026-06-11T03:11:02Z",
     "archived": false
   }
 }

@@ -33,7 +33,12 @@
   "downloadUrl": "https://github.com/NicklasAhlberg/RockEnrollTool/releases",
   "category": "automation",
   "type": "desktop-app",
-  "worksWith": ["windows", "autopilot", "win32-apps", "bitlocker"],
+  "worksWith": [
+    "windows",
+    "autopilot",
+    "win32-apps",
+    "bitlocker"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/rock-enroll-tool/screenshot-1.gif",
@@ -43,11 +48,12 @@
     "screenshots/rock-enroll-tool/screenshot-5.gif"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -68,10 +74,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 10,
+    "stars": 12,
     "forks": 1,
     "license": null,
     "lastUpdated": "2022-12-18T11:47:57Z",

@@ -33,18 +33,22 @@
   "websiteUrl": "https://reg2ps.azurewebsites.net/",
   "category": "automation",
   "type": "web-app",
-  "worksWith": ["windows", "remediation-scripts"],
+  "worksWith": [
+    "windows",
+    "remediation-scripts"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/reg2ps/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 19,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 28,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "Moderate risk due to PowerShell script templates and user-supplied content leading to potential unintended script execution if not strictly validated. No hardcoded secrets or obfuscated payloads detected. Overall, appears to be legitimate admin tooling for Reg2CI/Reg2PS with standard packaging steps.",
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -62,13 +66,15 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded credential in Source/REG2PS/Scripts/bootstrap.bundle.js ([lines: 5589](https://github.com/rzander/REG2CI/blob/master/Source/REG2PS/Scripts/bootstrap.bundle.js#L5589))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 123,
-    "forks": 22,
+    "stars": 125,
+    "forks": 21,
     "license": "MS-PL",
     "lastUpdated": "2025-09-05T15:57:30Z",
     "archived": false

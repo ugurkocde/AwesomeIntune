@@ -43,7 +43,12 @@
   "websiteUrl": "",
   "category": "reporting",
   "type": "web-app",
-  "worksWith": ["windows", "graph-api", "configuration-profiles", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "configuration-profiles",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-07",
   "authors": [
     {
@@ -53,11 +58,12 @@
     }
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "scan_error",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -78,6 +84,7 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   }
 }

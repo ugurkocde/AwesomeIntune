@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-26",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "Code input not provided in prompt. Unable to assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets. Please provide the PowerShell/IntuneAppAssigner code snippet for analysis.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 11,
-    "forks": 0,
+    "stars": 13,
+    "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2025-10-14T10:55:06Z",
+    "lastUpdated": "2026-06-08T13:41:57Z",
     "archived": false
   },
   "authors": [

@@ -34,19 +34,24 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-module",
-  "worksWith": ["windows", "entra-id", "conditional-access"],
+  "worksWith": [
+    "windows",
+    "entra-id",
+    "conditional-access"
+  ],
   "dateAdded": "2026-01-06",
   "securityCheck": {
     "passed": 5,
     "total": 6,
     "filesScanned": 17,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "Overall, the EntraIDDeviceTrust codebase is aligned with expected Intune/Entra ID device trust patterns and does not contain obfuscation or hardcoded secrets. A critical functional bug exists in the signing path (undefined variable used to select the certificate) that can disable the attestation flow. There is a legitimate data-exfiltration vector where device identity and attestation data are sent to an external Function App endpoint; ensure the endpoint is trusted, authenticated, and that data minimization/privacy controls are in place. Private key usage for signing is expected for device attestation but should be protected with strong key management and restricted access.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Base64 decode and execute in EntraIDDeviceTrust.FunctionApp/Public/Get-EntraIDDeviceAlternativeSecurityIds.ps1"
+        "reason": "Base64 decode and execute in EntraIDDeviceTrust.FunctionApp/Public/Get-EntraIDDeviceAlternativeSecurityIds.ps1 ([lines: 27](https://github.com/MSEndpointMgr/EntraIDDeviceTrust/blob/main/EntraIDDeviceTrust.FunctionApp/Public/Get-EntraIDDeviceAlternativeSecurityIds.ps1#L27))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -63,13 +68,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 20,
+    "stars": 24,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2025-12-07T10:31:12Z",
+    "lastUpdated": "2026-01-25T15:00:59Z",
     "archived": false
   }
 }

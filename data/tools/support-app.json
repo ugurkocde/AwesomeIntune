@@ -34,7 +34,10 @@
   "websiteUrl": "",
   "category": "other",
   "type": "desktop-app",
-  "worksWith": ["macos", "configuration-profiles"],
+  "worksWith": [
+    "macos",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-06",
   "authors": [
     {
@@ -54,8 +57,9 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -76,13 +80,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 742,
-    "forks": 72,
+    "stars": 776,
+    "forks": 71,
     "license": "MIT",
-    "lastUpdated": "2025-12-03T08:47:08Z",
+    "lastUpdated": "2026-06-08T22:48:15Z",
     "archived": false
   }
 }

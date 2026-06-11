@@ -37,7 +37,12 @@
   "downloadUrl": "https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics/releases",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "win32-apps", "remediation-scripts", "autopilot"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "remediation-scripts",
+    "autopilot"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/get-intune-management-extension-diagnostics/screenshot-1.png",
@@ -47,15 +52,17 @@
     "screenshots/get-intune-management-extension-diagnostics/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 4,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Base64 decode and execute in DeveloperVersion/Get-IntuneManagementExtensionDiagnostics.ps1 ([lines: 6010, 6059](https://github.com/petripaavola/Get-IntuneManagementExtensionDiagnostics/blob/main/DeveloperVersion/Get-IntuneManagementExtensionDiagnostics.ps1#L6010-L6059))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -72,13 +79,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 289,
-    "forks": 23,
+    "stars": 303,
+    "forks": 25,
     "license": null,
-    "lastUpdated": "2024-09-17T20:29:30Z",
+    "lastUpdated": "2026-04-22T23:06:48Z",
     "archived": false
   }
 }

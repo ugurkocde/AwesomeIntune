@@ -39,17 +39,26 @@
   "websiteUrl": "https://wolkenman.nl",
   "category": "configuration",
   "type": "documentation",
-  "worksWith": ["windows", "macos", "ios", "android", "security-baselines", "configuration-profiles", "compliance-policies"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "ios",
+    "android",
+    "security-baselines",
+    "configuration-profiles",
+    "compliance-policies"
+  ],
   "dateAdded": "2026-01-05",
   "screenshots": [
     "screenshots/intune-baselines/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -70,11 +79,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 42,
-    "forks": 10,
+    "stars": 77,
+    "forks": 20,
     "license": "MIT",
     "lastUpdated": "2025-11-29T09:50:50Z",
     "archived": false

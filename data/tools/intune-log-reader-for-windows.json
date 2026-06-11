@@ -24,11 +24,12 @@
   "type": "desktop-app",
   "dateAdded": "2026-01-12",
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-12",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -49,14 +50,15 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 55,
+    "stars": 82,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2025-09-18T11:34:57Z",
-    "archived": false
+    "lastUpdated": "2026-04-10T13:58:43Z",
+    "archived": true
   },
   "authors": [
     {

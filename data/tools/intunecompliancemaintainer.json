@@ -34,15 +34,24 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "macos", "ios", "android", "graph-api", "compliance-policies", "app-protection-policies"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "ios",
+    "android",
+    "graph-api",
+    "compliance-policies",
+    "app-protection-policies"
+  ],
   "dateAdded": "2026-01-06",
   "securityCheck": {
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The script appears to be a legitimate Intune/Graph automation tool for granting necessary Graph permissions to a managed identity. It contains no obfuscation, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets. However, it does grant high-privilege Graph permissions to a managed identity, which introduces potential abuse risk if the automation identity is compromised or misconfigured. Recommend enforcing least privilege, audit trails for permission grants, role-based access control, and monitoring of automation accounts. No malicious patterns detected beyond the elevated permissions grant, which is expected for this use case when properly controlled.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -62,10 +71,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 18,
+    "stars": 23,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2025-12-19T13:44:08Z",

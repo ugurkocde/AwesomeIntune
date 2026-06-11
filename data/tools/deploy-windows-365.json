@@ -26,10 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-01-30",
+    "filesScanned": 4,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The Destroy-Windows365 script is a legitimate destructive cleanup tool for Intune/Graph-based artifacts. It does not contain obfuscated payloads, credential theft, or data exfiltration. A notable risk is dynamic module installation from the internet (PowerShell Gallery) at runtime; mitigate via module pinning, signature verification, or bundling dependencies. Additionally, review Graph API beta usage for stability and consider tightening the requested scopes to adhere to least-privilege practices.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 7,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-01-27T15:56:23Z",
+    "lastUpdated": "2026-05-27T15:00:47Z",
     "archived": false
   },
   "authors": [

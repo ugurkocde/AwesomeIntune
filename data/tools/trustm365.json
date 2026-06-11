@@ -24,12 +24,13 @@
   "type": "desktop-app",
   "dateAdded": "2026-04-22",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-04-22",
-    "forceApproved": true,
-    "aiSummary": "The codebase largely appears suitable for an Intune-like administration tool. However, production CORS permissiveness, outbound webhook data handling, and logging of webhook URLs present medium-severity risks related to data exposure and cross-origin misuse. No obfuscated code, credential theft, or hardcoded secrets detected in the provided excerpts.",
+    "lastChecked": "2026-06-11",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -47,16 +48,16 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credential in frontend/src/pages/AddTenant.jsx ([lines: 136](https://github.com/antoporter/trustm365/blob/main/frontend/src/pages/AddTenant.jsx#L136))"
+        "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 35,
-    "forks": 7,
+    "stars": 71,
+    "forks": 12,
     "license": "MIT",
-    "lastUpdated": "2026-04-12T02:43:20Z",
+    "lastUpdated": "2026-06-04T07:26:18Z",
     "archived": false
   },
   "authors": [

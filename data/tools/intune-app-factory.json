@@ -39,7 +39,13 @@
   "websiteUrl": "https://msendpointmgr.com/intune-app-factory",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "win32-apps", "graph-api", "azure-devops", "winget"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "graph-api",
+    "azure-devops",
+    "winget"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-app-factory/screenshot-1.png"
@@ -47,10 +53,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 21,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 22,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No obfuscated code detected. The codebase performs legitimate admin tasks (module installation, artifact packaging). Primary concerns are potential remote code execution risk from dynamic module installation and information leakage via verbose error messages. Artifact uploads to Azure Storage are expected but require proper access controls and encryption.",
+    "status": "passed",
+    "aiSummary": "The codebase appears to be standard Intune App Factory deployment scripts with no remote fetch, credential theft, or data exfiltration. Potential security concerns include (1) use of ByPass execution policy in a process scope, which can weaken defense-in-depth, and (2) loading a local toolkit script via dot-sourcing, which introduces supply-chain/integrity risks if the toolkit is compromised. Recommendations: minimize or remove ByPass usage where possible, enforce strict code integrity (signature validation) for AppDeployToolkitMain.ps1, and ensure the toolkit and all dependencies come from trusted, signed sources. Placeholders indicate configurable values but should be reviewed to ensure no secrets are embedded in actual deployments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,11 +77,12 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 60,
-    "forks": 17,
+    "stars": 65,
+    "forks": 16,
     "license": "MIT",
     "lastUpdated": "2024-09-10T22:42:31Z",
     "archived": false

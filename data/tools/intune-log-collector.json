@@ -34,7 +34,12 @@
   "websiteUrl": "",
   "category": "troubleshooting",
   "type": "powershell-script",
-  "worksWith": ["windows", "macos", "graph-api", "azure-automation"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "graph-api",
+    "azure-automation"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/intune-log-collector/screenshot-1.png"
@@ -43,13 +48,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The codebase implements an Intune Log Collector with legitimate management functionality, but exhibits several security concerns: potential credential leakage via verbose logging of cryptographic material; exposure of a write-enabled SAS token to clients; risk of tampering via automatic loading of Public/Private function files; possible input handling weaknesses when building Graph API queries. No hardcoded secrets detected; secrets appear to be sourced from environment/config and MSI endpoints, requiring strict access controls.",
+    "status": "failed",
+    "aiSummary": "The Intune Log Collector code uses standard authentication flows (Managed Identity for AAD tokens) and Intune/Graph integrations with device attestation. Primary concerns are around data exposure via blob content in responses and SAS token generation for storage access. No obfuscated code, no hardcoded secrets visible, and no evident credential theft, remote code execution, or malware-like patterns. Actionable mitigations focus on restricting blob data exposure and tightening SAS token scopes and lifetimes to minimize risk if tokens are leaked.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Base64 decode and execute in Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1"
+        "reason": "Base64 decode and execute in Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1 ([lines: 27](https://github.com/MSEndpointMgr/IntuneLogCollector/blob/main/Function App/modules/AADDeviceTrust.FunctionApp/Public/Get-AzureADDeviceAlternativeSecurityIds.ps1#L27))"
       },
       "noRemoteExecution": {
         "passed": true
@@ -66,10 +72,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 8,
+    "stars": 10,
     "forks": 2,
     "license": "MIT",
     "lastUpdated": "2025-12-07T10:36:19Z",

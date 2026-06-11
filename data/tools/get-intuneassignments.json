@@ -27,9 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-18",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided to analyze. Please supply the Get-IntuneAssignments PowerShell script for a security review focused on obfuscation, remote execution, credential theft, exfiltration, malicious patterns, and hardcoded secrets.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 32,
-    "forks": 6,
+    "stars": 55,
+    "forks": 8,
     "license": "MIT",
-    "lastUpdated": "2025-11-18T21:57:13Z",
+    "lastUpdated": "2026-06-03T22:47:06Z",
     "archived": false
   },
   "authors": [

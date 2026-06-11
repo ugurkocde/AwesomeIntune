@@ -44,7 +44,11 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "autopilot", "graph-api"],
+  "worksWith": [
+    "windows",
+    "autopilot",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/autopilot-management/screenshot-1.png",
@@ -54,12 +58,13 @@
     "screenshots/autopilot-management/screenshot-5.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 6,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,15 +82,17 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded credential in Old version/1.1.2/Autopilot_Management_1.1.2.ps1 ([lines: 802, 845, 894, 1148, 1197...](https://github.com/Jaekty/Autopilot-Management/blob/main/Old version/1.1.2/Autopilot_Management_1.1.2.ps1#L802-L1197))"
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 45,
-    "forks": 2,
+    "stars": 51,
+    "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2025-07-04T16:57:56Z",
+    "lastUpdated": "2026-02-13T15:52:03Z",
     "archived": false
   }
 }

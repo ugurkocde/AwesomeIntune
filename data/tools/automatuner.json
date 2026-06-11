@@ -32,7 +32,12 @@
   "repoUrl": "https://github.com/Ayoub-Sekoum/automattuner",
   "category": "packaging",
   "type": "cli-tool",
-  "worksWith": ["windows", "win32-apps", "graph-api", "winget"],
+  "worksWith": [
+    "windows",
+    "win32-apps",
+    "graph-api",
+    "winget"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/automatuner/screenshot-2.jpg"
@@ -41,9 +46,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "Moderate risk due to remote code installation dependencies (PSGallery, NuGet, Winget) that fetch and execute code at install time. No credentials, data exfiltration, or obvious malware patterns detected. Treat as legitimate admin tooling but enforce strict source trust, version pinning, and signing to minimize attack surface.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -63,10 +69,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 3,
+    "stars": 6,
     "forks": 0,
     "license": null,
     "lastUpdated": "2025-05-21T19:09:26Z",

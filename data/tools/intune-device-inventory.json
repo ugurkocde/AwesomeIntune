@@ -43,18 +43,24 @@
   "downloadUrl": "https://github.com/FlorianSLZ/IntuneDeviceInventory/releases",
   "category": "automation",
   "type": "powershell-module",
-  "worksWith": ["windows", "graph-api", "bitlocker"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "bitlocker"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 37,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The IntuneDeviceInventory codebase includes notable security concerns: an obfuscated/binary-like module header that impedes code review; a runtime-logic bug with an inappropriate break; hard-coded Azure App ID/permissions; local credential storage with potential leak risk and plaintext exposure in memory; destructive operations without safeguards; and potential exposure of sensitive device notes via backups. While there is legitimate admin tooling value, these issues should be addressed by refactoring for transparency, parameterization, safer secret handling, and protective prompts to reduce risk.",
+    "status": "failed",
+    "aiSummary": "Overall assessment: The codebase legitimately implements Intune Graph integration and device inventory features, but contains notable security concerns. Primary risk stems from obfuscated/corrupted module content (IntuneDeviceInventory.psm1 and .psd1) that require immediate integrity verification. Secondary concerns include plaintext secret handling when establishing Graph connections, potential sensitive data collection in get-clientDataDetection.ps1, and reliance on external metadata URLs. Actionable mitigations: verify and restore module files from signed sources, implement secure secret management, minimize and protect collected data, and replace fragile control flow constructs with robust error handling.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Script module appears as non-human readable with binary-like characters (��<...). This strongly suggests obfuscated or corrupted content. Such packaging can hide malicious payloads and prevents reliable code review. Requires verification against trusted sources and re-extraction from a known-good repository."
       },
       "noRemoteExecution": {
         "passed": true
@@ -71,10 +77,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 19,
+    "stars": 20,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2024-07-26T08:38:42Z",

@@ -26,10 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 25,
-    "lastChecked": "2026-01-18",
+    "filesScanned": 27,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "The Intune Reporting suite primarily performs legitimate Graph / Intune operations but contains hardcoded secrets in multiple scripts, broad Graph permissions, and telemetry-like data collection. Key mitigations: remove hardcoded secrets by using Azure Key Vault or automation credentials, apply least-privilege permissions for App Roles, clearly authorize and document telemetry endpoints and data scopes, and ensure mandatory configuration values are supplied and validated before deployment.",
+    "status": "passed",
+    "aiSummary": "Dell BIOS update reporting and Azure AD permission assignment scripts show legitimate admin tooling patterns. No obfuscated code or remote execution detected. Potential issues include hardcoded/secrets placeholders and permission automation that should be tightly controlled and audited. Recommend secure secret management, RBAC reviews, and telemetry data minimization.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,13 +50,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 37,
-    "forks": 14,
+    "stars": 45,
+    "forks": 15,
     "license": null,
-    "lastUpdated": "2026-01-08T09:14:26Z",
+    "lastUpdated": "2026-04-16T11:38:37Z",
     "archived": false
   },
   "authors": [

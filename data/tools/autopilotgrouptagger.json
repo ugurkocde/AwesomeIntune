@@ -44,7 +44,12 @@
   "websiteUrl": "",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "autopilot", "graph-api", "entra-id"],
+  "worksWith": [
+    "windows",
+    "autopilot",
+    "graph-api",
+    "entra-id"
+  ],
   "dateAdded": "2026-01-06",
   "authors": [
     {
@@ -65,9 +70,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No code provided for analysis.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -87,13 +93,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 28,
-    "forks": 3,
+    "stars": 32,
+    "forks": 4,
     "license": "MIT",
-    "lastUpdated": "2025-11-17T09:06:34Z",
+    "lastUpdated": "2026-06-03T06:43:55Z",
     "archived": false
   }
 }

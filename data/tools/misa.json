@@ -33,14 +33,18 @@
   "downloadUrl": "https://github.com/pathaksomesh06/MISA/releases",
   "category": "monitoring",
   "type": "desktop-app",
-  "worksWith": ["macos", "configuration-profiles"],
+  "worksWith": [
+    "macos",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -61,10 +65,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 40,
+    "stars": 42,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2024-09-01T07:42:23Z",

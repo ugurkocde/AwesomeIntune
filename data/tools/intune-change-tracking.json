@@ -36,17 +36,23 @@
   "websiteUrl": "https://www.oceanleaf.ch/intune-change-tracking/",
   "category": "monitoring",
   "type": "other",
-  "worksWith": ["windows", "graph-api", "autopilot", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "autopilot",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
     "screenshots/intune-change-tracking/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-01-08",
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "not_applicable",
     "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
@@ -67,10 +73,11 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 35,
+    "stars": 39,
     "forks": 8,
     "license": null,
     "lastUpdated": "2025-05-05T08:16:31Z",

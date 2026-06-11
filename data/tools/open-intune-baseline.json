@@ -38,14 +38,20 @@
   "downloadUrl": "https://github.com/SkipToTheEndpoint/OpenIntuneBaseline/releases",
   "category": "security",
   "type": "documentation",
-  "worksWith": ["windows", "macos", "security-baselines", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "security-baselines",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 2,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 3,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
+    "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
@@ -66,13 +72,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 1127,
-    "forks": 222,
+    "stars": 1341,
+    "forks": 253,
     "license": "GPL-3.0",
-    "lastUpdated": "2025-10-21T16:45:55Z",
+    "lastUpdated": "2026-05-08T12:33:27Z",
     "archived": false
   }
 }

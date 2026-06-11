@@ -45,7 +45,14 @@
   "websiteUrl": "https://intuneoffboarding.com/",
   "category": "automation",
   "type": "desktop-app",
-  "worksWith": ["windows", "macos", "autopilot", "entra-id", "graph-api", "bitlocker"],
+  "worksWith": [
+    "windows",
+    "macos",
+    "autopilot",
+    "entra-id",
+    "graph-api",
+    "bitlocker"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
     "screenshots/device-offboarding-manager/screenshot-1.png",
@@ -57,10 +64,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 5,
-    "lastChecked": "2026-01-08",
+    "filesScanned": 6,
+    "lastChecked": "2026-06-11",
     "forceApproved": false,
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "passed",
+    "aiSummary": "No code provided. Unable to assess security aspects (obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, hardcoded secrets) for the Device Offboarding Manager. Please provide the code snippet or script to analyze.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,13 +88,14 @@
       "noHardcodedSecrets": {
         "passed": true
       }
-    }
+    },
+    "notes": []
   },
   "repoStats": {
-    "stars": 215,
+    "stars": 241,
     "forks": 38,
     "license": "MIT",
-    "lastUpdated": "2025-07-26T16:03:30Z",
+    "lastUpdated": "2026-06-10T12:51:34Z",
     "archived": false
   }
 }
