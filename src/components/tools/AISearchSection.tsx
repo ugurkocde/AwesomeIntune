@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Tool } from "~/types/tool";
 import { ToolCard } from "./ToolCard";
-import type { AIExplanations, AIConfidenceScores } from "~/hooks/useToolFilters";
+import type { AIExplanations, AIConfidenceScores } from "~/hooks/useAiSearch";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import type { VoteCounts } from "~/hooks/useVoting";
 

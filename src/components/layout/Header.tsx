@@ -103,7 +103,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-4 md:flex">
             <Link
-              href="/tools"
+              href="/#tools"
               className="btn btn-ghost"
             >
               <svg
@@ -281,7 +281,7 @@ export function Header() {
             <div className="container-main py-4">
               <div className="flex flex-col gap-1">
                 <Link
-                  href="/tools"
+                  href="/#tools"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
                   style={{ color: "var(--text-primary)" }}

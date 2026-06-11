@@ -43,7 +43,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="relative py-20 sm:py-28">
+    <section id="faq" className="relative scroll-mt-24 py-20 sm:py-28">
       {/* Background accent */}
       <div
         className="pointer-events-none absolute inset-0"

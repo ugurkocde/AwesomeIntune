@@ -1,21 +1,67 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { CharReveal } from "./TextReveal";
-import { trackSponsorClick } from "~/lib/plausible";
+import { SearchBar } from "./tools/SearchBar";
+import { SearchExamples } from "./tools/SearchExamples";
 import { useIsMobile } from "~/hooks/useIsMobile";
 import { useStats, formatNumber } from "~/hooks/useStats";
+import { useDebounce } from "~/hooks/useDebounce";
+import { shouldUseAiSearch } from "~/lib/aiSearch";
 
-export function Hero() {
+interface HeroProps {
+  toolCount: number;
+  authorCount: number;
+}
+
+/**
+ * Hero search box. Writes the query to the URL (`/?q=`) so the directory below
+ * reacts via its URL-synced filters, and scrolls to it on first input. Uses only
+ * useRouter (no useSearchParams), so the hero never bails to client-only render.
+ */
+function HeroSearch() {
+  const router = useRouter();
+  const [value, setValue] = useState("");
+  const debounced = useDebounce(value, 350);
+  const hasScrolledRef = useRef(false);
+
+  useEffect(() => {
+    const q = debounced.trim();
+    if (!q) return; // never clobber the directory's filters when the hero is empty
+    router.push(`/?q=${encodeURIComponent(q)}`, { scroll: false });
+  }, [debounced, router]);
+
+  const handleChange = (next: string) => {
+    setValue(next);
+    if (next && !hasScrolledRef.current) {
+      hasScrolledRef.current = true;
+      document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" });
+    }
+    if (!next) hasScrolledRef.current = false;
+  };
+
+  return (
+    <div className="mx-auto w-full max-w-xl">
+      <SearchBar
+        value={value}
+        onChange={handleChange}
+        isAiMode={shouldUseAiSearch(debounced)}
+      />
+      <div className="mt-4">
+        <SearchExamples isVisible={value.length === 0} onExampleClick={handleChange} />
+      </div>
+    </div>
+  );
+}
+
+export function Hero({ toolCount, authorCount }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const { isMobile } = useIsMobile();
   const { stats } = useStats();
 
-  // Disable heavy animations on mobile or when user prefers reduced motion
-  // prefersReducedMotion returns true/false/null, so we check explicitly
   const shouldReduceMotion = prefersReducedMotion === true || isMobile;
 
   const { scrollYProgress } = useScroll({
@@ -23,20 +69,18 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Disable parallax scroll transforms on mobile for better performance
-  const y = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], shouldReduceMotion ? [1, 1] : [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], shouldReduceMotion ? [1, 1] : [1, 0.95]);
+  const y = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], shouldReduceMotion ? [1, 1] : [1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-[520px] items-center justify-center overflow-hidden pt-28 pb-10 md:min-h-[58vh] md:pt-32 md:pb-12"
     >
-      {/* Subtle Center Glow - Static for performance, reduced blur on mobile */}
+      {/* Subtle Center Glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div
-          className="h-[300px] w-[600px] rounded-full opacity-15 blur-[60px] sm:h-[400px] sm:w-[800px] sm:blur-[120px]"
+          className="h-[280px] w-[560px] rounded-full opacity-15 blur-[60px] sm:h-[360px] sm:w-[760px] sm:blur-[120px]"
           style={{
             background:
               "radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)",
@@ -46,266 +90,84 @@ export function Hero() {
 
       {/* Main Content */}
       <motion.div
-        style={shouldReduceMotion ? undefined : { y, opacity, scale }}
-        className="container-main relative z-10 flex min-h-screen flex-col items-center justify-center will-change-transform"
+        style={shouldReduceMotion ? undefined : { y, opacity }}
+        className="container-main relative z-10 flex flex-col items-center justify-center"
       >
-        <div className="mx-auto max-w-5xl text-center">
-          {/* Main Headline */}
-          <h1
-            className="font-display text-6xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[9rem]"
-          >
+        <div className="mx-auto w-full max-w-3xl text-center">
+          {/* Wordmark */}
+          <h1 className="font-display text-5xl font-black leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
             <span className="block">
-              <CharReveal className="text-gradient" delay={0.2}>
+              <CharReveal className="text-gradient" delay={0.1}>
                 AWESOME
               </CharReveal>
             </span>
             <span className="block" style={{ color: "var(--text-primary)" }}>
-              <CharReveal delay={0.6}>INTUNE</CharReveal>
+              <CharReveal delay={0.35}>INTUNE</CharReveal>
             </span>
           </h1>
 
-          {/* Single Tagline */}
+          {/* Outcome subhead */}
           <motion.p
             initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-8 max-w-xl text-lg md:text-xl"
+            transition={{ duration: 0.7, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-6 max-w-xl text-lg md:text-xl"
             style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}
           >
-            The community toolkit for Microsoft Intune.
-            <br />
+            {toolCount}+ free, security-scanned tools for Microsoft Intune.{" "}
+            <br className="hidden sm:block" />
             <span style={{ color: "var(--text-tertiary)" }}>
-              Curated by experts, trusted by thousands.
+              Describe your problem - find the right tool in seconds.
             </span>
           </motion.p>
 
-          {/* Single CTA - Simple button without magnetic effect */}
+          {/* Embedded search */}
           <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-12"
+            transition={{ duration: 0.7, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8"
           >
-            <motion.a
-              href="#tools"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-10 py-5 text-lg font-semibold"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <span
-                className="absolute inset-0 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))",
-                }}
-              />
-              <span
-                className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--accent-secondary), var(--accent-primary))",
-                }}
-              />
-              <span className="relative z-10 flex items-center gap-3 text-[var(--bg-primary)]">
-                Explore Tools
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform duration-300 group-hover:translate-y-0.5"
-                >
-                  <path d="M12 5v14" />
-                  <path d="m19 12-7 7-7-7" />
-                </svg>
-              </span>
-            </motion.a>
+            <HeroSearch />
           </motion.div>
 
-          {/* Stats Bar */}
-          {stats && (stats.toolCount > 0 || stats.totalViews > 0) && (
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 flex items-center justify-center gap-3 sm:gap-4"
-            >
-              {stats.toolCount > 0 && (
-                <div
-                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-                  style={{
-                    background: "rgba(0, 212, 255, 0.08)",
-                    border: "1px solid rgba(0, 212, 255, 0.15)",
-                  }}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--accent-primary)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                  </svg>
-                  <span style={{ color: "var(--accent-primary)" }} className="font-semibold">
-                    {stats.toolCount}+
-                  </span>
-                  <span style={{ color: "var(--text-secondary)" }}>Tools</span>
-                </div>
-              )}
-              {stats.totalViews > 0 && (
-                <div
-                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-                  style={{
-                    background: "rgba(0, 212, 255, 0.08)",
-                    border: "1px solid rgba(0, 212, 255, 0.15)",
-                  }}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--accent-primary)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                  <span style={{ color: "var(--accent-primary)" }} className="font-semibold">
-                    {formatNumber(stats.totalViews)}
-                  </span>
-                  <span style={{ color: "var(--text-secondary)" }}>Views</span>
-                </div>
-              )}
-            </motion.div>
-          )}
-
-          {/* Sponsor Section */}
+          {/* Proof row */}
           <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-16 flex flex-col items-center gap-3"
+            transition={{ duration: 0.6, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
+            style={{ color: "var(--text-tertiary)" }}
           >
-            <span
-              className="text-[11px] font-medium uppercase tracking-[0.2em]"
-              style={{ color: "var(--text-tertiary)", opacity: 0.7 }}
-            >
-              Sponsored by
-            </span>
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-              <a
-                href="https://eido.io/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
-                onClick={() => trackSponsorClick("eido", "hero")}
-              >
-                {/* Light logo for dark theme (default) */}
-                <Image
-                  src="/sponsors/eido-light.svg"
-                  alt="eido - Sponsor"
-                  width={144}
-                  height={48}
-                  className="sponsor-logo-dark h-auto w-[108px] sm:w-[144px] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                />
-                {/* Dark logo for light theme */}
-                <Image
-                  src="/sponsors/eido-dark.svg"
-                  alt="eido - Sponsor"
-                  width={144}
-                  height={48}
-                  className="sponsor-logo-light h-auto w-[108px] sm:w-[144px] transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </a>
-              <a
-                href="https://zerotouch.ai/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sponsor-logo-link group block transition-all duration-300 hover:scale-[1.02]"
-                onClick={() => trackSponsorClick("zerotouch", "hero")}
-              >
-                {/* Light logo for dark theme (default) */}
-                <Image
-                  src="/sponsors/zerotouch-light.png"
-                  alt="ZeroTouch - Sponsor"
-                  width={200}
-                  height={80}
-                  className="sponsor-logo-dark h-[60px] sm:h-[80px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                />
-                {/* Dark logo for light theme */}
-                <Image
-                  src="/sponsors/zerotouch-dark.png"
-                  alt="ZeroTouch - Sponsor"
-                  width={200}
-                  height={80}
-                  className="sponsor-logo-light h-[60px] sm:h-[80px] w-auto transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </a>
-              <a
-                href="https://devicie.com/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block transition-all duration-300 hover:scale-[1.02]"
-                onClick={() => trackSponsorClick("devicie", "hero")}
-              >
-                <Image
-                  src="/sponsors/devicie.png"
-                  alt="Devicie - Sponsor"
-                  width={150}
-                  height={55}
-                  className="h-[43px] sm:h-[55px] w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </a>
-            </div>
+            <ProofItem value={`${toolCount}+`} label="tools" />
+            <Dot />
+            <ProofItem value={`${authorCount}+`} label="contributors" />
+            {stats && stats.totalViews > 0 && (
+              <>
+                <Dot />
+                <ProofItem value={formatNumber(stats.totalViews)} label="views" />
+              </>
+            )}
           </motion.div>
-
         </div>
-
-        {/* Scroll Indicator - Positioned at bottom, hidden on short viewports to avoid overlap with sponsors */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.3, duration: 1 }}
-          className="absolute bottom-8 hidden [@media(min-height:800px)]:block"
-        >
-          <a
-            href="#tools"
-            className="group inline-flex flex-col items-center gap-2 transition-transform hover:translate-y-1"
-          >
-            <span
-              className="text-xs uppercase tracking-[0.25em] transition-colors group-hover:text-[var(--accent-primary)]"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Scroll
-            </span>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="transition-colors group-hover:stroke-[var(--accent-primary)]"
-              style={{ stroke: "var(--text-tertiary)" }}
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </a>
-        </motion.div>
       </motion.div>
     </section>
+  );
+}
+
+function ProofItem({ value, label }: { value: string; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span style={{ color: "var(--accent-primary)", fontWeight: 600 }}>{value}</span>
+      <span style={{ color: "var(--text-secondary)" }}>{label}</span>
+    </span>
+  );
+}
+
+function Dot() {
+  return (
+    <span aria-hidden className="opacity-40">
+      &middot;
+    </span>
   );
 }

@@ -79,7 +79,7 @@ export function Footer() {
             </h3>
             <nav className="flex flex-col gap-2">
               <Link
-                href="/tools"
+                href="/#tools"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}
               >

@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import type { AuthorForSpotlight } from "~/lib/tools.server";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import { formatViewCount } from "~/hooks/useViewTracking";
@@ -16,8 +16,6 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
   const [viewCounts, setViewCounts] = useState<ViewCounts>({});
   const [isLoading, setIsLoading] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   // Fetch view counts
   useEffect(() => {
@@ -80,7 +78,6 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
 
   return (
     <section
-      ref={sectionRef}
       className="relative py-16 sm:py-24"
       style={{ background: "rgba(0, 0, 0, 0.2)" }}
     >
@@ -96,8 +93,8 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
       <div className="container-main">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between"
         >
@@ -217,10 +214,8 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
             {topAuthors.map((author, index) => (
               <motion.div
                 key={author.slug}
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
                   delay: index * 0.1,

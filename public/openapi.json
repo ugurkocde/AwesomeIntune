@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Awesome Intune API",
-    "description": "API for discovering Microsoft Intune tools and resources. Returns information about 86+ free community-built tools for Microsoft Intune and endpoint management.",
+    "description": "API for discovering Microsoft Intune tools and resources. Returns information about free community-built tools for Microsoft Intune and endpoint management.",
     "version": "1.0.0",
     "contact": {
       "name": "Awesome Intune",
@@ -24,7 +24,7 @@
     "/api/v1/tools": {
       "get": {
         "summary": "Get all Intune tools",
-        "description": "Returns a list of all 86+ Microsoft Intune tools with metadata including name, description, category, type, download URLs, and security status.",
+        "description": "Returns a list of all Microsoft Intune tools with metadata including name, description, category, type, download URLs, and security status.",
         "operationId": "getAllTools",
         "parameters": [
           {

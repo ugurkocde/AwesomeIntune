@@ -142,7 +142,7 @@ URL: ${SITE_CONFIG.url}/tools/category/security
 
 ## Key Pages
 
-- ${SITE_CONFIG.url}/tools - Browse all ${tools.length}+ Intune tools with filtering and search
+- ${SITE_CONFIG.url}/ - Browse all ${tools.length}+ Intune tools with filtering and search
 - ${SITE_CONFIG.url}/stats - Statistics and insights about the tool directory
 - ${SITE_CONFIG.url}/collections - Curated tool collections for specific use cases
 - ${SITE_CONFIG.url}/developers - API documentation for programmatic access

@@ -161,7 +161,7 @@ export function generateOrganizationStructuredData() {
 
 /**
  * Generate JSON-LD for the website with sitelinks search box.
- * The SearchAction tells Google that /tools?q=… is a working site search,
+ * The SearchAction tells Google that /?q=… is a working site search,
  * which is one of the prerequisites for the sitelinks search box in SERPs.
  */
 export function generateWebsiteWithSearchActionStructuredData() {
@@ -176,7 +176,7 @@ export function generateWebsiteWithSearchActionStructuredData() {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_CONFIG.url}/tools?q={search_term_string}`,
+        urlTemplate: `${SITE_CONFIG.url}/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },

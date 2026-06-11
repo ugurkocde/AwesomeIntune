@@ -8,10 +8,9 @@ import { useUrlFilters } from "~/hooks/useUrlFilters";
 import { useViewTracking } from "~/hooks/useViewTracking";
 import { useVoting } from "~/hooks/useVoting";
 import { useDebounce } from "~/hooks/useDebounce";
+import { useAiSearch } from "~/hooks/useAiSearch";
 import { filterTools } from "~/lib/tools";
 import { CATEGORY_CONFIG } from "~/lib/constants";
-import { shouldUseAiSearch } from "~/lib/aiSearch";
-import { trackSearch } from "~/lib/plausible";
 import { SearchBar } from "./SearchBar";
 import { SearchExamples } from "./SearchExamples";
 import { AISearchSection } from "./AISearchSection";
@@ -20,7 +19,6 @@ import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
 import { LoadMoreButton } from "./InfiniteScrollTrigger";
-import type { AISearchResult } from "~/app/api/search/route";
 
 const INITIAL_LOAD = 18;
 const LOAD_MORE_COUNT = 9;
@@ -51,9 +49,6 @@ function getScrollState(): ScrollState | null {
   }
   return null;
 }
-
-type AIExplanations = Record<string, string>;
-type AIConfidenceScores = Record<string, number>;
 
 interface BrowseToolsSectionProps {
   tools: Tool[];
@@ -86,13 +81,31 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const debouncedSearchQuery = useDebounce(localSearchQuery, 300);
 
   // Sync debounced search to URL
+  // Detect external URL changes (hero handoff, back/forward, deep links) during
+  // render - before any effect runs - so the debounced writer below can't clobber
+  // a freshly-set ?q= with its stale (empty) value before local state catches up.
+  const prevSearchQueryRef = useRef(searchQuery);
+  const skipNextUrlWrite = useRef(false);
+  if (prevSearchQueryRef.current !== searchQuery) {
+    prevSearchQueryRef.current = searchQuery;
+    skipNextUrlWrite.current = true;
+  }
+
+  // Sync debounced local input -> URL (user typing in this input)
   useEffect(() => {
-    if (debouncedSearchQuery !== searchQuery) {
+    if (skipNextUrlWrite.current) {
+      skipNextUrlWrite.current = false;
+      return;
+    }
+    if (
+      debouncedSearchQuery === localSearchQuery &&
+      debouncedSearchQuery !== searchQuery
+    ) {
       setSearchQuery(debouncedSearchQuery);
     }
-  }, [debouncedSearchQuery, searchQuery, setSearchQuery]);
+  }, [debouncedSearchQuery, localSearchQuery, searchQuery, setSearchQuery]);
 
-  // Sync URL search to local on initial load
+  // Sync URL search -> local input (initial load, back/forward, hero handoff)
   useEffect(() => {
     setLocalSearchQuery(searchQuery);
   }, [searchQuery]);
@@ -100,100 +113,18 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   // Mobile filter drawer state
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
-  // AI Search state
-  const [isAiSearching, setIsAiSearching] = useState(false);
-  const [aiExplanations, setAiExplanations] = useState<AIExplanations>({});
-  const [aiConfidenceScores, setAiConfidenceScores] = useState<AIConfidenceScores>({});
-  const [aiToolIds, setAiToolIds] = useState<string[] | null>(null);
-  const lastTrackedQuery = useRef<string>("");
-  const abortControllerRef = useRef<AbortController | null>(null);
+  // Use empty string if localSearchQuery is cleared (bypass debounce delay)
+  const effectiveSearchQuery = localSearchQuery === "" ? "" : debouncedSearchQuery;
 
-  // Determine if we should use AI search (multi-word, sentence-like queries)
-  const isAiMode = shouldUseAiSearch(debouncedSearchQuery);
-
-  // Clear AI search state immediately
-  const clearAiSearch = useCallback(() => {
-    // Abort any ongoing fetch
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      abortControllerRef.current = null;
-    }
-    setIsAiSearching(false);
-    setAiExplanations({});
-    setAiConfidenceScores({});
-    setAiToolIds(null);
-  }, []);
-
-  // AI Search effect
-  useEffect(() => {
-    if (!isAiMode || !debouncedSearchQuery) {
-      clearAiSearch();
-      return;
-    }
-
-    // Abort previous request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
-
-    async function performAiSearch() {
-      setIsAiSearching(true);
-
-      try {
-        const response = await fetch("/api/search", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query: debouncedSearchQuery }),
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error("AI search failed");
-        }
-
-        const data = (await response.json()) as AISearchResult;
-
-        if (controller.signal.aborted) return;
-
-        const explanations: AIExplanations = {};
-        const confidenceScores: AIConfidenceScores = {};
-        const ids: string[] = [];
-
-        for (const result of data.results) {
-          explanations[result.toolId] = result.relevance;
-          confidenceScores[result.toolId] = result.confidence;
-          ids.push(result.toolId);
-        }
-
-        setAiExplanations(explanations);
-        setAiConfidenceScores(confidenceScores);
-        setAiToolIds(ids);
-        setIsAiSearching(false);
-
-        if (lastTrackedQuery.current !== debouncedSearchQuery) {
-          trackSearch(debouncedSearchQuery, "ai");
-          lastTrackedQuery.current = debouncedSearchQuery;
-        }
-      } catch (error) {
-        if (error instanceof Error && error.name === "AbortError") {
-          return;
-        }
-        if (controller.signal.aborted) return;
-        console.error("AI search error:", error);
-        setAiExplanations({});
-        setAiConfidenceScores({});
-        setAiToolIds(null);
-        setIsAiSearching(false);
-      }
-    }
-
-    void performAiSearch();
-
-    return () => controller.abort();
-  }, [debouncedSearchQuery, isAiMode, clearAiSearch]);
+  // AI search (single source of truth, keyed on the effective query)
+  const {
+    isAiMode: effectiveIsAiMode,
+    isAiSearching,
+    aiExplanations,
+    aiConfidenceScores,
+    aiToolIds,
+    clearAiSearch,
+  } = useAiSearch(effectiveSearchQuery);
 
   // Combined clear handler - immediately cancels AI search and clears all
   const handleClearAll = useCallback(() => {
@@ -243,10 +174,6 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
     setDisplayCount(INITIAL_LOAD);
   }, [selectedCategory, selectedType, sortBy, debouncedSearchQuery, aiToolIds]);
-
-  // Use empty string if localSearchQuery is cleared (bypass debounce delay)
-  const effectiveSearchQuery = localSearchQuery === "" ? "" : debouncedSearchQuery;
-  const effectiveIsAiMode = shouldUseAiSearch(effectiveSearchQuery);
 
   // Keyword-filtered list — always populated, never gated on AI
   const keywordTools = useMemo(() => {
@@ -388,42 +315,21 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
       {/* Page Header */}
       <div className="border-b" style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}>
         <div className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
-          {/* Breadcrumb */}
-          <nav className="mb-6 flex items-center gap-2 text-sm">
-            <Link
-              href="/"
-              className="transition-colors hover:text-[var(--accent-primary)]"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Home
-            </Link>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--text-tertiary)"
-              strokeWidth="2"
-            >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-            <span style={{ color: "var(--text-secondary)" }}>All Tools</span>
-          </nav>
-
           {/* Title and Stats */}
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1
+              <h2
                 className="font-display text-3xl font-bold tracking-tight sm:text-4xl"
                 style={{ color: "var(--text-primary)" }}
               >
-                Browse All Tools
-              </h1>
+                Browse all {tools.length} Intune tools
+              </h2>
               <p
                 className="mt-2 text-base sm:text-lg"
                 style={{ color: "var(--text-secondary)" }}
               >
-                Explore {tools.length} community tools for Microsoft Intune
+                Search by problem or keyword, or filter by category, type, and
+                platform.
               </p>
             </div>
 

@@ -235,7 +235,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
               </li>
               <li>/</li>
               <li>
-                <Link href="/tools" className="hover:text-[var(--text-secondary)]">
+                <Link href="/#tools" className="hover:text-[var(--text-secondary)]">
                   Tools
                 </Link>
               </li>

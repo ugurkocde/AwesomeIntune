@@ -104,10 +104,8 @@ export const ToolCard = memo(function ToolCard({
       }}
     >
       <article
-        className={`group relative transition-all duration-400 ease-out-expo will-change-[transform,opacity] ${
-          isVisible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-5 opacity-0"
+        className={`group relative opacity-100 transition-transform duration-400 ease-out-expo will-change-transform ${
+          isVisible ? "translate-y-0" : "translate-y-3"
         }`}
         style={{
           transitionDelay: isVisible ? `${staggerDelay}s` : "0s",

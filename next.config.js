@@ -20,6 +20,17 @@ const config = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // The directory now lives on the homepage. Exact match only, so tool
+      // detail (/tools/[id]) and category (/tools/category/[c]) pages are kept.
+      {
+        source: "/tools",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
