@@ -151,457 +151,9 @@ jobs:
               });
             }
 
-            // Security scanning functions
-            async function fetchRepoMetadata(repoUrl) {
-              const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-              if (!match) return null;
-
-              const owner = match[1];
-              const repo = match[2].replace(/\.git$/, '');
-
-              try {
-                const res = await fetch(
-                  'https://api.github.com/repos/' + owner + '/' + repo,
-                  {
-                    headers: {
-                      'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
-                      'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
-                    }
-                  }
-                );
-                if (res.ok) {
-                  const data = await res.json();
-                  return {
-                    stars: data.stargazers_count || 0,
-                    forks: data.forks_count || 0,
-                    openIssues: data.open_issues_count || 0,
-                    lastUpdated: data.pushed_at || null,
-                    license: data.license?.spdx_id || null,
-                    archived: data.archived || false,
-                    defaultBranch: data.default_branch || 'main'
-                  };
-                }
-              } catch (e) {
-                console.log('Error fetching repo metadata: ' + e.message);
-              }
-              return null;
-            }
-
-            async function fetchRepoFiles(repoUrl, maxFiles = 50) {
-              const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-              if (!match) return { files: [], branch: null };
-
-              const owner = match[1];
-              const repo = match[2].replace(/\.git$/, '');
-              const files = [];
-              let usedBranch = null;
-
-              // File extensions to scan - comprehensive list
-              const scanExtensions = [
-                '.ps1', '.psm1', '.psd1',           // PowerShell
-                '.py', '.pyw',                      // Python
-                '.js', '.mjs', '.cjs', '.jsx',     // JavaScript
-                '.ts', '.tsx',                      // TypeScript
-                '.cs',                              // C#
-                '.sh', '.bash',                     // Shell
-                '.bat', '.cmd', '.vbs',            // Windows scripts
-                '.rb', '.go', '.rs'                // Other languages
-              ];
-
-              // Directories to skip
-              const skipDirs = ['node_modules/', 'vendor/', '.git/', 'dist/', 'build/', '__pycache__/', 'bin/', 'obj/'];
-
-              try {
-                for (const branch of ['main', 'master', 'develop']) {
-                  try {
-                    const treeRes = await fetch(
-                      'https://api.github.com/repos/' + owner + '/' + repo + '/git/trees/' + branch + '?recursive=1',
-                      {
-                        headers: {
-                          'User-Agent': 'AwesomeIntune-SecurityScanner/1.0',
-                          'Authorization': 'token ' + (process.env.GITHUB_TOKEN || '')
-                        }
-                      }
-                    );
-
-                    if (!treeRes.ok) continue;
-                    const tree = await treeRes.json();
-                    usedBranch = branch;
-
-                    // Filter for scannable files
-                    const scannableFiles = (tree.tree || [])
-                      .filter(f => f.type === 'blob')
-                      .filter(f => scanExtensions.some(ext => f.path.toLowerCase().endsWith(ext)))
-                      .filter(f => !skipDirs.some(dir => f.path.includes(dir)))
-                      .filter(f => (f.size || 0) < 500000) // Skip files over 500KB
-                      .sort((a, b) => (a.size || 0) - (b.size || 0))
-                      .slice(0, maxFiles);
-
-                    // Fetch file contents with small delay to avoid rate limiting
-                    for (const file of scannableFiles) {
-                      try {
-                        const contentRes = await fetch(
-                          'https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + branch + '/' + file.path,
-                          { headers: { 'User-Agent': 'AwesomeIntune-SecurityScanner/1.0' } }
-                        );
-                        if (contentRes.ok) {
-                          const content = await contentRes.text();
-                          files.push({ path: file.path, content: content, size: content.length });
-                          console.log('  - ' + file.path + ' (' + Math.round(content.length / 1024 * 10) / 10 + ' KB)');
-                        }
-                        // Small delay to avoid rate limiting
-                        await new Promise(r => setTimeout(r, 50));
-                      } catch {}
-                    }
-
-                    if (files.length > 0) break;
-                  } catch {}
-                }
-              } catch (e) {
-                console.log('Error fetching repo files: ' + e.message);
-              }
-
-              return { files, branch: usedBranch };
-            }
-
-            function runPatternChecks(files, repoInfo = {}) {
-              const results = {
-                noObfuscatedCode: { passed: true, reason: '', details: [] },
-                noRemoteExecution: { passed: true, reason: '', details: [] },
-                noCredentialTheft: { passed: true, reason: '', details: [] },
-                noDataExfiltration: { passed: true, reason: '', details: [] },
-                noMaliciousPatterns: { passed: true, reason: '', details: [] },
-                noHardcodedSecrets: { passed: true, reason: '', details: [] }
-              };
-
-              // Helper to test pattern without state issues (creates new regex each time)
-              const testPattern = (content, patternStr, flags = 'gi') => {
-                return new RegExp(patternStr, flags).test(content);
-              };
-
-              // Helper to find line numbers for pattern matches
-              const findLineNumbers = (content, patternStr, flags = 'gi') => {
-                const lines = content.split('\n');
-                const lineNumbers = [];
-
-                lines.forEach((line, index) => {
-                  const regex = new RegExp(patternStr, flags);
-                  if (regex.test(line)) {
-                    lineNumbers.push(index + 1); // 1-based line numbers
-                  }
-                });
-
-                return lineNumbers;
-              };
-
-              // Helper to generate GitHub URL with line anchor
-              const generateGitHubLink = (filePath, lineNumbers) => {
-                if (!repoInfo.owner || !repoInfo.repo || !repoInfo.branch || lineNumbers.length === 0) {
-                  return null;
-                }
-                const firstLine = lineNumbers[0];
-                const lastLine = lineNumbers.length > 1 ? lineNumbers[Math.min(lineNumbers.length - 1, 4)] : firstLine;
-                const lineAnchor = firstLine === lastLine ? '#L' + firstLine : '#L' + firstLine + '-L' + lastLine;
-                return 'https://github.com/' + repoInfo.owner + '/' + repoInfo.repo + '/blob/' + repoInfo.branch + '/' + filePath + lineAnchor;
-              };
-
-              // Pattern definitions as strings to avoid regex state issues
-              const patterns = {
-                obfuscation: [
-                  { pattern: '\\[System\\.Convert\\]::FromBase64String\\s*\\([^)]*\\)\\s*\\)', desc: 'Base64 decode and execute' },
-                  { pattern: '-enc(odedcommand)?\\s+[A-Za-z0-9+\\/=]{50,}', desc: 'Encoded PowerShell command' },
-                  { pattern: '\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+', desc: 'Character code obfuscation' },
-                  { pattern: '-join\\s*\\(.*\\[char\\]', desc: 'String building obfuscation' },
-                  { pattern: '\\$[a-z]\\s*=\\s*["\'][^"\']{1,3}["\']\\s*;\\s*\\$[a-z]\\s*\\+', desc: 'Variable concatenation obfuscation' }
-                ],
-                remoteExecution: [
-                  { pattern: 'IEX\\s*\\(?\\s*\\(?\\s*New-Object', desc: 'IEX with WebClient download' },
-                  { pattern: 'Invoke-Expression\\s*\\(?\\s*\\(?\\s*New-Object', desc: 'Invoke-Expression with download' },
-                  { pattern: '\\.DownloadString\\s*\\([^)]+\\)\\s*\\)', desc: 'DownloadString execution' },
-                  { pattern: '\\.DownloadFile\\s*\\([^)]+\\)\\s*;?\\s*(Start-Process|&|\\.\\\\|Invoke)', desc: 'Download and execute file' },
-                  { pattern: 'Invoke-WebRequest[^\\n]*\\|\\s*Invoke-Expression', desc: 'IWR piped to IEX' },
-                  { pattern: '\\biwr\\b[^\\n]*\\|\\s*iex\\b', desc: 'iwr piped to iex' },
-                  { pattern: 'curl[^\\n]*\\|\\s*(bash|sh|powershell)', desc: 'Curl piped to shell' },
-                  { pattern: 'wget[^\\n]*\\|\\s*(bash|sh)', desc: 'Wget piped to shell' }
-                ],
-                credentialTheft: [
-                  { pattern: 'mimikatz', desc: 'Mimikatz reference' },
-                  { pattern: 'sekurlsa::', desc: 'Sekurlsa credential dump' },
-                  { pattern: 'lsadump::', desc: 'LSA dump' },
-                  { pattern: 'kerberos::golden', desc: 'Golden ticket attack' },
-                  { pattern: 'Invoke-Mimikatz', desc: 'Invoke-Mimikatz' },
-                  { pattern: 'Get-GPPPassword', desc: 'GPP password extraction' },
-                  { pattern: 'SecureString.*\\|.*ConvertFrom-SecureString.*-Key', desc: 'SecureString key extraction' },
-                  { pattern: '\\[Runtime\\.InteropServices\\.Marshal\\]::PtrToStringAuto\\s*\\(\\s*\\[Runtime', desc: 'Marshal credential extraction' }
-                ],
-                dataExfiltration: [
-                  { pattern: 'webhook\\.office\\.com[^\\n]*\\$env:', desc: 'Webhook with environment vars' },
-                  { pattern: 'discord(app)?\\.com\\/api\\/webhooks[^\\n]*\\$(env|pwd|home)', desc: 'Discord webhook with sensitive data' },
-                  { pattern: '\\.UploadString\\s*\\([^)]*\\$env:', desc: 'Upload environment data' },
-                  { pattern: 'Invoke-RestMethod[^\\n]*-Method\\s+Post[^\\n]*-Body[^\\n]*(\\$env:|Get-Content|Get-ChildItem)', desc: 'POST with sensitive data' },
-                  { pattern: 'telegram\\.org\\/bot[^\\n]*\\$env:', desc: 'Telegram bot with env vars' }
-                ],
-                maliciousPatterns: [
-                  { pattern: 'New-Object\\s+Net\\.Sockets\\.TCPClient\\s*\\([^)]+\\d+', desc: 'TCP reverse shell' },
-                  { pattern: '\\$client\\s*=\\s*New-Object\\s+System\\.Net\\.Sockets', desc: 'Socket-based backdoor' },
-                  { pattern: 'Set-MpPreference\\s+-DisableRealtimeMonitoring\\s+\\$true', desc: 'Disable Defender realtime' },
-                  { pattern: 'Set-MpPreference\\s+-DisableIOAVProtection\\s+\\$true', desc: 'Disable Defender IOAV' },
-                  { pattern: 'Stop-Service\\s+["\']?WinDefend', desc: 'Stop Windows Defender' },
-                  { pattern: 'sc\\s+(stop|delete)\\s+WinDefend', desc: 'SC stop Defender' },
-                  { pattern: 'New-ItemProperty[^\\n]*CurrentVersion\\\\Run[^\\n]*-Value', desc: 'Registry run key persistence' },
-                  { pattern: 'schtasks\\s+\\/create[^\\n]*\\/sc\\s+(onstart|onlogon|onidle)', desc: 'Scheduled task persistence' },
-                  { pattern: 'Register-ScheduledTask[^\\n]*-AtLogon', desc: 'Logon scheduled task' },
-                  { pattern: 'Start-Process\\s+powershell[^\\n]*-WindowStyle\\s+Hidden', desc: 'Hidden PowerShell process' }
-                ],
-                hardcodedSecrets: [
-                  { pattern: '["\'][A-Za-z0-9]{32,}["\']\\s*#?\\s*(api.?key|secret|token|password)', desc: 'Potential hardcoded API key' },
-                  // Exclude common placeholder patterns: <...>, ${...}, YOUR-, REPLACE-, INSERT-, PLACEHOLDER, EXAMPLE-
-                  { pattern: '(password|pwd|secret|api.?key|token)\\s*[=:]\\s*["\'](?!<|\\$\\{|YOUR[-_]|REPLACE[-_]|INSERT[-_]|PLACEHOLDER|EXAMPLE[-_])[^"\'\\s]{8,}["\']', desc: 'Hardcoded credential' },
-                  { pattern: 'AKIA[0-9A-Z]{16}', desc: 'AWS Access Key ID' },
-                  { pattern: 'ghp_[a-zA-Z0-9]{36}', desc: 'GitHub Personal Access Token' },
-                  { pattern: 'sk-[a-zA-Z0-9]{48}', desc: 'OpenAI API Key' },
-                  { pattern: 'xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}', desc: 'Slack Token' }
-                ]
-              };
-
-              for (const file of files) {
-                const content = file.content;
-
-                // Check each category
-                for (const p of patterns.obfuscation) {
-                  const lineNumbers = findLineNumbers(content, p.pattern);
-                  if (lineNumbers.length > 0) {
-                    results.noObfuscatedCode.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noObfuscatedCode.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noObfuscatedCode.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noObfuscatedCode.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noObfuscatedCode.githubLink = githubLink;
-                    }
-                  }
-                }
-
-                for (const p of patterns.remoteExecution) {
-                  const lineNumbers = findLineNumbers(content, p.pattern);
-                  if (lineNumbers.length > 0) {
-                    results.noRemoteExecution.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noRemoteExecution.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noRemoteExecution.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noRemoteExecution.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noRemoteExecution.githubLink = githubLink;
-                    }
-                  }
-                }
-
-                for (const p of patterns.credentialTheft) {
-                  const lineNumbers = findLineNumbers(content, p.pattern, 'i');
-                  if (lineNumbers.length > 0) {
-                    results.noCredentialTheft.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noCredentialTheft.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noCredentialTheft.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noCredentialTheft.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noCredentialTheft.githubLink = githubLink;
-                    }
-                  }
-                }
-
-                for (const p of patterns.dataExfiltration) {
-                  const lineNumbers = findLineNumbers(content, p.pattern);
-                  if (lineNumbers.length > 0) {
-                    results.noDataExfiltration.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noDataExfiltration.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noDataExfiltration.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noDataExfiltration.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noDataExfiltration.githubLink = githubLink;
-                    }
-                  }
-                }
-
-                for (const p of patterns.maliciousPatterns) {
-                  const lineNumbers = findLineNumbers(content, p.pattern);
-                  if (lineNumbers.length > 0) {
-                    results.noMaliciousPatterns.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noMaliciousPatterns.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noMaliciousPatterns.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noMaliciousPatterns.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noMaliciousPatterns.githubLink = githubLink;
-                    }
-                  }
-                }
-
-                for (const p of patterns.hardcodedSecrets) {
-                  const lineNumbers = findLineNumbers(content, p.pattern);
-                  if (lineNumbers.length > 0) {
-                    results.noHardcodedSecrets.passed = false;
-                    const githubLink = generateGitHubLink(file.path, lineNumbers);
-                    results.noHardcodedSecrets.details.push({ file: file.path, pattern: p.desc, lines: lineNumbers, githubLink });
-                    if (!results.noHardcodedSecrets.reason) {
-                      const lineInfo = lineNumbers.length <= 5
-                        ? lineNumbers.join(', ')
-                        : lineNumbers.slice(0, 5).join(', ') + '...';
-                      results.noHardcodedSecrets.reason = p.desc + ' in ' + file.path + ' ([lines: ' + lineInfo + '](' + (githubLink || '#') + '))';
-                      results.noHardcodedSecrets.githubLink = githubLink;
-                    }
-                  }
-                }
-              }
-
-              return results;
-            }
-
-            async function runAISecurityCheck(files, toolName) {
-              if (!process.env.OPENAI_API_KEY || files.length === 0) {
-                return null;
-              }
-
-              const OpenAI = require('openai');
-              const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-              // Prepare code samples (limit total size)
-              let codeContext = '';
-              let totalSize = 0;
-              const maxContextSize = 30000;
-
-              for (const file of files) {
-                if (totalSize + file.content.length > maxContextSize) break;
-                codeContext += '\n--- ' + file.path + ' ---\n' + file.content + '\n';
-                totalSize += file.content.length;
-              }
-
-              const prompt = 'You are a security analyst reviewing code for a Microsoft Intune tool called "' + toolName + '".\n\n' +
-                'Analyze the following code for security issues. Focus on:\n' +
-                '1. Obfuscated code (base64 encoded commands, character code obfuscation, string building to hide intent)\n' +
-                '2. Remote code execution (downloading and executing scripts from URLs)\n' +
-                '3. Credential theft (harvesting tokens, passwords, certificates, using mimikatz patterns)\n' +
-                '4. Data exfiltration (sending sensitive data like $env vars to external webhooks/servers)\n' +
-                '5. Malicious patterns (reverse shells, persistence mechanisms, disabling security software)\n' +
-                '6. Hardcoded secrets (API keys, tokens, passwords embedded in code)\n\n' +
-                'Be strict about malicious patterns but do not flag legitimate admin tools. Microsoft Graph API usage, Intune management, and proper authentication flows are expected.\n\n' +
-                'Code to analyze:\n' + codeContext + '\n\n' +
-                'Respond with JSON only:\n' +
-                '{"findings": [{"type": "obfuscation|remote_exec|cred_theft|exfiltration|malicious|secrets", "severity": "high|medium|low", "file": "filename", "description": "what was found"}], "summary": "brief overall assessment"}\n\n' +
-                'If no issues found, return: {"findings": [], "summary": "No security issues detected. Code appears safe for an Intune management tool."}';
-
-              try {
-                const response = await openai.chat.completions.create({
-                  model: 'gpt-5-nano',
-                  response_format: { type: 'json_object' },
-                  messages: [
-                    { role: 'system', content: 'You are a security code reviewer specializing in PowerShell and endpoint management tools. Respond only with valid JSON. Be thorough but avoid false positives on legitimate admin tools.' },
-                    { role: 'user', content: prompt }
-                  ]
-                });
-
-                console.log('AI security check completed');
-                return JSON.parse(response.choices[0]?.message?.content || '{}');
-              } catch (e) {
-                console.log('AI security check failed: ' + e.message);
-                return null;
-              }
-            }
-
-            async function performSecurityScan(repoUrl, toolNameForScan) {
-              console.log('Starting security scan for: ' + repoUrl);
-
-              // Extract owner and repo from URL for GitHub links
-              const repoMatch = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-              const repoInfo = repoMatch ? {
-                owner: repoMatch[1],
-                repo: repoMatch[2].replace(/\.git$/, ''),
-                branch: null // Will be set after fetching files
-              } : {};
-
-              // Fetch repository metadata
-              const repoMeta = await fetchRepoMetadata(repoUrl);
-              if (repoMeta) {
-                console.log('Repository: ' + repoMeta.stars + ' stars, license: ' + (repoMeta.license || 'none') + ', archived: ' + repoMeta.archived);
-              }
-
-              // Fetch files from repo
-              const { files, branch } = await fetchRepoFiles(repoUrl);
-              repoInfo.branch = branch; // Set the branch for GitHub links
-              console.log('Scanned ' + files.length + ' files from branch: ' + branch);
-
-              if (files.length === 0) {
-                // No scannable files found - pass by default but note it
-                return {
-                  checks: {
-                    noObfuscatedCode: { passed: true, reason: '', details: [] },
-                    noRemoteExecution: { passed: true, reason: '', details: [] },
-                    noCredentialTheft: { passed: true, reason: '', details: [] },
-                    noDataExfiltration: { passed: true, reason: '', details: [] },
-                    noMaliciousPatterns: { passed: true, reason: '', details: [] },
-                    noHardcodedSecrets: { passed: true, reason: '', details: [] }
-                  },
-                  passed: 6,
-                  total: 6,
-                  filesScanned: 0,
-                  repoMetadata: repoMeta,
-                  note: 'No scannable code files found in repository'
-                };
-              }
-
-              // Run pattern-based checks
-              const patternResults = runPatternChecks(files, repoInfo);
-
-              // Run AI analysis for additional context
-              const aiResults = await runAISecurityCheck(files, toolNameForScan);
-
-              // Merge AI findings into pattern results if high severity
-              if (aiResults?.findings?.length > 0) {
-                for (const finding of aiResults.findings) {
-                  if (finding.severity === 'high') {
-                    const typeMap = {
-                      'obfuscation': 'noObfuscatedCode',
-                      'remote_exec': 'noRemoteExecution',
-                      'cred_theft': 'noCredentialTheft',
-                      'exfiltration': 'noDataExfiltration',
-                      'malicious': 'noMaliciousPatterns',
-                      'secrets': 'noHardcodedSecrets'
-                    };
-                    const checkKey = typeMap[finding.type];
-                    if (checkKey && patternResults[checkKey].passed) {
-                      patternResults[checkKey].passed = false;
-                      patternResults[checkKey].reason = finding.description;
-                      patternResults[checkKey].details.push({ file: finding.file, pattern: finding.description, source: 'AI' });
-                    }
-                  }
-                }
-              }
-
-              // Calculate totals
-              const passed = Object.values(patternResults).filter(c => c.passed).length;
-              const total = Object.keys(patternResults).length;
-
-              return {
-                checks: patternResults,
-                passed: passed,
-                total: total,
-                filesScanned: files.length,
-                branch: branch,
-                repoMetadata: repoMeta,
-                aiSummary: aiResults?.summary || null
-              };
-            }
+            // Security scanning lives in scripts/security-scan.cjs (shared with the
+            // backfill workflow), required by absolute workspace path.
+            const { performSecurityScan } = require(path.join(process.env.GITHUB_WORKSPACE, 'scripts', 'security-scan.cjs'));
 
             function toKebabCase(name) {
               return name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
@@ -647,12 +199,13 @@ jobs:
 
             const MAX_TOOL_NAME_LENGTH = 50;
 
-            async function fetchReadme(repoUrl) {
+            async function fetchReadme(repoUrl, preferredBranch) {
               const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
               if (!match) return null;
               const owner = match[1];
               const repo = match[2].replace(/\.git$/, '');
-              for (const branch of ['main', 'master']) {
+              const branches = [...new Set([preferredBranch, 'main', 'master'].filter(Boolean))];
+              for (const branch of branches) {
                 for (const name of ['README.md', 'readme.md', 'Readme.md']) {
                   try {
                     const res = await fetch('https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + branch + '/' + name);
@@ -820,11 +373,16 @@ jobs:
             // STEP 2: Security scan
             await updateProgress('security', 'working');
 
-            securityResults = await performSecurityScan(fields.repoUrl, finalToolName);
-            console.log('Security scan complete: ' + securityResults.passed + '/' + securityResults.total + ' checks passed');
+            securityResults = await performSecurityScan(fields.repoUrl, finalToolName, {
+              githubToken: process.env.GITHUB_TOKEN,
+              openaiApiKey: process.env.OPENAI_API_KEY,
+            });
+            console.log('Security scan complete: status=' + securityResults.status + ' (' + securityResults.passed + '/' + securityResults.total + ')');
 
-            // Check if security scan failed and --force was not used
-            if (securityResults.passed < securityResults.total && !forceApprove) {
+            // Only a genuine check failure blocks approval. not_applicable (no
+            // scannable source -> Curated) and scan_error (transient, re-scanned
+            // later) proceed; they are never recorded as a pass.
+            if (securityResults.status === 'failed' && !forceApprove) {
               await updateProgress('security', 'error', null, securityResults);
               core.setOutput('success', 'false');
               core.setOutput('security_failed', 'true');
@@ -836,7 +394,7 @@ jobs:
 
             // STEP 3: Create catalog entry
 
-            const readmeContent = fields.repoUrl ? await fetchReadme(fields.repoUrl) : null;
+            const readmeContent = fields.repoUrl ? await fetchReadme(fields.repoUrl, securityResults.branch) : null;
             const websiteContent = fields.websiteUrl ? await fetchWebsite(fields.websiteUrl) : null;
 
             let enhancedDescription = fields.description;
@@ -869,7 +427,8 @@ jobs:
                 total: securityResults.total,
                 filesScanned: securityResults.filesScanned,
                 lastChecked: today,
-                forceApproved: forceApprove && securityResults.passed < securityResults.total,
+                forceApproved: forceApprove && securityResults.status === 'failed',
+                status: securityResults.status,
                 aiSummary: securityResults.aiSummary || null,
                 checks: {
                   noObfuscatedCode: { passed: securityResults.checks.noObfuscatedCode.passed, reason: securityResults.checks.noObfuscatedCode.reason || undefined },
@@ -878,7 +437,8 @@ jobs:
                   noDataExfiltration: { passed: securityResults.checks.noDataExfiltration.passed, reason: securityResults.checks.noDataExfiltration.reason || undefined },
                   noMaliciousPatterns: { passed: securityResults.checks.noMaliciousPatterns.passed, reason: securityResults.checks.noMaliciousPatterns.reason || undefined },
                   noHardcodedSecrets: { passed: securityResults.checks.noHardcodedSecrets.passed, reason: securityResults.checks.noHardcodedSecrets.reason || undefined }
-                }
+                },
+                notes: (securityResults.notes || []).map(n => ({ check: n.check, pattern: n.pattern, file: n.file, githubLink: n.githubLink || undefined }))
               },
               repoStats: securityResults.repoMetadata ? {
                 stars: securityResults.repoMetadata.stars,
@@ -956,13 +516,19 @@ jobs:
                 securityInfo += '| Check | Status |\n|:------|:------:|\n';
 
                 for (const [key, label] of Object.entries(checkLabels)) {
-                  const passed = sc.checks[key];
+                  const passed = sc.checks[key]?.passed;
                   securityInfo += '| ' + label + ' | ' + (passed ? ':white_check_mark:' : ':x:') + ' |\n';
                 }
 
-                securityInfo += '\n**Result: ' + sc.passed + '/' + sc.total + ' checks passed**';
-                if (sc.filesScanned > 0) {
-                  securityInfo += ' (' + sc.filesScanned + ' files scanned)';
+                if (sc.status === 'not_applicable') {
+                  securityInfo += '\n**Result: Curated** - no scannable source code in the repository';
+                } else if (sc.status === 'scan_error') {
+                  securityInfo += '\n**Result: Scan pending** - repository could not be read; it will be re-scanned automatically';
+                } else {
+                  securityInfo += '\n**Result: ' + sc.passed + '/' + sc.total + ' checks passed**';
+                  if (sc.filesScanned > 0) {
+                    securityInfo += ' (' + sc.filesScanned + ' files scanned)';
+                  }
                 }
 
                 if (sc.aiSummary) {

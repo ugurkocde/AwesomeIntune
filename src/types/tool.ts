@@ -73,6 +73,19 @@ export interface SecurityChecks {
   noHardcodedSecrets: SecurityCheckItem;
 }
 
+export type SecurityStatus =
+  | "passed"
+  | "failed"
+  | "not_applicable"
+  | "scan_error";
+
+export interface SecurityNote {
+  check: string;
+  pattern: string;
+  file?: string;
+  githubLink?: string | null;
+}
+
 export interface SecurityCheck {
   passed: number;
   total: number;
@@ -81,6 +94,13 @@ export interface SecurityCheck {
   forceApproved: boolean;
   aiSummary?: string | null;
   checks: SecurityChecks;
+  /**
+   * Honest scan outcome. Optional for backward compatibility with tools scanned
+   * before this field existed; derive from filesScanned/passed when absent.
+   */
+  status?: SecurityStatus;
+  /** Informational findings (e.g. common admin techniques) that do not fail a check. */
+  notes?: SecurityNote[];
 }
 
 export interface RepoStats {

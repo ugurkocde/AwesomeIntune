@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllTools, getAllCategories, getUniqueAuthorsCount } from "~/lib/tools.server";
+import { isVerified } from "~/lib/tools";
 import { CATEGORY_CONFIG, TYPE_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import { generateStatsPageStructuredData, generateDataCatalogStructuredData } from "~/lib/structured-data";
 import type { ToolCategory, ToolType } from "~/types/tool";
@@ -88,9 +89,7 @@ export default function StatsPage() {
     .slice(0, 8);
 
   // Security verified tools
-  const verifiedTools = tools.filter(
-    (t) => t.securityCheck && t.securityCheck.passed === t.securityCheck.total
-  ).length;
+  const verifiedTools = tools.filter(isVerified).length;
 
   const statsData = generateStatsPageStructuredData({
     totalTools: tools.length,

@@ -1,6 +1,21 @@
 import type { Author, Tool, ToolCategory, ToolType } from "~/types/tool";
 
 /**
+ * Whether a tool's source genuinely passed every automated security check.
+ *
+ * Single source of truth for the "verified" count (trust strip, stats). Honest
+ * and conservative: prefers the explicit `status` when present, otherwise derives
+ * from older records, and never counts a `filesScanned: 0` record (which the old
+ * pipeline could fail open into a fake 6/6) or a maintainer force-approval.
+ */
+export function isVerified(tool: Tool): boolean {
+  const s = tool.securityCheck;
+  if (!s) return false;
+  if (s.status) return s.status === "passed";
+  return s.filesScanned > 0 && !s.forceApproved && s.passed === s.total;
+}
+
+/**
  * Get normalized authors array from a tool.
  * Handles both legacy single-author fields and new authors array.
  */
