@@ -473,7 +473,20 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add data/tools/
           git commit -m "Add tool: ${{ steps.process.outputs.tool_name }}"
-          git push
+          # Rebase-and-retry so a concurrent push to main can't drop this commit.
+          pushed=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Pushed on attempt ${attempt}"
+              pushed=true
+              break
+            fi
+            echo "Push rejected (attempt ${attempt}); rebasing onto origin/${GITHUB_REF_NAME}"
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}" || { git rebase --abort; echo "rebase conflict"; exit 1; }
+            sleep 3
+          done
+          [ "$pushed" = true ] || { echo "Failed to push after 5 attempts"; exit 1; }
           echo "committed=true" >> $GITHUB_OUTPUT
 
       - name: Final success update
