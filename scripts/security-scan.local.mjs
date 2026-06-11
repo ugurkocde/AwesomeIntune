@@ -85,6 +85,40 @@ async function main() {
     "status=" + err.status
   );
 
+  // Non-GitHub URL (a product website used as the repo) -> not_applicable, not scan_error.
+  const site = await performSecurityScan(
+    "https://intuneguardian.com/",
+    "Intune Guardian",
+    { githubToken: token }
+  );
+  check(
+    "non-GitHub URL -> not_applicable (Curated)",
+    site.status === "not_applicable" && site.filesScanned === 0,
+    "status=" + site.status
+  );
+
+  // Admin-technique + legit base64 decode in a non-test path must not fail.
+  const legit = runPatternChecks(
+    [
+      {
+        path: "Public/Get-DeviceTrust.ps1",
+        content:
+          "$cert = [System.Convert]::FromBase64String($altSecId)\n" +
+          "New-ItemProperty -Path 'HKLM:\\...\\Run' -Name Sync -Value 'agent.exe'",
+      },
+    ],
+    { owner: "o", repo: "r", branch: "main" }
+  );
+  check(
+    "legit base64 decode + Run-key do not fail any check",
+    Object.values(legit.checks).every((c) => c.passed),
+    "failed=" +
+      Object.entries(legit.checks)
+        .filter(([, c]) => !c.passed)
+        .map(([k]) => k)
+        .join(",")
+  );
+
   const failed = results.filter((r) => !r.ok);
   console.log("\n" + (results.length - failed.length) + "/" + results.length + " assertions passed.");
   process.exit(failed.length === 0 ? 0 : 1);

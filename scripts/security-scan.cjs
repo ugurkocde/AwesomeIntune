@@ -31,10 +31,22 @@ const SCAN_EXTENSIONS = [
   ".rb", ".go", ".rs", // Other languages
 ];
 
-const SKIP_DIRS = [
-  "node_modules/", "vendor/", ".git/", "dist/", "build/",
-  "__pycache__/", "bin/", "obj/",
-];
+// Path segments that are not the tool's shipping code: dependencies, build
+// output, and - importantly - old/archived versions, tests, samples and
+// examples. Scanning those inflates false positives (e.g. a credential in an
+// "Old version/" file failing an otherwise-clean tool).
+const SKIP_SEGMENTS = new Set([
+  "node_modules", "vendor", ".git", "dist", "build", "__pycache__", "bin", "obj",
+  "test", "tests", "__tests__", "spec", "specs", "sample", "samples",
+  "example", "examples", "fixtures", "archive", "archived",
+]);
+
+function isSkippedPath(p) {
+  const segs = p.toLowerCase().split("/");
+  return segs.some(
+    (s) => SKIP_SEGMENTS.has(s) || /^old[ _-]?versions?$/.test(s)
+  );
+}
 
 const CHECK_KEYS = [
   "noObfuscatedCode",
@@ -124,7 +136,7 @@ async function fetchRepoFiles(repoUrl, { token, defaultBranch, maxFiles = 50 } =
       const scannableFiles = (tree.tree || [])
         .filter((f) => f.type === "blob")
         .filter((f) => SCAN_EXTENSIONS.some((ext) => f.path.toLowerCase().endsWith(ext)))
-        .filter((f) => !SKIP_DIRS.some((dir) => f.path.includes(dir)))
+        .filter((f) => !isSkippedPath(f.path))
         .filter((f) => (f.size || 0) < 500000)
         // Deterministic order by path (do NOT sort smallest-first; that skips
         // large entrypoints once the cap is hit).
@@ -196,7 +208,10 @@ function runPatternChecks(files, repoInfo = {}) {
 
   const patterns = {
     obfuscation: [
-      { pattern: "\\[System\\.Convert\\]::FromBase64String\\s*\\([^)]*\\)\\s*\\)", desc: "Base64 decode and execute" },
+      // Only flag base64 that is decoded AND executed. Plain FromBase64String is
+      // legitimate everywhere (certificates, tokens, alternative security IDs).
+      { pattern: "(IEX|Invoke-Expression)[^\\n]{0,60}FromBase64String", desc: "Base64 decoded and executed" },
+      { pattern: "FromBase64String[^\\n]{0,60}\\|\\s*(IEX|Invoke-Expression)", desc: "Base64 piped to execution" },
       { pattern: "-enc(odedcommand)?\\s+[A-Za-z0-9+\\/=]{50,}", desc: "Encoded PowerShell command" },
       { pattern: "\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+.*\\[char\\]\\s*\\d+", desc: "Character code obfuscation" },
       { pattern: "-join\\s*\\(.*\\[char\\]", desc: "String building obfuscation" },
@@ -247,8 +262,10 @@ function runPatternChecks(files, repoInfo = {}) {
       { pattern: "Start-Process\\s+powershell[^\\n]*-WindowStyle\\s+Hidden", desc: "Hidden PowerShell window" },
     ],
     hardcodedSecrets: [
-      { pattern: "[\"'][A-Za-z0-9]{32,}[\"']\\s*#?\\s*(api.?key|secret|token|password)", desc: "Potential hardcoded API key" },
-      { pattern: "(password|pwd|secret|api.?key|token)\\s*[=:]\\s*[\"'](?!<|\\$\\{|YOUR[-_]|REPLACE[-_]|INSERT[-_]|PLACEHOLDER|EXAMPLE[-_])[^\"'\\s]{8,}[\"']", desc: "Hardcoded credential" },
+      // Specific token shapes only. The generic `password = "value"` rule was
+      // removed: it flagged placeholders, parameter defaults and example configs
+      // far more than real secrets, which the shape-based rules below catch.
+      { pattern: "[\"'][A-Za-z0-9]{32,}[\"']\\s*#\\s*(api.?key|secret|token|password)", desc: "Hardcoded key with secret label" },
       { pattern: "AKIA[0-9A-Z]{16}", desc: "AWS Access Key ID" },
       { pattern: "ghp_[a-zA-Z0-9]{36}", desc: "GitHub Personal Access Token" },
       { pattern: "sk-[a-zA-Z0-9]{48}", desc: "OpenAI API Key" },
@@ -360,7 +377,24 @@ async function performSecurityScan(repoUrl, toolName, options = {}) {
   console.log("Starting security scan for: " + repoUrl);
 
   const parsed = parseRepo(repoUrl);
-  const repoInfo = parsed ? { owner: parsed.owner, repo: parsed.repo, branch: null } : {};
+  if (!parsed) {
+    // Not a GitHub repository (e.g. a product website used as the "repo" URL).
+    // There is no scannable source -> Curated, not a scan error.
+    console.log("  Not a GitHub repo URL; marking not_applicable");
+    return {
+      checks: emptyChecks(),
+      notes: [],
+      passed: 0,
+      total: 6,
+      filesScanned: 0,
+      status: "not_applicable",
+      branch: null,
+      repoMetadata: null,
+      aiSummary: null,
+      note: "Source is not a public GitHub repository",
+    };
+  }
+  const repoInfo = { owner: parsed.owner, repo: parsed.repo, branch: null };
 
   const repoMeta = await fetchRepoMetadata(repoUrl, githubToken);
   if (repoMeta) {
