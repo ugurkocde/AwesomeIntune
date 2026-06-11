@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Hero } from "~/components/Hero";
-import { SponsorStrip } from "~/components/SponsorStrip";
 import { BrowseToolsSection } from "~/components/tools/BrowseToolsSection";
 import { TrustStrip } from "~/components/TrustStrip";
 import { AuthorSpotlight } from "~/components/AuthorSpotlight";
@@ -64,7 +63,6 @@ export default function HomePage() {
       />
 
       <Hero toolCount={toolCount} authorCount={authorCount} />
-      <SponsorStrip />
 
       {/* The directory is the page. Suspense lets the URL-driven filters hydrate
           on top of a server-rendered grid of cards (crawlable, no blank shell). */}

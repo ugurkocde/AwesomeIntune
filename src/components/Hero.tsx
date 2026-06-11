@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { CharReveal } from "./TextReveal";
+import { SponsorStrip } from "./SponsorStrip";
 import { SearchBar } from "./tools/SearchBar";
 import { SearchExamples } from "./tools/SearchExamples";
 import { useIsMobile } from "~/hooks/useIsMobile";
@@ -75,7 +76,7 @@ export function Hero({ toolCount, authorCount }: HeroProps) {
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-[520px] items-center justify-center overflow-hidden pt-28 pb-10 md:min-h-[58vh] md:pt-32 md:pb-12"
+      className="relative flex min-h-screen flex-col overflow-hidden pt-24"
     >
       {/* Subtle Center Glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -88,14 +89,14 @@ export function Hero({ toolCount, authorCount }: HeroProps) {
         />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - fills the available height so the directory sits below the fold */}
       <motion.div
         style={shouldReduceMotion ? undefined : { y, opacity }}
-        className="container-main relative z-10 flex flex-col items-center justify-center"
+        className="container-main relative z-10 flex flex-1 flex-col items-center justify-center text-center"
       >
-        <div className="mx-auto w-full max-w-3xl text-center">
+        <div className="mx-auto w-full max-w-4xl">
           {/* Wordmark */}
-          <h1 className="font-display text-5xl font-black leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
+          <h1 className="font-display text-6xl font-black leading-[0.9] tracking-tight sm:text-7xl md:text-8xl lg:text-[9rem]">
             <span className="block">
               <CharReveal className="text-gradient" delay={0.1}>
                 AWESOME
@@ -151,6 +152,9 @@ export function Hero({ toolCount, authorCount }: HeroProps) {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Sponsors anchored at the bottom of the full-height hero */}
+      <SponsorStrip />
     </section>
   );
 }
