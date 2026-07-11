@@ -19,7 +19,7 @@
   "xUrl": "https://x.com/Sim0nEriksen",
   "repoUrl": "https://github.com/Simsen/PPPC-Builder",
   "downloadUrl": "",
-  "websiteUrl": "",
+  "websiteUrl": "https://macpppc.com/",
   "category": "configuration",
   "type": "web-app",
   "worksWith": [
@@ -69,6 +69,13 @@
       "name": "Simon Hartmann Eriksen",
       "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
       "xUrl": "https://x.com/Sim0nEriksen"
+      "picture": "https://avatars.githubusercontent.com/u/1880406"
+    },
+    {
+      "name": "Roy Klooster",
+      "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/",
+      "githubUrl": "https://github.com/royklo",
+      "picture": "https://avatars.githubusercontent.com/u/76492458"
     }
   ]
 }
