@@ -13,6 +13,7 @@ export const env = createEnv({
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
     GITHUB_TOKEN: z.string().min(1),
     TURNSTILE_SECRET_KEY: z.string().min(1),
+    VOTER_SECRET: z.string().min(1).optional(),
   },
 
   /**
@@ -37,6 +38,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
+    VOTER_SECRET: process.env.VOTER_SECRET,
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
   },
   /**

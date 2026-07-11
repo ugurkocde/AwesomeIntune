@@ -74,6 +74,15 @@ async function recordSentNotification(toolId, recipientCount) {
   }
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function formatCategory(category) {
   return category
     .split("-")
@@ -104,20 +113,20 @@ function generateEmailHtml(tools, unsubscribeUrl) {
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
           <td>
-            <h2 style="color: #ffffff; font-size: 20px; font-weight: 600; margin: 0 0 12px; line-height: 1.3;">${tool.name}</h2>
+            <h2 style="color: #ffffff; font-size: 20px; font-weight: 600; margin: 0 0 12px; line-height: 1.3;">${escapeHtml(tool.name)}</h2>
             <div style="margin-bottom: 16px;">
-              <span style="display: inline-block; background-color: #00d4ff20; color: #00d4ff; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">${formatCategory(tool.category)}</span>
-              <span style="display: inline-block; background-color: #262626; color: #a3a3a3; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px; margin-left: 6px;">${formatType(tool.type)}</span>
+              <span style="display: inline-block; background-color: #00d4ff20; color: #00d4ff; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">${escapeHtml(formatCategory(tool.category))}</span>
+              <span style="display: inline-block; background-color: #262626; color: #a3a3a3; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px; margin-left: 6px;">${escapeHtml(formatType(tool.type))}</span>
             </div>
-            <p style="color: #d4d4d4; font-size: 14px; line-height: 24px; margin: 0 0 16px;">${tool.description}</p>
+            <p style="color: #d4d4d4; font-size: 14px; line-height: 24px; margin: 0 0 16px;">${escapeHtml(tool.description)}</p>
             <p style="color: #737373; font-size: 13px; margin: 0;">
-              <span style="color: #a3a3a3;">By</span> <span style="color: #ffffff; font-weight: 500;">${tool.author}</span>
+              <span style="color: #a3a3a3;">By</span> <span style="color: #ffffff; font-weight: 500;">${escapeHtml(tool.author)}</span>
             </p>
           </td>
         </tr>
       </table>
       <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #2a2a2a;">
-        <a href="${SITE_URL}/tools/${tool.id}" style="color: #00d4ff; font-size: 14px; font-weight: 500; text-decoration: none;">View Details &rarr;</a>
+        <a href="${SITE_URL}/tools/${encodeURIComponent(tool.id)}" style="color: #00d4ff; font-size: 14px; font-weight: 500; text-decoration: none;">View Details &rarr;</a>
       </div>
     </div>
   `
@@ -190,7 +199,9 @@ async function sendNotifications(newTools, subscribers) {
   let errorCount = 0;
 
   for (const subscriber of subscribers) {
-    const unsubscribeUrl = `${SITE_URL}/api/unsubscribe?token=${subscriber.unsubscribe_token}`;
+    const token = encodeURIComponent(subscriber.unsubscribe_token);
+    const unsubscribeUrl = `${SITE_URL}/unsubscribe?token=${token}`;
+    const oneClickUnsubscribeUrl = `${SITE_URL}/api/unsubscribe?token=${token}`;
     const html = generateEmailHtml(newTools, unsubscribeUrl);
 
     const subject =
@@ -204,6 +215,10 @@ async function sendNotifications(newTools, subscribers) {
         to: subscriber.email,
         subject,
         html,
+        headers: {
+          "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       });
       successCount++;
     } catch (error) {

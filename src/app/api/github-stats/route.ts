@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { env } from "~/env";
+import { getAllTools } from "~/lib/tools.server";
+import { enforceRateLimit } from "~/lib/rate-limit";
 
 export interface GitHubStats {
   stars: number;
@@ -9,6 +11,7 @@ export interface GitHubStats {
   language: string | null;
   license: string | null;
   updatedAt: string;
+  archived: boolean;
 }
 
 interface GitHubRepoResponse {
@@ -18,6 +21,7 @@ interface GitHubRepoResponse {
   language: string | null;
   license: { spdx_id: string } | null;
   updated_at: string;
+  archived: boolean;
 }
 
 // Cache stats for 5 minutes to reduce API calls
@@ -55,8 +59,33 @@ function extractRepoInfo(url: string): { owner: string; repo: string } | null {
   }
 }
 
+// Only repos that appear in the local tool data may be queried
+let allowedRepos: Set<string> | null = null;
+let allowedReposTimestamp = 0;
+const ALLOWED_REPOS_TTL = 5 * 60 * 1000; // 5 minutes
+
+function getAllowedRepos(): Set<string> {
+  const now = Date.now();
+  if (!allowedRepos || now - allowedReposTimestamp > ALLOWED_REPOS_TTL) {
+    const repos = new Set<string>();
+    for (const tool of getAllTools()) {
+      if (!tool.repoUrl) continue;
+      const info = extractRepoInfo(tool.repoUrl);
+      if (info) {
+        repos.add(`${info.owner}/${info.repo}`.toLowerCase());
+      }
+    }
+    allowedRepos = repos;
+    allowedReposTimestamp = now;
+  }
+  return allowedRepos;
+}
+
 export async function GET(request: NextRequest) {
   try {
+    const limited = enforceRateLimit(request, "github-stats", 30, 60 * 1000);
+    if (limited) return limited;
+
     const { searchParams } = new URL(request.url);
     const repoUrl = searchParams.get("repoUrl");
 
@@ -76,6 +105,13 @@ export async function GET(request: NextRequest) {
     }
 
     const cacheKey = `${repoInfo.owner}/${repoInfo.repo}`;
+
+    if (!getAllowedRepos().has(cacheKey.toLowerCase())) {
+      return NextResponse.json(
+        { error: "Repository is not part of the tool catalog" },
+        { status: 400 }
+      );
+    }
 
     // Check cache
     const cached = cache.get(cacheKey);
@@ -118,6 +154,7 @@ export async function GET(request: NextRequest) {
       language: data.language,
       license: data.license?.spdx_id ?? null,
       updatedAt: data.updated_at,
+      archived: data.archived,
     };
 
     // Update cache
