@@ -55,11 +55,11 @@
   ],
   "dateAdded": "2026-01-06",
   "screenshots": [
-    "screenshots/device-offboarding-manager/screenshot-1.png",
-    "screenshots/device-offboarding-manager/screenshot-2.png",
-    "screenshots/device-offboarding-manager/screenshot-3.png",
-    "screenshots/device-offboarding-manager/screenshot-4.png",
-    "screenshots/device-offboarding-manager/screenshot-5.jpg"
+    "screenshots/device-offboarding-manager/screenshot-1.webp",
+    "screenshots/device-offboarding-manager/screenshot-2.webp",
+    "screenshots/device-offboarding-manager/screenshot-3.webp",
+    "screenshots/device-offboarding-manager/screenshot-4.webp",
+    "screenshots/device-offboarding-manager/screenshot-5.webp"
   ],
   "securityCheck": {
     "passed": 6,

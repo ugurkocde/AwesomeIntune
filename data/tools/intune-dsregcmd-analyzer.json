@@ -43,9 +43,12 @@
   "websiteUrl": "https://www.intunediag.com/",
   "category": "troubleshooting",
   "type": "web-app",
-  "worksWith": ["windows", "entra-id"],
+  "worksWith": [
+    "windows",
+    "entra-id"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/intune-dsregcmd-analyzer/screenshot-1.png"
+    "screenshots/intune-dsregcmd-analyzer/screenshot-1.webp"
   ]
 }

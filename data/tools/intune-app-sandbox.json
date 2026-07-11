@@ -50,8 +50,8 @@
   ],
   "dateAdded": "2026-01-05",
   "screenshots": [
-    "screenshots/intune-app-sandbox/screenshot-1.gif",
-    "screenshots/intune-app-sandbox/screenshot-2.gif"
+    "screenshots/intune-app-sandbox/screenshot-1.webp",
+    "screenshots/intune-app-sandbox/screenshot-2.webp"
   ],
   "securityCheck": {
     "passed": 6,

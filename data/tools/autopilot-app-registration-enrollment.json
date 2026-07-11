@@ -32,9 +32,14 @@
   "websiteUrl": "https://johannesblog.com/2024/09/04/enrolling-devices-to-autopilot-using-a-app-registration/",
   "category": "automation",
   "type": "powershell-script",
-  "worksWith": ["windows", "autopilot", "entra-id", "graph-api"],
+  "worksWith": [
+    "windows",
+    "autopilot",
+    "entra-id",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/autopilot-app-registration-enrollment/screenshot-1.png"
+    "screenshots/autopilot-app-registration-enrollment/screenshot-1.webp"
   ]
 }

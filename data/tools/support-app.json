@@ -49,9 +49,9 @@
     }
   ],
   "screenshots": [
-    "screenshots/support-app/screenshot-1.png",
-    "screenshots/support-app/screenshot-2.png",
-    "screenshots/support-app/screenshot-3.png"
+    "screenshots/support-app/screenshot-1.webp",
+    "screenshots/support-app/screenshot-2.webp",
+    "screenshots/support-app/screenshot-3.webp"
   ],
   "securityCheck": {
     "passed": 6,

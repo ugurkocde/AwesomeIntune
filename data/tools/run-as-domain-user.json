@@ -49,8 +49,8 @@
     }
   ],
   "screenshots": [
-    "screenshots/run-as-domain-user/screenshot-1.png",
-    "screenshots/run-as-domain-user/screenshot-2.png"
+    "screenshots/run-as-domain-user/screenshot-1.webp",
+    "screenshots/run-as-domain-user/screenshot-2.webp"
   ],
   "securityCheck": {
     "passed": 6,

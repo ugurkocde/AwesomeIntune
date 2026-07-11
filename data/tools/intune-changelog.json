@@ -34,9 +34,12 @@
   "websiteUrl": "https://www.intunechangelog.com/",
   "category": "monitoring",
   "type": "web-app",
-  "worksWith": ["windows", "graph-api"],
+  "worksWith": [
+    "windows",
+    "graph-api"
+  ],
   "dateAdded": "2026-01-06",
   "screenshots": [
-    "screenshots/intune-changelog/screenshot-1.png"
+    "screenshots/intune-changelog/screenshot-1.webp"
   ]
 }

@@ -48,9 +48,9 @@
     }
   ],
   "screenshots": [
-    "screenshots/intune-make-enrollment-user-admin/screenshot-1.png",
-    "screenshots/intune-make-enrollment-user-admin/screenshot-2.png",
-    "screenshots/intune-make-enrollment-user-admin/screenshot-3.png"
+    "screenshots/intune-make-enrollment-user-admin/screenshot-1.webp",
+    "screenshots/intune-make-enrollment-user-admin/screenshot-2.webp",
+    "screenshots/intune-make-enrollment-user-admin/screenshot-3.webp"
   ],
   "securityCheck": {
     "passed": 6,
