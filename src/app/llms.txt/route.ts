@@ -171,6 +171,7 @@ GET ${SITE_CONFIG.url}/api/v1/categories
 Returns: List of all categories
 
 Documentation: ${SITE_CONFIG.url}/developers
+OpenAPI Specification: ${SITE_CONFIG.url}/openapi.json
 
 ## FAQ
 
@@ -192,10 +193,11 @@ Awesome Intune is maintained by Ugur Koc and the Intune community, including Mic
 ## Links
 
 - Homepage: ${SITE_CONFIG.url}
-- Browse All Tools: ${SITE_CONFIG.url}/tools
+- Browse All Tools: ${SITE_CONFIG.url}/
 - Statistics: ${SITE_CONFIG.url}/stats
 - Collections: ${SITE_CONFIG.url}/collections
 - API Documentation: ${SITE_CONFIG.url}/developers
+- OpenAPI Specification: ${SITE_CONFIG.url}/openapi.json
 - GitHub Repository: https://github.com/ugurkocde/awesomeintune
 - Submit a Tool: ${SITE_CONFIG.url}/submit
 `;

@@ -14,6 +14,8 @@ import {
   generateOrganizationStructuredData,
   generateWebsiteWithSearchActionStructuredData,
 } from "~/lib/structured-data";
+import { STATIC_PAGES_LAST_MODIFIED } from "~/lib/constants";
+import { getAllTools } from "~/lib/tools.server";
 
 // Outfit - Display font (similar to Cabinet Grotesk)
 const outfit = Outfit({
@@ -37,7 +39,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://awesomeintune.com"),
+  metadataBase: new URL("https://www.awesomeintune.com"),
   title: "Microsoft Intune Tools & PowerShell Scripts Directory",
   description:
     "Discover free Microsoft Intune tools, PowerShell scripts, and automation resources. The largest community-curated directory for IT professionals - featuring troubleshooting, reporting, packaging, and endpoint management tools.",
@@ -62,13 +64,10 @@ export const metadata: Metadata = {
     "best Intune tools",
   ],
   authors: [{ name: "Intune Community" }],
-  alternates: {
-    canonical: "https://awesomeintune.com",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://awesomeintune.com",
+    url: "https://www.awesomeintune.com",
     siteName: "Awesome Intune",
     title: "Microsoft Intune Tools & PowerShell Scripts Directory",
     description:
@@ -112,6 +111,11 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@graph": [organizationSchema, websiteSchema],
   };
+  const latestToolDate =
+    getAllTools()
+      .map((tool) => tool.dateAdded)
+      .sort()
+      .at(-1) ?? STATIC_PAGES_LAST_MODIFIED;
 
   return (
     <html
@@ -124,7 +128,7 @@ export default function RootLayout({
         <meta name="citation_title" content="Awesome Intune - Microsoft Intune Tools Directory" />
         <meta name="citation_author" content="Ugur Koc" />
         <meta name="citation_publication_date" content="2024" />
-        <meta name="citation_online_date" content={new Date().toISOString().split("T")[0]} />
+        <meta name="citation_online_date" content={latestToolDate} />
         <meta name="citation_publisher" content="Awesome Intune" />
         <meta name="citation_abstract" content="The largest curated directory of free Microsoft Intune tools, PowerShell scripts, and automation resources for IT professionals managing endpoint devices." />
         {/* AI crawler hints */}

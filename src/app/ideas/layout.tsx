@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: `Tool Ideas - ${SITE_CONFIG.name}`,
   description:
     "Submit ideas for tools that don't exist yet for Microsoft Intune. Vote for the features you need most and help shape the future of the Intune community tooling.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/ideas`,
+  },
   openGraph: {
     title: `Tool Ideas - ${SITE_CONFIG.name}`,
     description:

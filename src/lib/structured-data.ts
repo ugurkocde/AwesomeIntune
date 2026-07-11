@@ -1,5 +1,9 @@
 import type { Tool, ToolCategory } from "~/types/tool";
-import { SITE_CONFIG, CATEGORY_CONFIG } from "./constants";
+import {
+  SITE_CONFIG,
+  CATEGORY_CONFIG,
+  STATIC_PAGES_LAST_MODIFIED,
+} from "./constants";
 import { getToolAuthors } from "./tools";
 
 /**
@@ -60,19 +64,6 @@ export function generateToolStructuredData(tool: Tool) {
     },
     // Add isAccessibleForFree for all tools
     isAccessibleForFree: true,
-  };
-}
-
-/**
- * Generate JSON-LD for the website (WebSite schema)
- */
-export function generateWebsiteStructuredData() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
-    url: SITE_CONFIG.url,
   };
 }
 
@@ -216,6 +207,69 @@ export function generateItemListStructuredData(tools: Tool[]) {
 }
 
 /**
+ * Homepage FAQ content shared by the FAQPage schema and the visible FAQ
+ * component, so the two can never drift apart.
+ */
+export interface HomepageFAQItem {
+  question: string;
+  answer: string;
+}
+
+export function getHomepageFAQItems(toolCount: number): HomepageFAQItem[] {
+  return [
+    {
+      question: "What is Awesome Intune?",
+      answer: `Awesome Intune is the largest curated directory of ${toolCount}+ free, community-built tools for Microsoft Intune and endpoint management. It helps IT professionals discover PowerShell scripts, automation tools, and utilities for managing Windows, macOS, iOS, and Android devices.`,
+    },
+    {
+      question: "What does the Verified badge mean on Awesome Intune?",
+      answer:
+        "The Verified badge indicates that a tool's source code has been automatically scanned by our AI-powered security system and passed all 6 security checks. These checks look for obfuscated code, remote execution risks, credential theft patterns, data exfiltration, malicious patterns, and hardcoded secrets. A Verified badge gives you confidence that the code follows security best practices.",
+    },
+    {
+      question: "What does the Curated badge mean on Awesome Intune?",
+      answer:
+        "The Curated badge is shown for tools that don't have publicly available source code (such as web applications or commercial tools with free tiers). While we cannot perform automated security scans on these tools, they have been manually reviewed and selected by our team for their usefulness to the Intune community.",
+    },
+    {
+      question: "Are all tools on Awesome Intune free?",
+      answer:
+        "Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub, while some web applications offer free tiers with optional premium features.",
+    },
+    {
+      question: "How do I submit a tool to Awesome Intune?",
+      answer:
+        "You can submit a tool by visiting awesomeintune.com/submit or opening a pull request on our GitHub repository. All submissions are reviewed before being added, including automated security scanning for open-source tools.",
+    },
+    {
+      question: "What security checks are performed on Intune tools?",
+      answer:
+        "Our automated security scanner checks for 6 potential issues: obfuscated or encoded code, remote code execution patterns, credential harvesting attempts, data exfiltration risks, known malicious patterns, and hardcoded secrets or API keys. Tools that pass all checks receive the Verified badge.",
+    },
+    {
+      question: "What are the best tools for backing up Intune configurations?",
+      answer:
+        "The top tools for backing up Intune configurations include IntuneManagement (PowerShell GUI for backup/restore), IntuneCD (GitOps/Infrastructure as Code), and TenuVault (safe backup solution). These tools help you export, version control, and restore your Intune policies and settings.",
+    },
+    {
+      question: "How do I troubleshoot Intune app deployment issues?",
+      answer:
+        "Use Get-IntuneManagementExtensionDiagnostics to analyze IME logs and create timeline reports, or Intune Debug Toolkit for comprehensive device-side troubleshooting. These tools help identify why Win32 apps fail to install and provide detailed error analysis.",
+    },
+    {
+      question: "What tools help with Win32 app packaging for Intune?",
+      answer:
+        "WinTuner lets you upload WinGet apps to Intune in minutes, IntuneWin32App is a PowerShell module for the complete Win32 app lifecycle, and Intune App Factory provides automated packaging pipelines with Azure DevOps integration.",
+    },
+    {
+      question: "Are there tools for managing macOS devices with Intune?",
+      answer:
+        "Yes, Awesome Intune includes several macOS tools: IntuneBrew for app deployment and patch management, IntuneLogWatch for log analysis, MISA for device administration, SupportCompanion for end-user support, and Mace for building compliance baselines.",
+    },
+  ];
+}
+
+/**
  * Generate FAQ schema for the homepage
  * Enhanced with more questions for better rich snippet coverage
  */
@@ -223,88 +277,14 @@ export function generateHomepageFAQStructuredData(toolCount: number) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What is Awesome Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Awesome Intune is the largest curated directory of ${toolCount}+ free, community-built tools for Microsoft Intune and endpoint management. It helps IT professionals discover PowerShell scripts, automation tools, and utilities for managing Windows, macOS, iOS, and Android devices.`,
-        },
+    mainEntity: getHomepageFAQItems(toolCount).map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "What does the Verified badge mean on Awesome Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The Verified badge indicates that a tool's source code has been automatically scanned by our AI-powered security system and passed all 6 security checks. These checks look for obfuscated code, remote execution risks, credential theft patterns, data exfiltration, malicious patterns, and hardcoded secrets.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What does the Curated badge mean on Awesome Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The Curated badge is shown for tools that don't have publicly available source code (such as web applications). While we cannot perform automated security scans on these tools, they have been manually reviewed and selected by our team for their usefulness to the Intune community.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Are all tools on Awesome Intune free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub, while some web applications offer free tiers with optional premium features.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I submit a tool to Awesome Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "You can submit a tool by visiting awesomeintune.com/submit or opening a pull request on our GitHub repository. All submissions are reviewed before being added, including automated security scanning for open-source tools.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What security checks are performed on Intune tools?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Our automated security scanner checks for 6 potential issues: obfuscated or encoded code, remote code execution patterns, credential harvesting attempts, data exfiltration risks, known malicious patterns, and hardcoded secrets or API keys. Tools that pass all checks receive the Verified badge.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What are the best tools for backing up Intune configurations?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The top tools for backing up Intune configurations include IntuneManagement (PowerShell GUI for backup/restore), IntuneCD (GitOps/Infrastructure as Code), and TenuVault (safe backup solution). These tools help you export, version control, and restore your Intune policies and settings.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I troubleshoot Intune app deployment issues?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Use Get-IntuneManagementExtensionDiagnostics to analyze IME logs and create timeline reports, or Intune Debug Toolkit for comprehensive device-side troubleshooting. These tools help identify why Win32 apps fail to install and provide detailed error analysis.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What tools help with Win32 app packaging for Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "WinTuner lets you upload WinGet apps to Intune in minutes, IntuneWin32App is a PowerShell module for the complete Win32 app lifecycle, and Intune App Factory provides automated packaging pipelines with Azure DevOps integration.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Are there tools for managing macOS devices with Intune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, Awesome Intune includes several macOS tools: IntuneBrew for app deployment and patch management, IntuneLogWatch for log analysis, MISA for device administration, SupportCompanion for end-user support, and Mace for building compliance baselines.",
-        },
-      },
-    ],
+    })),
   };
 }
 
@@ -517,7 +497,7 @@ export function generateDataCatalogStructuredData(toolCount: number, _categoryCo
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
     },
-    dateModified: new Date().toISOString(),
+    dateModified: STATIC_PAGES_LAST_MODIFIED,
     inLanguage: "en",
     isAccessibleForFree: true,
     license: "https://opensource.org/licenses/MIT",
