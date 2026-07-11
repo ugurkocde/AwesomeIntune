@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllCollections, getCollectionTools } from "~/lib/tools.server";
 import { SITE_CONFIG } from "~/lib/constants";
+import { generateBreadcrumbStructuredData } from "~/lib/structured-data";
 import { CollectionCard } from "~/components/collections/CollectionCard";
 
 export const metadata: Metadata = {
   title: `Collections - ${SITE_CONFIG.name}`,
   description:
     "Curated collections of Microsoft Intune tools organized by use case. Find the right tools for Autopilot, device management, and more.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/collections`,
+  },
   openGraph: {
     title: `Collections - ${SITE_CONFIG.name}`,
     description:
@@ -20,8 +24,35 @@ export const metadata: Metadata = {
 export default function CollectionsPage() {
   const collections = getAllCollections();
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Microsoft Intune Tool Collections",
+    description:
+      "Curated collections of Microsoft Intune tools organized by use case.",
+    numberOfItems: collections.length,
+    itemListElement: collections.map((collection, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: collection.title,
+      url: `${SITE_CONFIG.url}/collections/${collection.slug}`,
+    })),
+  };
+  const breadcrumbSchema = generateBreadcrumbStructuredData([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Collections", url: `${SITE_CONFIG.url}/collections` },
+  ]);
+
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Atmospheric Background Glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -32,10 +63,10 @@ export default function CollectionsPage() {
       />
 
       {/* Content Container */}
-      <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
+      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
         {/* Back Navigation */}
         <Link
-          href="/"
+          href="/#tools"
           className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
           style={{
             color: "var(--text-secondary)",
@@ -65,7 +96,7 @@ export default function CollectionsPage() {
         <div className="mb-12">
           <div className="flex flex-wrap items-center gap-4">
             <h1
-              className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
               style={{
                 background:
                   "linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 50%, var(--text-primary) 100%)",
@@ -117,8 +148,8 @@ export default function CollectionsPage() {
           <div
             className="rounded-2xl p-12 text-center"
             style={{
-              background: "rgba(17, 25, 34, 0.95)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-subtle)",
             }}
           >
             <svg

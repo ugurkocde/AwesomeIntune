@@ -1,7 +1,6 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Tool } from "~/types/tool";
@@ -38,7 +37,6 @@ export const ToolListItem = memo(function ToolListItem({
   onVote,
   onBeforeNavigate,
 }: ToolListItemProps) {
-  const router = useRouter();
   const itemRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const typeConfig = TYPE_CONFIG[tool.type];
@@ -69,33 +67,19 @@ export const ToolListItem = memo(function ToolListItem({
     return () => observer.disconnect();
   }, [tool.id, onVisible]);
 
-  const handleClick = () => {
+  const handleViewClick = () => {
     onBeforeNavigate?.();
     trackToolClick(tool.name, tool.category);
-    router.push(`/tools/${tool.id}`);
   };
 
-  const handleOutboundClick = (e: React.MouseEvent, url: string) => {
-    e.stopPropagation();
+  const handleOutboundClick = (url: string) => {
     trackOutboundLink(url);
   };
 
   const staggerDelay = Math.min(index * 0.03, 0.2);
 
   return (
-    <div
-      ref={itemRef}
-      onClick={handleClick}
-      className="block cursor-pointer"
-      role="link"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handleClick();
-        }
-      }}
-    >
+    <div ref={itemRef} className="block">
       <article
         className={`group relative transition-all duration-300 ease-out-expo ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
@@ -103,10 +87,9 @@ export const ToolListItem = memo(function ToolListItem({
         style={{ transitionDelay: isVisible ? `${staggerDelay}s` : "0s" }}
       >
         <div
-          className="relative grid items-center gap-4 rounded-xl p-4 transition-all duration-200 hover:scale-[1.005]"
+          className="relative grid items-center gap-4 rounded-2xl border border-[color:var(--border-subtle)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-accent)]"
           style={{
-            background: "rgba(17, 25, 34, 0.95)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: "var(--bg-secondary)",
             gridTemplateColumns: "48px minmax(200px, 1fr) auto auto auto",
           }}
         >
@@ -184,7 +167,9 @@ export const ToolListItem = memo(function ToolListItem({
                         ? "rgba(16, 185, 129, 0.15)"
                         : "rgba(0, 212, 255, 0.12)",
                     color:
-                      confidenceScore >= 90 ? "#10b981" : "var(--accent-primary)",
+                      confidenceScore >= 90
+                        ? "var(--signal-success)"
+                        : "var(--accent-primary)",
                   }}
                 >
                   {confidenceScore}% match
@@ -233,7 +218,7 @@ export const ToolListItem = memo(function ToolListItem({
           </div>
 
           {/* Stats - Fixed width column */}
-          <div className="hidden w-[100px] items-center justify-end gap-3 md:flex">
+          <div className="relative z-10 hidden w-[100px] items-center justify-end gap-3 md:flex">
             {viewCount !== undefined && viewCount > 0 && (
               <span
                 className="flex items-center gap-1 text-xs"
@@ -267,16 +252,18 @@ export const ToolListItem = memo(function ToolListItem({
 
           {/* Actions - Fixed width column */}
           <div className="flex w-[88px] items-center justify-end gap-2">
+            {/* Stretched primary link makes the whole row navigable */}
             <Link
               href={`/tools/${tool.id}`}
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleViewClick}
               className="flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium transition-colors hover:bg-white/10"
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
+                background: "var(--bg-tertiary)",
                 color: "var(--text-secondary)",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
+              <span className="absolute inset-0" aria-hidden="true" />
               <svg
                 width="14"
                 height="14"
@@ -295,12 +282,12 @@ export const ToolListItem = memo(function ToolListItem({
                 href={tool.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => handleOutboundClick(e, tool.repoUrl!)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+                onClick={() => handleOutboundClick(tool.repoUrl!)}
+                className="relative z-10 flex h-8 w-8 items-center justify-center rounded-lg transition-colors before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:bg-white/10"
                 style={{
-                  background: "rgba(255, 255, 255, 0.03)",
+                  background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  border: "1px solid var(--border-subtle)",
                 }}
                 aria-label="View on GitHub"
               >

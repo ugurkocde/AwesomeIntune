@@ -14,7 +14,7 @@ export function SponsorStrip() {
       <div className="container-main flex flex-col items-center gap-4">
         <span
           className="text-[11px] font-medium uppercase tracking-[0.2em]"
-          style={{ color: "var(--text-tertiary)", opacity: 0.7 }}
+          style={{ color: "var(--text-tertiary)" }}
         >
           Sponsored by
         </span>

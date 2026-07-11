@@ -3,7 +3,6 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import type { AuthorForSpotlight } from "~/lib/tools.server";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import { formatViewCount } from "~/hooks/useViewTracking";
@@ -16,6 +15,8 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
   const [viewCounts, setViewCounts] = useState<ViewCounts>({});
   const [isLoading, setIsLoading] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   // Fetch view counts
   useEffect(() => {
@@ -76,10 +77,27 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
     });
   };
 
+  const updateScrollState = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 1);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    window.addEventListener("resize", updateScrollState);
+    return () => window.removeEventListener("resize", updateScrollState);
+  }, [topAuthors.length]);
+
+  // Nothing to spotlight without contributors
+  if (topAuthors.length === 0) return null;
+
   return (
     <section
       className="relative py-16 sm:py-24"
-      style={{ background: "rgba(0, 0, 0, 0.2)" }}
+      style={{ background: "var(--bg-secondary)" }}
     >
       {/* Subtle top gradient */}
       <div
@@ -92,12 +110,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
 
       <div className="container-main">
         {/* Section Header */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between"
-        >
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <h2
@@ -111,7 +124,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
                 style={{
                   background: "rgba(139, 92, 246, 0.12)",
                   border: "1px solid rgba(139, 92, 246, 0.2)",
-                  color: "#8b5cf6",
+                  color: "var(--signal-purple)",
                 }}
               >
                 <svg
@@ -142,10 +155,11 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
           <div className="hidden gap-2 sm:flex">
             <button
               onClick={() => scroll("left")}
-              className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:scale-105"
+              disabled={!canScrollLeft}
+              className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 enabled:hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40"
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "var(--bg-tertiary)",
+                border: "1px solid var(--border-subtle)",
               }}
               aria-label="Scroll left"
             >
@@ -164,10 +178,11 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
             </button>
             <button
               onClick={() => scroll("right")}
-              className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:scale-105"
+              disabled={!canScrollRight}
+              className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 enabled:hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40"
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "var(--bg-tertiary)",
+                border: "1px solid var(--border-subtle)",
               }}
               aria-label="Scroll right"
             >
@@ -185,7 +200,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
               </svg>
             </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Carousel Container */}
         <div className="relative -mx-4 sm:mx-0">
@@ -208,26 +223,17 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
           {/* Scrollable container */}
           <div
             ref={scrollContainerRef}
+            onScroll={updateScrollState}
             className="scrollbar-hide flex gap-3 overflow-x-auto px-4 pb-4 sm:gap-4 sm:px-0"
             style={{ scrollSnapType: "x mandatory" }}
           >
-            {topAuthors.map((author, index) => (
-              <motion.div
-                key={author.slug}
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                style={{ scrollSnapAlign: "start" }}
-              >
+            {topAuthors.map((author) => (
+              <div key={author.slug} style={{ scrollSnapAlign: "start" }}>
                 <AuthorCard
                   author={author}
                   isLoading={isLoading}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -268,10 +274,9 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
   return (
     <Link
       href={`/authors/${author.slug}`}
-      className="group relative flex h-[220px] w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:h-[250px] sm:w-[280px] sm:rounded-2xl"
+      className="group relative flex h-[220px] w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-accent)] hover:shadow-lg sm:h-[250px] sm:w-[280px]"
       style={{
-        background: "rgba(255, 255, 255, 0.03)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        background: "var(--bg-secondary)",
       }}
     >
       {/* Hover gradient overlay */}
@@ -359,7 +364,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
               height="12"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#8b5cf6"
+              stroke="var(--signal-purple)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -368,9 +373,9 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
             {isLoading ? (
-              <span className="h-3 w-6 animate-pulse rounded bg-white/10 sm:h-4 sm:w-8" />
+              <span className="h-3 w-6 animate-pulse rounded bg-[var(--bg-tertiary)] sm:h-4 sm:w-8" />
             ) : (
-              <span className="text-xs font-semibold sm:text-sm" style={{ color: "#8b5cf6" }}>
+              <span className="text-xs font-semibold sm:text-sm" style={{ color: "var(--signal-purple)" }}>
                 {formatViewCount(author.impact)}
               </span>
             )}
@@ -383,7 +388,7 @@ function AuthorCard({ author, isLoading }: AuthorCardProps) {
         {/* Top Tools - Always rendered, pushed to bottom */}
         <div className="mt-auto pt-3 sm:pt-4">
           <p
-            className="mb-1.5 text-[9px] font-medium uppercase tracking-wider sm:mb-2 sm:text-[10px]"
+            className="mb-1.5 text-[11px] font-medium uppercase tracking-wider sm:mb-2"
             style={{ color: "var(--text-tertiary)" }}
           >
             Top Tools

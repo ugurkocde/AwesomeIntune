@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface SearchBarProps {
   value: string;
@@ -17,26 +17,33 @@ export function SearchBar({
   isAiSearching = false,
   isAiMode = false,
 }: SearchBarProps) {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-full"
+      className="group relative w-full"
+      role="search"
     >
       {/* Search/AI Icon */}
       <div
         className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
         style={{ color: isAiMode ? "var(--accent-primary)" : "var(--text-tertiary)" }}
+        aria-hidden="true"
       >
         <AnimatePresence mode="wait">
           {isAiSearching ? (
             <motion.div
               key="loading"
               initial={{ opacity: 0, rotate: 0 }}
-              animate={{ opacity: 1, rotate: 360 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, rotate: 360 }}
               exit={{ opacity: 0 }}
-              transition={{ rotate: { duration: 1, repeat: Infinity, ease: "linear" } }}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0.2 }
+                  : { rotate: { duration: 1, repeat: Infinity, ease: "linear" } }
+              }
             >
               <svg
                 width="20"
@@ -102,6 +109,7 @@ export function SearchBar({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        aria-label="Search tools"
         className="input input-lg w-full"
         style={{
           height: "56px",
@@ -155,6 +163,7 @@ export function SearchBar({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -164,7 +173,7 @@ export function SearchBar({
 
       {/* Focus Ring Enhancement */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200"
+        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 group-focus-within:opacity-100"
         style={{
           boxShadow: "0 0 0 4px var(--accent-glow)",
         }}

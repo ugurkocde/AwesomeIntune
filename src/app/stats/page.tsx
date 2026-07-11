@@ -120,17 +120,29 @@ export default function StatsPage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
           {/* Header */}
-          <div className="mb-12 text-center">
-            <h1
-              className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Directory Statistics
-            </h1>
+          <div className="mb-12">
+            <div className="flex flex-wrap items-center gap-4">
+              <h1
+                className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
+                style={{ color: "var(--text-primary)" }}
+              >
+                Directory Statistics
+              </h1>
+              <span
+                className="rounded-full px-3 py-1 text-sm font-medium"
+                style={{
+                  background: "rgba(0, 212, 255, 0.1)",
+                  color: "var(--accent-primary)",
+                  border: "1px solid rgba(0, 212, 255, 0.2)",
+                }}
+              >
+                {tools.length} tools
+              </span>
+            </div>
             <p
-              className="mx-auto mt-4 max-w-2xl text-lg"
+              className="mt-4 max-w-2xl text-lg"
               style={{ color: "var(--text-secondary)" }}
             >
               Insights and statistics about the Awesome Intune tools directory.
@@ -150,8 +162,8 @@ export default function StatsPage() {
                 key={metric.label}
                 className="rounded-2xl p-6 text-center"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div
@@ -181,8 +193,8 @@ export default function StatsPage() {
             <div
               className="rounded-2xl p-6"
               style={{
-                background: "rgba(17, 25, 34, 0.8)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div className="space-y-4">
@@ -204,8 +216,8 @@ export default function StatsPage() {
                         style={{
                           width: `${(cat.count / (toolsByCategory[0]?.count ?? 1)) * 100}%`,
                           minWidth: "2rem",
-                          background: `linear-gradient(90deg, ${cat.color}40, ${cat.color}20)`,
-                          border: `1px solid ${cat.color}30`,
+                          background: `linear-gradient(90deg, ${cat.color}, ${cat.color}99)`,
+                          border: `1px solid ${cat.color}`,
                         }}
                       />
                     </div>
@@ -271,8 +283,8 @@ export default function StatsPage() {
               <div
                 className="rounded-2xl p-6"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div className="space-y-3">
@@ -285,7 +297,7 @@ export default function StatsPage() {
                       <span
                         className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold"
                         style={{
-                          background: index < 3 ? "#f59e0b20" : "rgba(255, 255, 255, 0.05)",
+                          background: index < 3 ? "#f59e0b20" : "var(--bg-tertiary)",
                           color: index < 3 ? "#f59e0b" : "var(--text-tertiary)",
                         }}
                       >
@@ -323,8 +335,8 @@ export default function StatsPage() {
               <div
                 className="rounded-2xl p-6"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div className="space-y-3">
@@ -368,8 +380,8 @@ export default function StatsPage() {
             <div
               className="rounded-2xl p-6"
               style={{
-                background: "rgba(17, 25, 34, 0.8)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -377,7 +389,7 @@ export default function StatsPage() {
                   <div
                     key={license}
                     className="flex items-center justify-between rounded-lg p-3"
-                    style={{ background: "rgba(255, 255, 255, 0.03)" }}
+                    style={{ background: "var(--bg-tertiary)" }}
                   >
                     <span
                       className="text-sm"
@@ -409,8 +421,8 @@ export default function StatsPage() {
               <div
                 className="rounded-xl p-5"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div
@@ -429,15 +441,15 @@ export default function StatsPage() {
               <div
                 className="rounded-xl p-5"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div
                   className="text-2xl font-bold"
                   style={{ color: "#3b82f6" }}
                 >
-                  {Math.round(totalStars / tools.length)}
+                  {tools.length > 0 ? Math.round(totalStars / tools.length) : 0}
                 </div>
                 <div
                   className="mt-1 text-sm"
@@ -449,8 +461,8 @@ export default function StatsPage() {
               <div
                 className="rounded-xl p-5"
                 style={{
-                  background: "rgba(17, 25, 34, 0.8)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div
@@ -475,7 +487,7 @@ export default function StatsPage() {
               className="rounded-2xl p-8"
               style={{
                 background: "linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1))",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <h3

@@ -84,8 +84,8 @@ export function FilterSidebar({
     <aside
       className="flex w-[280px] flex-shrink-0 flex-col overflow-hidden rounded-2xl"
       style={{
-        background: "rgba(17, 25, 34, 0.95)",
-        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-subtle)",
         maxHeight: "calc(100vh - 300px)",
       }}
     >
@@ -136,8 +136,8 @@ export function FilterSidebar({
               onChange={(e) => onSortChange(e.target.value as SortOption)}
               className="w-full cursor-pointer appearance-none rounded-lg py-2.5 pl-3 pr-8 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "var(--bg-tertiary)",
+                border: "1px solid var(--border-medium)",
                 color: "var(--text-secondary)",
               }}
             >
@@ -164,7 +164,7 @@ export function FilterSidebar({
         {/* Divider */}
         <div
           className="mb-5 h-px"
-          style={{ background: "rgba(255, 255, 255, 0.06)" }}
+          style={{ background: "var(--border-subtle)" }}
         />
 
         {/* Categories Section */}
@@ -196,7 +196,7 @@ export function FilterSidebar({
         {/* Divider */}
         <div
           className="my-5 h-px"
-          style={{ background: "rgba(255, 255, 255, 0.06)" }}
+          style={{ background: "var(--border-subtle)" }}
         />
 
         {/* Types Section */}
@@ -226,7 +226,7 @@ export function FilterSidebar({
         {/* Divider */}
         <div
           className="my-5 h-px"
-          style={{ background: "rgba(255, 255, 255, 0.06)" }}
+          style={{ background: "var(--border-subtle)" }}
         />
 
         {/* Works With Section */}
@@ -338,7 +338,7 @@ function FilterCheckbox({
         className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded transition-all"
         style={{
           background: isSelected ? color : "transparent",
-          border: isSelected ? `1px solid ${color}` : "1px solid rgba(255, 255, 255, 0.2)",
+          border: isSelected ? `1px solid ${color}` : "1px solid var(--border-medium)",
         }}
       >
         {isSelected && (
@@ -371,7 +371,7 @@ function FilterCheckbox({
       <span
         className="rounded-full px-2 py-0.5 text-xs font-medium"
         style={{
-          background: isSelected ? `${color}20` : "rgba(255, 255, 255, 0.05)",
+          background: isSelected ? `${color}20` : "var(--bg-tertiary)",
           color: isSelected ? color : "var(--text-tertiary)",
         }}
       >
@@ -414,7 +414,7 @@ export function FilterDrawer({
             className="fixed bottom-0 left-0 top-0 z-50 w-[320px] overflow-y-auto"
             style={{
               background: "var(--bg-primary)",
-              borderRight: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRight: "1px solid var(--border-medium)",
             }}
           >
             {/* Drawer Header */}
@@ -422,7 +422,7 @@ export function FilterDrawer({
               className="sticky top-0 z-10 flex items-center justify-between p-5"
               style={{
                 background: "var(--bg-primary)",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+                borderBottom: "1px solid var(--border-subtle)",
               }}
             >
               <h2
@@ -533,9 +533,9 @@ function FilterSidebarContent(props: FilterSidebarProps) {
           onClick={props.onClearAll}
           className="mb-5 flex w-full items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition-colors hover:bg-white/10"
           style={{
-            background: "rgba(255, 255, 255, 0.05)",
+            background: "var(--bg-tertiary)",
             color: "var(--text-secondary)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            border: "1px solid var(--border-medium)",
           }}
         >
           <svg
@@ -567,8 +567,8 @@ function FilterSidebarContent(props: FilterSidebarProps) {
             onChange={(e) => props.onSortChange(e.target.value as SortOption)}
             className="w-full cursor-pointer appearance-none rounded-lg py-2.5 pl-3 pr-8 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]/50"
             style={{
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              background: "var(--bg-tertiary)",
+              border: "1px solid var(--border-medium)",
               color: "var(--text-secondary)",
             }}
           >
@@ -592,7 +592,7 @@ function FilterSidebarContent(props: FilterSidebarProps) {
         </div>
       </div>
 
-      <div className="mb-5 h-px" style={{ background: "rgba(255, 255, 255, 0.06)" }} />
+      <div className="mb-5 h-px" style={{ background: "var(--border-subtle)" }} />
 
       {/* Categories */}
       <FilterSection
@@ -620,7 +620,7 @@ function FilterSidebarContent(props: FilterSidebarProps) {
         </div>
       </FilterSection>
 
-      <div className="my-5 h-px" style={{ background: "rgba(255, 255, 255, 0.06)" }} />
+      <div className="my-5 h-px" style={{ background: "var(--border-subtle)" }} />
 
       {/* Types */}
       <FilterSection
@@ -648,7 +648,7 @@ function FilterSidebarContent(props: FilterSidebarProps) {
         </div>
       </FilterSection>
 
-      <div className="my-5 h-px" style={{ background: "rgba(255, 255, 255, 0.06)" }} />
+      <div className="my-5 h-px" style={{ background: "var(--border-subtle)" }} />
 
       {/* Works With */}
       <FilterSection

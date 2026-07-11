@@ -13,9 +13,20 @@ type FormState = "collapsed" | "expanded" | "loading" | "success" | "error";
 
 const EXPO_EASE = [0.22, 1, 0.36, 1] as const;
 const APPEARANCE_DELAY = 2500; // 2.5 seconds
+const SESSION_COLLAPSED_KEY = "awesomeintune_subscribe_collapsed";
+
+function getSessionCollapsed(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return sessionStorage.getItem(SESSION_COLLAPSED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
 
 export function FloatingSubscribe() {
   const [formState, setFormState] = useState<FormState>("collapsed");
+  const [sessionCollapsed, setSessionCollapsed] = useState(false);
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null);
@@ -54,6 +65,21 @@ export function FloatingSubscribe() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Respect a session-level collapse (user declined via Escape/click-outside)
+  useEffect(() => {
+    setSessionCollapsed(getSessionCollapsed());
+  }, []);
+
+  const collapseForSession = useCallback(() => {
+    setFormState("collapsed");
+    setSessionCollapsed(true);
+    try {
+      sessionStorage.setItem(SESSION_COLLAPSED_KEY, "1");
+    } catch {
+      // Session persistence is best effort
+    }
+  }, []);
+
   // Focus input when expanded
   useEffect(() => {
     if (formState === "expanded" && inputRef.current) {
@@ -65,12 +91,12 @@ export function FloatingSubscribe() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && formState === "expanded") {
-        setFormState("collapsed");
+        collapseForSession();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [formState]);
+  }, [formState, collapseForSession]);
 
   // Click outside to collapse
   useEffect(() => {
@@ -82,13 +108,13 @@ export function FloatingSubscribe() {
         containerRef.current &&
         !containerRef.current.contains(e.target)
       ) {
-        setFormState("collapsed");
+        collapseForSession();
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [formState]);
+  }, [formState, collapseForSession]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,13 +171,13 @@ export function FloatingSubscribe() {
   }, []);
 
   const handleCollapse = useCallback(() => {
-    setFormState("collapsed");
-  }, []);
+    collapseForSession();
+  }, [collapseForSession]);
 
   // Determine visibility
   // Once shown, stays visible until dismissed or subscribed (no scroll-based hiding)
   const isHiddenRoute = pathname === "/submit";
-  const isHiddenByPersistence = dismissed || subscribed;
+  const isHiddenByPersistence = dismissed || subscribed || sessionCollapsed;
   const isReady = persistenceLoaded && mobileLoaded && shouldShow;
 
   const isVisible =

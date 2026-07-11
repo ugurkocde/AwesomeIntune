@@ -46,6 +46,28 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "newest", label: "Newest" },
 ];
 
+// Themed chevron for native selects. Uses currentColor so it follows the
+// active light/dark theme instead of a hardcoded stroke value.
+function SelectChevron() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+      style={{ color: "var(--text-tertiary)" }}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
 export default function RequestsPage() {
   const [requests, setRequests] = useState<ToolRequestWithVotes[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -149,7 +171,7 @@ export default function RequestsPage() {
           {/* Header */}
           <motion.div variants={itemVariants} className="mb-10 text-center">
             <Link
-              href="/"
+              href="/#tools"
               className="mb-6 inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent-primary)]"
               style={{ color: "var(--text-secondary)" }}
             >
@@ -166,10 +188,10 @@ export default function RequestsPage() {
                 <path d="M19 12H5" />
                 <path d="M12 19l-7-7 7-7" />
               </svg>
-              Back to Tools
+              Back to all tools
             </Link>
             <h1
-              className="font-display text-4xl font-bold md:text-5xl"
+              className="font-display text-4xl font-bold sm:text-5xl"
               style={{ color: "var(--text-primary)" }}
             >
               Tool Ideas
@@ -212,64 +234,58 @@ export default function RequestsPage() {
             className="mb-8 flex flex-wrap items-center justify-center gap-3"
           >
             {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) =>
-                setStatusFilter(e.target.value as RequestStatus | "")
-              }
-              className="input appearance-none py-2 pr-10 text-sm"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238899aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                backgroundPosition: "right 10px center",
-                backgroundRepeat: "no-repeat",
-                minWidth: "140px",
-              }}
-            >
-              {STATUS_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={statusFilter}
+                onChange={(e) =>
+                  setStatusFilter(e.target.value as RequestStatus | "")
+                }
+                className="input appearance-none py-2 pr-10 text-sm"
+                style={{ minWidth: "140px" }}
+              >
+                {STATUS_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </div>
 
             {/* Category Filter */}
-            <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              className="input appearance-none py-2 pr-10 text-sm"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238899aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                backgroundPosition: "right 10px center",
-                backgroundRepeat: "no-repeat",
-                minWidth: "160px",
-              }}
-            >
-              <option value="">All Categories</option>
-              {CATEGORIES.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="input appearance-none py-2 pr-10 text-sm"
+                style={{ minWidth: "160px" }}
+              >
+                <option value="">All Categories</option>
+                {CATEGORIES.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </div>
 
             {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="input appearance-none py-2 pr-10 text-sm"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238899aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                backgroundPosition: "right 10px center",
-                backgroundRepeat: "no-repeat",
-                minWidth: "140px",
-              }}
-            >
-              {SORT_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="input appearance-none py-2 pr-10 text-sm"
+                style={{ minWidth: "140px" }}
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </div>
           </motion.div>
 
           {/* Results Count */}

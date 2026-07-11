@@ -1,12 +1,89 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "~/env";
 import { CATEGORIES, TYPES } from "~/lib/constants";
 import { CollapsibleSection } from "./CollapsibleSection";
 import { trackFormSubmission } from "~/lib/plausible";
+
+// Mirrors the server-side Zod schema: z.string().url() accepts any value the
+// URL constructor can parse
+function isValidUrl(value: string): boolean {
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Extract owner/repo from a github.com repository URL
+function parseGitHubRepo(url: string): { owner: string; repo: string } | null {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname !== "github.com" && parsed.hostname !== "www.github.com") {
+      return null;
+    }
+    const parts = parsed.pathname.split("/").filter(Boolean);
+    const owner = parts[0];
+    const repo = parts[1]?.replace(/\.git$/, "");
+    if (!owner || !repo) return null;
+    return { owner, repo };
+  } catch {
+    return null;
+  }
+}
+
+// Turn a repo slug like "intune-backup-tool" into "intune backup tool"
+function prettifyRepoName(repo: string): string {
+  return repo.replace(/[-_]+/g, " ").trim();
+}
+
+interface GitHubRepoInfo {
+  name?: string;
+  description?: string | null;
+  owner?: { login?: string } | null;
+}
+
+function createInitialFormData(): FormData {
+  return {
+    name: "",
+    description: "",
+    authors: [{ name: "", githubUrl: "", linkedinUrl: "", xUrl: "" }],
+    repoUrl: "",
+    category: "",
+    type: "",
+    downloadUrl: "",
+    websiteUrl: "",
+    additionalInfo: "",
+    acceptTerms: false,
+  };
+}
+
+// Themed chevron for native selects. Uses currentColor so it follows the
+// active light/dark theme instead of a hardcoded stroke value.
+function SelectChevron() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+      style={{ color: "var(--text-tertiary)" }}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -70,25 +147,114 @@ export function ToolSubmitForm() {
   const [issueUrl, setIssueUrl] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
+  const [githubPrefilled, setGithubPrefilled] = useState(false);
+  const lastFetchedRepoRef = useRef("");
 
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    description: "",
-    authors: [{ name: "", githubUrl: "", linkedinUrl: "", xUrl: "" }],
-    repoUrl: "",
-    category: "",
-    type: "",
-    downloadUrl: "",
-    websiteUrl: "",
-    additionalInfo: "",
-    acceptTerms: false,
-  });
+  const [formData, setFormData] = useState<FormData>(createInitialFormData);
+
+  // Keep a live snapshot so the async GitHub prefill never overwrites
+  // values typed while the fetch was in flight
+  const formDataRef = useRef(formData);
+  formDataRef.current = formData;
 
   const updateField = (field: keyof FormData, value: string | boolean | FormAuthor[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when field is updated
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+    if (field === "repoUrl") {
+      setGithubPrefilled(false);
+    }
+  };
+
+  // Validate URL format on blur, mirroring the server-side Zod rules:
+  // repoUrl must be a valid URL, downloadUrl/websiteUrl may be empty
+  const validateUrlField = (
+    field: "repoUrl" | "downloadUrl" | "websiteUrl",
+    value: string
+  ) => {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+      return false;
+    }
+    if (!isValidUrl(trimmed)) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]:
+          field === "repoUrl" ? "Please enter a valid URL" : "Must be a valid URL",
+      }));
+      return false;
+    }
+    setErrors((prev) => ({ ...prev, [field]: undefined }));
+    return true;
+  };
+
+  // Fetch repo metadata from the public GitHub API and prefill fields the
+  // user has not typed into yet. Fails silently
+  const prefillFromGitHub = async (repoUrl: string) => {
+    const repoInfo = parseGitHubRepo(repoUrl.trim());
+    if (!repoInfo) return;
+
+    const repoKey = `${repoInfo.owner}/${repoInfo.repo}`.toLowerCase();
+    if (lastFetchedRepoRef.current === repoKey) return;
+    lastFetchedRepoRef.current = repoKey;
+
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}`
+      );
+      if (!response.ok) return;
+
+      const repo = (await response.json()) as GitHubRepoInfo;
+      const prefillName = repo.name ? prettifyRepoName(repo.name) : "";
+      const prefillDescription = repo.description?.trim().slice(0, 500) ?? "";
+      const prefillAuthor = repo.owner?.login ?? "";
+
+      // Only fill fields that are still empty so user input is never overwritten
+      const current = formDataRef.current;
+      const next = { ...current };
+      let didPrefill = false;
+
+      if (!current.name.trim() && prefillName) {
+        next.name = prefillName;
+        didPrefill = true;
+      }
+      if (!current.description.trim() && prefillDescription) {
+        next.description = prefillDescription;
+        didPrefill = true;
+      }
+      const firstAuthor = current.authors[0];
+      if (firstAuthor && !firstAuthor.name.trim() && prefillAuthor) {
+        next.authors = current.authors.map((author, i) =>
+          i === 0
+            ? {
+                ...author,
+                name: prefillAuthor,
+                githubUrl:
+                  author.githubUrl.trim() === ""
+                    ? `https://github.com/${prefillAuthor}`
+                    : author.githubUrl,
+              }
+            : author
+        );
+        didPrefill = true;
+      }
+
+      if (didPrefill) {
+        setFormData(next);
+        setGithubPrefilled(true);
+      }
+    } catch {
+      // Network or parsing failure: show nothing, the user fills the form manually
+    }
+  };
+
+  const handleRepoUrlBlur = () => {
+    const value = formData.repoUrl;
+    if (validateUrlField("repoUrl", value)) {
+      void prefillFromGitHub(value);
     }
   };
 
@@ -155,6 +321,14 @@ export function ToolSubmitForm() {
     }
     if (!formData.repoUrl) {
       newErrors.repoUrl = "Tool URL is required";
+    } else if (!isValidUrl(formData.repoUrl.trim())) {
+      newErrors.repoUrl = "Please enter a valid URL";
+    }
+    if (formData.downloadUrl.trim() && !isValidUrl(formData.downloadUrl.trim())) {
+      newErrors.downloadUrl = "Must be a valid URL";
+    }
+    if (formData.websiteUrl.trim() && !isValidUrl(formData.websiteUrl.trim())) {
+      newErrors.websiteUrl = "Must be a valid URL";
     }
     if (!formData.category) {
       newErrors.category = "Please select a category";
@@ -217,6 +391,17 @@ export function ToolSubmitForm() {
     }
   };
 
+  const handleReset = () => {
+    setFormData(createInitialFormData());
+    setErrors({});
+    setMessage("");
+    setIssueUrl("");
+    setTurnstileToken("");
+    setGithubPrefilled(false);
+    lastFetchedRepoRef.current = "";
+    setState("idle");
+  };
+
   if (state === "success") {
     return (
       <motion.div
@@ -260,30 +445,46 @@ export function ToolSubmitForm() {
         </h2>
         <p className="mx-auto mt-3 max-w-md" style={{ color: "var(--text-secondary)" }}>
           Your submission has been received! A GitHub issue has been created for our
-          maintainers to review. You can track the status of your submission using
-          the link below.
+          maintainers to review.
+        </p>
+        <p className="mx-auto mt-2 max-w-md text-sm" style={{ color: "var(--text-tertiary)" }}>
+          Submissions are typically reviewed within a few days.
         </p>
 
-        {issueUrl && (
-          <motion.a
-            href={issueUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary mt-8 inline-flex px-6 py-3"
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {issueUrl && (
+            <motion.a
+              href={issueUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary inline-flex px-6 py-3"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              View GitHub Issue
+            </motion.a>
+          )}
+          <motion.button
+            type="button"
+            onClick={handleReset}
+            className={`btn ${issueUrl ? "btn-secondary" : "btn-primary"} inline-flex px-6 py-3`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
-            View GitHub Issue
-          </motion.a>
-        )}
+            Submit another tool
+          </motion.button>
+          <Link href="/#tools" className="btn btn-secondary inline-flex px-6 py-3">
+            Browse tools
+          </Link>
+        </div>
       </motion.div>
     );
   }
@@ -534,16 +735,21 @@ export function ToolSubmitForm() {
               type="url"
               value={formData.repoUrl}
               onChange={(e) => updateField("repoUrl", e.target.value)}
+              onBlur={handleRepoUrlBlur}
               placeholder="https://github.com/username/repo or any valid URL"
               className="input pl-10"
               disabled={state === "loading"}
             />
           </div>
-          {errors.repoUrl && (
+          {errors.repoUrl ? (
             <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
               {errors.repoUrl}
             </p>
-          )}
+          ) : githubPrefilled ? (
+            <p className="mt-1 text-xs" style={{ color: "var(--signal-success)" }}>
+              Fetched details from GitHub
+            </p>
+          ) : null}
         </div>
       </motion.div>
 
@@ -566,25 +772,23 @@ export function ToolSubmitForm() {
             >
               Category <span style={{ color: "var(--signal-error)" }}>*</span>
             </label>
-            <select
-              id="category"
-              value={formData.category}
-              onChange={(e) => updateField("category", e.target.value)}
-              className="input appearance-none pr-10"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238899aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                backgroundPosition: "right 12px center",
-                backgroundRepeat: "no-repeat",
-              }}
-              disabled={state === "loading"}
-            >
-              <option value="">Select a category</option>
-              {CATEGORIES.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                id="category"
+                value={formData.category}
+                onChange={(e) => updateField("category", e.target.value)}
+                className="input appearance-none pr-10"
+                disabled={state === "loading"}
+              >
+                <option value="">Select a category</option>
+                {CATEGORIES.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </div>
             {errors.category && (
               <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
                 {errors.category}
@@ -601,25 +805,23 @@ export function ToolSubmitForm() {
             >
               Type <span style={{ color: "var(--signal-error)" }}>*</span>
             </label>
-            <select
-              id="type"
-              value={formData.type}
-              onChange={(e) => updateField("type", e.target.value)}
-              className="input appearance-none pr-10"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238899aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                backgroundPosition: "right 12px center",
-                backgroundRepeat: "no-repeat",
-              }}
-              disabled={state === "loading"}
-            >
-              <option value="">Select a type</option>
-              {TYPES.map((t) => (
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                id="type"
+                value={formData.type}
+                onChange={(e) => updateField("type", e.target.value)}
+                className="input appearance-none pr-10"
+                disabled={state === "loading"}
+              >
+                <option value="">Select a type</option>
+                {TYPES.map((t) => (
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </div>
             {errors.type && (
               <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
                 {errors.type}
@@ -646,10 +848,16 @@ export function ToolSubmitForm() {
               type="url"
               value={formData.downloadUrl}
               onChange={(e) => updateField("downloadUrl", e.target.value)}
+              onBlur={(e) => validateUrlField("downloadUrl", e.target.value)}
               placeholder="https://powershellgallery.com/packages/..."
               className="input"
               disabled={state === "loading"}
             />
+            {errors.downloadUrl && (
+              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+                {errors.downloadUrl}
+              </p>
+            )}
           </div>
 
           {/* Website URL */}
@@ -666,10 +874,16 @@ export function ToolSubmitForm() {
               type="url"
               value={formData.websiteUrl}
               onChange={(e) => updateField("websiteUrl", e.target.value)}
+              onBlur={(e) => validateUrlField("websiteUrl", e.target.value)}
               placeholder="https://example.com"
               className="input"
               disabled={state === "loading"}
             />
+            {errors.websiteUrl && (
+              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+                {errors.websiteUrl}
+              </p>
+            )}
           </div>
 
           {/* Additional Info */}

@@ -28,6 +28,9 @@ export function ScreenshotGallery({
 }: ScreenshotGalleryProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -114,6 +117,7 @@ export function ScreenshotGallery({
 
   // Lightbox functions
   const openLightbox = useCallback((index: number) => {
+    previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
     setLightboxIndex(index);
     document.body.style.overflow = "hidden";
   }, []);
@@ -121,6 +125,8 @@ export function ScreenshotGallery({
   const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
     document.body.style.overflow = "";
+    // Return focus to the thumbnail that opened the lightbox
+    previouslyFocusedRef.current?.focus();
   }, []);
 
   const lightboxPrevious = useCallback(() => {
@@ -146,12 +152,45 @@ export function ScreenshotGallery({
         lightboxPrevious();
       } else if (e.key === "ArrowRight") {
         lightboxNext();
+      } else if (e.key === "Tab") {
+        // Trap focus within the dialog
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        const focusable = Array.from(
+          dialog.querySelectorAll<HTMLElement>(
+            'button, [href], input, [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter((el) => !el.hasAttribute("disabled"));
+        if (focusable.length === 0) return;
+
+        const first = focusable[0]!;
+        const last = focusable[focusable.length - 1]!;
+        const active = document.activeElement;
+
+        if (e.shiftKey) {
+          if (active === first || !dialog.contains(active)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (active === last || !dialog.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, closeLightbox, lightboxPrevious, lightboxNext]);
+
+  // Move focus into the dialog when it opens
+  const isLightboxOpen = lightboxIndex !== null;
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const id = requestAnimationFrame(() => closeButtonRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, [isLightboxOpen]);
 
   // Set up scroll listener
   useEffect(() => {
@@ -173,8 +212,6 @@ export function ScreenshotGallery({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="mt-10 border-t pt-10"
-      style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
     >
       {/* Section Header */}
       <div className="mb-6 flex items-center gap-3">
@@ -195,18 +232,19 @@ export function ScreenshotGallery({
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{ color: accentColor }}
+            aria-hidden="true"
           >
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
             <circle cx="8.5" cy="8.5" r="1.5" />
             <polyline points="21 15 16 10 5 21" />
           </svg>
         </div>
-        <span
+        <h2
           className="text-sm font-semibold uppercase tracking-widest"
           style={{ color: "var(--text-tertiary)" }}
         >
           Screenshots
-        </span>
+        </h2>
         {displayScreenshots.length > 1 && (
           <span
             className="ml-auto text-xs"
@@ -223,7 +261,7 @@ export function ScreenshotGallery({
         <div
           className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 transition-opacity duration-300"
           style={{
-            background: "linear-gradient(to right, var(--bg-primary), transparent)",
+            background: "linear-gradient(to right, var(--bg-secondary), transparent)",
             opacity: canScrollLeft ? 1 : 0,
           }}
         />
@@ -232,7 +270,7 @@ export function ScreenshotGallery({
         <div
           className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 transition-opacity duration-300"
           style={{
-            background: "linear-gradient(to left, var(--bg-primary), transparent)",
+            background: "linear-gradient(to left, var(--bg-secondary), transparent)",
             opacity: canScrollRight ? 1 : 0,
           }}
         />
@@ -322,9 +360,9 @@ export function ScreenshotGallery({
                   scrollSnapAlign: "center",
                   width: displayScreenshots.length === 1 ? "100%" : "calc(85% - 8px)",
                   minWidth: displayScreenshots.length === 1 ? "100%" : "280px",
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: `0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05)`,
+                  background: "var(--bg-tertiary)",
+                  border: "1px solid var(--border-subtle)",
+                  boxShadow: `0 4px 24px rgba(0, 0, 0, 0.3)`,
                 }}
               >
                 {/* Loading skeleton */}
@@ -332,7 +370,7 @@ export function ScreenshotGallery({
                   <div
                     className="absolute inset-0 overflow-hidden"
                     style={{
-                      background: "rgba(255, 255, 255, 0.03)",
+                      background: "var(--bg-tertiary)",
                       minHeight: "200px",
                     }}
                   >
@@ -365,7 +403,7 @@ export function ScreenshotGallery({
                 <img
                   ref={(el) => { imageRefs.current[index] = el; }}
                   src={imageUrl}
-                  alt={`${toolName} screenshot ${index + 1}`}
+                  alt={`${toolName} screenshot ${index + 1} of ${screenshotCount}`}
                   loading={index === 0 ? "eager" : "lazy"}
                   onLoad={() => handleImageLoad(index)}
                   className="w-full object-cover transition-all duration-500"
@@ -415,20 +453,24 @@ export function ScreenshotGallery({
               key={index}
               onClick={() => scrollToIndex(index)}
               aria-label={`Go to screenshot ${index + 1}`}
-              className="relative h-2 transition-all duration-300"
-              style={{
-                width: index === activeIndex ? "24px" : "8px",
-                borderRadius: "4px",
-                background:
-                  index === activeIndex
-                    ? accentColor
-                    : "rgba(255, 255, 255, 0.2)",
-                boxShadow:
-                  index === activeIndex
-                    ? `0 0 12px ${accentColor}60`
-                    : "none",
-              }}
-            />
+              className="relative flex h-11 items-center justify-center px-1"
+            >
+              <span
+                className="block h-2 transition-all duration-300"
+                style={{
+                  width: index === activeIndex ? "24px" : "8px",
+                  borderRadius: "4px",
+                  background:
+                    index === activeIndex
+                      ? accentColor
+                      : "var(--border-medium)",
+                  boxShadow:
+                    index === activeIndex
+                      ? `0 0 12px ${accentColor}60`
+                      : "none",
+                }}
+              />
+            </button>
           ))}
         </div>
       )}
@@ -446,6 +488,10 @@ export function ScreenshotGallery({
       {/* Lightbox Modal - Portal to body to ensure it covers everything */}
       {isMounted && lightboxIndex !== null && createPortal(
         <motion.div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${toolName} screenshots`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -465,6 +511,7 @@ export function ScreenshotGallery({
 
           {/* Close button */}
           <button
+            ref={closeButtonRef}
             onClick={closeLightbox}
             className="fixed right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
             style={{
@@ -594,7 +641,7 @@ export function ScreenshotGallery({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={getScreenshotUrl(displayScreenshots[lightboxIndex] ?? "")}
-              alt={`${toolName} screenshot ${lightboxIndex + 1}`}
+              alt={`${toolName} screenshot ${lightboxIndex + 1} of ${screenshotCount}`}
               onLoad={() => setLightboxImageLoaded(true)}
               className="rounded-lg object-contain transition-opacity duration-300"
               style={{

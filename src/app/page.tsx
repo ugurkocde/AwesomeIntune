@@ -14,23 +14,23 @@ import {
   getUniqueAuthorsCount,
 } from "~/lib/tools.server";
 import {
-  generateWebsiteStructuredData,
   generateItemListStructuredData,
   generateHomepageFAQStructuredData,
 } from "~/lib/structured-data";
+import { SITE_CONFIG } from "~/lib/constants";
 
 export function generateMetadata(): Metadata {
   const toolCount = getAllTools().length;
   return {
-    title: `Microsoft Intune Tools & PowerShell Scripts Directory | ${toolCount}+ Free Resources`,
+    title: `${toolCount}+ Free Microsoft Intune Tools & PowerShell Scripts`,
     description: `Discover ${toolCount}+ free Microsoft Intune tools, PowerShell scripts, and automation resources. The largest community-curated directory for IT professionals - troubleshooting, reporting, packaging, and endpoint management.`,
-    alternates: { canonical: "https://awesomeintune.com" },
+    alternates: { canonical: SITE_CONFIG.url },
     openGraph: {
-      title: `Microsoft Intune Tools & PowerShell Scripts Directory | ${toolCount}+ Free Resources`,
+      title: `${toolCount}+ Free Microsoft Intune Tools & PowerShell Scripts`,
       description: `Discover ${toolCount}+ free Microsoft Intune tools and PowerShell scripts. The largest community-curated directory for IT professionals.`,
     },
     twitter: {
-      title: `Microsoft Intune Tools & PowerShell Scripts | ${toolCount}+ Free Resources`,
+      title: `${toolCount}+ Free Microsoft Intune Tools & PowerShell Scripts`,
       description: `Discover ${toolCount}+ free Microsoft Intune tools and PowerShell scripts.`,
     },
   };
@@ -43,16 +43,11 @@ export default function HomePage() {
   const authorCount = getUniqueAuthorsCount(tools);
   const verifiedCount = tools.filter(isVerified).length;
 
-  const websiteSchema = generateWebsiteStructuredData();
   const itemListSchema = generateItemListStructuredData(tools);
   const faqSchema = generateHomepageFAQStructuredData(toolCount);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
@@ -74,7 +69,7 @@ export default function HomePage() {
 
       <TrustStrip verifiedCount={verifiedCount} toolCount={toolCount} />
       <AuthorSpotlight authors={authors} />
-      <FAQ />
+      <FAQ toolCount={toolCount} />
     </>
   );
 }

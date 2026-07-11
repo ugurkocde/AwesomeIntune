@@ -18,7 +18,7 @@ import { FilterSidebar, FilterDrawer } from "./FilterSidebar";
 import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
-import { LoadMoreButton } from "./InfiniteScrollTrigger";
+import { LoadMoreButton } from "./LoadMoreButton";
 
 const INITIAL_LOAD = 18;
 const LOAD_MORE_COUNT = 9;
@@ -123,6 +123,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     aiExplanations,
     aiConfidenceScores,
     aiToolIds,
+    aiError,
+    retryAfterSeconds,
+    retryAiSearch,
     clearAiSearch,
   } = useAiSearch(effectiveSearchQuery);
 
@@ -254,7 +257,17 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     return dedupedKeywordTools.slice(0, displayCount);
   }, [dedupedKeywordTools, displayCount]);
 
-  const showAiSection = effectiveIsAiMode && (isAiSearching || aiTools.length > 0);
+  // AI responded successfully but nothing survived (no matches, or all filtered out)
+  const isAiEmptyResult =
+    !isAiSearching && aiError === null && aiToolIds !== null && aiTools.length === 0;
+  // The empty note reads "keyword results below", so only show it when there
+  // are keyword results; the full empty state covers the nothing-at-all case
+  const showAiSection =
+    effectiveIsAiMode &&
+    (isAiSearching ||
+      aiTools.length > 0 ||
+      aiError !== null ||
+      (isAiEmptyResult && dedupedKeywordTools.length > 0));
   const visibleResultCount = aiTools.length + dedupedKeywordTools.length;
   const showEmptyState =
     !isAiSearching && aiTools.length === 0 && dedupedKeywordTools.length === 0;
@@ -431,6 +444,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
+                aria-hidden="true"
               >
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
               </svg>
@@ -460,6 +474,12 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 {visibleResultCount}
               </span>{" "}
               {visibleResultCount === 1 ? "tool" : "tools"}
+            </p>
+
+            {/* Screen reader announcement for result count changes */}
+            <p aria-live="polite" role="status" className="sr-only">
+              {visibleResultCount} {visibleResultCount === 1 ? "tool" : "tools"}{" "}
+              found
             </p>
           </div>
         </div>
@@ -544,6 +564,10 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   key="ai-section"
                   tools={aiTools}
                   isLoading={isAiSearching}
+                  error={aiError}
+                  retryAfterSeconds={retryAfterSeconds}
+                  onRetry={retryAiSearch}
+                  isEmptyResult={isAiEmptyResult}
                   aiExplanations={aiExplanations}
                   aiConfidenceScores={aiConfidenceScores}
                   viewMode={viewMode}
@@ -585,7 +609,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   <div
                     className="grid gap-6"
                     style={{
-                      gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+                      gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
                     }}
                   >
                     {displayedTools.map((tool, index) => (
@@ -676,6 +700,7 @@ function FilterPill({ label, color, onRemove }: FilterPillProps) {
         stroke="currentColor"
         strokeWidth="2"
         className="opacity-60 transition-opacity group-hover:opacity-100"
+        aria-hidden="true"
       >
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />
@@ -710,6 +735,7 @@ function EmptyState({ searchQuery, onClearFilters }: EmptyStateProps) {
           fill="none"
           stroke="var(--text-tertiary)"
           strokeWidth="1.5"
+          aria-hidden="true"
         >
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
@@ -745,6 +771,7 @@ function EmptyState({ searchQuery, onClearFilters }: EmptyStateProps) {
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            aria-hidden="true"
           >
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />

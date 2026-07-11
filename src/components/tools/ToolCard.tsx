@@ -1,7 +1,6 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Tool } from "~/types/tool";
@@ -40,7 +39,6 @@ export const ToolCard = memo(function ToolCard({
   onVote,
   onBeforeNavigate,
 }: ToolCardProps) {
-  const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const typeConfig = TYPE_CONFIG[tool.type];
@@ -75,14 +73,12 @@ export const ToolCard = memo(function ToolCard({
     return () => observer.disconnect();
   }, [tool.id, onVisible]);
 
-  const handleCardClick = () => {
+  const handleDetailsClick = () => {
     onBeforeNavigate?.();
     trackToolClick(tool.name, tool.category);
-    router.push(`/tools/${tool.id}`);
   };
 
-  const handleOutboundClick = (e: React.MouseEvent, url: string) => {
-    e.stopPropagation();
+  const handleOutboundClick = (url: string) => {
     trackOutboundLink(url);
   };
 
@@ -90,19 +86,7 @@ export const ToolCard = memo(function ToolCard({
   const staggerDelay = Math.min(index * 0.05, 0.3);
 
   return (
-    <div
-      ref={cardRef}
-      onClick={handleCardClick}
-      className="block cursor-pointer"
-      role="link"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handleCardClick();
-        }
-      }}
-    >
+    <div ref={cardRef} className="block">
       <article
         className={`group relative opacity-100 transition-transform duration-400 ease-out-expo will-change-transform ${
           isVisible ? "translate-y-0" : "translate-y-3"
@@ -113,11 +97,9 @@ export const ToolCard = memo(function ToolCard({
       >
         {/* Card Container - CSS-only hover effects for performance */}
         <div
-          className="relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+          className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-accent)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),0_0_30px_var(--accent-glow)]"
           style={{
-            background: "rgba(17, 25, 34, 0.95)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+            background: "var(--bg-secondary)",
           }}
         >
           {/* Top Accent Gradient - CSS only */}
@@ -176,7 +158,7 @@ export const ToolCard = memo(function ToolCard({
               </span>
 
               {/* Security Badge, View Count and Upvote */}
-              <div className="flex items-center gap-2">
+              <div className="relative z-10 flex items-center gap-2">
                 <SecurityBadge securityCheck={tool.securityCheck} variant="compact" hasSourceCode={!!tool.repoUrl} />
                 {viewCount !== undefined && viewCount > 0 && (
                   <span
@@ -284,7 +266,7 @@ export const ToolCard = memo(function ToolCard({
                     </div>
                     <p
                       className="text-sm leading-relaxed"
-                      style={{ color: "var(--accent-primary)" }}
+                      style={{ color: "var(--text-secondary)" }}
                     >
                       {aiExplanation}
                     </p>
@@ -301,13 +283,13 @@ export const ToolCard = memo(function ToolCard({
               const remainingCount = authors.length - maxVisible;
 
               return (
-                <div className="mt-5 flex items-center gap-3">
+                <div className="relative z-10 mt-5 flex w-fit items-center gap-3">
                   {/* Stacked Avatars */}
                   <div className="flex -space-x-2">
                     {visibleAuthors.map((author, idx) => (
                       <div
                         key={`${author.name}-${idx}`}
-                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[#111922] transition-transform duration-200 group-hover:scale-110"
+                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[color:var(--bg-secondary)] transition-transform duration-200 group-hover:scale-110"
                         style={{
                           background: author.picture
                             ? "transparent"
@@ -332,7 +314,7 @@ export const ToolCard = memo(function ToolCard({
                     ))}
                     {remainingCount > 0 && (
                       <div
-                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[#111922]"
+                        className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold ring-2 ring-[color:var(--bg-secondary)]"
                         style={{
                           background: `linear-gradient(135deg, ${categoryConfig.color}40, ${categoryConfig.color}20)`,
                           color: categoryConfig.color,
@@ -420,19 +402,20 @@ export const ToolCard = memo(function ToolCard({
             {/* Action Links */}
             <div
               className="mt-6 flex items-center gap-3 border-t pt-5"
-              style={{ borderColor: "rgba(255, 255, 255, 0.05)" }}
+              style={{ borderColor: "var(--border-subtle)" }}
             >
-              {/* View Details Link */}
+              {/* View Details Link - stretched to make the whole card clickable */}
               <Link
                 href={`/tools/${tool.id}`}
-                onClick={(e) => e.stopPropagation()}
+                onClick={handleDetailsClick}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
                 style={{
-                  background: "rgba(255, 255, 255, 0.03)",
+                  background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
+                <span className="absolute inset-0" aria-hidden="true" />
                 <svg
                   width="16"
                   height="16"
@@ -451,12 +434,12 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => handleOutboundClick(e, tool.repoUrl!)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
+                  onClick={() => handleOutboundClick(tool.repoUrl!)}
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
                   style={{
-                    background: "rgba(255, 255, 255, 0.03)",
+                    background: "var(--bg-tertiary)",
                     color: "var(--text-secondary)",
-                    border: "1px solid rgba(255, 255, 255, 0.05)",
+                    border: "1px solid var(--border-subtle)",
                   }}
                 >
                   <svg
@@ -475,8 +458,8 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => handleOutboundClick(e, tool.downloadUrl!)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
+                  onClick={() => handleOutboundClick(tool.downloadUrl!)}
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
                     color: "white",
@@ -503,8 +486,8 @@ export const ToolCard = memo(function ToolCard({
                   href={tool.websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => handleOutboundClick(e, tool.websiteUrl!)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
+                  onClick={() => handleOutboundClick(tool.websiteUrl!)}
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
                     color: "white",

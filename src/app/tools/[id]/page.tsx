@@ -18,6 +18,9 @@ import { SecurityBadge, SecurityChecklist } from "~/components/tools/SecurityBad
 import { WorksWithTags } from "~/components/tools/WorksWithTags";
 import { RelatedTools } from "~/components/tools/RelatedTools";
 import { PopularityBadge } from "~/components/tools/PopularityBadge";
+import { RepoStatsProvider } from "~/components/tools/RepoStatsProvider";
+import { ArchivedNotice } from "~/components/tools/ArchivedNotice";
+import { ToolActionButtons } from "~/components/tools/ToolActionButtons";
 
 interface ToolPageProps {
   params: Promise<{ id: string }>;
@@ -93,6 +96,40 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   };
 }
 
+function TypeIcon({ type }: { type: string }) {
+  if (type === "powershell-module" || type === "powershell-script") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
+      </svg>
+    );
+  }
+  if (type === "web-app") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    );
+  }
+  if (type === "cli-tool") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <polyline points="4 17 10 11 4 5" />
+        <line x1="12" y1="19" x2="20" y2="19" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </svg>
+  );
+}
+
 export default async function ToolPage({ params }: ToolPageProps) {
   const { id } = await params;
   const tool = getToolById(id);
@@ -103,6 +140,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   const screenshots = tool.screenshots ?? [];
   const relatedTools = getRelatedTools(tool, 4);
+  const authors = getToolAuthors(tool);
+  const hasActions = [tool.repoUrl, tool.downloadUrl, tool.websiteUrl].some(Boolean);
 
   const typeConfig = TYPE_CONFIG[tool.type];
   const categoryConfig = CATEGORY_CONFIG[tool.category];
@@ -116,6 +155,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
     { name: tool.name, url: `${SITE_CONFIG.url}/tools/${tool.id}` },
   ]);
   const faqData = generateToolFAQStructuredData(tool);
+
+  const cardStyle = {
+    background: "var(--bg-secondary)",
+    border: "1px solid var(--border-subtle)",
+  } as const;
 
   return (
     <>
@@ -148,419 +192,382 @@ export default async function ToolPage({ params }: ToolPageProps) {
         />
 
         {/* Content Container */}
-        <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
-          {/* Back Navigation */}
-          <Link
-            href="/#tools"
-            className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
-            style={{
-              color: "var(--text-secondary)",
-              marginLeft: "-0.75rem",
-            }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-transform group-hover:-translate-x-1"
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-28 sm:pt-28">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol
+              className="flex flex-wrap items-center gap-2 text-sm"
+              style={{ color: "var(--text-tertiary)" }}
             >
-              <path d="M19 12H5" />
-              <path d="M12 19l-7-7 7-7" />
-            </svg>
-            <span className="transition-colors group-hover:text-[var(--text-primary)]">
-              Back to all tools
-            </span>
-          </Link>
-
-          {/* Hero Card */}
-          <article
-            className="relative overflow-hidden rounded-3xl"
-            style={{
-              background: "rgba(17, 25, 34, 0.98)",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
-              boxShadow: `0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 100px -30px ${typeConfig.color}20`,
-            }}
-          >
-            {/* Top Gradient Accent */}
-            <div
-              className="absolute left-0 right-0 top-0 h-px"
-              style={{
-                background: `linear-gradient(90deg, transparent 10%, ${typeConfig.color}60, transparent 90%)`,
-              }}
-            />
-
-            {/* Subtle Corner Glow */}
-            <div
-              className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 opacity-30"
-              style={{
-                background: `radial-gradient(circle, ${typeConfig.color}25, transparent 70%)`,
-              }}
-            />
-
-            <div className="relative p-8 sm:p-12">
-              {/* Badges Row */}
-              <div className="mb-6 flex flex-wrap items-center gap-3">
-                {/* Type Badge */}
-                <span
-                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-wider"
-                  style={{
-                    background: `${typeConfig.color}18`,
-                    color: typeConfig.color,
-                    border: `1px solid ${typeConfig.color}30`,
-                    boxShadow: `0 0 24px ${typeConfig.color}12`,
-                  }}
+              <li>
+                <Link
+                  href="/"
+                  className="transition-colors hover:text-[var(--text-primary)]"
                 >
-                  {tool.type === "powershell-module" || tool.type === "powershell-script" ? (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
-                    </svg>
-                  ) : tool.type === "web-app" ? (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M2 12h20" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  ) : tool.type === "cli-tool" ? (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="4 17 10 11 4 5" />
-                      <line x1="12" y1="19" x2="20" y2="19" />
-                    </svg>
-                  ) : (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                      <line x1="8" y1="21" x2="16" y2="21" />
-                      <line x1="12" y1="17" x2="12" y2="21" />
-                    </svg>
-                  )}
-                  {typeConfig.label}
-                </span>
-
-                {/* Category Badge - Links to category page */}
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true" className="opacity-50">/</li>
+              <li>
                 <Link
                   href={`/tools/category/${tool.category}`}
-                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all hover:scale-105"
-                  style={{
-                    background: `${categoryConfig.color}15`,
-                    color: categoryConfig.color,
-                    border: `1px solid ${categoryConfig.color}25`,
-                  }}
+                  className="transition-colors hover:text-[var(--text-primary)]"
                 >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                  </svg>
                   {categoryConfig.label}
                 </Link>
-
-                {/* Popularity Badge */}
-                <PopularityBadge toolId={tool.id} category={tool.category} />
-
-                {/* View Counter */}
-                <ToolViewCounter toolId={tool.id} />
-
-                {/* Upvote Button */}
-                <ToolUpvoteButton toolId={tool.id} />
-              </div>
-
-              {/* Tool Name */}
-              <h1
-                className="font-display text-2xl font-bold leading-tight tracking-tight break-words hyphens-auto sm:text-4xl lg:text-5xl"
-                style={{ color: "var(--text-primary)" }}
-              >
+              </li>
+              <li aria-hidden="true" className="opacity-50">/</li>
+              <li aria-current="page" style={{ color: "var(--text-secondary)" }}>
                 {tool.name}
-              </h1>
+              </li>
+            </ol>
+          </nav>
 
-              {/* Description */}
-              <p
-                className="mt-6 text-lg leading-relaxed sm:text-xl"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                {tool.description}
-              </p>
-
-              {/* Works With Tags */}
-              {tool.worksWith && tool.worksWith.length > 0 && (
-                <div className="mt-6">
-                  <span
-                    className="mb-3 block text-sm uppercase tracking-wider"
-                    style={{ color: "var(--text-tertiary)" }}
-                  >
-                    Works with
-                  </span>
-                  <WorksWithTags tags={tool.worksWith} variant="full" />
-                </div>
-              )}
-
-              {/* Authors Section */}
-              {(() => {
-                const authors = getToolAuthors(tool);
-                return (
+          <RepoStatsProvider repoUrl={tool.repoUrl}>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+              {/* Main Column */}
+              <div className="space-y-6 lg:col-span-2">
+                {/* Header Card */}
+                <section
+                  className="relative overflow-hidden rounded-3xl"
+                  style={cardStyle}
+                >
+                  {/* Top gradient accent */}
                   <div
-                    className="mt-10 border-t pt-8"
-                    style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
-                  >
+                    className="absolute left-0 right-0 top-0 h-px"
+                    style={{
+                      background: `linear-gradient(90deg, transparent 10%, ${typeConfig.color}60, transparent 90%)`,
+                    }}
+                  />
+                  {/* Corner glow */}
+                  <div
+                    className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 opacity-30"
+                    style={{
+                      background: `radial-gradient(circle, ${typeConfig.color}25, transparent 70%)`,
+                    }}
+                  />
+
+                  <div className="relative p-6 sm:p-10">
+                    <ArchivedNotice />
+
+                    {/* Type Badge */}
                     <span
-                      className="mb-4 block text-sm uppercase tracking-wider"
-                      style={{ color: "var(--text-tertiary)" }}
+                      className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wider"
+                      style={{
+                        background: `${typeConfig.color}18`,
+                        color: typeConfig.color,
+                        border: `1px solid ${typeConfig.color}30`,
+                      }}
                     >
-                      Created by
+                      <TypeIcon type={tool.type} />
+                      {typeConfig.label}
                     </span>
-                    <div className={`flex flex-wrap gap-6 ${authors.length > 1 ? "flex-col sm:flex-row" : ""}`}>
-                      {authors.map((author, index) => (
-                        <div
-                          key={`${author.name}-${index}`}
-                          className="flex items-center gap-4"
-                        >
-                          {/* Avatar */}
-                          <div
-                            className="flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
-                            style={{
-                              background: author.picture
-                                ? "transparent"
-                                : `linear-gradient(135deg, ${categoryConfig.color}50, ${categoryConfig.color}25)`,
-                              border: `2px solid ${categoryConfig.color}40`,
-                              boxShadow: `0 0 20px ${categoryConfig.color}15`,
-                            }}
-                          >
-                            {author.picture ? (
-                              <Image
-                                src={author.picture}
-                                alt={author.name}
-                                width={56}
-                                height={56}
-                                className="h-full w-full object-cover"
-                              />
-                            ) : (
-                              <span
-                                className="text-xl font-bold"
-                                style={{ color: categoryConfig.color }}
-                              >
-                                {author.name.charAt(0).toUpperCase()}
-                              </span>
-                            )}
-                          </div>
 
-                          {/* Author Name and Social Links */}
-                          <div className="flex flex-col gap-2">
-                            <Link
-                              href={`/authors/${generateAuthorSlug(author.name)}`}
-                              className="inline-flex items-center gap-2 text-lg font-semibold transition-colors hover:underline"
-                              style={{ color: "var(--accent-primary)" }}
-                            >
-                              {author.name}
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="opacity-60"
-                              >
-                                <path d="M7 17l9.2-9.2M17 17V7H7" />
-                              </svg>
-                            </Link>
-                            {/* Social Links */}
-                            {[author.githubUrl, author.linkedinUrl, author.xUrl].some(Boolean) && (
-                              <div className="flex items-center gap-2">
-                                {author.githubUrl && (
-                                  <a
-                                    href={author.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex h-8 w-8 items-center justify-center rounded-lg transition-all hover:scale-105 hover:border-white/20 hover:bg-white/10 hover:text-[var(--text-primary)]"
-                                    style={{
-                                      background: "rgba(255, 255, 255, 0.04)",
-                                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                                      color: "var(--text-secondary)",
-                                    }}
-                                    title="GitHub Profile"
-                                  >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                    </svg>
-                                  </a>
-                                )}
-                                {author.linkedinUrl && (
-                                  <a
-                                    href={author.linkedinUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex h-8 w-8 items-center justify-center rounded-lg transition-all hover:scale-105 hover:border-white/20 hover:bg-white/10 hover:text-[var(--text-primary)]"
-                                    style={{
-                                      background: "rgba(255, 255, 255, 0.04)",
-                                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                                      color: "var(--text-secondary)",
-                                    }}
-                                    title="LinkedIn Profile"
-                                  >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                                    </svg>
-                                  </a>
-                                )}
-                                {author.xUrl && (
-                                  <a
-                                    href={author.xUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex h-8 w-8 items-center justify-center rounded-lg transition-all hover:scale-105 hover:border-white/20 hover:bg-white/10 hover:text-[var(--text-primary)]"
-                                    style={{
-                                      background: "rgba(255, 255, 255, 0.04)",
-                                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                                      color: "var(--text-secondary)",
-                                    }}
-                                    title="X (Twitter) Profile"
-                                  >
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                    </svg>
-                                  </a>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Action Buttons - Only show if at least one URL exists */}
-              {[tool.repoUrl, tool.downloadUrl, tool.websiteUrl].some(Boolean) && (
-                <div
-                  className="mt-8 flex flex-wrap gap-4 border-t pt-8"
-                  style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
-                >
-                  {tool.repoUrl && (
-                  <a
-                    href={tool.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-sm font-semibold transition-all hover:scale-[1.02] sm:flex-none"
-                    style={{
-                      background: "rgba(255, 255, 255, 0.04)",
-                      color: "var(--text-primary)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                    }}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    <span className="hidden sm:inline">View on GitHub</span>
-                    <span className="sm:hidden">GitHub</span>
-                  </a>
-                )}
-                {tool.downloadUrl && (
-                  <a
-                    href={tool.downloadUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-sm font-semibold text-white transition-all hover:scale-[1.02] sm:flex-none"
-                    style={{
-                      background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
-                      boxShadow: `0 8px 24px ${typeConfig.color}35`,
-                    }}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Download
-                  </a>
-                )}
-                {tool.websiteUrl && (
-                  <a
-                    href={tool.websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-sm font-semibold transition-all hover:scale-[1.02] sm:flex-none"
-                    style={{
-                      background: tool.downloadUrl
-                        ? "rgba(255, 255, 255, 0.04)"
-                        : `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
-                      color: tool.downloadUrl ? "var(--text-primary)" : "white",
-                      border: tool.downloadUrl ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
-                      boxShadow: tool.downloadUrl ? "none" : `0 8px 24px ${typeConfig.color}35`,
-                    }}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    Visit Website
-                  </a>
-                )}
-                </div>
-              )}
-
-              {/* GitHub Repository Stats */}
-              {tool.repoUrl && (
-                <GitHubStats
-                  repoUrl={tool.repoUrl}
-                  accentColor={typeConfig.color}
-                />
-              )}
-
-              {/* Security Check Section */}
-              {tool.securityCheck && (
-                <div
-                  className="mt-10 border-t pt-8"
-                  style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
-                >
-                  <div className="mb-6 flex items-center gap-3">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="var(--text-secondary)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <h2
-                      className="text-lg font-semibold"
+                    {/* Tool Name */}
+                    <h1
+                      className="mt-5 break-words font-display text-3xl font-bold leading-tight tracking-tight hyphens-auto sm:text-4xl"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      Security Analysis
-                    </h2>
+                      {tool.name}
+                    </h1>
+
+                    {/* Description */}
+                    <p
+                      className="mt-5 text-lg leading-relaxed"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {tool.description}
+                    </p>
+
+                    {/* Works With Tags */}
+                    {tool.worksWith && tool.worksWith.length > 0 && (
+                      <div className="mt-6">
+                        <span
+                          className="mb-3 block text-xs uppercase tracking-wider"
+                          style={{ color: "var(--text-tertiary)" }}
+                        >
+                          Works with
+                        </span>
+                        <WorksWithTags tags={tool.worksWith} variant="full" />
+                      </div>
+                    )}
+
+                    {/* Mobile actions - directly after the description */}
+                    {hasActions && (
+                      <div
+                        className="mt-8 border-t pt-6 lg:hidden"
+                        style={{ borderColor: "var(--border-subtle)" }}
+                      >
+                        <ToolActionButtons tool={tool} />
+                      </div>
+                    )}
                   </div>
-                  <SecurityBadge securityCheck={tool.securityCheck} variant="full" hasSourceCode={!!tool.repoUrl} />
-                  {tool.securityCheck.filesScanned > 0 && (
-                    <div className="mt-6">
-                      <SecurityChecklist securityCheck={tool.securityCheck} />
+                </section>
+
+                {/* Screenshots */}
+                {screenshots.length > 0 && (
+                  <section
+                    className="rounded-3xl p-6 sm:p-8"
+                    style={cardStyle}
+                  >
+                    <ScreenshotGallery
+                      screenshots={screenshots}
+                      toolName={tool.name}
+                      accentColor={typeConfig.color}
+                    />
+                  </section>
+                )}
+
+                {/* Security Analysis */}
+                {tool.securityCheck && (
+                  <section className="px-1">
+                    <div className="mb-6 flex items-center gap-3">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="var(--text-secondary)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                      <h2
+                        className="text-lg font-semibold"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        Security Analysis
+                      </h2>
+                    </div>
+                    <SecurityBadge
+                      securityCheck={tool.securityCheck}
+                      variant="full"
+                      hasSourceCode={!!tool.repoUrl}
+                    />
+                    {tool.securityCheck.filesScanned > 0 && (
+                      <div className="mt-6">
+                        <SecurityChecklist securityCheck={tool.securityCheck} />
+                      </div>
+                    )}
+                  </section>
+                )}
+              </div>
+
+              {/* Sidebar */}
+              <aside className="lg:col-span-1">
+                <div className="space-y-4 lg:sticky lg:top-24">
+                  {/* Actions - desktop only (mobile shows them inline) */}
+                  {hasActions && (
+                    <div
+                      className="hidden rounded-2xl p-5 lg:block"
+                      style={cardStyle}
+                    >
+                      <ToolActionButtons tool={tool} />
+                    </div>
+                  )}
+
+                  {/* Repository stats */}
+                  {tool.repoUrl && (
+                    <div className="rounded-2xl p-5" style={cardStyle}>
+                      <h2
+                        className="mb-4 text-xs font-semibold uppercase tracking-widest"
+                        style={{ color: "var(--text-tertiary)" }}
+                      >
+                        Repository
+                      </h2>
+                      <GitHubStats accentColor={typeConfig.color} />
+                    </div>
+                  )}
+
+                  {/* About */}
+                  <div className="rounded-2xl p-5" style={cardStyle}>
+                    <h2
+                      className="mb-4 text-xs font-semibold uppercase tracking-widest"
+                      style={{ color: "var(--text-tertiary)" }}
+                    >
+                      About
+                    </h2>
+                    <div className="space-y-3">
+                      {/* Category */}
+                      <div className="flex items-center justify-between gap-3">
+                        <span
+                          className="text-sm"
+                          style={{ color: "var(--text-tertiary)" }}
+                        >
+                          Category
+                        </span>
+                        <Link
+                          href={`/tools/category/${tool.category}`}
+                          className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold uppercase tracking-wider transition-transform hover:scale-105"
+                          style={{
+                            background: `${categoryConfig.color}15`,
+                            color: categoryConfig.color,
+                            border: `1px solid ${categoryConfig.color}25`,
+                          }}
+                        >
+                          {categoryConfig.label}
+                        </Link>
+                      </div>
+
+                      {/* Popularity + Views */}
+                      <div className="flex flex-wrap items-center gap-2">
+                        <PopularityBadge toolId={tool.id} category={tool.category} />
+                        <ToolViewCounter toolId={tool.id} />
+                      </div>
+
+                      {/* Upvote */}
+                      <div
+                        className="border-t pt-3"
+                        style={{ borderColor: "var(--border-subtle)" }}
+                      >
+                        <ToolUpvoteButton toolId={tool.id} toolName={tool.name} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Authors */}
+                  {authors.length > 0 && (
+                    <div className="rounded-2xl p-5" style={cardStyle}>
+                      <h2
+                        className="mb-4 text-xs font-semibold uppercase tracking-widest"
+                        style={{ color: "var(--text-tertiary)" }}
+                      >
+                        Created by
+                      </h2>
+                      <div className="space-y-4">
+                        {authors.map((author, index) => (
+                          <div
+                            key={`${author.name}-${index}`}
+                            className="flex items-center gap-3"
+                          >
+                            {/* Avatar */}
+                            <div
+                              className="flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
+                              style={{
+                                background: author.picture
+                                  ? "transparent"
+                                  : `linear-gradient(135deg, ${categoryConfig.color}50, ${categoryConfig.color}25)`,
+                                border: `2px solid ${categoryConfig.color}40`,
+                              }}
+                            >
+                              {author.picture ? (
+                                <Image
+                                  src={author.picture}
+                                  alt={author.name}
+                                  width={44}
+                                  height={44}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <span
+                                  className="text-lg font-bold"
+                                  style={{ color: categoryConfig.color }}
+                                >
+                                  {author.name.charAt(0).toUpperCase()}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex min-w-0 flex-col gap-1">
+                              <Link
+                                href={`/authors/${generateAuthorSlug(author.name)}`}
+                                className="inline-flex items-center gap-1.5 truncate text-sm font-semibold transition-colors hover:underline"
+                                style={{ color: "var(--accent-primary)" }}
+                              >
+                                <span className="truncate">{author.name}</span>
+                                <svg
+                                  width="12"
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="flex-shrink-0 opacity-60"
+                                  aria-hidden="true"
+                                >
+                                  <path d="M7 17l9.2-9.2M17 17V7H7" />
+                                </svg>
+                              </Link>
+                              {[author.githubUrl, author.linkedinUrl, author.xUrl].some(Boolean) && (
+                                <div className="flex items-center gap-1.5">
+                                  {author.githubUrl && (
+                                    <a
+                                      href={author.githubUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex h-7 w-7 items-center justify-center rounded-lg transition-all hover:scale-105 hover:text-[var(--text-primary)]"
+                                      style={{
+                                        background: "var(--bg-tertiary)",
+                                        border: "1px solid var(--border-subtle)",
+                                        color: "var(--text-secondary)",
+                                      }}
+                                      aria-label={`${author.name} on GitHub`}
+                                    >
+                                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                      </svg>
+                                    </a>
+                                  )}
+                                  {author.linkedinUrl && (
+                                    <a
+                                      href={author.linkedinUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex h-7 w-7 items-center justify-center rounded-lg transition-all hover:scale-105 hover:text-[var(--text-primary)]"
+                                      style={{
+                                        background: "var(--bg-tertiary)",
+                                        border: "1px solid var(--border-subtle)",
+                                        color: "var(--text-secondary)",
+                                      }}
+                                      aria-label={`${author.name} on LinkedIn`}
+                                    >
+                                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                      </svg>
+                                    </a>
+                                  )}
+                                  {author.xUrl && (
+                                    <a
+                                      href={author.xUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex h-7 w-7 items-center justify-center rounded-lg transition-all hover:scale-105 hover:text-[var(--text-primary)]"
+                                      style={{
+                                        background: "var(--bg-tertiary)",
+                                        border: "1px solid var(--border-subtle)",
+                                        color: "var(--text-secondary)",
+                                      }}
+                                      aria-label={`${author.name} on X`}
+                                    >
+                                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                      </svg>
+                                    </a>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
-              )}
-
-              {/* Screenshots Gallery */}
-              {screenshots.length > 0 && (
-                <ScreenshotGallery
-                  screenshots={screenshots}
-                  toolName={tool.name}
-                  accentColor={typeConfig.color}
-                />
-              )}
-
-              {/* Related Tools */}
-              {relatedTools.length > 0 && (
-                <RelatedTools tools={relatedTools} currentToolId={tool.id} />
-              )}
+              </aside>
             </div>
-          </article>
+          </RepoStatsProvider>
+
+          {/* Related Tools - own section below the grid */}
+          {relatedTools.length > 0 && (
+            <section className="mt-12">
+              <RelatedTools tools={relatedTools} currentToolId={tool.id} />
+            </section>
+          )}
         </div>
       </main>
     </>

@@ -164,7 +164,7 @@ export function ToolGridSkeleton({ count = 9 }: { count?: number }) {
     <div
       className="grid gap-6"
       style={{
-        gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
       }}
     >
       {Array.from({ length: count }).map((_, i) => (
@@ -182,8 +182,8 @@ function ToolCardSkeleton({ index }: { index: number }) {
       transition={{ delay: index * 0.05 }}
       className="overflow-hidden rounded-2xl"
       style={{
-        background: "rgba(17, 25, 34, 0.95)",
-        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-subtle)",
       }}
     >
       <div className="p-6">
@@ -191,29 +191,29 @@ function ToolCardSkeleton({ index }: { index: number }) {
         <div className="mb-4 flex items-center justify-between">
           <div
             className="h-6 w-24 animate-pulse rounded-lg"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
           <div
             className="h-5 w-12 animate-pulse rounded"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
         </div>
 
         {/* Title */}
         <div
           className="h-6 w-3/4 animate-pulse rounded"
-          style={{ background: "rgba(255, 255, 255, 0.08)" }}
+          style={{ background: "var(--bg-elevated)" }}
         />
 
         {/* Description */}
         <div className="mt-3 space-y-2">
           <div
             className="h-4 w-full animate-pulse rounded"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
           <div
             className="h-4 w-2/3 animate-pulse rounded"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
         </div>
 
@@ -221,16 +221,16 @@ function ToolCardSkeleton({ index }: { index: number }) {
         <div className="mt-5 flex items-center gap-3">
           <div
             className="h-8 w-8 animate-pulse rounded-full"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
           <div className="space-y-1">
             <div
               className="h-4 w-20 animate-pulse rounded"
-              style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              style={{ background: "var(--bg-tertiary)" }}
             />
             <div
               className="h-3 w-16 animate-pulse rounded"
-              style={{ background: "rgba(255, 255, 255, 0.03)" }}
+              style={{ background: "var(--bg-tertiary)" }}
             />
           </div>
         </div>
@@ -238,15 +238,15 @@ function ToolCardSkeleton({ index }: { index: number }) {
         {/* Actions */}
         <div
           className="mt-6 flex gap-3 border-t pt-5"
-          style={{ borderColor: "rgba(255, 255, 255, 0.05)" }}
+          style={{ borderColor: "var(--border-subtle)" }}
         >
           <div
             className="h-10 flex-1 animate-pulse rounded-xl"
-            style={{ background: "rgba(255, 255, 255, 0.03)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
           <div
             className="h-10 flex-1 animate-pulse rounded-xl"
-            style={{ background: "rgba(255, 255, 255, 0.03)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
         </div>
       </div>
@@ -272,15 +272,15 @@ function ToolListItemSkeleton({ index }: { index: number }) {
       transition={{ delay: index * 0.03 }}
       className="grid items-center gap-4 rounded-xl p-4"
       style={{
-        background: "rgba(17, 25, 34, 0.95)",
-        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-subtle)",
         gridTemplateColumns: "48px minmax(200px, 1fr) 140px 100px 88px",
       }}
     >
       {/* Icon */}
       <div
         className="h-12 w-12 animate-pulse rounded-lg"
-        style={{ background: "rgba(255, 255, 255, 0.05)" }}
+        style={{ background: "var(--bg-tertiary)" }}
       />
 
       {/* Content */}
@@ -288,16 +288,16 @@ function ToolListItemSkeleton({ index }: { index: number }) {
         <div className="flex items-center gap-2">
           <div
             className="h-5 w-32 animate-pulse rounded"
-            style={{ background: "rgba(255, 255, 255, 0.08)" }}
+            style={{ background: "var(--bg-elevated)" }}
           />
           <div
             className="h-5 w-16 animate-pulse rounded"
-            style={{ background: "rgba(255, 255, 255, 0.05)" }}
+            style={{ background: "var(--bg-tertiary)" }}
           />
         </div>
         <div
           className="mt-2 h-4 w-3/4 animate-pulse rounded"
-          style={{ background: "rgba(255, 255, 255, 0.05)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
       </div>
 
@@ -305,11 +305,11 @@ function ToolListItemSkeleton({ index }: { index: number }) {
       <div className="hidden items-center gap-2 sm:flex">
         <div
           className="h-6 w-6 animate-pulse rounded-full"
-          style={{ background: "rgba(255, 255, 255, 0.05)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
         <div
           className="h-4 w-20 animate-pulse rounded"
-          style={{ background: "rgba(255, 255, 255, 0.05)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
       </div>
 
@@ -317,7 +317,7 @@ function ToolListItemSkeleton({ index }: { index: number }) {
       <div className="hidden justify-end md:flex">
         <div
           className="h-6 w-16 animate-pulse rounded"
-          style={{ background: "rgba(255, 255, 255, 0.03)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
       </div>
 
@@ -325,11 +325,11 @@ function ToolListItemSkeleton({ index }: { index: number }) {
       <div className="flex justify-end gap-2">
         <div
           className="h-8 w-14 animate-pulse rounded-lg"
-          style={{ background: "rgba(255, 255, 255, 0.03)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
         <div
           className="h-8 w-8 animate-pulse rounded-lg"
-          style={{ background: "rgba(255, 255, 255, 0.03)" }}
+          style={{ background: "var(--bg-tertiary)" }}
         />
       </div>
     </motion.div>

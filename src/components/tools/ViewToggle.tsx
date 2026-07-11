@@ -13,8 +13,8 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
     <div
       className="flex items-center rounded-xl p-1"
       style={{
-        background: "rgba(17, 25, 34, 0.95)",
-        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-subtle)",
       }}
     >
       <ToggleButton

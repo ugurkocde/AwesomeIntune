@@ -85,8 +85,8 @@ export function TrustStrip({ verifiedCount, toolCount }: TrustStripProps) {
               key={pillar.title}
               className="rounded-2xl p-6"
               style={{
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div

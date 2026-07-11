@@ -1,42 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { getHomepageFAQItems } from "~/lib/structured-data";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-}
-
-const faqItems: FAQItem[] = [
-  {
-    question: "What does the 'Verified' badge mean?",
-    answer:
-      "The Verified badge indicates that a tool's source code has been automatically scanned by our AI-powered security system and passed all 6 security checks. These checks look for obfuscated code, remote execution risks, credential theft patterns, data exfiltration, malicious patterns, and hardcoded secrets. A Verified badge gives you confidence that the code follows security best practices.",
-  },
-  {
-    question: "What does the 'Curated' badge mean?",
-    answer:
-      "The Curated badge is shown for tools that don't have publicly available source code (such as web applications or commercial tools with free tiers). While we cannot perform automated security scans on these tools, they have been manually reviewed and selected by our team for their usefulness to the Intune community. These tools are included because they provide significant value, even without open-source code.",
-  },
-  {
-    question: "Are all tools on Awesome Intune free?",
-    answer:
-      "Yes, all tools listed on Awesome Intune are free to use. Most are open-source and available on GitHub, while some web applications offer free tiers with optional premium features.",
-  },
-  {
-    question: "How can I submit a tool?",
-    answer:
-      "You can submit a tool by visiting our GitHub repository and creating a pull request with your tool's details. All submissions go through a review process, including automated security scanning for open-source tools. Check our contribution guidelines for the submission format.",
-  },
-  {
-    question: "What security checks are performed?",
-    answer:
-      "Our automated security scanner checks for 6 potential issues: obfuscated or encoded code, remote code execution patterns, credential harvesting attempts, data exfiltration risks, known malicious patterns, and hardcoded secrets or API keys. Tools that pass all checks receive the Verified badge.",
-  },
-];
-
-export function FAQ() {
+export function FAQ({ toolCount }: { toolCount: number }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const faqItems = getHomepageFAQItems(toolCount);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -100,16 +69,13 @@ export function FAQ() {
           {faqItems.map((item, index) => (
             <div
               key={index}
-              className="overflow-hidden rounded-xl transition-all duration-200"
+              className="overflow-hidden rounded-2xl transition-all duration-200"
               style={{
-                background:
-                  openIndex === index
-                    ? "rgba(17, 25, 34, 0.98)"
-                    : "rgba(17, 25, 34, 0.6)",
+                background: "var(--bg-secondary)",
                 border:
                   openIndex === index
-                    ? "1px solid rgba(0, 212, 255, 0.2)"
-                    : "1px solid rgba(255, 255, 255, 0.05)",
+                    ? "1px solid var(--border-accent)"
+                    : "1px solid var(--border-subtle)",
               }}
               role="listitem"
             >
@@ -131,8 +97,8 @@ export function FAQ() {
                   style={{
                     background:
                       openIndex === index
-                        ? "rgba(0, 212, 255, 0.1)"
-                        : "rgba(255, 255, 255, 0.05)",
+                        ? "var(--accent-glow)"
+                        : "var(--bg-tertiary)",
                     color:
                       openIndex === index
                         ? "var(--accent-primary)"
@@ -160,15 +126,16 @@ export function FAQ() {
                 role="region"
                 aria-labelledby={`faq-button-${index}`}
                 aria-hidden={openIndex !== index}
-                className="overflow-hidden transition-all duration-300 ease-out"
+                className="grid transition-all duration-300 ease-out"
                 style={{
-                  maxHeight: openIndex === index ? "500px" : "0px",
+                  gridTemplateRows: openIndex === index ? "1fr" : "0fr",
                   opacity: openIndex === index ? 1 : 0,
                 }}
               >
+                <div className="min-h-0 overflow-hidden">
                 <div
                   className="border-t px-6 pb-5 pt-4"
-                  style={{ borderColor: "rgba(255, 255, 255, 0.05)" }}
+                  style={{ borderColor: "var(--border-subtle)" }}
                 >
                   <p
                     className="text-sm leading-relaxed sm:text-base"
@@ -177,8 +144,8 @@ export function FAQ() {
                     {item.answer}
                   </p>
 
-                  {/* Visual badge examples for first two questions */}
-                  {index === 0 && (
+                  {/* Visual badge examples for the badge questions */}
+                  {item.question.includes("Verified badge") && (
                     <div className="mt-4 flex items-center gap-3">
                       <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
                         Example:
@@ -188,7 +155,7 @@ export function FAQ() {
                         style={{
                           background:
                             "linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08))",
-                          color: "#10b981",
+                          color: "var(--signal-success)",
                           border: "1px solid rgba(16, 185, 129, 0.25)",
                         }}
                       >
@@ -212,7 +179,7 @@ export function FAQ() {
                       </div>
                     </div>
                   )}
-                  {index === 1 && (
+                  {item.question.includes("Curated badge") && (
                     <div className="mt-4 flex items-center gap-3">
                       <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
                         Example:
@@ -220,24 +187,30 @@ export function FAQ() {
                       <div
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
                         style={{
-                          background:
-                            "linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.08))",
-                          color: "#818cf8",
-                          border: "1px solid rgba(99, 102, 241, 0.25)",
+                          background: "var(--bg-tertiary)",
+                          color: "var(--text-secondary)",
+                          border: "1px solid var(--border-medium)",
                         }}
                       >
                         <svg
                           width="12"
                           height="12"
                           viewBox="0 0 24 24"
-                          fill="currentColor"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="16" x2="12" y2="12" />
+                          <line x1="12" y1="8" x2="12.01" y2="8" />
                         </svg>
                         <span>Curated</span>
                       </div>
                     </div>
                   )}
+                </div>
                 </div>
               </div>
             </div>

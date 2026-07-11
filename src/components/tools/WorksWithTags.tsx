@@ -41,9 +41,9 @@ export function WorksWithTags({
         <span
           className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium"
           style={{
-            background: "rgba(255, 255, 255, 0.05)",
+            background: "var(--bg-tertiary)",
             color: "var(--text-tertiary)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
+            border: "1px solid var(--border-subtle)",
           }}
         >
           +{remainingCount}
