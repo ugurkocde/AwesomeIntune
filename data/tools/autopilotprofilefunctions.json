@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code is aligned with legitimate Intune Autopilot deployment workflows. Primary security considerations are the elevated Microsoft Graph permissions required for deployment management and the automatic installation of modules from external repositories. No evidence of credential harvesting, data exfiltration, hardcoded secrets, or malicious patterns. Recommend applying least-privilege principles for Graph access, proper module signing/validation, and logging/auditing of profile creation actions.",
+    "aiSummary": "The code demonstrates standard Microsoft Graph/Intune Autopilot management patterns suitable for an Intune tooling context. No indicators of obfuscated code, remote script execution, credential harvesting, data exfiltration, or other malicious activity were found. A medium-severity logic bug related to DeploymentMode case handling should be corrected to ensure reliable and secure profile creation across ProfileType branches.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 7,
+    "stars": 8,
     "forks": 1,
     "license": null,
     "lastUpdated": "2025-04-07T19:33:17Z",

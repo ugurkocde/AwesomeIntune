@@ -52,10 +52,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No malicious activity detected. The code is focused on generating ADMX/ADML policy definitions for Intune deployment. No remote code execution, credential harvesting, data exfiltration, or hardcoded secrets identified. Primary concerns are a potential runtime break due to an out-of-scope break statement and a documentation/path inconsistency regarding output location.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

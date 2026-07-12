@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Please supply the PowerShell/Intune tool code (e.g., Wintuner GUI) to evaluate for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 36,
+    "stars": 38,
     "forks": 1,
     "license": null,
     "lastUpdated": "2026-05-12T14:03:28Z",

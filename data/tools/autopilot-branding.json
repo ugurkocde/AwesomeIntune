@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please supply the Autopilot Branding code to review for security issues related to obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No code snippet provided for analysis. Please supply the Autopilot Branding code (e.g., PowerShell/Intune related scripts) to allow evaluation for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets. Once provided, a structured report will be generated with detailed findings and severity levels.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,7 +70,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 490,
+    "stars": 491,
     "forks": 106,
     "license": "MIT",
     "lastUpdated": "2025-11-08T06:48:41Z",

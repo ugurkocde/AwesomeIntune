@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 33,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of remote code execution, credential theft, data exfiltration, or hardcoded secrets. The scripts appear to be legitimate Windows ConfigMgr/Intune admin tooling. However, there are code quality and correctness issues (invalid SiteCode regex; stray debug line; logging variable name mismatch) that should be fixed to avoid runtime errors and to maintain clean, accurate logs. Ensure trusted module loading paths and review for interactive prompts in automated contexts.",
+    "aiSummary": "Code appears to be legitimate admin tooling for ConfigMgr/Intune workflows. No malicious activity detected. Note a minor bug regarding variable naming in Get-AppList and a potential credential exposure risk if certificate objects are mishandled by callers.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

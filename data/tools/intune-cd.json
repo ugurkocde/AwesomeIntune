@@ -48,10 +48,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No hardcoded secrets or credential theft patterns are detected. The primary concerns are potential data exposure through unenforced user-supplied export paths and the use of dynamic imports for backup modules. Both should be hardened with input validation, directory confinement, and strict import whitelisting to minimize attack surface while preserving legitimate admin functionality.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,10 +75,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 402,
+    "stars": 408,
     "forks": 54,
     "license": "MIT",
-    "lastUpdated": "2026-05-29T14:32:28Z",
+    "lastUpdated": "2026-07-02T10:07:32Z",
     "archived": false
   }
 }

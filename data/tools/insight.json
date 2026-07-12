@@ -62,10 +62,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Please supply the InSight code (PowerShell scripts or related files) to assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
@@ -90,7 +90,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 36,
+    "stars": 37,
     "forks": 0,
     "license": null,
     "lastUpdated": "2026-01-14T22:51:24Z",

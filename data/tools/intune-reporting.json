@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 27,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune Reporting tooling contains legitimate telemetry and Azure AD permission management patterns. Key concerns include data exfiltration risk through Log Analytics telemetry, hardcoded/secrets handling practices, potential XML processing risks, and a substantive privilege-assignment flow that could enable broader Graph access. Recommendations center on tightening data minimization and opt-in for telemetry, securing credentials (Key Vault/Managed Identity), validating external XML, and enforcing least-privilege and robust change control for permission changes.",
+    "aiSummary": "Overall assessment: The code largely aligns with a legitimate Intune/Dell telemetry workflow, but there are notable security considerations. Primary concerns are exposure of credentials in code (Log Analytics keys, TenantID), potential over-permission via automated Graph AppRole assignments, and telemetry data exposure. Recommendations: avoid hardcoding secrets by using Key Vault/Managed Identity, implement strict approval and least-privilege controls for AppRole assignments, and minimize or redact sensitive fields in telemetry data. Consider migrating to Microsoft Graph PowerShell SDK and adding robust logging and error handling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

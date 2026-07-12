@@ -51,10 +51,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script is a straightforward Intune packaging wrapper with local file deployment and registry registration. There are no indicators of remote code execution, credential theft, data exfiltration, or obfuscation. However, there are security hygiene issues: non-terminating errors may mask failures, a hardcoded placeholder value reduces configurability and may cause misconfigurations, and registry/logging actions could be misused if not properly governed. Recommend enabling strict error handling (ErrorAction Stop), parameterizing configuration (e.g., company name), validating file existence before Copy-Item, and auditing/logging to ensure sensitive data is not written to logs.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -78,7 +78,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 3,
     "forks": 0,
     "license": null,
     "lastUpdated": "2025-06-14T20:25:39Z",

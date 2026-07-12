@@ -45,10 +45,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 26,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The uninstall script itself is not obfuscated or performing remote code execution, and it contains no credential harvesting or data exfiltration. However, it uninstalls security software and cleans up related startup items, which can create a security gap if performed without proper authorization, auditing, or governance. Recommend requiring explicit admin approval, centralized logging/auditing of uninstall actions, and alignment with Intune/RuleForge governance to avoid unintended removal of protection.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -73,7 +73,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 14,
+    "stars": 15,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-05-19T15:59:08Z",

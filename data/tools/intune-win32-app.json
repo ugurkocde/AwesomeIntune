@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall, the IntuneWin32App codebase implements standard Intune Graph API usage and asset handling. The primary security concern is the AzCopy-based data transfer utility (Private/Invoke-AzureCopyUtility.ps1), which could enable covert data exfiltration if not properly audited and restricted. Other items (hardcoded default AppID, remote content download without immediate execution, and lack of obfuscation) present moderate or low risk in typical administrator workflows. No evident hardcoded credentials, tokens, or exploitative payloads are present.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,8 +76,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 492,
-    "forks": 117,
+    "stars": 497,
+    "forks": 118,
     "license": "MIT",
     "lastUpdated": "2026-01-25T16:46:56Z",
     "archived": false

@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No explicit security issues detected in the provided code for PSAppDeployToolkit-related Intune tooling. The only notable pattern is reflection-based access to a private method in PopupHelper, which is a common library technique rather than exploitation. Build.cmd uses ExecutionPolicy Bypass, which warrants caution in CI environments and should be paired with signed scripts and restricted execution where possible.",
+    "aiSummary": "Potential security risk detected in build workflow due to ExecutionPolicy bypass in build.cmd. No evidence of obfuscated code, credential theft, data exfiltration, remote code execution, or hardcoded secrets in the provided toolkit components. The codebase appears aligned with Intune/Graph/automation patterns.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 2328,
-    "forks": 565,
+    "stars": 2351,
+    "forks": 562,
     "license": "LGPL-3.0",
-    "lastUpdated": "2026-06-11T10:48:22Z",
+    "lastUpdated": "2026-07-11T07:51:53Z",
     "archived": false
   },
   "authors": [

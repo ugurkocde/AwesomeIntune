@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code appears safe for an Intune management tool. The only notable concern is the in-memory extraction of the Graph bearer token for subsequent API calls. This is a known technique but could present token exposure risk if logs or memory are inspected. Recommend relying on the Graph SDK authentication flow without manual token extraction, and ensure token handling does not log or persist sensitive information. Otherwise, no obfuscated code, no remote script execution, no exfiltration to external endpoints, and no hardcoded secrets.",
+    "aiSummary": "The script is largely appropriate for an Intune management workflow. The principal security concern is the manual extraction of the Graph access token from an active session, which resembles a credential harvesting pattern. No obfuscated code, remote code execution, data exfiltration, or hardcoded secrets were identified. Recommend using built-in authentication handling, adding robust error handling for REST calls, and ensuring tokens are not logged or exposed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 17,
+    "stars": 18,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-03-13T11:57:37Z",

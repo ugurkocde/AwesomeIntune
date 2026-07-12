@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No explicit malicious activity detected. The codebase appears to be a remediation suite for Intune/Defender-related settings. Notable considerations: potential use of deprecated WMI cmdlets; security feature toggling requires proper authorization, logging, and validation of external policy files.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,7 +76,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 116,
+    "stars": 117,
     "forks": 23,
     "license": null,
     "lastUpdated": "2026-01-13T22:14:55Z",

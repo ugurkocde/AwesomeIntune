@@ -50,17 +50,16 @@
   ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 37,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The IntuneDeviceInventory codebase largely aligns with expected Intune/Graph patterns, but there are notable concerns: (1) garbled/encoded module files that obscure content and raise integrity concerns, (2) use of client-secret based Graph authentication which can expose secrets if not stored securely, (3) collection of potentially sensitive device identifiers and tenant details that require governance, and (4) a few questionable error-handling practices. Immediate actions: verify and restore the binary-encoded module files from trusted sources, replace client-secret auth with more secure methods (managed identity/certificates), implement data minimization and encryption for inventory data, and standardize error handling in runbooks. No explicit remote code download/execution was detected, and there are no obvious hardcoded API keys present in the visible code, but ensure all secrets are externalized and signed.",
+    "status": "passed",
+    "aiSummary": "The codebase contains notable security and reliability concerns: a garbled/possibly obfuscated module manifest; hardcoded identifiers that could affect permission scoping; credential handling relying on client secrets; collection of sensitive inventory data; and a logic error in permission assignment that could lead to misconfiguration. Recommended actions include validating and signing modules, parameterizing critical IDs/permissions, using certificate/Managed Identity auth where possible, enforcing data minimization and secure transmission, and fixing the foreach-permission loop to iterate over a proper collection.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Module file contains non-ASCII characters and what appears to be garbled or encoded content (binary-like). This can hide malicious payloads or indicate integrity issues. Action: verify source integrity, re-export the module with UTF-8 encoding, and sign the module before deployment."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The script rotates the FileVault recovery key via fdesetup but handles user credentials in plaintext on disk, creating a credential exposure risk. No remote code, exfiltration, or hardcoded secrets detected.",
+    "aiSummary": "The Reissue Key script is a legitimate macOS admin utility to rotate a FileVault recovery key. It does not contain remote code execution, obfuscated payloads, or hardcoded secrets. However, it handles user credentials in a potentially insecure manner by writing the plaintext password to a temporary plist on disk and not explicitly clearing the in-memory password. These patterns constitute credential exposure risks that could be exploited if the system is compromised. Recommend tightening credential handling (avoid disk persistence, clear memory promptly, escape plist inputs, and consider integrating with macOS keychains or secure APIs) to align with secure Intune/enterprise deployment practices.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -40,7 +40,7 @@
       },
       "noCredentialTheft": {
         "passed": false,
-        "reason": "The script prompts the actual user for their login password and writes it to a temporary plist file containing the Username and Password, which is then consumed by fdesetup to rotate the FileVault key. The password is stored in plaintext on disk for a brief period and removed after use. Although the file is created with mode 600 and immediately cleaned up, the approach presents a credential exposure risk, especially if the system is compromised, swapped, or if the cleanup fails. Consider avoiding writing credentials to disk, using secure API or Keychain storage, and ensuring robust cleanup (trap on exit, secure deletion)."
+        "reason": "The script writes the user-provided password into a temporary plist file (Username and Password) in plaintext and then uses it as input to fdesetup. Although the file is created with restricted permissions (chmod 600) and subsequently removed, the password briefly resides on disk and can potentially be exposed to root or other processes during its lifetime. This plaintext handling creates a credential exposure window. Recommendation: avoid persisting credentials to disk; if unavoidable, minimize lifetime, ensure strict cleanup, consider using memory-only APIs or secure keychain integration, and unset sensitive variables as soon as they are no longer needed."
       },
       "noDataExfiltration": {
         "passed": true

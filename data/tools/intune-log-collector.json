@@ -48,10 +48,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune Log Collector codebase appears to implement strong device/app authentication and graph access via Managed Identity. Primary security concerns are around the SAS token methodology in GetSASUri (data access scope and token lifecycle), logging of sensitive header data in GetBlobContent, and partial input validation (container name not on an allowlist). Recommend tightening SAS token scopes and lifetimes, expanding redaction in logs, and enforcing container-level validation to align with account allowlists. Overall, no evidence of credential theft or remote code execution observed; the pattern is consistent with a legitimate admin tool, given proper hardening of the identified risks.",
+    "aiSummary": "Overall assessment: The Intune Log Collector code is functionally appropriate and includes authentication checks and storage access controls. However, there are notable security concerns around storage credentials in environment variables, and the SAS token workflow with broad permissions could be misused if tokens are intercepted. Data exposure via blob contents and metadata in logs also warrants tightening. Recommendations include migrating storage access to Managed Identity/Key Vault, tightening SAS token scope and TTL, limiting data exposure, and ensuring logs redact sensitive identifiers by default.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

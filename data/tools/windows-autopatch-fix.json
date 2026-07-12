@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please provide the PowerShell/Intune script or manifest to review for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns and hardcoded secrets.",
+    "aiSummary": "No code snippet provided for analysis. Please paste the PowerShell/Intune tool code to assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,7 +70,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 6,
+    "stars": 8,
     "forks": 0,
     "license": null,
     "lastUpdated": "2026-06-02T09:57:09Z",

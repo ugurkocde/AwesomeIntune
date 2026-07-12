@@ -48,10 +48,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code is generally safe for an Intune management tool, focusing on granting Graph permissions to a managed identity. Key security considerations are the privileged nature of the operation and potential OData injection if input is not sanitized. Implement input validation, auditable logs, and least-privilege scopes.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,10 +75,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 23,
-    "forks": 1,
+    "stars": 28,
+    "forks": 2,
     "license": "MIT",
-    "lastUpdated": "2025-12-19T13:44:08Z",
+    "lastUpdated": "2026-07-01T12:30:01Z",
     "archived": false
   }
 }

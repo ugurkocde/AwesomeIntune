@@ -55,10 +55,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall, the IntuneFirewallMigration tool aligns with expected Intune/Graph automation practices. Notable concerns include runtime dependency installation from external sources (supply-chain risk) and a potential robustness issue due to Break usage in catch blocks. No hard-coded secrets or credential-harvesting behaviors detected.",
+    "aiSummary": "Overall, the script shows legitimate Graph/Intune management usage but includes self-relaunch obfuscation, on-demand module installation from the internet, and a manifest misconfiguration. These deserve scrutiny and hardening: pin module sources/versions, validate manifest consistency, audit Strings.ps1 content, and minimize logging of identifiers.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -82,10 +82,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 23,
+    "stars": 25,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-05-06T11:49:52Z",
+    "lastUpdated": "2026-07-01T07:54:35Z",
     "archived": false
   }
 }

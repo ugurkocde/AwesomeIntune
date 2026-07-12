@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No active malware, credential theft, or exfiltration patterns detected. The tool aligns with Defender/Intune administration workflows. The primary security improvement is to HTML-encode dynamic content (notably section headers) in reports to mitigate potential HTML injection risks. Review private data handling and report storage/access controls to prevent unintended data exposure.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -83,10 +83,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 44,
+    "stars": 45,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-05-17T22:35:21Z",
+    "lastUpdated": "2026-07-11T13:20:26Z",
     "archived": false
   }
 }

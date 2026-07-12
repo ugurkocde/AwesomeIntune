@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 4,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please supply the code snippet or repository contents (PowerShell scripts, modules, manifests) for the Deploy Windows 365 Intune tool so security findings can be evaluated for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -57,7 +57,7 @@
     "stars": 7,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-06-11T08:36:49Z",
+    "lastUpdated": "2026-06-29T14:13:44Z",
     "archived": false
   },
   "authors": [

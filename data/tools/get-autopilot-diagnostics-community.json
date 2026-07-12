@@ -48,10 +48,10 @@
     "passed": 4,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The codebase includes two hidden, stealthy execution wrappers for backup/restore workflows, which is a red flag for potential misuse or covert data collection. Additionally, the backup script transfers a wide range of user data to cloud storage, which, while common for enterprise backups, requires rigorous data governance and auditing to mitigate privacy and data exposure risks.",
+    "aiSummary": "The code largely implements a broad backup/restore workflow that copies extensive user data to OneDrive locations. While this can be legitimate in managed environments, it triggers significant data exfiltration/privacy concerns due to inclusion of highly sensitive data (PSTs, emails, RoamCache) and involves invisible execution wrappers that can obscure activity. No remote script downloads, credential harvesting, or hardcoded secrets observed. Recommend data minimization, encryption, access controls, user notification, signing/auditing of invisible executables, and alignment with organizational data governance policies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -64,11 +64,11 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": true
+        "passed": false,
+        "reason": "Large-scale backup of user data is performed by copying numerous directories (Documents, Music, Signatures, RoamCache, Favourites, Chrome bookmarks, PSTs, Word/Excel/UI templates, Sticky Notes, Start Menu items, etc.) to OneDrive and OneDriveCommercial. This constitutes broad data exfiltration to cloud storage. While intended as backup, it risks exposing highly sensitive data (e.g., PST/Outlook data, RoamCache, email signatures) and raises privacy/data governance concerns. Recommend data minimization, encryption at rest/in transit, strict access controls, and explicit user consent policies."
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "VBScript wrapper executes backup.bat with a hidden window (0). Hidden execution is a common tactic for stealth data collection or exfiltration; requires justification, auditing, and strict execution controls."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -77,10 +77,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 715,
+    "stars": 731,
     "forks": 266,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-06-04T07:42:17Z",
+    "lastUpdated": "2026-07-02T16:00:54Z",
     "archived": false
   }
 }

@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Detect-ToastNotification.ps1 script is largely aligned with expected Intune tooling behavior, but it contains a potential XML External Entity (XXE) risk when loading configurations from URLs. No evidence of remote code execution, credential theft, data exfiltration, or hardcoded secrets in the provided sample. Recommend hardening XML parsing and input validation to reduce XXE exposure.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 270,
+    "stars": 272,
     "forks": 66,
     "license": "MIT",
     "lastUpdated": "2026-02-16T07:03:29Z",

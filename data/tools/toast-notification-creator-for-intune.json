@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Toast Notification Creator for Intune primarily operates in the local Windows user context and does not download or execute remote code nor harvest credentials. However, there are input handling risks: unescaped user-provided Title/Message can break or corrupt generated XML; inputs embedded into a generated remediation script can cause syntax or injection issues; and the ActionButtonUrl opens external pages that could be abused for phishing. No hardcoded secrets or credential harvesting are present. Recommend escaping user inputs when building XML, escaping or parameterizing content in generated scripts, and validating/whitelisting external URLs to mitigate potential abuse. Overall, safe for legitimate admin use with these mitigations in place.",
+    "aiSummary": "Code appears to be legitimate for Intune toast notifications. No credential harvesting or automated remote code execution detected. Primary security considerations are: (1) external URL activation in toasts could direct users to untrusted sites; (2) configuration is stored in plaintext in AppData; (3) user-supplied content is written and persisted. Recommendations: validate and whitelist URLs, sanitize inputs, secure or encrypt config storage, and consider signing generated remediation scripts.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

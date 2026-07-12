@@ -48,10 +48,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No security issues detected. The .PSScriptAnalyzerSettings.psd1 snippet only configures PSScriptAnalyzer rule exclusions and does not contain executable code or patterns for obfuscation, remote execution, credential harvesting, data exfiltration, or hardcoded secrets. Excluding certain rules could hide warnings in scripts reviewed with this analyzer, but the config itself is benign for an Intune assignment checker tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -75,10 +75,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 439,
-    "forks": 75,
+    "stars": 444,
+    "forks": 77,
     "license": "MIT",
-    "lastUpdated": "2026-04-28T10:11:23Z",
+    "lastUpdated": "2026-07-03T09:13:06Z",
     "archived": false
   }
 }

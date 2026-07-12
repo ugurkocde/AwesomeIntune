@@ -42,7 +42,7 @@
     "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "not_applicable",
     "aiSummary": null,
@@ -71,8 +71,8 @@
   "repoStats": {
     "stars": 38,
     "forks": 2,
-    "license": null,
-    "lastUpdated": "2025-12-08T03:57:15Z",
+    "license": "MIT",
+    "lastUpdated": "2026-07-11T23:06:07Z",
     "archived": false
   }
 }

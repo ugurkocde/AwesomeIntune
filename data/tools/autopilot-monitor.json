@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Autopilot Monitor bootstrap automation is aligned with Intune deployment practices but introduces remote code delivery risks. Key concerns are the remote download and execution of an agent, reliance on manifest-based integrity with a weak MD5 fallback, and lack of explicit digital-signature verification for the binary. Mitigations include enforcing TLS and download pinning, requiring and verifying Authenticode signatures, removing MD5 fallbacks in favor of strong SHA-256 (and signed manifests), and ensuring proper lifecycle management of any scheduled tasks or persistence mechanisms used during enrollment.",
+    "aiSummary": "The code includes a remote agent bootstrap flow that downloads and runs code from a URL with integrity verification. This presents a legitimate admin pattern for Intune autopilot deployments but introduces supply-chain risk via remote execution. No credential harvesting, data exfiltration, or hardcoded secrets detected. Obfuscation patterns are not present.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 28,
+    "stars": 34,
     "forks": 3,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-06-11T11:17:55Z",
+    "lastUpdated": "2026-07-11T11:50:19Z",
     "archived": false
   },
   "authors": [

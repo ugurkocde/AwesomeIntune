@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 30,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase implements standard Intune/Azure Graph management tooling with typical admin capabilities. It does not exhibit active obfuscated payloads, external code downloads, credential theft, or data exfiltration in the provided snippet. However, several risk vectors are present: in-memory handling of credentials, silent/hidden execution paths, recursive file unblocking, and dynamic loading from disk without explicit integrity checks. To improve security, enforce vault-backed credential retrieval, minimize or tightly constrain silent operation, sign modules, and add robust integrity checks and auditing for all dynamic loads and file operations.",
+    "aiSummary": "Overall assessment: The code appears to be a legitimate Intune/Graph API management tool with UI loading and local module initialization. No obfuscated code, no hardcoded secrets, and no evident remote script download/execution in the provided snippet. However, credential handling uses plain strings in parameters and memory, which is a security concern, and the broad Unblock-AllFiles routine could be abused if misused. Recommend tightening credential handling, minimizing or restricting file-unblock operations, and ensuring proper auditing of Graph/API usage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,8 +81,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 1965,
-    "forks": 363,
+    "stars": 1990,
+    "forks": 369,
     "license": "MIT",
     "lastUpdated": "2026-05-12T09:54:16Z",
     "archived": false

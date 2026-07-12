@@ -50,10 +50,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No malicious activity detected. The script is a powerful admin tool for managing the WinRE environment. Primary security considerations are risk of data loss or misconfiguration due to partition edits; mitigations include strict change control, backups, validation, and controlled execution via Intune. Logging should be secured to prevent sensitive information exposure.",
+    "aiSummary": "The Windows Recovery Partition Editor script is largely a legitimate administrative tool for WinRE customization. It avoids obfuscated code, remote code execution, credential harvesting, data exfiltration, and hardcoded secrets. However, it includes potentially dangerous disk and partition operations that can impact system stability and data integrity. Recommend adding safeguards (dry-run capability, explicit confirmations, robust error handling, and auditing) and caution around transcript logging to minimize accidental credential leakage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

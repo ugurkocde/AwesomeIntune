@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-02-16",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "failed",
+    "aiSummary": "The script is largely safe for an Intune/macOS Defender test but includes a high-risk tamper test that could temporarily reduce security protections. No obfuscated code, no remote code execution, no credential theft, no data exfiltration, and no hardcoded secrets detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,7 +45,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Tamper Protection test intentionally attempts to disable Real-Time Protection via 'mdatp config real-time-protection --value disabled'. This could degrade security if misused. The script then verifies the outcome and attempts to re-enable RTP. While intended as a test, this is a sensitive operation requiring strict authorization controls, audit logging, and safe-guarded execution to avoid persistence of reduced protection."
       },
       "noHardcodedSecrets": {
         "passed": true

@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No obfuscated code, no remote code execution, no credential harvesting, and no explicit data exfiltration detected. The script is a local data-collection component for SupportCompanion. However, it collects potentially sensitive system information and writes it to disk; ensure appropriate file permissions and encryption where feasible, and verify privacy/scope policies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,7 +84,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 180,
+    "stars": 181,
     "forks": 13,
     "license": "Apache-2.0",
     "lastUpdated": "2026-03-24T14:37:41Z",

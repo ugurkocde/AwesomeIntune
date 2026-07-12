@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The IntuneGet-related codebase aligns with legitimate Intune/Graph API tooling but contains notable security considerations. Primary concerns include data being sent to external AI services for classification (potential data exfiltration), potential exposure of privileged secrets via environment variable naming (NEXT_PUBLIC_ and service role key), and external callbacks that may leak deployment data. No evidence of malware or remote code execution patterns. Recommended mitigations: limit and redact data sent to OpenAI, move privileged keys to secure secret management with server-only scope, and audit external callbacks for data minimization and trust.",
+    "aiSummary": "The code includes external data flows (to OpenAI) and external callbacks that may leak enterprise catalog data, and uses high-privilege credentials in CI. No obfuscated code or explicit remote code execution patterns detected. Recommend strict data governance for external AI usage, secure management of Graph and Supabase credentials, and monitoring of callback endpoints.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,10 +81,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 92,
-    "forks": 29,
+    "stars": 97,
+    "forks": 36,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-06-11T07:05:53Z",
+    "lastUpdated": "2026-07-11T21:07:28Z",
     "archived": false
   }
 }

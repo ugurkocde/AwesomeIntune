@@ -62,10 +62,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No explicit malware behavior detected (no remote code execution, no credential stealing, no data exfiltration). However, the code elevates privileges via broad Microsoft Graph scopes and includes a multi-tenant auth swap mechanism that could be misused if not properly governed. Recommend tightening permissions to least privilege, enforcing strict tenant isolation and auditing for cross-tenant actions, and ensuring logging practices do not leak sensitive information.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -92,7 +92,7 @@
     "stars": 11,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-06-08T12:41:31Z",
+    "lastUpdated": "2026-06-29T10:31:48Z",
     "archived": false
   }
 }

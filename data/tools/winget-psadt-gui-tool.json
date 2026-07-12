@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 18,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The reviewed code appears to be an Intune-related GUI/Toolkit with normal admin tooling patterns (module loading, logging, UI). Two patterns warrant caution: (1) The use of encoded PowerShell command execution (Invoke-WindowsPowerShellCommand) which can be leveraged to obfuscate or bypass policy if inputs are not validated; (2) Dot-sourcing multiple module files at startup introduces supply-chain risk and relies on file integrity. There is no evidence of credential theft, data exfiltration, reverse shells, or hardcoded secrets in the provided snippets.",
+    "aiSummary": "No evidence of credential theft, data exfiltration, or unsigned downloads. The code includes a facility for executing encoded commands with bypassed execution policy, which is a potential obfuscation/remote-execution vector. Admin tooling should prefer explicit, auditable execution paths and avoid bypassing policies; ensure input validation and secure handling of temporary logs.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 13,
-    "forks": 1,
+    "stars": 14,
+    "forks": 2,
     "license": "MIT",
     "lastUpdated": "2026-02-26T15:54:34Z",
     "archived": false

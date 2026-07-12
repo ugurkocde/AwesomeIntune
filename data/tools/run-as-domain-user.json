@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall, the code is a packaged admin utility that installs a component and a Start Menu shortcut to run a domain-credentialed application via ShellRunas.exe. No hardcoded secrets or remote script downloads detected. Not malicious per se, but notable risks include execution policy bypass, persistence via Start Menu shortcut, and credential handling flow via /netonly and external ShellRunas.exe. Recommend code signing, avoid -ExecutionPolicy Bypass, use AppLocker, validate and sanitize app/domain inputs, and ensure uninstall removes all artifacts. Consider using Intune-managed deployment rather than per-machine All Users shortcuts, and add robust logging with secure log retention.",
+    "aiSummary": "Overall assessment: The code appears to be a legitimate Intune packaging/helper tool for running as a domain user. No indicators of remote code execution, credential theft, data exfiltration, or hardcoded secrets. Primary considerations are standard hardening: sign scripts, minimize bypass usage, verify provenance of ShellRunas.exe, and secure generated logs.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

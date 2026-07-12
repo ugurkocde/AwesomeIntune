@@ -40,13 +40,13 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Critical risk: the background.js component captures and stores Microsoft Graph authorization tokens and logs them, creating a credential theft surface. This requires immediate remediation to remove token interception, avoid storing tokens in local storage, and use standard OAuth flows with secure, limited-scope token handling. Analytics usage is typical for admin tools, but ensure explicit user consent and minimize data; placeholders for GA credentials should be securely injected during build without exposing secrets in source.",
+    "status": "failed",
+    "aiSummary": "High-severity credential harvesting via background.js token capture. Legitimate Graph usage is supported but token interception is not acceptable; remove this behavior. Replace hardcoded GA secrets with secure config. Overall tool appears legitimate with built-in analytics opt-in; ensure privacy and security controls.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -55,7 +55,8 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "Intercepts outgoing requests to graph.microsoft.com and captures the Authorization header (OAuth token) from Graph API requests. Stores token in chrome.storage.local for access by popup.js. This enables credential theft/possible misuse via other extension components. Lacks explicit user consent, token isolation, or secure handling; storage in chrome.storage.local may be accessible to other extension contexts. Risk: token leakage and potential abuse of Graph API."
       },
       "noDataExfiltration": {
         "passed": true

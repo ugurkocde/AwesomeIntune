@@ -50,17 +50,16 @@
     }
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The IntuneStatefulDeviceFingerprinting codebase implements legitimate device fingerprinting and telemetry for Intune management, with strong integration patterns (Azure IMDS, dsregcmd, certificate-based webhook). However, it includes high-risk patterns: obfuscated inline code executed via -EncodedCommand, a SYSTEM-level persistent scheduled task, and outbound webhook telemetry containing device identity. There are additional concerns around silent error handling and certificate usage. Recommend clarifying policy approvals for persistence, ensuring webhook trust and TLS, implementing explicit logging, and reducing opaqueness of encoded commands where possible.",
+    "status": "passed",
+    "aiSummary": "The codebase contains legitimate Intune/endpoint management patterns, but it also includes obfuscated inline PowerShell for a persistent scheduled task and a cloud webhook data flow that can exfiltrate device data. Key risk areas to address: (1) reduce or remove EncodedCommand usage for better visibility and auditing, (2) validate and restrict the destination webhook, enforce data minimization, and (3) ensure strict access controls around certificate usage and scheduled task creation. Overall, behavior is consistent with a managed security/monitoring tool, but the data exfiltration path and obfuscation require careful governance and monitoring.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "The watchdog builds an inline PowerShell script and encodes it with -EncodedCommand to execute via a scheduled task. This obfuscated approach hides the actual commands being run and is a common persistence/evasion pattern. While it can be legitimate for protection tooling, it increases difficulty for auditing and incident response."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

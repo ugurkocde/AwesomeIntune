@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 38,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Two notable risks detected: (1) dynamic dot-sourcing of private/public scripts during module import, which can be a supply-chain integrity risk if the package is tampered; (2) potential HTML injection (XSS) in HTML reports due to unsanitized output. No evidence of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets in the provided code paths. Overall, IntuneDebug appears to be a debugging/reporting tool; mitigate by tightening module import discipline and ensuring output escaping.",
+    "aiSummary": "No evidence of remote code download/execution, credential harvesting, or data exfiltration in the provided code. The primary concerns relate to: (1) potential HTML/script injection risk from rendering base64-decoded ScriptBody without escaping, and (2) unsafe pattern of auto-loading all scripts from Private/Public directories which could be abused if those files are tampered. Recommend: enforce script signing and integrity checks, sanitize decoded content before rendering, audit Private/Public scripts, and limit/explicitly define module dependencies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

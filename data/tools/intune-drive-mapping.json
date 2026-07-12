@@ -45,14 +45,13 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Overall, the codebase contains normal admin tooling patterns (Intune/Drive Mapping management) but also notable secure-design concerns: (1) a stealthy execution path using VBScript and transcript logging, (2) a persistence mechanism via a scheduled task that can auto-run at user logon, and (3) potential local data exposure through transcripts and LDAP-based group filtering. There are no remote code executions, credential theft, hardcoded secrets, or external data exfiltration detected in these snippets. Review should ensure transparent use of persistence features, proper logging/data protection, and hardened input validation for uploads.",
+    "aiSummary": "The codebase includes enterprise drive-mapping functionality with legitimate admin features. Notable security concerns: a SYSTEM-level persistent scheduled task with a hidden PowerShell invocation via VBScript (which could be misused for persistence) and a VBScript wrapper that masks execution. There is no evidence of remote code download, credential harvesting, data exfiltration, or hardcoded secrets, but the persistence pattern and content-upload parsing require strong access control, script signing, and audit logging to prevent abuse.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Hidden/obfuscated execution path: The PowerShell script uses Start-Transcript and a VBScript wrapper (IntuneDriveMapping-VBSHelper.vbs) to launch PowerShell in a concealed manner, and a scheduled task wrapper to trigger execution. This pattern can be used to evade monitoring."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true
@@ -64,7 +63,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "PowerShell script creates a SYSTEM-level scheduled task to run on user logon and uses a VBScript helper to hide the PowerShell window. This is a persistence mechanism that can enable stealthy execution across logins. In an enterprise Intune context this behavior is risky and should be limited to clearly approved admin deployment with auditing."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -73,7 +73,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 199,
+    "stars": 201,
     "forks": 25,
     "license": "MIT",
     "lastUpdated": "2022-02-04T23:09:12Z",

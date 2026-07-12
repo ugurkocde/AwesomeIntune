@@ -56,13 +56,13 @@
     "screenshots/m365-documentation/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 0,
     "total": 6,
-    "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "filesScanned": 0,
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall security posture: The codebase employs standard authentication flows suitable for a Microsoft Graph/Intune context. However, there is a notable data exfiltration/privacy risk in the translation submission flow to an external endpoint without authentication, including user-provided identifiers in headers. Additional concerns include a hardcoded environment-specific path and the use of an HTTP timestamp server for code signing. Recommend addressing data submission authentication/authorization, making file paths configurable, and switching to HTTPS for timestamping to improve security and maintainability.",
+    "status": "scan_error",
+    "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -86,7 +86,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 608,
+    "stars": 615,
     "forks": 83,
     "license": "NOASSERTION",
     "lastUpdated": "2026-03-15T13:48:54Z",

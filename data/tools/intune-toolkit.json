@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 35,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No direct remote code download or hardcoded secrets detected in the main wrapper. Primary risk lies in trust and integrity of locally loaded scripts (.\\Scripts); ensure script signing, integrity checks, and strict access controls. Graph API usage aligns with Intune/Graph integration; monitor for privacy/policy compliance in displaying/logging tenant and user data.",
+    "aiSummary": "Overall assessment: The Intune Toolkit script appears to be a legitimate administrative tool loading local modules and Graph-based context for Intune/Microsoft Graph interactions. There are no obfuscated commands, no remote-download execution, and no obvious credential harvesting. The primary security concerns are (1) logging/displaying PII (tenant and user) which could leak sensitive information if logs/UI are exposed, and (2) integrity risks from loading numerous local scripts without signing or integrity checks. Recommend redacting sensitive data in logs, enforcing script signing and integrity verification for all scripts in the Scripts directory, and validating that Graph tokens are handled securely with least-privilege scopes. Hardcoded secrets do not appear present, and no malicious patterns are detected beyond normal admin tooling behavior.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,10 +76,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 338,
+    "stars": 342,
     "forks": 49,
     "license": "MIT",
-    "lastUpdated": "2026-03-16T15:22:19Z",
+    "lastUpdated": "2026-07-03T13:33:52Z",
     "archived": false
   }
 }

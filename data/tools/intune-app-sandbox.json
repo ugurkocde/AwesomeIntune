@@ -57,13 +57,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The codebase implements a Windows Sandbox workflow for Intune app testing. While much is standard for admin tooling (sandbox config, PSADT-based packaging, toast notifications), there are notable security concerns: garbled/obfuscated manifest, execution policy bypass in pre-logon, a SYSTEM-level scheduled task to perform installation, data enumeration/export, and dynamic loading of Public modules. These patterns require strict supply-chain controls, code signing, and minimized exposure to ensure no misuse outside controlled Intune management contexts.",
+    "aiSummary": "The Intune-App-Sandbox codebase is aligned with legitimate Intune/Win32 sandbox deployment practices but contains notable security considerations. A garbled manifest in Intune-App-Sandbox.psd1 suggests potential tampering or obfuscation. Privilege-escalation patterns (executionpolicy bypass and SYSTEM-level scheduled task) exist in the logon scripting flow. Sandbox host-folder mappings allow write access to host data, creating data exfiltration risks. The code also collects installed software data inside the sandbox. No hardcoded secrets detected; no external remote code downloads observed. Recommend validating the PSD1 file integrity, restricting sandbox privilege elevations, and tightening sandbox host mappings; document all data collection and ensure proper logging and least-privilege usage.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Module manifest appears garbled with binary-like characters; potential obfuscation or tampering. This hinders auditing and may indicate attempted concealment. Validate integrity and authorship of the manifest."
       },
       "noRemoteExecution": {
         "passed": true
@@ -75,8 +76,7 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "The generated logon script creates a scheduled task that runs an installer as SYSTEM after a short delay. This pattern can enable privilege escalation and persistence; within a sandbox this may be expected but could be misused outside containment."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true

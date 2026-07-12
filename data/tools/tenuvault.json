@@ -52,10 +52,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided to analyze. Please provide the TenuVault code snippet or repository for a thorough security review focusing on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No code block supplied for analysis. Please provide the TenuVault PowerShell code or deployment scripts to assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets in the context of Intune/Graph usage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -79,8 +79,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 56,
-    "forks": 4,
+    "stars": 61,
+    "forks": 3,
     "license": "MIT",
     "lastUpdated": "2025-08-09T16:05:22Z",
     "archived": false

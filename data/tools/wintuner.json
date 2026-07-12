@@ -58,10 +58,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Intune/WinTuner management tool with PowerShell and Graph API integration. There is no obfuscated payload or remote script execution. Authentication is performed via interactive or Graph-based flows. The primary security considerations revolve around telemetry/proxy event data potentially leaving the environment and ensuring that any transcripts/logs do not inadvertently capture sensitive credentials. No credential theft or hardcoded secrets beyond placeholder values are detected. Recommend reviewing telemetry data schemas, enabling least-privilege Graph scopes, and ensuring secure handling of interactive authentication and transcripts.",
+    "aiSummary": "Overall assessment: The codebase appears to be legitimate admin tooling for Intune and Graph API integration. Primary security considerations relate to logging practices (transcripts may expose secrets), telemetry-like data exposure via proxy events, and handling of credentials/tenant identifiers. No remote code execution, credential theft, or hardcoded secrets beyond placeholders were detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -85,10 +85,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 241,
+    "stars": 246,
     "forks": 34,
     "license": "GPL-3.0",
-    "lastUpdated": "2025-10-14T13:57:14Z",
+    "lastUpdated": "2026-07-03T21:36:49Z",
     "archived": false
   }
 }

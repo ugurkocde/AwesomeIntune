@@ -51,13 +51,13 @@
     "screenshots/intune-app-factory/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 22,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Low to moderate risk patterns detected. No remote code downloads, credential theft, data exfiltration, or obfuscated payloads observed. Primary concern is deliberate PowerShell execution policy bypasses used to facilitate deployment; this should be reviewed and mitigated (e.g., signing scripts, restricting bypass, and ensuring trusted sources). Uninstall logic and local toolkit dot-sourcing are typical admin patterns for Intune/MDM-managed deployments.",
+    "status": "failed",
+    "aiSummary": "Assessment finds no remote code download, credential theft, or data exfiltration. Primary concerns are (1) execution policy bypass in deployment scripts, which lowers defense in depth, (2) a potential misuse surface in silent uninstall logic, and (3) templated placeholders that should be securely substituted and reviewed for unintended leakage. Overall, these scripts are typical for Intune/App Deployment Toolkit usage but require strict access control, signing, and auditing to prevent abuse.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -72,7 +72,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "The script explicitly sets the PowerShell execution policy to ByPass for the current process (Set-ExecutionPolicy -ExecutionPolicy 'ByPass' -Scope 'Process'). This bypasses execution restrictions and can be exploited to run unsigned or tampered code, particularly during deployment. While common in deployment contexts, it represents a potential abuse surface and should be constrained (e.g., sign scripts, scope limited, audit)."
       },
       "noHardcodedSecrets": {
         "passed": true

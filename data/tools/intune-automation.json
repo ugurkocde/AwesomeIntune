@@ -53,10 +53,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No critical security issues detected. The code is a legitimate Intune Automation admin tool for script version tracking and notifications. Minor concerns include handling of subscriber emails (PII) and reliance on environment-based secrets; enforce access controls, secret management, and data privacy practices.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,10 +80,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 104,
+    "stars": 109,
     "forks": 18,
     "license": "MIT",
-    "lastUpdated": "2026-06-11T03:11:02Z",
+    "lastUpdated": "2026-07-12T03:06:32Z",
     "archived": false
   }
 }

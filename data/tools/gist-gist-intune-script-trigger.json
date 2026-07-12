@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "High-risk remote code execution pattern: the tool fetches and executes code from external URLs at runtime without integrity checks or signing. This creates significant supply-chain and endpoint risk for an Intune script trigger. Mitigations include: remove or replace Invoke-Expression with a safe, signed/script-block execution path, implement strict hash/signature verification or a trusted allowlist, require code signing for remote scripts, reduce non-interactive execution, and add robust logging/telemetry.",
+    "aiSummary": "High risk: remote code execution via dynamic loading and execution of external scripts. Recommend eliminating remote execution or implementing strict verification (allowlists, code-signing, and safer invocation patterns).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

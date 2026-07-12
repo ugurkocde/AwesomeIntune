@@ -50,17 +50,16 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The Intuneomator codebase includes automation patterns that are legitimate for management tooling but introduce security risks if inputs or build environments are compromised. Key concerns are: (1) eval-based parsing of label data enabling potential code injection; (2) automated modification of build configuration to inject a shell script during builds, which could be abused in a compromised CI/dev environment; (3) remote download logic that, if not properly validated, could lead to remote code execution via manipulated labels. No hard-coded secrets or credential theft patterns are evident in the provided snippets.",
+    "status": "passed",
+    "aiSummary": "The codebase contains eval-based dynamic loading of label data, and mechanisms capable of downloading/executing components from remote sources, which pose legitimate security risks if inputs are not strictly validated and signed. Additionally, programmatic modification of build phases could be abused in CI environments. Mitigations include avoiding eval on untrusted data, strict validation and signing of downloaded artifacts, whitelisting allowed URLs, and auditing build-phase injections.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "The script uses eval to load label definitions: eval 'case \"$label\" in '\"$labelFile\"'; esac'. This binds untrusted label content into the shell's execution context. If a label file is crafted or tampered with, it could lead to code execution or command injections during label processing. This presents a non-trivial risk for arbitrary code execution through manipulated manifests."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true
@@ -81,10 +80,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 67,
+    "stars": 70,
     "forks": 2,
     "license": "MIT",
-    "lastUpdated": "2026-02-09T02:29:22Z",
+    "lastUpdated": "2026-07-11T23:13:00Z",
     "archived": false
   }
 }

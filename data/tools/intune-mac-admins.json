@@ -84,11 +84,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "filesScanned": 49,
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code appears safe for an Intune management tool from a security perspective. No obfuscated payloads, no remote code execution, no credential theft, and no hardcoded secrets detected. The only external data flow is standard website analytics to Plausible; ensure privacy/compliance considerations are addressed and consent mechanisms are in place if required.",
+    "aiSummary": "No obfuscated code, remote code execution, credential theft, hardcoded secrets, or clearly malicious patterns detected. The code appears to be a docs-freshness workflow with AI-assisted drift verification and edit verification. However, there are data exfiltration risks due to transmitting page content and sources to external AI services; mitigations include restricting data sharing, using on-prem models, or implementing strict sanitization/minimization.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -112,10 +112,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 103,
-    "forks": 42,
+    "stars": 105,
+    "forks": 43,
     "license": "MIT",
-    "lastUpdated": "2026-06-11T04:21:49Z",
+    "lastUpdated": "2026-07-06T22:55:53Z",
     "archived": false
   }
 }

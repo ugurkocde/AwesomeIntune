@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code implements legitimate Intune/Entra migration tasks with Graph API use and BitLocker handling. The main security concerns relate to secret management (clientSecret in config.json) and the ability to decrypt BitLocker; these require strong access controls, secret rotation, and auditing. No obfuscated or remote code execution patterns detected. Use of Graph API beta endpoints is acceptable for migrations but monitor for changes.",
+    "aiSummary": "The Intune Device Migration code primarily aligns with expected enterprise management workflows (Graph API usage, Entra/Intune device tagging, Autopilot registration, BitLocker key handling). Key security concerns are the storage of Graph credentials in plaintext config.json and the potential for BitLocker key operations to be misused if access is not tightly controlled. Additionally, some logging and cleanup steps (disabling tasks, removing a migration user) could impact security monitoring if tampered with. No evidence of remote script download, credential harvesting, or data exfiltration is present in the provided code paths.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 22,
-    "forks": 5,
+    "stars": 25,
+    "forks": 6,
     "license": "GPL-3.0",
     "lastUpdated": "2025-11-12T14:59:28Z",
     "archived": false

@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. The script appears safe for Intune management tooling. A minor code quality issue is present: 'unset $rules' likely does not clear the array as intended.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,10 +84,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 776,
+    "stars": 782,
     "forks": 71,
     "license": "MIT",
-    "lastUpdated": "2026-06-08T22:48:15Z",
+    "lastUpdated": "2026-07-03T22:15:32Z",
     "archived": false
   }
 }

@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate to high risk primarily due to unsanitized dynamic modification of code (potential injection when injecting URLs into collect_app_info.py) and data exfiltration concerns from external AI categorization. Logging of potentially sensitive input in CI logs is another privacy risk. No hardcoded secrets detected in the provided snippets, but data handling and input sanitization policies should be tightened. Recommend input validation/sanitization, redaction of sensitive logs, and explicit data handling policies for external AI integrations.",
+    "aiSummary": "Moderate security concerns identified. Primary risks come from (1) potential data leakage to OpenAI via the categorize-apps.js workflow, (2) self-modifying code behavior in add_new_app.py that mutates collect_app_info.py based on input, and (3) insufficient input validation that could enable injection-like issues. No hardcoded secrets or credential theft detected. Normal authentication flows and external API usage align with intended admin tooling, but privacy and code integrity considerations warrant mitigations (data minimization, explicit opt-ins, and moving data out of executable scripts).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,10 +84,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 249,
+    "stars": 255,
     "forks": 47,
     "license": "MIT",
-    "lastUpdated": "2026-06-11T07:33:44Z",
+    "lastUpdated": "2026-07-12T03:03:38Z",
     "archived": false
   }
 }

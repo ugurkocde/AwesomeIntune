@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase appears to be a legitimate Intune management tool scaffold with common patterns (Graph auth, module loading, PSGallery usage). However, security considerations include hardcoded client identifiers, in-memory token handling that could be exposed in memory dumps, remote module installation during bootstrap (supply-chain risk), and dynamic loading of code from Private/Public directories. Address these areas with parameterization, secure handling of tokens, module provenance controls, and signed/explicit imports to reduce risk.",
+    "aiSummary": "No high-severity security issues detected. The code demonstrates standard Intune management tooling patterns (Graph API usage, module management, hydration workflow). Minor mitigations recommended: parameterize or document the ClientId, reduce plaintext token exposure in memory, and strengthen module provenance controls for build-time dependencies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,10 +84,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 141,
-    "forks": 10,
+    "stars": 142,
+    "forks": 13,
     "license": "MIT",
-    "lastUpdated": "2026-05-31T16:35:16Z",
+    "lastUpdated": "2026-07-06T13:46:09Z",
     "archived": false
   }
 }

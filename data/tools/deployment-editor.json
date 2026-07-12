@@ -42,20 +42,20 @@
     "screenshots/deployment-editor/screenshot-1.png"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 4,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The codebase largely implements legitimate Intune deployment tooling (PSADT packaging, Graph authentication, and Intune Win32 app uploads). However, it contains notable security concerns: (1) credentials are converted to plaintext in memory for Graph authentication, (2) dynamic code execution via Invoke-Expression to extract PSADT metadata, and (3) a PowerShell execution policy bypass for MSI property extraction. Additionally, there are hardcoded placeholders that should be replaced with secure parameter handling. Recommend refactoring to remove plaintext credential exposure, avoid Invoke-Expression for metadata extraction, remove execution policy bypass, and ensure all sensitive values are supplied securely (e.g., via vault or secure parameter binding) before deployment.",
+    "aiSummary": "The Deployment Editor codebase includes notable security concerns around dynamic code execution (Invoke-Expression of external PSADT content), plaintext credential handling in memory, and a policy-bypass in MSI-related script. There are placeholders that could be misconfigured if left untouched. No direct data exfiltration or external downloads were observed in the provided snippets. Recommendations: eliminate or sandbox dynamic code execution, avoid converting SecureString to plaintext, remove execution policy changes, and ensure configuration values are securely provided and validated.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "Reads the PSADT project and uses Invoke-Expression on the right-hand side of an assignment to construct adtSession. This dynamically executes code from a project file and can allow arbitrary code execution if the project content is compromised or contains malicious payloads."
+        "reason": "Parses PSADT deployment file Invoke-AppDeployToolkit.ps1 and uses Invoke-Expression on the Right.Extent.Text to assign to 'adtSession'. This effectively executes code from the PSADT file at runtime, creating a remote-execution risk if the PSADT script contents are tampered or crafted."
       },
       "noCredentialTheft": {
         "passed": true
@@ -64,7 +64,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Sets PowerShell ExecutionPolicy to ByPass via Set-ExecutionPolicy. This weakens the security posture by bypassing policy controls and could be abused to execute unauthorized code. Avoid or restrict policy changes within scripts."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -73,7 +74,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 148,
+    "stars": 153,
     "forks": 14,
     "license": "GPL-3.0",
     "lastUpdated": "2026-04-12T10:06:43Z",

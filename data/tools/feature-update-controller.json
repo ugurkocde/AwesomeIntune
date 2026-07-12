@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The Failure.ps1 custom action is a safe, local-logging utility that collects optional device location data. It does not exhibit obfuscated code, remote script execution, credential theft, or data exfiltration to external endpoints. Privacy considerations: location collection requires consent and proper handling; ensure alignment with policy and log retention.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

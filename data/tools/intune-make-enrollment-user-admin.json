@@ -53,13 +53,13 @@
     "screenshots/intune-make-enrollment-user-admin/screenshot-3.png"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The code mainly handles enrolling a user as a local administrator, which is a sensitive privileged operation appropriate for Intune enrollment tooling. No obfuscated code, remote script downloads, credential theft, data exfiltration, or hardcoded secrets detected. Primary security consideration is controlled, auditable privilege escalation. Improve locale handling to ensure reliability across multilingual Windows environments.",
+    "status": "failed",
+    "aiSummary": "The codebase implements enrollment-related admin tooling with privilege elevation (adding the current user to the local Administrators group) and privilege-discovery behavior (checking admin membership). There are no obfuscated/encoded payloads, no remote script downloads, no credential harvesting, and no explicit data exfiltration observed. The primary security concern is legitimate but high-risk privilege elevation and privilege enumeration capabilities. Recommend enforcing strict access controls, approval workflows in Intune, auditing of such actions, and prefer Graph/Intune management APIs over local group modifications where possible to minimize risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,7 +74,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Elevates the current user to local Administrators by adding the user SID to the Administrators group (Add-LocalGroupMember). This is a direct privilege escalation risk. The script also uses Start-Transcript for logging and supports uninstall via Remove-LocalGroupMember. While it aligns with intended admin tooling, it creates significant risk if misused or executed without proper approvals."
       },
       "noHardcodedSecrets": {
         "passed": true

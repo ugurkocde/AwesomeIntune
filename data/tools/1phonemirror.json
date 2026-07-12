@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of obfuscated code, remote code execution, credential theft, or hardcoded secrets. The tool appears to use telemetry (Application Insights) to report usage data, which introduces data exfiltration/privacy considerations. A potential redirect risk exists via RELEASE_BASE_URL; ensure strict URL allowlisting. Overall, patterns align with expected Intune/endpoint tooling, but privacy/compliance and redirect security should be reviewed.",
+    "aiSummary": "The Intune deployment tooling codebase uses telemetry to Azure/Application Insights, which is expected for fleet monitoring but raises privacy considerations. Security hardening improvements are advised: switch code-signing timestamping to HTTPS, and validate/whitelist the external download base URL to prevent potential redirect to malicious hosts. No evidence of obfuscated code, credential harvesting, hardcoded secrets, or remote code execution patterns in the provided snippets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 6,
-    "forks": 4,
+    "stars": 11,
+    "forks": 3,
     "license": "GPL-3.0",
     "lastUpdated": "2026-06-04T07:50:21Z",
     "archived": false

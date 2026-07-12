@@ -70,10 +70,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Please supply the AutopilotGroupTagger PowerShell script or code snippet for review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

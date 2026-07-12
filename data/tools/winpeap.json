@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-06-11",
+    "lastChecked": "2026-07-12",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script is a legitimate Intune/Graph API integration for Windows Autopilot hash upload in WinPE. Security concerns center on credential handling (AppSecret and defaults), integrity and trust of the TPM-related PCPKsp.dll loading, and logging of sensitive identifiers. No obfuscated payloads, no direct remote code execution, and no evident data exfiltration beyond required API interactions. Recommendations: replace placeholder/default credentials with secure vault retrieval, validate and sign any loaded DLLs, minimize logging of sensitive identifiers, and prefer stable Graph API endpoints with robust auditing.",
+    "aiSummary": "The script appears to be a legitimate Intune/Autopilot enrollment tool for WinPE. No obfuscation, remote code execution, or exfiltration behavior identified. Key considerations: ensure placeholders for TenantId/AppId/AppSecret are replaced with secure values before use; avoid leaving Beta Graph endpoints in production without evaluation; consider enforcing TLS 1.2 in WinPE contexts and secure storage/rotation of credentials used for token retrieval.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 34,
+    "stars": 36,
     "forks": 4,
     "license": null,
     "lastUpdated": "2026-01-13T14:25:28Z",
