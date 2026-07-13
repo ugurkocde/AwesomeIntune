@@ -2,9 +2,96 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { GITHUB_REPO_URL } from "~/lib/constants";
+
+/**
+ * Compact header search: an icon button that expands to an inline input and
+ * navigates to the homepage directory (`/?q=`) on submit. Escape collapses.
+ */
+function HeaderSearch({ inputWidth = 190 }: { inputWidth?: number }) {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+  }, [isOpen]);
+
+  const collapse = () => {
+    setIsOpen(false);
+    setQuery("");
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const q = query.trim();
+    collapse();
+    if (!q) return;
+    router.push(`/?q=${encodeURIComponent(q)}`);
+  };
+
+  return (
+    <form role="search" onSubmit={handleSubmit} className="flex items-center">
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="header-search-input"
+            className="mr-2 overflow-hidden"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: inputWidth, opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+          >
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") collapse();
+              }}
+              placeholder="Search tools..."
+              aria-label="Search tools"
+              className="w-full rounded-lg px-3 text-sm outline-none transition-colors focus:border-[var(--accent-primary)]"
+              style={{
+                height: "36px",
+                background: "var(--bg-tertiary)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-primary)",
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <button
+        type={isOpen ? "submit" : "button"}
+        onClick={isOpen ? undefined : () => setIsOpen(true)}
+        className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+        aria-label="Search tools"
+        aria-expanded={isOpen}
+        style={{ color: "var(--text-secondary)" }}
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+      </button>
+    </form>
+  );
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,10 +100,11 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const isScrolled = window.scrollY > 20;
+      setScrolled((prev) => (prev === isScrolled ? prev : isScrolled));
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -40,6 +128,9 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // The homepage already leads with the hero and directory search boxes
+  const showHeaderSearch = pathname !== "/";
 
   return (
     <header
@@ -102,6 +193,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-4 md:flex">
+            {showHeaderSearch && <HeaderSearch />}
             <Link
               href="/#tools"
               className="btn btn-ghost"
@@ -145,27 +237,6 @@ export function Header() {
               </svg>
               <span>Collections</span>
             </Link>
-            <Link
-              href="/ideas"
-              className="btn btn-ghost"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1="12" y1="17" x2="12.01" y2="17" />
-              </svg>
-              <span>Ideas</span>
-            </Link>
             <a
               href={GITHUB_REPO_URL}
               target="_blank"
@@ -206,7 +277,8 @@ export function Header() {
 
           {/* Mobile Navigation */}
           <div className="flex items-center gap-2 md:hidden">
-            <Link href="/submit" className="btn btn-primary">
+            {showHeaderSearch && <HeaderSearch inputWidth={140} />}
+            <Link href="/submit" className="btn btn-primary" aria-label="Add tool">
               <svg
                 width="16"
                 height="16"
@@ -327,30 +399,6 @@ export function Header() {
                     <path d="M2 12l10 5 10-5" />
                   </svg>
                   <span className="font-medium">Collections</span>
-                </Link>
-
-                <Link
-                  href="/ideas"
-                  onClick={closeMobileMenu}
-                  className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                    <line x1="12" y1="17" x2="12.01" y2="17" />
-                  </svg>
-                  <span className="font-medium">Ideas</span>
                 </Link>
 
                 <a

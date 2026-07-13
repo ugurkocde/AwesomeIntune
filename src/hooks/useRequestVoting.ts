@@ -159,11 +159,11 @@ export function useRequestVoting() {
     [pendingVotes]
   );
 
-  // Record a vote for a request
+  // Record or remove a vote for a request (toggles)
   const vote = useCallback(
     async (requestId: string): Promise<boolean> => {
-      // Skip if already voted or pending
-      if (votedRequests.has(requestId) || pendingVotes.has(requestId)) {
+      // Skip if a request is already in flight
+      if (pendingVotes.has(requestId)) {
         return false;
       }
 
@@ -173,41 +173,43 @@ export function useRequestVoting() {
         return false;
       }
 
+      const removing = votedRequests.has(requestId);
+
       // Mark as pending
       setPendingVotes((prev) => new Set(prev).add(requestId));
 
       // Optimistically update
       setVotedRequests((prev) => {
-        const newSet = new Set(prev).add(requestId);
+        const newSet = new Set(prev);
+        if (removing) {
+          newSet.delete(requestId);
+        } else {
+          newSet.add(requestId);
+        }
         saveVotedRequests(newSet);
         return newSet;
       });
       setVoteCounts((prev) => ({
         ...prev,
-        [requestId]: (prev[requestId] ?? 0) + 1,
+        [requestId]: Math.max((prev[requestId] ?? 0) + (removing ? -1 : 1), 0),
       }));
 
       try {
         const response = await fetch("/api/ideas/votes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ requestId, voterId }),
+          body: JSON.stringify(
+            removing
+              ? { requestId, voterId, action: "remove" }
+              : { requestId, voterId }
+          ),
         });
 
         if (!response.ok) {
           throw new Error("Failed to record vote");
         }
 
-        const data = (await response.json()) as {
-          success: boolean;
-          result: string;
-        };
-
-        // If server says already voted, sync local state
-        if (data.result === "already_voted") {
-          // Vote was already recorded server-side, local state is correct
-        }
-
+        await response.json();
         return true;
       } catch (error) {
         console.error("Failed to record vote:", error);
@@ -215,13 +217,17 @@ export function useRequestVoting() {
         // Rollback optimistic update on error
         setVotedRequests((prev) => {
           const newSet = new Set(prev);
-          newSet.delete(requestId);
+          if (removing) {
+            newSet.add(requestId);
+          } else {
+            newSet.delete(requestId);
+          }
           saveVotedRequests(newSet);
           return newSet;
         });
         setVoteCounts((prev) => ({
           ...prev,
-          [requestId]: Math.max((prev[requestId] ?? 1) - 1, 0),
+          [requestId]: Math.max((prev[requestId] ?? 0) + (removing ? 1 : -1), 0),
         }));
 
         return false;

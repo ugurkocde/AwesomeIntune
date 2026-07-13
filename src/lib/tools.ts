@@ -52,23 +52,110 @@ export function getToolsByType(tools: Tool[], type: ToolType): Tool[] {
   return tools.filter((tool) => tool.type === type);
 }
 
+/** Minimum token length before typo-tolerant matching kicks in */
+const FUZZY_MIN_TOKEN_LENGTH = 5;
+
 /**
- * Search tools by query (searches name, description, and all authors)
+ * Bounded Levenshtein check: true when a and b are within edit distance 1.
+ * Single pass with early exit - no matrix allocation, O(len).
+ */
+function isWithinEditDistance1(a: string, b: string): boolean {
+  if (a === b) return true;
+  const lengthDiff = a.length - b.length;
+  if (lengthDiff > 1 || lengthDiff < -1) return false;
+
+  const shorter = lengthDiff < 0 ? a : b;
+  const longer = lengthDiff < 0 ? b : a;
+  let i = 0;
+  let j = 0;
+  let edited = false;
+
+  while (i < shorter.length && j < longer.length) {
+    if (shorter[i] === longer[j]) {
+      i++;
+      j++;
+      continue;
+    }
+    if (edited) return false;
+    edited = true;
+    // Same length: substitution (skip both). Different length: insertion in
+    // the longer string (skip only the longer index).
+    if (shorter.length === longer.length) i++;
+    j++;
+  }
+
+  return true;
+}
+
+/**
+ * Search tools by query.
+ *
+ * Matches over name, description, authors, keywords, category, type, and
+ * worksWith tags. The query is tokenized on whitespace and a tool matches only
+ * when every token matches at least one field, so non-adjacent terms like
+ * "policy backup" still hit. Tokens of 5+ characters also match words in the
+ * tool name or keywords within Levenshtein distance 1 (light typo tolerance).
+ * Tools matched purely by substring rank before fuzzy-only matches; original
+ * order is preserved within each tier.
  */
 export function searchTools(tools: Tool[], query: string): Tool[] {
   const normalizedQuery = query.toLowerCase().trim();
 
   if (!normalizedQuery) return tools;
 
-  return tools.filter((tool) => {
+  const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+  const exactMatches: Tool[] = [];
+  const fuzzyMatches: Tool[] = [];
+
+  for (const tool of tools) {
     const authors = getToolAuthors(tool);
-    const authorNames = authors.map((a) => a.name).join(" ");
-    const searchableText = [tool.name, tool.description, authorNames]
+    const searchableText = [
+      tool.name,
+      tool.description,
+      authors.map((a) => a.name).join(" "),
+      tool.keywords?.join(" ") ?? "",
+      tool.category,
+      tool.type,
+      tool.worksWith?.join(" ") ?? "",
+    ]
       .join(" ")
       .toLowerCase();
 
-    return searchableText.includes(normalizedQuery);
-  });
+    let fuzzyWords: string[] | null = null;
+    let usedFuzzy = false;
+    let matchesAllTokens = true;
+
+    for (const token of tokens) {
+      if (searchableText.includes(token)) continue;
+
+      if (token.length < FUZZY_MIN_TOKEN_LENGTH) {
+        matchesAllTokens = false;
+        break;
+      }
+
+      // Typo tolerance only against words in the name and keywords
+      fuzzyWords ??= [tool.name, tool.keywords?.join(" ") ?? ""]
+        .join(" ")
+        .toLowerCase()
+        .split(/[^a-z0-9]+/)
+        .filter(Boolean);
+
+      if (!fuzzyWords.some((word) => isWithinEditDistance1(token, word))) {
+        matchesAllTokens = false;
+        break;
+      }
+      usedFuzzy = true;
+    }
+
+    if (!matchesAllTokens) continue;
+    if (usedFuzzy) {
+      fuzzyMatches.push(tool);
+    } else {
+      exactMatches.push(tool);
+    }
+  }
+
+  return [...exactMatches, ...fuzzyMatches];
 }
 
 /**

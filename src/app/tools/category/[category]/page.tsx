@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import type { ToolCategory } from "~/types/tool";
 import { getToolsByCategory, getAllCategories } from "~/lib/tools.server";
 import { CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
+import { CATEGORY_TO_BEST_SLUG } from "~/lib/best-categories";
 import {
   generateCollectionStructuredData,
   generateBreadcrumbStructuredData,
@@ -110,6 +111,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
+  const bestSlug = CATEGORY_TO_BEST_SLUG[category as ToolCategory];
+
   const description = CATEGORY_DESCRIPTIONS[category as ToolCategory] ??
     `Browse ${categoryConfig.label} tools for Microsoft Intune`;
 
@@ -161,10 +164,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         />
 
         {/* Content Container */}
-        <div className="relative mx-auto max-w-7xl px-6 py-12 sm:py-20">
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
           {/* Back Navigation */}
           <Link
-            href="/"
+            href="/#tools"
             className="group mb-12 inline-flex items-center gap-2 text-sm transition-colors"
             style={{ color: "var(--text-secondary)" }}
           >
@@ -205,7 +208,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
 
             {/* Category Name */}
-            <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               <span style={{ color: "var(--text-primary)" }}>
                 {categoryConfig.label}
               </span>
@@ -225,42 +228,72 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {description}
             </p>
 
-            {/* Tool Count */}
-            <div
-              className="mt-8 inline-flex items-center gap-3 rounded-xl px-5 py-3"
-              style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
-              }}
-            >
+            {/* Tool Count and Best Tools Link */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <div
-                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                className="inline-flex items-center gap-3 rounded-xl px-5 py-3"
                 style={{
-                  background: `${categoryConfig.color}20`,
-                  color: categoryConfig.color,
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="3" width="7" height="7" />
-                  <rect x="14" y="3" width="7" height="7" />
-                  <rect x="14" y="14" width="7" height="7" />
-                  <rect x="3" y="14" width="7" height="7" />
-                </svg>
-              </div>
-              <div>
-                <span
-                  className="text-2xl font-bold"
-                  style={{ color: "var(--text-primary)" }}
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-lg"
+                  style={{
+                    background: `${categoryConfig.color}20`,
+                    color: categoryConfig.color,
+                  }}
                 >
-                  {tools.length}
-                </span>
-                <span
-                  className="ml-2 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  {tools.length === 1 ? "tool" : "tools"} available
-                </span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                  </svg>
+                </div>
+                <div>
+                  <span
+                    className="text-2xl font-bold"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {tools.length}
+                  </span>
+                  <span
+                    className="ml-2 text-sm"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
+                    {tools.length === 1 ? "tool" : "tools"} available
+                  </span>
+                </div>
               </div>
+
+              {bestSlug && (
+                <Link
+                  href={`/best/${bestSlug}`}
+                  className="group/best inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all hover:scale-[1.02]"
+                  style={{
+                    background: `${categoryConfig.color}15`,
+                    color: categoryConfig.color,
+                    border: `1px solid ${categoryConfig.color}30`,
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  Best {categoryConfig.label} tools
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="transition-transform group-hover/best:translate-x-1"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              )}
             </div>
           </header>
 

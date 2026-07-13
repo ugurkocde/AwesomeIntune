@@ -102,7 +102,7 @@ export function useUrlFilters(): UseUrlFiltersReturn {
 
   // Helper to update URL params
   const updateParams = useCallback(
-    (updates: Record<string, string | null>) => {
+    (updates: Record<string, string | null>, options?: { replace?: boolean }) => {
       const params = new URLSearchParams(searchParams.toString());
 
       for (const [key, value] of Object.entries(updates)) {
@@ -114,7 +114,11 @@ export function useUrlFilters(): UseUrlFiltersReturn {
       }
 
       const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
-      router.push(newUrl, { scroll: false });
+      if (options?.replace) {
+        router.replace(newUrl, { scroll: false });
+      } else {
+        router.push(newUrl, { scroll: false });
+      }
     },
     [searchParams, router, pathname]
   );
@@ -161,7 +165,9 @@ export function useUrlFilters(): UseUrlFiltersReturn {
 
   const setSearchQuery = useCallback(
     (query: string) => {
-      updateParams({ q: query || null });
+      // Search updates arrive per keystroke (debounced), so replace instead of
+      // push - Back should not step through query fragments
+      updateParams({ q: query || null }, { replace: true });
     },
     [updateParams]
   );

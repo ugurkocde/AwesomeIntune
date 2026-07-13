@@ -100,6 +100,20 @@ export function Footer() {
                 Tool Ideas
               </Link>
               <Link
+                href="/stats"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Directory Stats
+              </Link>
+              <Link
+                href="/authors"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Contributors
+              </Link>
+              <Link
                 href="/developers"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}
@@ -275,7 +289,7 @@ export function Footer() {
         >
           {/* Disclaimer - subtle fine print */}
           <p
-            className="mb-4 text-center text-[11px] tracking-wide opacity-60"
+            className="mb-4 text-center text-[11px] tracking-wide"
             style={{ color: "var(--text-tertiary)" }}
           >
             All tools belong to their respective authors and communities

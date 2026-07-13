@@ -49,7 +49,7 @@ export function ApiKeyEmail({ name, apiKey }: ApiKeyEmailProps) {
             <Text style={codeBlock}>
               <CodeInline style={code}>
                 curl -H &quot;X-API-Key: {apiKey}&quot; \{"\n"}
-                {"  "}https://awesomeintune.com/api/v1/tools
+                {"  "}https://www.awesomeintune.com/api/v1/tools
               </CodeInline>
             </Text>
           </Section>
@@ -64,11 +64,11 @@ export function ApiKeyEmail({ name, apiKey }: ApiKeyEmailProps) {
 
           <Hr style={hr} />
           <Text style={footer}>
-            <Link href="https://awesomeintune.com/developers" style={link}>
+            <Link href="https://www.awesomeintune.com/developers" style={link}>
               API Documentation
             </Link>
             {" | "}
-            <Link href="https://awesomeintune.com" style={link}>
+            <Link href="https://www.awesomeintune.com" style={link}>
               Awesome Intune
             </Link>
           </Text>

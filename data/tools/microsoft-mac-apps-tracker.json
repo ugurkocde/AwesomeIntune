@@ -32,9 +32,11 @@
   "websiteUrl": "https://appledevicepolicy.tools/microsoft-apps",
   "category": "monitoring",
   "type": "web-app",
-  "worksWith": ["macos"],
+  "worksWith": [
+    "macos"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/microsoft-mac-apps-tracker/screenshot-1.png"
+    "screenshots/microsoft-mac-apps-tracker/screenshot-1.webp"
   ]
 }

@@ -46,7 +46,7 @@ export function ConfirmSubscription({ confirmUrl }: ConfirmSubscriptionProps) {
           </Text>
           <Hr style={hr} />
           <Text style={footer}>
-            <Link href="https://awesomeintune.com" style={link}>
+            <Link href="https://www.awesomeintune.com" style={link}>
               Awesome Intune
             </Link>{" "}
             - A community-curated collection of Microsoft Intune tools

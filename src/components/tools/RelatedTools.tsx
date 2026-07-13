@@ -17,7 +17,7 @@ export function RelatedTools({ tools, currentToolId }: RelatedToolsProps) {
   return (
     <div
       className="mt-10 border-t pt-8"
-      style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
+      style={{ borderColor: "var(--border-subtle)" }}
     >
       <div className="mb-6 flex items-center gap-3">
         <svg
@@ -29,6 +29,7 @@ export function RelatedTools({ tools, currentToolId }: RelatedToolsProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
           <circle cx="9" cy="7" r="4" />
@@ -43,7 +44,7 @@ export function RelatedTools({ tools, currentToolId }: RelatedToolsProps) {
         </h2>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {filteredTools.slice(0, 4).map((tool) => {
           const typeConfig = TYPE_CONFIG[tool.type];
           const categoryConfig = CATEGORY_CONFIG[tool.category];
@@ -54,10 +55,9 @@ export function RelatedTools({ tools, currentToolId }: RelatedToolsProps) {
             <Link
               key={tool.id}
               href={`/tools/${tool.id}`}
-              className="group relative overflow-hidden rounded-xl transition-all hover:scale-[1.02]"
+              className="group relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-accent)]"
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: "var(--bg-secondary)",
               }}
             >
               <div className="p-4">

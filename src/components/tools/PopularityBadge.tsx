@@ -38,11 +38,20 @@ export function PopularityBadge({ toolId, category }: PopularityBadgeProps) {
     void fetchRanking();
   }, [toolId]);
 
-  // Don't show anything while loading or if no ranking data
-  if (isLoading || !ranking) return null;
+  // Reserve space with a subtle placeholder while loading so the badge does not
+  // pop in and shift surrounding content.
+  if (isLoading) {
+    return (
+      <div
+        className="inline-flex h-[30px] w-36 animate-pulse rounded-lg"
+        style={{ background: "var(--bg-tertiary)" }}
+        aria-hidden="true"
+      />
+    );
+  }
 
-  // Only show badge for top 10 within category
-  if (ranking.rank > 10) return null;
+  // Nothing to show once loaded without a top-10 ranking
+  if (!ranking || ranking.rank > 10) return null;
 
   const categoryConfig = CATEGORY_CONFIG[category];
 

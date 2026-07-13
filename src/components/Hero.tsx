@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useRef, useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CharReveal } from "./TextReveal";
 import { SponsorStrip } from "./SponsorStrip";
 import { SearchBar } from "./tools/SearchBar";
@@ -19,20 +19,38 @@ interface HeroProps {
 
 /**
  * Hero search box. Writes the query to the URL (`/?q=`) so the directory below
- * reacts via its URL-synced filters, and scrolls to it on first input. Uses only
- * useRouter (no useSearchParams), so the hero never bails to client-only render.
+ * reacts via its URL-synced filters, and scrolls to it on first input. Reads
+ * the `q` param too, so deep links and the directory's own SearchBar keep the
+ * hero input in sync. The useSearchParams call is Suspense-wrapped inside
+ * HeroSearch, so only the search box bails to client-side rendering - the rest
+ * of the hero stays statically rendered.
  */
-function HeroSearch() {
+function HeroSearchInner() {
   const router = useRouter();
-  const [value, setValue] = useState("");
+  const searchParams = useSearchParams();
+  const urlQuery = searchParams.get("q") ?? "";
+  const [value, setValue] = useState(urlQuery);
   const debounced = useDebounce(value, 350);
   const hasScrolledRef = useRef(false);
+  const lastWrittenQueryRef = useRef(urlQuery);
 
+  // Sync debounced input -> URL. Per-keystroke updates use replace so Back
+  // does not step through query fragments.
   useEffect(() => {
     const q = debounced.trim();
     if (!q) return; // never clobber the directory's filters when the hero is empty
-    router.push(`/?q=${encodeURIComponent(q)}`, { scroll: false });
+    if (q === lastWrittenQueryRef.current) return;
+    lastWrittenQueryRef.current = q;
+    router.replace(`/?q=${encodeURIComponent(q)}`, { scroll: false });
   }, [debounced, router]);
+
+  // Sync URL -> input for external changes (deep links, the directory's
+  // SearchBar, back/forward). Our own writes are skipped via the ref above.
+  useEffect(() => {
+    if (urlQuery === lastWrittenQueryRef.current) return;
+    lastWrittenQueryRef.current = urlQuery;
+    setValue(urlQuery);
+  }, [urlQuery]);
 
   const handleChange = (next: string) => {
     setValue(next);
@@ -44,7 +62,7 @@ function HeroSearch() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-xl">
+    <>
       <SearchBar
         value={value}
         onChange={handleChange}
@@ -53,6 +71,25 @@ function HeroSearch() {
       <div className="mt-4">
         <SearchExamples isVisible={value.length === 0} onExampleClick={handleChange} />
       </div>
+    </>
+  );
+}
+
+function HeroSearch() {
+  return (
+    <div className="mx-auto w-full max-w-xl">
+      <Suspense
+        fallback={
+          <>
+            <SearchBar value="" onChange={() => undefined} />
+            <div className="mt-4">
+              <SearchExamples isVisible onExampleClick={() => undefined} />
+            </div>
+          </>
+        }
+      >
+        <HeroSearchInner />
+      </Suspense>
     </div>
   );
 }
@@ -108,35 +145,24 @@ export function Hero({ toolCount, authorCount }: HeroProps) {
           </h1>
 
           {/* Outcome subhead */}
-          <motion.p
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          <p
             className="mx-auto mt-6 max-w-xl text-lg md:text-xl"
             style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}
           >
-            {toolCount}+ free, security-scanned tools for Microsoft Intune.{" "}
+            {toolCount}+ free, security-scanned and community-vetted tools for Microsoft Intune.{" "}
             <br className="hidden sm:block" />
             <span style={{ color: "var(--text-tertiary)" }}>
               Describe your problem - find the right tool in seconds.
             </span>
-          </motion.p>
+          </p>
 
           {/* Embedded search */}
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8"
-          >
+          <div className="mt-8">
             <HeroSearch />
-          </motion.div>
+          </div>
 
           {/* Proof row */}
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+          <div
             className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
             style={{ color: "var(--text-tertiary)" }}
           >
@@ -149,7 +175,7 @@ export function Hero({ toolCount, authorCount }: HeroProps) {
                 <ProofItem value={formatNumber(stats.totalViews)} label="views" />
               </>
             )}
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 

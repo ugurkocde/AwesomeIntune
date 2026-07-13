@@ -38,9 +38,9 @@ export default function SubmitPage() {
           className="mx-auto max-w-3xl"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="mb-12 text-center">
+          <motion.div variants={itemVariants} className="mb-12">
             <Link
-              href="/"
+              href="/#tools"
               className="mb-6 inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent-primary)]"
               style={{ color: "var(--text-secondary)" }}
             >
@@ -57,10 +57,10 @@ export default function SubmitPage() {
                 <path d="M19 12H5" />
                 <path d="M12 19l-7-7 7-7" />
               </svg>
-              Back to Tools
+              Back to all tools
             </Link>
             <h1
-              className="font-display text-4xl font-bold md:text-5xl"
+              className="font-display text-4xl font-bold sm:text-5xl"
               style={{ color: "var(--text-primary)" }}
             >
               Submit Your Tool

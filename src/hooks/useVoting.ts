@@ -150,10 +150,10 @@ export function useVoting() {
     return pendingVotes.has(toolId);
   }, [pendingVotes]);
 
-  // Record a vote for a tool
+  // Record or remove a vote for a tool (toggles)
   const vote = useCallback(async (toolId: string): Promise<boolean> => {
-    // Skip if already voted or pending
-    if (votedTools.has(toolId) || pendingVotes.has(toolId)) {
+    // Skip if a request is already in flight
+    if (pendingVotes.has(toolId)) {
       return false;
     }
 
@@ -163,38 +163,41 @@ export function useVoting() {
       return false;
     }
 
+    const removing = votedTools.has(toolId);
+
     // Mark as pending
     setPendingVotes((prev) => new Set(prev).add(toolId));
 
     // Optimistically update
     setVotedTools((prev) => {
-      const newSet = new Set(prev).add(toolId);
+      const newSet = new Set(prev);
+      if (removing) {
+        newSet.delete(toolId);
+      } else {
+        newSet.add(toolId);
+      }
       saveVotedTools(newSet);
       return newSet;
     });
     setVoteCounts((prev) => ({
       ...prev,
-      [toolId]: (prev[toolId] ?? 0) + 1,
+      [toolId]: Math.max((prev[toolId] ?? 0) + (removing ? -1 : 1), 0),
     }));
 
     try {
       const response = await fetch("/api/votes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ toolId, voterId }),
+        body: JSON.stringify(
+          removing ? { toolId, voterId, action: "remove" } : { toolId, voterId },
+        ),
       });
 
       if (!response.ok) {
         throw new Error("Failed to record vote");
       }
 
-      const data = (await response.json()) as { success: boolean; result: string };
-
-      // If server says already voted, sync local state
-      if (data.result === "already_voted") {
-        // Vote was already recorded server-side, local state is correct
-      }
-
+      await response.json();
       return true;
     } catch (error) {
       console.error("Failed to record vote:", error);
@@ -202,13 +205,17 @@ export function useVoting() {
       // Rollback optimistic update on error
       setVotedTools((prev) => {
         const newSet = new Set(prev);
-        newSet.delete(toolId);
+        if (removing) {
+          newSet.add(toolId);
+        } else {
+          newSet.delete(toolId);
+        }
         saveVotedTools(newSet);
         return newSet;
       });
       setVoteCounts((prev) => ({
         ...prev,
-        [toolId]: Math.max((prev[toolId] ?? 1) - 1, 0),
+        [toolId]: Math.max((prev[toolId] ?? 0) + (removing ? 1 : -1), 0),
       }));
 
       return false;

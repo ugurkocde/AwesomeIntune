@@ -10,6 +10,9 @@ const subscribeSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
+// Consistent response message to prevent email enumeration
+const SUCCESS_MESSAGE = "Please check your email to confirm.";
+
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as unknown;
@@ -33,10 +36,12 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       if (existing.confirmed) {
-        return NextResponse.json(
-          { error: "This email is already signed up" },
-          { status: 400 }
-        );
+        // Already confirmed - skip sending a duplicate confirmation email
+        // but return the same generic response to prevent enumeration
+        return NextResponse.json({
+          success: true,
+          message: SUCCESS_MESSAGE,
+        });
       }
       // Already exists but not confirmed - resend confirmation
       const { data: subscriber } = await supabase
@@ -57,7 +62,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: "Confirmation email resent. Please check your inbox.",
+        message: SUCCESS_MESSAGE,
       });
     }
 
@@ -93,7 +98,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Please check your email to confirm.",
+      message: SUCCESS_MESSAGE,
     });
   } catch (error) {
     console.error("Subscribe error:", error);

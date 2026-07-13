@@ -36,9 +36,13 @@
   "websiteUrl": "https://appledevicepolicy.tools/policy-explorer",
   "category": "configuration",
   "type": "web-app",
-  "worksWith": ["ios", "macos", "configuration-profiles"],
+  "worksWith": [
+    "ios",
+    "macos",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/apple-device-policy-explorer/screenshot-1.png"
+    "screenshots/apple-device-policy-explorer/screenshot-1.webp"
   ]
 }

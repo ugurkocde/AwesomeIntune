@@ -19,8 +19,29 @@ export async function GET(
   }
 
   const { path: pathSegments } = await params;
+
+  // Reject suspicious segments outright
+  if (
+    pathSegments.some(
+      (segment) => segment.includes("..") || segment.includes("\0")
+    )
+  ) {
+    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+  }
+
   // Screenshots are stored in public/screenshots/ directory
-  const filePath = path.join(process.cwd(), "public", ...pathSegments);
+  const publicDir = path.resolve(process.cwd(), "public");
+  const filePath = path.resolve(path.join(publicDir, ...pathSegments));
+
+  // Confine resolved path to the public directory
+  const relative = path.relative(publicDir, filePath);
+  if (
+    !relative ||
+    relative.startsWith("..") ||
+    path.isAbsolute(relative)
+  ) {
+    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+  }
 
   try {
     const file = await fs.readFile(filePath);

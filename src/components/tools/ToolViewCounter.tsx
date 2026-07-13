@@ -62,9 +62,9 @@ export function ToolViewCounter({ toolId }: ToolViewCounterProps) {
     <span
       className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium"
       style={{
-        background: "rgba(255, 255, 255, 0.04)",
+        background: "var(--bg-tertiary)",
         color: "var(--text-tertiary)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: "1px solid var(--border-subtle)",
       }}
     >
       <svg
@@ -76,6 +76,7 @@ export function ToolViewCounter({ toolId }: ToolViewCounterProps) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-hidden="true"
       >
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
         <circle cx="12" cy="12" r="3" />

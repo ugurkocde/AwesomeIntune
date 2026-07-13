@@ -48,8 +48,8 @@
     }
   ],
   "screenshots": [
-    "screenshots/intuneappdoc/screenshot-1.png",
-    "screenshots/intuneappdoc/screenshot-2.gif"
+    "screenshots/intuneappdoc/screenshot-1.webp",
+    "screenshots/intuneappdoc/screenshot-2.webp"
   ],
   "securityCheck": {
     "passed": 0,

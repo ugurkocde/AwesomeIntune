@@ -59,7 +59,7 @@ export function NewToolsNotification({
           ))}
 
           <Section style={buttonContainer}>
-            <Button style={button} href="https://awesomeintune.com">
+            <Button style={button} href="https://www.awesomeintune.com">
               View All Tools
             </Button>
           </Section>

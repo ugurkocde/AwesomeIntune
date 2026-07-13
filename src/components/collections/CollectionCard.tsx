@@ -180,10 +180,9 @@ export function CollectionCard({
     >
       <Link
         href={`/collections/${collection.slug}`}
-        className="group relative block overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02]"
+        className="group relative block overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] transition-all duration-300 hover:-translate-y-1"
         style={{
-          background: "rgba(17, 25, 34, 0.95)",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
+          background: "var(--bg-secondary)",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
         }}
       >
@@ -265,7 +264,7 @@ export function CollectionCard({
             <div
               className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1"
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
+                background: "var(--border-subtle)",
               }}
             >
               <svg
@@ -288,7 +287,7 @@ export function CollectionCard({
 
         {/* Hover Border Glow */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             boxShadow: `inset 0 0 0 1px ${iconConfig.color}40, 0 0 40px -10px ${iconConfig.color}30`,
           }}

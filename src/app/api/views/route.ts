@@ -1,5 +1,8 @@
+import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 import { supabase } from "~/lib/supabase";
+import { enforceRateLimit, getClientIp } from "~/lib/rate-limit";
+import { getVoterIdentity } from "~/lib/voter-identity";
 
 interface ToolViewCountRow {
   tool_id: string;
@@ -76,9 +79,40 @@ export async function GET() {
   }
 }
 
+// Dedupe repeat views of the same tool from the same viewer within a time
+// window so a request loop cannot inflate counts
+const VIEW_DEDUPE_WINDOW_MS = 5 * 60 * 1000;
+const recentViews = new Map<string, number>();
+let lastDedupeCleanup = Date.now();
+
+function isDuplicateView(toolId: string, viewerKey: string): boolean {
+  const now = Date.now();
+
+  if (now - lastDedupeCleanup > VIEW_DEDUPE_WINDOW_MS) {
+    lastDedupeCleanup = now;
+    for (const [key, timestamp] of recentViews) {
+      if (now - timestamp > VIEW_DEDUPE_WINDOW_MS) {
+        recentViews.delete(key);
+      }
+    }
+  }
+
+  const key = `${toolId}:${viewerKey}`;
+  const lastSeen = recentViews.get(key);
+  if (lastSeen !== undefined && now - lastSeen < VIEW_DEDUPE_WINDOW_MS) {
+    return true;
+  }
+
+  recentViews.set(key, now);
+  return false;
+}
+
 // POST - Record a view for a tool using UPSERT on counter table
 export async function POST(request: Request) {
   try {
+    const limited = enforceRateLimit(request, "views", 60, 60 * 1000);
+    if (limited) return limited;
+
     const body = (await request.json()) as { toolId?: string };
     const { toolId } = body;
 
@@ -87,6 +121,17 @@ export async function POST(request: Request) {
         { error: "toolId is required" },
         { status: 400 }
       );
+    }
+
+    // Identify the viewer by the signed voter cookie when present,
+    // otherwise by a hash of the client IP
+    const voter = getVoterIdentity(request);
+    const viewerKey = voter.isNew
+      ? createHash("sha256").update(getClientIp(request)).digest("hex")
+      : voter.id;
+
+    if (isDuplicateView(toolId, viewerKey)) {
+      return NextResponse.json({ success: true });
     }
 
     // Use raw SQL for atomic increment via UPSERT

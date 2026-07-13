@@ -26,7 +26,7 @@
   /* Text Hierarchy */
   --text-primary: #f0f4f8;
   --text-secondary: #8899aa;
-  --text-tertiary: #556677;
+  --text-tertiary: #7d93a8;
 
   /* Borders & Lines */
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -106,9 +106,15 @@
   --accent-glow: rgba(0, 120, 212, 0.1);
   --accent-glow-strong: rgba(0, 120, 212, 0.2);
 
+  /* Signal colors tuned for contrast on light surfaces */
+  --signal-success: #059669;
+  --signal-warning: #b45309;
+  --signal-error: #dc2626;
+  --signal-purple: #7c3aed;
+
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-tertiary: #94a3b8;
+  --text-tertiary: #64748b;
 
   --border-subtle: rgba(0, 0, 0, 0.06);
   --border-medium: rgba(0, 0, 0, 0.12);

@@ -3,33 +3,17 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllTools, getAllCategories } from "~/lib/tools.server";
 import { CATEGORY_CONFIG, TYPE_CONFIG, SITE_CONFIG } from "~/lib/constants";
+import {
+  BEST_SLUG_TO_CATEGORY,
+  CATEGORY_TO_BEST_SLUG,
+  BEST_TYPE_SLUGS,
+} from "~/lib/best-categories";
 import type { ToolCategory } from "~/types/tool";
 
-// Map URL slugs to category keys
-const CATEGORY_SLUG_MAP: Record<string, ToolCategory> = {
-  "reporting-tools": "reporting",
-  "automation-tools": "automation",
-  "packaging-tools": "packaging",
-  "troubleshooting-tools": "troubleshooting",
-  "security-tools": "security",
-  "configuration-tools": "configuration",
-  "monitoring-tools": "monitoring",
-  "migration-tools": "migration",
-  "powershell-scripts": "automation", // Maps to automation as most PS scripts are there
-  "powershell-modules": "automation",
-};
-
-// Reverse map for generating slugs
-const CATEGORY_TO_SLUG: Record<ToolCategory, string> = {
-  reporting: "reporting-tools",
-  automation: "automation-tools",
-  packaging: "packaging-tools",
-  troubleshooting: "troubleshooting-tools",
-  security: "security-tools",
-  configuration: "configuration-tools",
-  monitoring: "monitoring-tools",
-  migration: "migration-tools",
-  other: "other-tools",
+// Labels for the type-based PowerShell pages
+const TYPE_PAGE_LABELS: Record<string, string> = {
+  "powershell-scripts": "PowerShell Scripts",
+  "powershell-modules": "PowerShell Modules",
 };
 
 interface BestCategoryPageProps {
@@ -39,42 +23,49 @@ interface BestCategoryPageProps {
 export async function generateStaticParams() {
   const categories = getAllCategories();
   const slugs = categories.map((cat) => ({
-    category: CATEGORY_TO_SLUG[cat as ToolCategory] ?? `${cat}-tools`,
+    category: CATEGORY_TO_BEST_SLUG[cat as ToolCategory] ?? `${cat}-tools`,
   }));
   // Add PowerShell-specific pages
-  slugs.push({ category: "powershell-scripts" });
-  slugs.push({ category: "powershell-modules" });
+  for (const slug of BEST_TYPE_SLUGS) {
+    slugs.push({ category: slug });
+  }
   return slugs;
 }
 
 export async function generateMetadata({ params }: BestCategoryPageProps): Promise<Metadata> {
   const { category: slug } = await params;
-  const categoryKey = CATEGORY_SLUG_MAP[slug];
+  const categoryKey = BEST_SLUG_TO_CATEGORY[slug];
+  const typePageLabel = TYPE_PAGE_LABELS[slug];
 
-  if (!categoryKey && !slug.endsWith("-tools")) {
+  if (!categoryKey && !typePageLabel) {
     return { title: "Not Found" };
   }
 
-  const displayName = slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-
   const tools = getAllTools();
-  const categoryLabel = categoryKey
-    ? CATEGORY_CONFIG[categoryKey]?.label ?? categoryKey
-    : displayName.replace(" Tools", "");
 
-  const filteredCount = categoryKey
-    ? tools.filter((t) => t.category === categoryKey).length
-    : tools.length;
+  let categoryLabel: string;
+  let titleSubject: string;
+  let filteredCount: number;
+
+  if (typePageLabel) {
+    categoryLabel = typePageLabel;
+    titleSubject = typePageLabel;
+    const type =
+      slug === "powershell-scripts" ? "powershell-script" : "powershell-module";
+    filteredCount = tools.filter((t) => t.type === type).length;
+  } else {
+    categoryLabel = CATEGORY_CONFIG[categoryKey!]?.label ?? categoryKey!;
+    titleSubject = `${categoryLabel} Tools`;
+    filteredCount = tools.filter((t) => t.category === categoryKey).length;
+  }
 
   return {
-    title: `Best ${categoryLabel} Tools for Microsoft Intune (${new Date().getFullYear()}) | ${filteredCount}+ Free Tools`,
-    description: `Discover the best ${categoryLabel.toLowerCase()} tools for Microsoft Intune. Ranked by GitHub stars and community adoption. All ${filteredCount}+ tools are free and open-source.`,
+    title: `Best ${titleSubject} for Microsoft Intune (${new Date().getFullYear()}) | ${filteredCount}+ Free Tools`,
+    description: `Discover the best ${categoryLabel.toLowerCase()} for Microsoft Intune. Ranked by GitHub stars and community adoption. All ${filteredCount}+ tools are free and open-source.`,
     keywords: [
-      `best Intune ${categoryLabel.toLowerCase()} tools`,
+      `best Intune ${categoryLabel.toLowerCase()}`,
       `top Intune ${categoryLabel.toLowerCase()}`,
-      `free Intune ${categoryLabel.toLowerCase()} tools`,
+      `free Intune ${categoryLabel.toLowerCase()}`,
       `Microsoft Intune ${categoryLabel.toLowerCase()}`,
       `Intune ${categoryLabel.toLowerCase()} ${new Date().getFullYear()}`,
     ],
@@ -82,8 +73,8 @@ export async function generateMetadata({ params }: BestCategoryPageProps): Promi
       canonical: `${SITE_CONFIG.url}/best/${slug}`,
     },
     openGraph: {
-      title: `Best ${categoryLabel} Tools for Microsoft Intune`,
-      description: `Top-rated ${categoryLabel.toLowerCase()} tools for Microsoft Intune, ranked by community adoption.`,
+      title: `Best ${titleSubject} for Microsoft Intune`,
+      description: `Top-rated ${categoryLabel.toLowerCase()} for Microsoft Intune, ranked by community adoption.`,
       url: `${SITE_CONFIG.url}/best/${slug}`,
     },
   };
@@ -91,7 +82,7 @@ export async function generateMetadata({ params }: BestCategoryPageProps): Promi
 
 export default async function BestCategoryPage({ params }: BestCategoryPageProps) {
   const { category: slug } = await params;
-  const categoryKey = CATEGORY_SLUG_MAP[slug];
+  const categoryKey = BEST_SLUG_TO_CATEGORY[slug];
 
   // Check for PowerShell-specific pages
   const isPowerShellScripts = slug === "powershell-scripts";
@@ -224,7 +215,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
           }}
         />
 
-        <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
           {/* Breadcrumb */}
           <nav className="mb-8">
             <ol className="flex items-center gap-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
@@ -240,7 +231,9 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
                 </Link>
               </li>
               <li>/</li>
-              <li style={{ color: "var(--text-primary)" }}>Best {categoryConfig?.label ?? "Tools"}</li>
+              <li style={{ color: "var(--text-primary)" }}>
+                Best {categoryConfig?.label ?? TYPE_PAGE_LABELS[slug] ?? "Tools"}
+              </li>
             </ol>
           </nav>
 
@@ -257,7 +250,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
               {new Date().getFullYear()} Rankings
             </div>
             <h1
-              className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
               style={{ color: "var(--text-primary)" }}
             >
               {pageTitle}
@@ -280,8 +273,8 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
           <div
             className="mb-10 rounded-xl p-4"
             style={{
-              background: "rgba(17, 25, 34, 0.6)",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-subtle)",
             }}
           >
             <div className="flex items-start gap-3">
@@ -310,6 +303,43 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
           </div>
 
           {/* Ranked Tools List */}
+          {rankedTools.length === 0 ? (
+            <div
+              className="rounded-2xl p-12 text-center"
+              style={{
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border-subtle)",
+              }}
+            >
+              <p
+                className="text-lg font-semibold"
+                style={{ color: "var(--text-primary)" }}
+              >
+                No tools in this category yet
+              </p>
+              <p
+                className="mx-auto mt-2 max-w-md text-sm"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Check back soon or explore the full directory to find the right
+                tool for your workflow.
+              </p>
+              <Link
+                href="/#tools"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all hover:scale-105"
+                style={{
+                  background: `${accentColor}15`,
+                  color: accentColor,
+                  border: `1px solid ${accentColor}30`,
+                }}
+              >
+                Browse all tools
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          ) : (
           <div className="space-y-4">
             {rankedTools.map((tool, index) => {
               const typeConfig = TYPE_CONFIG[tool.type];
@@ -321,8 +351,8 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
                   href={`/tools/${tool.id}`}
                   className="group block rounded-2xl transition-all hover:scale-[1.01]"
                   style={{
-                    background: "rgba(17, 25, 34, 0.8)",
-                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    background: "var(--bg-secondary)",
+                    border: "1px solid var(--border-subtle)",
                   }}
                 >
                   <div className="flex items-start gap-4 p-5 sm:items-center sm:gap-6 sm:p-6">
@@ -333,7 +363,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
                         background:
                           index < 3
                             ? `linear-gradient(135deg, ${accentColor}30, ${accentColor}10)`
-                            : "rgba(255, 255, 255, 0.03)",
+                            : "var(--bg-tertiary)",
                         color: index < 3 ? accentColor : "var(--text-tertiary)",
                         border: index < 3 ? `1px solid ${accentColor}30` : "none",
                       }}
@@ -401,26 +431,27 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
               );
             })}
           </div>
+          )}
 
           {/* Browse All CTA */}
-          {categoryKey && (
-            <div className="mt-12 text-center">
-              <Link
-                href={`/tools/category/${categoryKey}`}
-                className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all hover:scale-105"
-                style={{
-                  background: `${accentColor}15`,
-                  color: accentColor,
-                  border: `1px solid ${accentColor}30`,
-                }}
-              >
-                Browse All {categoryConfig?.label} Tools
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          )}
+          <div className="mt-12 text-center">
+            <Link
+              href={categoryKey ? `/tools/category/${categoryKey}` : "/#tools"}
+              className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all hover:scale-105"
+              style={{
+                background: `${accentColor}15`,
+                color: accentColor,
+                border: `1px solid ${accentColor}30`,
+              }}
+            >
+              {categoryConfig
+                ? `Browse All ${categoryConfig.label} Tools`
+                : "Browse All Tools"}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </main>
     </>

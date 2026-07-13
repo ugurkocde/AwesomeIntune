@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: `Submit a Tool - ${SITE_CONFIG.name}`,
   description:
     "Submit your Intune tool, script, or resource to be featured in the Awesome Intune community directory. Share your work with the Microsoft Intune community.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/submit`,
+  },
   openGraph: {
     title: `Submit a Tool - ${SITE_CONFIG.name}`,
     description:

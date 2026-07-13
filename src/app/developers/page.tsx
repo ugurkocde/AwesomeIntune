@@ -144,7 +144,7 @@ export default function DevelopersPage() {
       <div className="container-main">
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="mx-auto max-w-6xl"
         >
@@ -264,7 +264,7 @@ export default function DevelopersPage() {
                           onSuccess={setTurnstileToken}
                           onError={() => setTurnstileToken("")}
                           onExpire={() => setTurnstileToken("")}
-                          options={{ theme: "dark" }}
+                          options={{ theme: "auto" }}
                         />
                       </div>
 
@@ -348,8 +348,19 @@ export default function DevelopersPage() {
                   className="block text-sm break-all"
                   style={{ color: "var(--accent-primary)" }}
                 >
-                  https://awesomeintune.com/api/v1
+                  https://www.awesomeintune.com/api/v1
                 </code>
+                <a
+                  href="/openapi.json"
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs transition-colors hover:text-[var(--accent-primary)]"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                  OpenAPI specification (openapi.json)
+                </a>
               </div>
 
               {/* Endpoints Quick View */}
@@ -427,7 +438,7 @@ export default function DevelopersPage() {
 
                 {/* Tab Content */}
                 <div className="p-4 sm:p-5 overflow-hidden">
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence mode="wait" initial={false}>
                     {activeTab === "quickstart" && (
                       <motion.div
                         key="quickstart"
@@ -448,7 +459,7 @@ export default function DevelopersPage() {
                           <pre style={codeBlockStyle}>
                             <code style={{ color: "var(--text-primary)" }}>
 {`curl -H "X-API-Key: ai_your-key-here" \\
-  https://awesomeintune.com/api/v1/tools`}
+  https://www.awesomeintune.com/api/v1/tools`}
                             </code>
                           </pre>
                         </div>
@@ -525,7 +536,7 @@ export default function DevelopersPage() {
                             <pre style={codeBlockStyle}>
                               <code style={{ color: "var(--text-primary)" }}>
 {`curl -H "X-API-Key: YOUR_KEY" \\
-  "https://awesomeintune.com/api/v1/tools?category=automation&limit=10"`}
+  "https://www.awesomeintune.com/api/v1/tools?category=automation&limit=10"`}
                               </code>
                             </pre>
                           </div>
@@ -553,7 +564,7 @@ const { data } = await res.json();`}
                           <pre style={codeBlockStyle}>
                             <code style={{ color: "var(--text-primary)" }}>
 {`import requests
-response = requests.get("https://awesomeintune.com/api/v1/tools",
+response = requests.get("https://www.awesomeintune.com/api/v1/tools",
     headers={"X-API-Key": "YOUR_KEY"}, params={"category": "automation"})
 data = response.json()`}
                             </code>

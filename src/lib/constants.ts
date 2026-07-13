@@ -49,8 +49,12 @@ export const SITE_CONFIG = {
   name: "Awesome Intune",
   description:
     "The community-curated collection of Microsoft Intune tools and resources",
-  url: "https://awesomeintune.com",
+  url: "https://www.awesomeintune.com",
 };
+
+// Fallback lastModified date for static pages and schema fields that have no
+// content-derived date. Update manually when static content changes meaningfully.
+export const STATIC_PAGES_LAST_MODIFIED = "2026-07-10";
 
 export const WORKS_WITH_CONFIG: Record<
   WorksWithTag,

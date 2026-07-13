@@ -34,11 +34,11 @@ export function SecurityBadge({
         <div
           className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
           style={{
-            background: "linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.08))",
-            color: "#818cf8",
-            border: "1px solid rgba(99, 102, 241, 0.25)",
+            background: "var(--bg-tertiary)",
+            color: "var(--text-secondary)",
+            border: "1px solid var(--border-medium)",
           }}
-          title={showTooltip ? "Curated tool - reviewed for inclusion in our collection" : undefined}
+          title={showTooltip ? "Curated tool - source code is not publicly available for automated scanning" : undefined}
         >
           <svg
             width="12"
@@ -50,7 +50,9 @@ export function SecurityBadge({
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <span>Curated</span>
         </div>
@@ -62,15 +64,15 @@ export function SecurityBadge({
       <div
         className="relative overflow-hidden rounded-2xl"
         style={{
-          background: "linear-gradient(135deg, rgba(17, 25, 34, 0.98), rgba(17, 25, 34, 0.95))",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
+          background: "var(--bg-secondary)",
+          border: "1px solid var(--border-subtle)",
           boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.4)",
         }}
       >
         <div
           className="absolute left-0 right-0 top-0 h-px"
           style={{
-            background: "linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), transparent)",
+            background: "linear-gradient(90deg, transparent, var(--border-medium), transparent)",
           }}
         />
         <div className="p-6">
@@ -79,8 +81,8 @@ export function SecurityBadge({
               <div
                 className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
                 style={{
-                  background: "rgba(99, 102, 241, 0.1)",
-                  border: "2px solid rgba(99, 102, 241, 0.2)",
+                  background: "var(--bg-tertiary)",
+                  border: "2px solid var(--border-medium)",
                 }}
               >
                 <svg
@@ -88,12 +90,14 @@ export function SecurityBadge({
                   height="28"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#818cf8"
+                  stroke="var(--text-secondary)"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
               </div>
             </div>
@@ -104,14 +108,16 @@ export function SecurityBadge({
                   height="18"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#818cf8"
+                  stroke="var(--text-secondary)"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
-                <span className="text-base font-semibold" style={{ color: "#818cf8" }}>
+                <span className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
                   Curated Tool
                 </span>
               </div>
@@ -149,11 +155,11 @@ export function SecurityBadge({
           className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
           style={{
             background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08))",
-            color: "#10b981",
+            color: "var(--signal-success)",
             border: "1px solid rgba(16, 185, 129, 0.25)",
             boxShadow: "0 0 12px rgba(16, 185, 129, 0.1)",
           }}
-          title={showTooltip ? `All ${total} security checks passed` : undefined}
+          title={showTooltip ? `Passed all ${total} automated code checks` : undefined}
         >
           <svg
             width="12"
@@ -180,10 +186,10 @@ export function SecurityBadge({
           className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
           style={{
             background: "linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08))",
-            color: "#f59e0b",
+            color: "var(--signal-warning)",
             border: "1px solid rgba(245, 158, 11, 0.25)",
           }}
-          title={showTooltip ? `${passed}/${total} checks passed (force approved)` : undefined}
+          title={showTooltip ? `Passed ${passed} of ${total} automated code checks (force approved)` : undefined}
         >
           <svg
             width="12"
@@ -209,12 +215,12 @@ export function SecurityBadge({
         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
         style={{
           background: "linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08))",
-          color: "#f59e0b",
+          color: "var(--signal-warning)",
           border: "1px solid rgba(245, 158, 11, 0.25)",
         }}
         title={
           showTooltip
-            ? `${passed}/${total} security checks passed${forceApproved ? " (force approved)" : ""}`
+            ? `Passed ${passed} of ${total} automated code checks${forceApproved ? " (force approved)" : ""}`
             : undefined
         }
       >
@@ -232,23 +238,23 @@ export function SecurityBadge({
           <line x1="12" y1="8" x2="12" y2="12" />
           <line x1="12" y1="16" x2="12.01" y2="16" />
         </svg>
-        <span>{passed}/{total}</span>
+        <span>{passed}/{total} checks passed</span>
       </div>
     );
   }
 
   // Full variant for detail page - Premium Security Report Card
 
-  const statusColor = isPerfect ? "#10b981" : "#f59e0b";
+  const statusColor = isPerfect ? "var(--signal-success)" : "var(--signal-warning)";
   const statusLabel = isPerfect ? "All Checks Passed" : `${total - passed} Issue${total - passed > 1 ? "s" : ""} Found`;
 
   return (
     <div
       className="relative overflow-hidden rounded-2xl"
       style={{
-        background: "linear-gradient(135deg, rgba(17, 25, 34, 0.98), rgba(17, 25, 34, 0.95))",
-        border: "1px solid rgba(255, 255, 255, 0.06)",
-        boxShadow: `0 20px 40px -15px rgba(0, 0, 0, 0.4), 0 0 60px -20px ${statusColor}15`,
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-subtle)",
+        boxShadow: `0 20px 40px -15px rgba(0, 0, 0, 0.4)`,
       }}
     >
       {/* Top accent line */}
@@ -270,7 +276,7 @@ export function SecurityBadge({
                 cy="36"
                 r="30"
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.06)"
+                stroke="var(--border-subtle)"
                 strokeWidth="6"
               />
               {/* Progress ring */}
@@ -297,7 +303,7 @@ export function SecurityBadge({
                 {passed}
               </span>
               <span
-                className="text-[10px] font-medium uppercase tracking-wider"
+                className="text-[11px] font-medium uppercase tracking-wider"
                 style={{ color: "var(--text-tertiary)" }}
               >
                 of {total}
@@ -349,7 +355,7 @@ export function SecurityBadge({
                   className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
                   style={{
                     background: "rgba(245, 158, 11, 0.15)",
-                    color: "#f59e0b",
+                    color: "var(--signal-warning)",
                     border: "1px solid rgba(245, 158, 11, 0.25)",
                   }}
                 >
@@ -555,7 +561,7 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
           {failedChecks.length > 0 && (
             <span
               className="text-xs font-semibold uppercase tracking-wider"
-              style={{ color: "#10b981" }}
+              style={{ color: "var(--signal-success)" }}
             >
               Passed Checks
             </span>
@@ -574,7 +580,7 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
                   className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg"
                   style={{
                     background: "rgba(16, 185, 129, 0.12)",
-                    color: "#10b981",
+                    color: "var(--signal-success)",
                   }}
                 >
                   <svg

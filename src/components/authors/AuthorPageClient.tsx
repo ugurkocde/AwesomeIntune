@@ -194,11 +194,11 @@ export function AuthorPageClient({
       {/* Tools Section */}
       <div
         className="mt-10 border-t pt-8"
-        style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
+        style={{ borderColor: "var(--border-subtle)" }}
       >
         <div className="mb-6 flex items-center justify-between">
           <h2
-            className="text-lg font-semibold"
+            className="font-display text-2xl font-bold"
             style={{ color: "var(--text-primary)" }}
           >
             Tools by {authorName}
@@ -269,8 +269,8 @@ function AuthorExpertiseSection({ tools }: { tools: Tool[] }) {
     <div
       className="mt-8 rounded-2xl p-5"
       style={{
-        background: "rgba(255, 255, 255, 0.02)",
-        border: "1px solid rgba(255, 255, 255, 0.06)",
+        background: "var(--bg-tertiary)",
+        border: "1px solid var(--border-subtle)",
       }}
     >
       <h3
@@ -383,8 +383,8 @@ function ToolCard({
       href={`/tools/${tool.id}`}
       className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
       style={{
-        background: "rgba(255, 255, 255, 0.02)",
-        border: "1px solid rgba(255, 255, 255, 0.06)",
+        background: "var(--bg-tertiary)",
+        border: "1px solid var(--border-subtle)",
         animationDelay: `${index * 50}ms`,
       }}
     >
@@ -473,7 +473,7 @@ function ToolCard({
         {tool.repoStats && (tool.repoStats.stars > 0 || tool.repoStats.forks > 0) && (
           <div
             className="mt-4 flex items-center gap-4 border-t pt-3"
-            style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
+            style={{ borderColor: "var(--border-subtle)" }}
           >
             {tool.repoStats.stars > 0 && (
               <span

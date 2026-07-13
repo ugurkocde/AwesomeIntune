@@ -7,6 +7,7 @@ import {
   getAllAuthorSlugs,
 } from "~/lib/tools.server";
 import { SITE_CONFIG } from "~/lib/constants";
+import { generateBreadcrumbStructuredData } from "~/lib/structured-data";
 import { AuthorPageClient } from "~/components/authors/AuthorPageClient";
 
 interface AuthorPageProps {
@@ -67,8 +68,33 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     return sum + (tool.repoStats?.stars ?? 0);
   }, 0);
 
+  const sameAs = [author.githubUrl, author.linkedinUrl, author.xUrl].filter(
+    (url): url is string => Boolean(url)
+  );
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: author.name,
+    url: `${SITE_CONFIG.url}/authors/${author.slug}`,
+    ...(author.picture && { image: author.picture }),
+    ...(sameAs.length > 0 && { sameAs }),
+    description: `Intune community contributor with ${author.tools.length} free ${author.tools.length === 1 ? "tool" : "tools"} on ${SITE_CONFIG.name}.`,
+  };
+  const breadcrumbSchema = generateBreadcrumbStructuredData([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: author.name, url: `${SITE_CONFIG.url}/authors/${author.slug}` },
+  ]);
+
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Atmospheric Background */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -86,10 +112,10 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       />
 
       {/* Content Container */}
-      <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
+      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
         {/* Back Navigation */}
         <Link
-          href="/"
+          href="/#tools"
           className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
           style={{
             color: "var(--text-secondary)",
@@ -119,8 +145,8 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
         <div
           className="relative overflow-hidden rounded-3xl"
           style={{
-            background: "rgba(17, 25, 34, 0.98)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border-subtle)",
             boxShadow:
               "0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 100px -30px rgba(0, 212, 255, 0.15)",
           }}
@@ -177,7 +203,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               {/* Name and Info */}
               <div className="flex-1 text-center sm:text-left">
                 <h1
-                  className="font-display text-2xl font-bold tracking-tight sm:text-4xl"
+                  className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
                   style={{ color: "var(--text-primary)" }}
                 >
                   {author.name}
@@ -200,8 +226,8 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all hover:scale-105"
                         style={{
-                          background: "rgba(255, 255, 255, 0.05)",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          background: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-medium)",
                           color: "var(--text-secondary)",
                         }}
                       >
@@ -223,8 +249,8 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all hover:scale-105"
                         style={{
-                          background: "rgba(255, 255, 255, 0.05)",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          background: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-medium)",
                           color: "var(--text-secondary)",
                         }}
                       >
@@ -246,8 +272,8 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all hover:scale-105"
                         style={{
-                          background: "rgba(255, 255, 255, 0.05)",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          background: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-medium)",
                           color: "var(--text-secondary)",
                         }}
                       >

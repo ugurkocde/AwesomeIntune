@@ -14,6 +14,10 @@ import {
   CATEGORY_CONFIG,
   COLLECTION_ICONS,
 } from "~/lib/constants";
+import {
+  generateCollectionStructuredData,
+  generateBreadcrumbStructuredData,
+} from "~/lib/structured-data";
 
 interface CollectionPageProps {
   params: Promise<{ slug: string }>;
@@ -162,8 +166,59 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   };
   const IconComponent = iconComponents[iconConfig.icon];
 
+  const collectionSchema = generateCollectionStructuredData(
+    collection.title,
+    collection.description,
+    `${SITE_CONFIG.url}/collections/${collection.slug}`,
+    tools.length
+  );
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: collection.title,
+    description: collection.description,
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: tool.name,
+        description: tool.description,
+        url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+        applicationCategory:
+          CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+      },
+    })),
+  };
+  const breadcrumbSchema = generateBreadcrumbStructuredData([
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: "Collections", url: `${SITE_CONFIG.url}/collections` },
+    {
+      name: collection.title,
+      url: `${SITE_CONFIG.url}/collections/${collection.slug}`,
+    },
+  ]);
+
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Atmospheric Background Glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -203,8 +258,8 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
         <article
           className="relative overflow-hidden rounded-3xl"
           style={{
-            background: "rgba(17, 25, 34, 0.98)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border-subtle)",
             boxShadow:
               "0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 100px -30px rgba(0, 212, 255, 0.15)",
           }}
@@ -235,7 +290,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
             {/* Collection Title */}
             <h1
-              className="font-display text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
               style={{ color: "var(--text-primary)" }}
             >
               {collection.title}
@@ -274,15 +329,38 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             {/* Tools Section */}
             <div
               className="mt-10 border-t pt-8"
-              style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}
+              style={{ borderColor: "var(--border-subtle)" }}
             >
               <h2
-                className="mb-6 text-lg font-semibold"
+                className="mb-6 font-display text-2xl font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
                 Tools in this collection
               </h2>
 
+              {tools.length === 0 ? (
+                <div
+                  className="rounded-xl p-8 text-center"
+                  style={{
+                    background: "var(--bg-tertiary)",
+                    border: "1px solid var(--border-subtle)",
+                  }}
+                >
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
+                    No tools in this collection yet.{" "}
+                    <Link
+                      href="/#tools"
+                      className="font-medium transition-colors hover:text-[var(--accent-primary)]"
+                      style={{ color: "var(--accent-primary)" }}
+                    >
+                      Browse all tools
+                    </Link>
+                  </p>
+                </div>
+              ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {tools.map((tool) => {
                   const typeConfig = TYPE_CONFIG[tool.type];
@@ -296,8 +374,8 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                       href={`/tools/${tool.id}`}
                       className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02]"
                       style={{
-                        background: "rgba(255, 255, 255, 0.03)",
-                        border: "1px solid rgba(255, 255, 255, 0.06)",
+                        background: "var(--bg-tertiary)",
+                        border: "1px solid var(--border-subtle)",
                       }}
                     >
                       {/* Hover glow */}
@@ -406,6 +484,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   );
                 })}
               </div>
+              )}
             </div>
           </div>
         </article>

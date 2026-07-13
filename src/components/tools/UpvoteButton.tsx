@@ -24,7 +24,7 @@ export const UpvoteButton = memo(function UpvoteButton({
     e.stopPropagation();
     e.preventDefault();
 
-    if (hasVoted || isPending) return;
+    if (isPending) return;
     await onVote(toolId);
   };
 
@@ -33,32 +33,29 @@ export const UpvoteButton = memo(function UpvoteButton({
   return (
     <button
       onClick={handleClick}
-      disabled={hasVoted || isPending}
+      disabled={isPending}
       className={`
         group/vote inline-flex items-center justify-center gap-1
         rounded-lg font-medium transition-all duration-200
         min-h-[32px] min-w-[32px]
         ${isCompact ? "px-2 py-1.5 text-xs" : "px-3 py-2 text-sm"}
-        ${
-          hasVoted
-            ? "cursor-default"
-            : "cursor-pointer hover:scale-105 active:scale-95"
-        }
+        cursor-pointer hover:scale-105 active:scale-95
         ${isPending ? "animate-pulse" : ""}
       `}
       style={{
         background: hasVoted
-          ? "rgba(16, 185, 129, 0.15)"
-          : "rgba(255, 255, 255, 0.04)",
-        color: hasVoted ? "rgb(16, 185, 129)" : "var(--text-secondary)",
+          ? "color-mix(in srgb, var(--signal-success) 15%, transparent)"
+          : "var(--bg-tertiary)",
+        color: hasVoted ? "var(--signal-success)" : "var(--text-secondary)",
         border: hasVoted
-          ? "1px solid rgba(16, 185, 129, 0.3)"
-          : "1px solid rgba(255, 255, 255, 0.08)",
+          ? "1px solid color-mix(in srgb, var(--signal-success) 30%, transparent)"
+          : "1px solid var(--border-subtle)",
       }}
-      title={hasVoted ? "You voted for this tool" : "Upvote this tool"}
+      title={hasVoted ? "Click to remove your vote" : "Upvote this tool"}
+      aria-pressed={hasVoted}
       aria-label={
         hasVoted
-          ? `You voted for this tool. ${voteCount} votes.`
+          ? `Remove your upvote. ${voteCount} votes.`
           : `Upvote this tool. ${voteCount} votes.`
       }
     >
@@ -72,6 +69,7 @@ export const UpvoteButton = memo(function UpvoteButton({
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-hidden="true"
         className={`
           transition-transform duration-200
           ${!hasVoted && !isPending ? "group-hover/vote:-translate-y-0.5" : ""}

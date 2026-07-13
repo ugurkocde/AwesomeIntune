@@ -32,9 +32,12 @@
   "websiteUrl": "https://kioskoverseer.com/",
   "category": "configuration",
   "type": "web-app",
-  "worksWith": ["windows", "configuration-profiles"],
+  "worksWith": [
+    "windows",
+    "configuration-profiles"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/kiosk-overseer/screenshot-1.png"
+    "screenshots/kiosk-overseer/screenshot-1.webp"
   ]
 }

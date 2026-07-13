@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   if (!token) {
     return NextResponse.redirect(
-      `${env.NEXT_PUBLIC_SITE_URL}?subscription=error&message=invalid-token`
+      `${env.NEXT_PUBLIC_SITE_URL}/confirmed?status=error&message=invalid-token`
     );
   }
 
@@ -21,13 +21,13 @@ export async function GET(request: NextRequest) {
 
   if (findError || !subscriber) {
     return NextResponse.redirect(
-      `${env.NEXT_PUBLIC_SITE_URL}?subscription=error&message=invalid-token`
+      `${env.NEXT_PUBLIC_SITE_URL}/confirmed?status=error&message=invalid-token`
     );
   }
 
   if (subscriber.confirmed) {
     return NextResponse.redirect(
-      `${env.NEXT_PUBLIC_SITE_URL}?subscription=already-confirmed`
+      `${env.NEXT_PUBLIC_SITE_URL}/confirmed?status=already-confirmed`
     );
   }
 
@@ -40,11 +40,9 @@ export async function GET(request: NextRequest) {
   if (updateError) {
     console.error("Failed to confirm subscriber:", updateError);
     return NextResponse.redirect(
-      `${env.NEXT_PUBLIC_SITE_URL}?subscription=error&message=update-failed`
+      `${env.NEXT_PUBLIC_SITE_URL}/confirmed?status=error&message=update-failed`
     );
   }
 
-  return NextResponse.redirect(
-    `${env.NEXT_PUBLIC_SITE_URL}?subscription=confirmed`
-  );
+  return NextResponse.redirect(`${env.NEXT_PUBLIC_SITE_URL}/confirmed`);
 }

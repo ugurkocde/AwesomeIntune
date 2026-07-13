@@ -37,9 +37,15 @@
   "downloadUrl": "https://www.powershellgallery.com/packages/Generate-IntuneAnomaliesReport/",
   "category": "reporting",
   "type": "powershell-script",
-  "worksWith": ["windows", "graph-api", "compliance-policies", "autopilot", "bitlocker"],
+  "worksWith": [
+    "windows",
+    "graph-api",
+    "compliance-policies",
+    "autopilot",
+    "bitlocker"
+  ],
   "dateAdded": "2026-01-03",
   "screenshots": [
-    "screenshots/intune-anomalies-report/screenshot-1.png"
+    "screenshots/intune-anomalies-report/screenshot-1.webp"
   ]
 }

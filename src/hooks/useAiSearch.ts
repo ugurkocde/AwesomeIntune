@@ -7,6 +7,7 @@ import type { AISearchResult } from "~/app/api/search/route";
 
 export type AIExplanations = Record<string, string>;
 export type AIConfidenceScores = Record<string, number>;
+export type AISearchError = "unavailable" | "rate-limited";
 
 interface UseAiSearchReturn {
   /** Whether the query is sentence-like enough to trigger AI search */
@@ -16,6 +17,12 @@ interface UseAiSearchReturn {
   aiConfidenceScores: AIConfidenceScores;
   /** Tool IDs returned by AI, in relevance order, or null when AI is inactive */
   aiToolIds: string[] | null;
+  /** Why the last AI request failed, or null when it succeeded or never ran */
+  aiError: AISearchError | null;
+  /** Seconds to wait before retrying, from a 429 Retry-After header */
+  retryAfterSeconds: number | null;
+  /** Re-fire the AI request for the current query */
+  retryAiSearch: () => void;
   /** Cancel any in-flight request and reset AI results */
   clearAiSearch: () => void;
 }
@@ -27,6 +34,11 @@ interface UseAiSearchReturn {
  * pass an empty string to immediately stand the AI section down. AI only fires
  * when `shouldUseAiSearch` returns true; otherwise results stay empty.
  *
+ * Failures are surfaced instead of swallowed: `aiError` distinguishes a
+ * rate-limited request (429, with `retryAfterSeconds` when the server sent
+ * Retry-After) from a generic failure, and `retryAiSearch` re-fires the same
+ * query.
+ *
  * Single source of truth for the AI search flow used by the tool directory.
  */
 export function useAiSearch(query: string): UseAiSearchReturn {
@@ -35,6 +47,11 @@ export function useAiSearch(query: string): UseAiSearchReturn {
   const [aiConfidenceScores, setAiConfidenceScores] =
     useState<AIConfidenceScores>({});
   const [aiToolIds, setAiToolIds] = useState<string[] | null>(null);
+  const [aiError, setAiError] = useState<AISearchError | null>(null);
+  const [retryAfterSeconds, setRetryAfterSeconds] = useState<number | null>(
+    null
+  );
+  const [retryToken, setRetryToken] = useState(0);
   const lastTrackedQuery = useRef<string>("");
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -49,6 +66,12 @@ export function useAiSearch(query: string): UseAiSearchReturn {
     setAiExplanations({});
     setAiConfidenceScores({});
     setAiToolIds(null);
+    setAiError(null);
+    setRetryAfterSeconds(null);
+  }, []);
+
+  const retryAiSearch = useCallback(() => {
+    setRetryToken((token) => token + 1);
   }, []);
 
   useEffect(() => {
@@ -67,6 +90,8 @@ export function useAiSearch(query: string): UseAiSearchReturn {
 
     async function performAiSearch() {
       setIsAiSearching(true);
+      setAiError(null);
+      setRetryAfterSeconds(null);
 
       try {
         const response = await fetch("/api/search", {
@@ -75,6 +100,23 @@ export function useAiSearch(query: string): UseAiSearchReturn {
           body: JSON.stringify({ query }),
           signal: controller.signal,
         });
+
+        if (response.status === 429) {
+          if (controller.signal.aborted) return;
+          const retryAfterHeader = response.headers.get("Retry-After");
+          const seconds = retryAfterHeader
+            ? Number.parseInt(retryAfterHeader, 10)
+            : NaN;
+          setAiExplanations({});
+          setAiConfidenceScores({});
+          setAiToolIds(null);
+          setAiError("rate-limited");
+          setRetryAfterSeconds(
+            Number.isFinite(seconds) && seconds > 0 ? seconds : null
+          );
+          setIsAiSearching(false);
+          return;
+        }
 
         if (!response.ok) {
           throw new Error("AI search failed");
@@ -112,6 +154,7 @@ export function useAiSearch(query: string): UseAiSearchReturn {
         setAiExplanations({});
         setAiConfidenceScores({});
         setAiToolIds(null);
+        setAiError("unavailable");
         setIsAiSearching(false);
       }
     }
@@ -119,7 +162,7 @@ export function useAiSearch(query: string): UseAiSearchReturn {
     void performAiSearch();
 
     return () => controller.abort();
-  }, [query, isAiMode, clearAiSearch]);
+  }, [query, isAiMode, retryToken, clearAiSearch]);
 
   return {
     isAiMode,
@@ -127,6 +170,9 @@ export function useAiSearch(query: string): UseAiSearchReturn {
     aiExplanations,
     aiConfidenceScores,
     aiToolIds,
+    aiError,
+    retryAfterSeconds,
+    retryAiSearch,
     clearAiSearch,
   };
 }
