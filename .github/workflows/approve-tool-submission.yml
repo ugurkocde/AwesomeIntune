@@ -288,6 +288,25 @@ jobs:
               if (mapping[label] && value && !ignoredValues.includes(value.toLowerCase())) fields[mapping[label]] = value;
             }
 
+            // Fallback: parse GitHub issue form template format: ### Label\n\nValue
+            // (issues opened via .github/ISSUE_TEMPLATE/tool-submission.yml)
+            const formFieldMapping = {
+              'tool name': 'name', 'description': 'description', 'author name': 'author',
+              'repository url': 'repoUrl', 'category': 'category', 'type': 'type',
+              'author url (optional)': 'githubUrl', 'download url (optional)': 'downloadUrl',
+              'website url (optional)': 'websiteUrl'
+            };
+            const formPattern = /### ([^\n]+)\n\n([\s\S]*?)(?=\n### |\n---|\s*$)/g;
+            while ((match = formPattern.exec(body)) !== null) {
+              const label = match[1].trim().toLowerCase();
+              const value = match[2].trim();
+              const mapped = formFieldMapping[label];
+              const ignoredValues = ['not provided', 'n/a', 'none', '-', '', '_no response_'];
+              if (mapped && value && !ignoredValues.includes(value.toLowerCase()) && !fields[mapped]) {
+                fields[mapped] = value;
+              }
+            }
+
             // Parse multi-author format from website submissions: #### Author N: Name
             const authorSectionMatch = body.match(/### Authors\s*([\s\S]*?)(?=\n### [^#]|$)/);
             if (authorSectionMatch) {
