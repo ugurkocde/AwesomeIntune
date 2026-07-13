@@ -11,7 +11,7 @@ interface RequestVoteCountRow {
 // Cache vote counts to reduce database load
 let cachedCounts: Record<string, number> | null = null;
 let cacheTimestamp = 0;
-const CACHE_DURATION_MS = 30 * 1000; // 30 seconds cache
+const CACHE_DURATION_MS = 10 * 1000; // 10 seconds cache
 
 // Function to fetch vote counts from the counter table
 async function fetchVoteCounts(): Promise<Record<string, number>> {
@@ -41,7 +41,7 @@ export async function GET() {
     if (cachedCounts !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+          "Cache-Control": "no-store",
         },
       });
     }
@@ -55,7 +55,7 @@ export async function GET() {
 
     return NextResponse.json(counts, {
       headers: {
-        "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+        "Cache-Control": "no-store",
       },
     });
   } catch (error) {
@@ -65,7 +65,7 @@ export async function GET() {
     if (cachedCounts !== null) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15",
+          "Cache-Control": "no-store",
         },
       });
     }
