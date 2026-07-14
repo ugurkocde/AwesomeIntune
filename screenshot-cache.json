@@ -50,6 +50,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Apple Compliance Version Updater",
+      "id": "apple-compliance-version-updater",
+      "url": "https://github.com/SSMacAdmin/Apple_ComplianceVersion_Updater",
+      "reason": "No images in README"
+    },
+    {
       "name": "AppLocker Policy Creator",
       "id": "applocker-policy-creator",
       "url": "https://app-locker-cloud.vercel.app/",
