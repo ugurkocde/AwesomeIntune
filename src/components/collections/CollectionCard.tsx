@@ -75,7 +75,12 @@ function SettingsIcon({ className, style }: IconProps) {
 
 function AppleIcon({ className, style }: IconProps) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
     </svg>
   );
@@ -164,7 +169,7 @@ export function CollectionCard({
 }: CollectionCardProps) {
   const iconConfig = COLLECTION_ICONS[collection.slug] ?? {
     icon: "layers" as const,
-    color: "#00d4ff",
+    color: "#0078d4",
   };
   const IconComponent = iconComponents[iconConfig.icon];
 
@@ -180,15 +185,15 @@ export function CollectionCard({
     >
       <Link
         href={`/collections/${collection.slug}`}
-        className="group relative block overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] transition-all duration-300 hover:-translate-y-1"
+        className="group relative block overflow-hidden rounded-[14px] border border-[color:var(--border-subtle)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--border-accent)]"
         style={{
           background: "var(--bg-secondary)",
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+          boxShadow: "0 2px 10px rgba(15, 23, 42, 0.04)",
         }}
       >
         {/* Top Accent Gradient Bar */}
         <div
-          className="absolute left-0 right-0 top-0 h-1 opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+          className="absolute top-0 right-0 left-0 h-1 opacity-60 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             background: `linear-gradient(90deg, transparent, ${iconConfig.color}, transparent)`,
           }}
@@ -205,22 +210,21 @@ export function CollectionCard({
         <div className="relative p-6">
           {/* Icon Circle */}
           <div
-            className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110"
+            className="mb-3 flex h-10 w-10 items-center justify-center rounded-[10px] transition-transform duration-300 group-hover:scale-105"
             style={{
               background: `${iconConfig.color}15`,
               border: `1px solid ${iconConfig.color}30`,
-              boxShadow: `0 0 30px ${iconConfig.color}20`,
             }}
           >
             <IconComponent
-              className="h-7 w-7"
+              className="h-5 w-5"
               style={{ color: iconConfig.color }}
             />
           </div>
 
           {/* Collection Title */}
           <h2
-            className="font-display text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
+            className="font-display text-[17px] leading-[1.3] font-bold transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
             style={{ color: "var(--text-primary)" }}
           >
             {collection.title}
@@ -228,14 +232,14 @@ export function CollectionCard({
 
           {/* Description */}
           <p
-            className="mt-3 line-clamp-2 text-sm leading-relaxed"
+            className="mt-2.5 line-clamp-2 text-[13px] leading-[1.6]"
             style={{ color: "var(--text-secondary)" }}
           >
             {collection.description}
           </p>
 
           {/* Footer */}
-          <div className="mt-5 flex items-center justify-between">
+          <div className="mt-4 flex items-center justify-between">
             {/* Tool Count */}
             <div className="flex items-center gap-2">
               <svg
@@ -253,7 +257,7 @@ export function CollectionCard({
                 <line x1="12" y1="17" x2="12" y2="21" />
               </svg>
               <span
-                className="text-sm font-medium"
+                className="text-xs font-semibold"
                 style={{ color: "var(--text-tertiary)" }}
               >
                 {toolCount} {toolCount === 1 ? "tool" : "tools"}
@@ -262,7 +266,7 @@ export function CollectionCard({
 
             {/* Arrow */}
             <div
-              className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1"
+              className="flex h-7 w-7 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1"
               style={{
                 background: "var(--border-subtle)",
               }}
@@ -287,7 +291,7 @@ export function CollectionCard({
 
         {/* Hover Border Glow */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             boxShadow: `inset 0 0 0 1px ${iconConfig.color}40, 0 0 40px -10px ${iconConfig.color}30`,
           }}

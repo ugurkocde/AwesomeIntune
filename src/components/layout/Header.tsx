@@ -1,88 +1,62 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GITHUB_REPO_URL } from "~/lib/constants";
 
-/**
- * Compact header search: an icon button that expands to an inline input and
- * navigates to the homepage directory (`/?q=`) on submit. Escape collapses.
- */
-function HeaderSearch({ inputWidth = 190 }: { inputWidth?: number }) {
+function HeaderSearch() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    if (isOpen) inputRef.current?.focus();
-  }, [isOpen]);
-
-  const collapse = () => {
-    setIsOpen(false);
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const value = query.trim();
+    if (!value) {
+      setOpen(true);
+      inputRef.current?.focus();
+      return;
+    }
+    router.push(`/?q=${encodeURIComponent(value)}#tools`);
+    setOpen(false);
     setQuery("");
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const q = query.trim();
-    collapse();
-    if (!q) return;
-    router.push(`/?q=${encodeURIComponent(q)}`);
-  };
-
   return (
-    <form role="search" onSubmit={handleSubmit} className="flex items-center">
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="header-search-input"
-            className="mr-2 overflow-hidden"
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: inputWidth, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          >
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Escape") collapse();
-              }}
-              placeholder="Search tools..."
-              aria-label="Search tools"
-              className="w-full rounded-lg px-3 text-sm outline-none transition-colors focus:border-[var(--accent-primary)]"
-              style={{
-                height: "36px",
-                background: "var(--bg-tertiary)",
-                border: "1px solid var(--border-subtle)",
-                color: "var(--text-primary)",
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <form role="search" onSubmit={submit} className="flex items-center">
+      {open && (
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setOpen(false);
+          }}
+          placeholder="Search tools"
+          aria-label="Search tools"
+          name="site-search"
+          autoComplete="off"
+          spellCheck={false}
+          className="mr-2 h-9 w-44 rounded-lg border border-[color:var(--border-subtle)] bg-white px-3 text-sm text-[var(--text-primary)] focus-visible:border-[var(--accent-primary)]"
+        />
+      )}
       <button
-        type={isOpen ? "submit" : "button"}
-        onClick={isOpen ? undefined : () => setIsOpen(true)}
-        className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+        type={open ? "submit" : "button"}
+        onClick={open ? undefined : () => setOpen(true)}
+        className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-slate-100 hover:text-[var(--text-primary)]"
         aria-label="Search tools"
-        aria-expanded={isOpen}
-        style={{ color: "var(--text-secondary)" }}
+        aria-expanded={open}
       >
         <svg
-          width="18"
-          height="18"
+          width="17"
+          height="17"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
           aria-hidden="true"
         >
           <circle cx="11" cy="11" r="8" />
@@ -93,354 +67,144 @@ function HeaderSearch({ inputWidth = 190 }: { inputWidth?: number }) {
   );
 }
 
+const navItems = [
+  { href: "/#tools", label: "Browse" },
+  { href: "/collections", label: "Collections" },
+  { href: "/ideas", label: "Ideas" },
+];
+
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
+  useEffect(() => setMobileOpen(false), [pathname]);
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled((prev) => (prev === isScrolled ? prev : isScrolled));
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  // Close mobile menu on escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    if (mobileMenuOpen) {
-      document.addEventListener("keydown", handleEscape);
-      return () => document.removeEventListener("keydown", handleEscape);
-    }
-  }, [mobileMenuOpen]);
-
-  const closeMobileMenu = () => setMobileMenuOpen(false);
-
-  // The homepage already leads with the hero and directory search boxes
-  const showHeaderSearch = pathname !== "/";
-
   return (
-    <header
-      className="fixed left-0 right-0 top-0 z-50"
-      style={{
-        background: scrolled || mobileMenuOpen
-          ? "rgba(10, 14, 20, 0.98)"
-          : "transparent",
-        borderBottom: scrolled || mobileMenuOpen
-          ? "1px solid var(--border-subtle)"
-          : "1px solid transparent",
-        transition: "all 0.3s ease",
-      }}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--border-subtle)] bg-white/95 backdrop-blur-md">
       <div className="container-main">
-        <nav className="flex h-16 items-center justify-between md:h-20">
-          {/* Logo */}
-          <Link href="/" className="group flex items-center gap-3">
-            <motion.div
-              className="flex h-9 w-9 items-center justify-center rounded-lg"
-              style={{
-                background: "var(--accent-glow)",
-                border: "1px solid var(--border-accent)",
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--accent-primary)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            </motion.div>
-            <div className="flex flex-col">
-              <span
-                className="font-display text-lg font-bold tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                AWESOME
-                <span style={{ color: "var(--accent-primary)" }}> INTUNE</span>
-              </span>
-              <span
-                className="text-[10px] tracking-wide transition-colors group-hover:text-[var(--accent-primary)]"
-                style={{ color: "var(--text-tertiary)" }}
-              >
-                by UgurLabs.com
-              </span>
-            </div>
+        <nav
+          aria-label="Primary navigation"
+          className="flex h-[68px] items-center justify-between"
+        >
+          <Link
+            href="/"
+            className="flex items-center gap-2.5"
+            aria-label="Awesome Intune home"
+          >
+            <Image
+              src="/favicon.svg"
+              alt=""
+              width={34}
+              height={34}
+              priority
+              className="h-[34px] w-[34px] shrink-0"
+            />
+            <span className="font-display text-base font-bold tracking-[-0.02em] text-[var(--text-primary)]">
+              AWESOME
+              <span className="text-[var(--accent-primary)]"> INTUNE</span>
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-4 md:flex">
-            {showHeaderSearch && <HeaderSearch />}
-            <Link
-              href="/#tools"
-              className="btn btn-ghost"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="3" y="3" width="7" height="7" />
-                <rect x="14" y="3" width="7" height="7" />
-                <rect x="3" y="14" width="7" height="7" />
-                <rect x="14" y="14" width="7" height="7" />
-              </svg>
-              <span>Browse</span>
-            </Link>
-            <Link
-              href="/collections"
-              className="btn btn-ghost"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-              <span>Collections</span>
-            </Link>
+          <div className="hidden items-center gap-1 md:flex">
+            {pathname !== "/" && <HeaderSearch />}
+            {navItems.map((item) => {
+              const active =
+                item.href !== "/#tools" && pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-[10px] px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                    active
+                      ? "bg-[var(--accent-glow)] text-[var(--accent-primary)]"
+                      : "text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <a
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-ghost"
-              aria-label="View on GitHub"
+              className="rounded-[10px] px-3.5 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-slate-100 hover:text-[var(--text-primary)]"
+            >
+              GitHub
+            </a>
+            <Link
+              href="/submit"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-[10px] bg-[var(--accent-primary)] px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[var(--accent-secondary)]"
+            >
+              <span aria-hidden="true">＋</span> Add Tool
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 md:hidden">
+            <Link
+              href="/submit"
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent-primary)] text-lg text-white"
+              aria-label="Add a tool"
+            >
+              +
+            </Link>
+            <button
+              type="button"
+              onClick={() => setMobileOpen((value) => !value)}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-primary)] hover:bg-slate-100"
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileOpen}
             >
               <svg
                 width="20"
                 height="20"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-              <span>GitHub</span>
-            </a>
-
-            <Link href="/submit" className="btn btn-primary">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
                 aria-hidden="true"
               >
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
+                {mobileOpen ? (
+                  <path d="M6 6l12 12M18 6 6 18" />
+                ) : (
+                  <path d="M4 7h16M4 12h16M4 17h16" />
+                )}
               </svg>
-              <span>Add Tool</span>
-            </Link>
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="flex items-center gap-2 md:hidden">
-            {showHeaderSearch && <HeaderSearch inputWidth={140} />}
-            <Link href="/submit" className="btn btn-primary" aria-label="Add tool">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-            </Link>
-
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/10"
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              <div className="relative h-5 w-6">
-                <motion.span
-                  className="absolute left-0 h-0.5 w-6 rounded-full bg-current"
-                  style={{ color: "var(--text-primary)" }}
-                  animate={{
-                    top: mobileMenuOpen ? "10px" : "2px",
-                    rotate: mobileMenuOpen ? 45 : 0,
-                  }}
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  className="absolute left-0 top-[10px] h-0.5 w-6 rounded-full bg-current"
-                  style={{ color: "var(--text-primary)" }}
-                  animate={{
-                    opacity: mobileMenuOpen ? 0 : 1,
-                    scaleX: mobileMenuOpen ? 0 : 1,
-                  }}
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  className="absolute left-0 h-0.5 w-6 rounded-full bg-current"
-                  style={{ color: "var(--text-primary)" }}
-                  animate={{
-                    top: mobileMenuOpen ? "10px" : "18px",
-                    rotate: mobileMenuOpen ? -45 : 0,
-                  }}
-                  transition={{ duration: 0.2 }}
-                />
-              </div>
             </button>
           </div>
         </nav>
       </div>
 
-      {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="overflow-hidden border-t md:hidden"
-            style={{
-              background: "rgba(10, 14, 20, 0.98)",
-              borderColor: "var(--border-subtle)",
-            }}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          >
-            <div className="container-main py-4">
-              <div className="flex flex-col gap-1">
-                <Link
-                  href="/#tools"
-                  onClick={closeMobileMenu}
-                  className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <rect x="3" y="3" width="7" height="7" />
-                    <rect x="14" y="3" width="7" height="7" />
-                    <rect x="3" y="14" width="7" height="7" />
-                    <rect x="14" y="14" width="7" height="7" />
-                  </svg>
-                  <span className="font-medium">Browse Tools</span>
-                </Link>
-
-                <Link
-                  href="/collections"
-                  onClick={closeMobileMenu}
-                  className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                    <path d="M2 17l10 5 10-5" />
-                    <path d="M2 12l10 5 10-5" />
-                  </svg>
-                  <span className="font-medium">Collections</span>
-                </Link>
-
-                <a
-                  href={GITHUB_REPO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobileMenu}
-                  className="flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-white/5"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  <span className="font-medium">GitHub</span>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="ml-auto opacity-50"
-                    aria-hidden="true"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mobileOpen && (
+        <div className="border-t border-[color:var(--border-subtle)] bg-white px-5 py-4 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <a
+              href={GITHUB_REPO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

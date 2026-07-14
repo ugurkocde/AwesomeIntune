@@ -60,7 +60,7 @@ export function Footer() {
             </p>
             <div className="pt-2">
               <p
-                className="mb-2 text-xs font-medium uppercase tracking-wide"
+                className="mb-2 text-xs font-medium tracking-wide uppercase"
                 style={{ color: "var(--text-tertiary)" }}
               >
                 Stay Updated
@@ -72,7 +72,7 @@ export function Footer() {
           {/* Links Column */}
           <div className="space-y-4">
             <h3
-              className="font-display text-sm font-semibold uppercase tracking-wide"
+              className="font-display text-sm font-semibold tracking-wide uppercase"
               style={{ color: "var(--text-tertiary)" }}
             >
               Links
@@ -149,7 +149,7 @@ export function Footer() {
           {/* Connect Column */}
           <div className="space-y-4">
             <h3
-              className="font-display text-sm font-semibold uppercase tracking-wide"
+              className="font-display text-sm font-semibold tracking-wide uppercase"
               style={{ color: "var(--text-tertiary)" }}
             >
               Connect
@@ -212,7 +212,7 @@ export function Footer() {
           {/* Sponsors Column */}
           <div className="space-y-4">
             <h3
-              className="font-display text-sm font-semibold uppercase tracking-wide"
+              className="font-display text-sm font-semibold tracking-wide uppercase"
               style={{ color: "var(--text-tertiary)" }}
             >
               Sponsors
@@ -222,7 +222,7 @@ export function Footer() {
                 href="https://eido.io/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+                className="sponsor-logo-link group inline-block transition-transform duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("eido", "footer")}
               >
                 <Image
@@ -230,21 +230,21 @@ export function Footer() {
                   alt="eido - Sponsor"
                   width={86}
                   height={29}
-                  className="sponsor-logo-dark h-auto w-[68px] sm:w-[86px] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-auto w-[68px] opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
                 />
                 <Image
                   src="/sponsors/eido-dark.svg"
                   alt="eido - Sponsor"
                   width={86}
                   height={29}
-                  className="sponsor-logo-light h-auto w-[68px] sm:w-[86px] transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-auto w-[68px] transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
                 />
               </a>
               <a
                 href="https://zerotouch.ai/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block transition-all duration-300 hover:scale-[1.02]"
+                className="sponsor-logo-link group inline-block transition-transform duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("zerotouch", "footer")}
               >
                 <Image
@@ -252,21 +252,21 @@ export function Footer() {
                   alt="ZeroTouch - Sponsor"
                   width={125}
                   height={50}
-                  className="sponsor-logo-dark h-[38px] sm:h-[50px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-dark h-[38px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
                 />
                 <Image
                   src="/sponsors/zerotouch-dark.png"
                   alt="ZeroTouch - Sponsor"
                   width={125}
                   height={50}
-                  className="sponsor-logo-light h-[38px] sm:h-[50px] w-auto transition-opacity duration-300 group-hover:opacity-100"
+                  className="sponsor-logo-light h-[38px] w-auto transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
                 />
               </a>
               <a
                 href="https://devicie.com/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-block transition-all duration-300 hover:scale-[1.02]"
+                className="group inline-block transition-transform duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("devicie", "footer")}
               >
                 <Image
@@ -274,12 +274,11 @@ export function Footer() {
                   alt="Devicie - Sponsor"
                   width={95}
                   height={34}
-                  className="h-[27px] sm:h-[34px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                  className="h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
                 />
               </a>
             </div>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
@@ -293,7 +292,9 @@ export function Footer() {
             style={{ color: "var(--text-tertiary)" }}
           >
             All tools belong to their respective authors and communities
-            <span className="mx-2" style={{ opacity: 0.4 }}>|</span>
+            <span className="mx-2" style={{ opacity: 0.4 }}>
+              |
+            </span>
             Always test in non-production environments first
           </p>
 

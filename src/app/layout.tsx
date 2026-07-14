@@ -5,7 +5,6 @@ import { Suspense } from "react";
 import Script from "next/script";
 import { Outfit, DM_Sans, JetBrains_Mono } from "next/font/google";
 
-import { GradientMesh } from "~/components/GradientMesh";
 import { Header } from "~/components/layout/Header";
 import { Footer } from "~/components/layout/Footer";
 import { SubscriptionToast } from "~/components/newsletter/SubscriptionToast";
@@ -120,19 +119,31 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="light"
       className={`${outfit.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <meta name="msvalidate.01" content="3E85A4E6616AA104DB060F4E3AC73298" />
         {/* Citation meta tags for GEO (Generative Engine Optimization) */}
-        <meta name="citation_title" content="Awesome Intune - Microsoft Intune Tools Directory" />
+        <meta
+          name="citation_title"
+          content="Awesome Intune - Microsoft Intune Tools Directory"
+        />
         <meta name="citation_author" content="Ugur Koc" />
         <meta name="citation_publication_date" content="2024" />
         <meta name="citation_online_date" content={latestToolDate} />
         <meta name="citation_publisher" content="Awesome Intune" />
-        <meta name="citation_abstract" content="The largest curated directory of free Microsoft Intune tools, PowerShell scripts, and automation resources for IT professionals managing endpoint devices." />
+        <meta
+          name="citation_abstract"
+          content="The largest curated directory of free Microsoft Intune tools, PowerShell scripts, and automation resources for IT professionals managing endpoint devices."
+        />
         {/* AI crawler hints */}
-        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt - AI Crawler Instructions" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="LLMs.txt - AI Crawler Instructions"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -155,12 +166,19 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="flex min-h-screen flex-col">
-        <GradientMesh />
+        <a
+          href="#main-content"
+          className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-lg bg-[var(--accent-primary)] px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0"
+        >
+          Skip to content
+        </a>
         <Header />
         <Suspense fallback={null}>
           <SubscriptionToast />
         </Suspense>
-        <main className="relative z-10 flex-1">{children}</main>
+        <main id="main-content" className="relative z-10 flex-1">
+          {children}
+        </main>
         <Footer />
         <FloatingSubscribe />
       </body>

@@ -35,10 +35,10 @@ export default function SubmitPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-3xl"
+          className="mx-auto max-w-5xl"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="mb-12">
+          <motion.div variants={itemVariants} className="mb-8">
             <Link
               href="/#tools"
               className="mb-6 inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent-primary)]"
@@ -60,27 +60,28 @@ export default function SubmitPage() {
               Back to all tools
             </Link>
             <h1
-              className="font-display text-4xl font-bold sm:text-5xl"
+              className="font-display text-[44px] font-extrabold tracking-[-0.02em]"
               style={{ color: "var(--text-primary)" }}
             >
               Submit Your Tool
             </h1>
             <p
-              className="mt-4 text-lg"
+              className="mt-3 text-base"
               style={{ color: "var(--text-secondary)" }}
             >
-              Share your Intune tool with the community
+              Share your Intune tool with the community. Open-source tools get
+              security-scanned automatically.
             </p>
           </motion.div>
 
           {/* Process Steps - Compact */}
           <motion.div
             variants={itemVariants}
-            className="mb-8 flex items-center justify-center gap-2 md:gap-4"
+            className="mb-8 flex flex-wrap items-center justify-start gap-2 md:gap-4"
           >
             {[
               { step: "1", title: "Submit" },
-              { step: "2", title: "Review" },
+              { step: "2", title: "Review + security scan" },
               { step: "3", title: "Live" },
             ].map((item, index) => (
               <div key={item.step} className="flex items-center gap-2 md:gap-4">

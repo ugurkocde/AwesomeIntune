@@ -15,6 +15,7 @@ import { WorksWithTags } from "./WorksWithTags";
 interface ToolCardProps {
   tool: Tool;
   index?: number;
+  isRelatedMatch?: boolean;
   aiExplanation?: string;
   confidenceScore?: number;
   viewCount?: number;
@@ -29,6 +30,7 @@ interface ToolCardProps {
 export const ToolCard = memo(function ToolCard({
   tool,
   index = 0,
+  isRelatedMatch = false,
   aiExplanation,
   confidenceScore,
   viewCount,
@@ -64,8 +66,8 @@ export const ToolCard = memo(function ToolCard({
       },
       {
         threshold: 0.1, // Lower threshold for faster animation trigger
-        rootMargin: "50px" // Start animation slightly before card enters viewport
-      }
+        rootMargin: "50px", // Start animation slightly before card enters viewport
+      },
     );
 
     observer.observe(cardRef.current);
@@ -88,7 +90,7 @@ export const ToolCard = memo(function ToolCard({
   return (
     <div ref={cardRef} className="block">
       <article
-        className={`group relative opacity-100 transition-transform duration-400 ease-out-expo will-change-transform ${
+        className={`group ease-out-expo relative opacity-100 transition-transform duration-400 will-change-transform ${
           isVisible ? "translate-y-0" : "translate-y-3"
         }`}
         style={{
@@ -97,69 +99,84 @@ export const ToolCard = memo(function ToolCard({
       >
         {/* Card Container - CSS-only hover effects for performance */}
         <div
-          className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-accent)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),0_0_30px_var(--accent-glow)]"
+          className="relative overflow-hidden rounded-[14px] border border-[color:var(--border-subtle)] shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--border-accent)] hover:shadow-[0_16px_36px_rgba(15,23,42,0.1)]"
           style={{
             background: "var(--bg-secondary)",
           }}
         >
           {/* Top Accent Gradient - CSS only */}
           <div
-            className="absolute left-0 right-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-0 right-0 left-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             style={{
               background: `linear-gradient(90deg, transparent, ${typeConfig.color}, transparent)`,
             }}
           />
 
-          <div className="relative p-6">
+          <div className="relative p-5">
             {/* Header Row */}
-            <div className="mb-4 flex flex-wrap items-start justify-between gap-2">
-              {/* Type Badge */}
-              <span
-                className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-transform duration-200 group-hover:scale-105"
-                style={{
-                  background: `${typeConfig.color}15`,
-                  color: typeConfig.color,
-                  border: `1px solid ${typeConfig.color}25`,
-                }}
-              >
-                {tool.type === "powershell-module" ||
-                tool.type === "powershell-script" ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
-                  </svg>
-                ) : tool.type === "web-app" ? (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                ) : (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                    <line x1="8" y1="21" x2="16" y2="21" />
-                    <line x1="12" y1="17" x2="12" y2="21" />
-                  </svg>
-                )}
-                {typeConfig.label}
-              </span>
+            <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Type Badge */}
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-semibold tracking-[0.05em] uppercase"
+                  style={{
+                    background: `${typeConfig.color}15`,
+                    color: typeConfig.color,
+                    border: `1px solid ${typeConfig.color}25`,
+                  }}
+                >
+                  {tool.type === "powershell-module" ||
+                  tool.type === "powershell-script" ? (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
+                    </svg>
+                  ) : tool.type === "web-app" ? (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  )}
+                  {typeConfig.label}
+                </span>
+                {isRelatedMatch && <RelatedMatchBadge />}
+              </div>
 
               {/* Security Badge, View Count and Upvote */}
               <div className="relative z-10 flex items-center gap-2">
-                <SecurityBadge securityCheck={tool.securityCheck} variant="compact" hasSourceCode={!!tool.repoUrl} />
+                <SecurityBadge
+                  securityCheck={tool.securityCheck}
+                  variant="compact"
+                  hasSourceCode={!!tool.repoUrl}
+                />
                 {viewCount !== undefined && viewCount > 0 && (
                   <span
                     className="inline-flex items-center gap-1.5 text-xs"
@@ -196,7 +213,7 @@ export const ToolCard = memo(function ToolCard({
 
             {/* Tool Name */}
             <h3
-              className="font-display text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
+              className="font-display text-[17px] leading-tight font-bold transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
               style={{ color: "var(--text-primary)" }}
             >
               {tool.name}
@@ -204,7 +221,7 @@ export const ToolCard = memo(function ToolCard({
 
             {/* Description */}
             <p
-              className="mt-3 line-clamp-2 text-sm leading-relaxed"
+              className="mt-2.5 line-clamp-2 text-[13px] leading-[1.6]"
               style={{ color: "var(--text-secondary)" }}
             >
               {tool.description}
@@ -212,8 +229,12 @@ export const ToolCard = memo(function ToolCard({
 
             {/* Works With Tags */}
             {tool.worksWith && tool.worksWith.length > 0 && (
-              <div className="mt-3">
-                <WorksWithTags tags={tool.worksWith} variant="compact" maxDisplay={3} />
+              <div className="mt-3 hidden">
+                <WorksWithTags
+                  tags={tool.worksWith}
+                  variant="compact"
+                  maxDisplay={3}
+                />
               </div>
             )}
 
@@ -408,7 +429,7 @@ export const ToolCard = memo(function ToolCard({
               <Link
                 href={`/tools/${tool.id}`}
                 onClick={handleDetailsClick}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-slate-200 hover:text-[var(--text-primary)]"
                 style={{
                   background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",
@@ -435,7 +456,7 @@ export const ToolCard = memo(function ToolCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.repoUrl!)}
-                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:bg-white/5 hover:text-[var(--text-primary)]"
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-slate-200 hover:text-[var(--text-primary)]"
                   style={{
                     background: "var(--bg-tertiary)",
                     color: "var(--text-secondary)",
@@ -459,7 +480,7 @@ export const ToolCard = memo(function ToolCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.downloadUrl!)}
-                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[opacity,transform] hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
                     color: "white",
@@ -487,7 +508,7 @@ export const ToolCard = memo(function ToolCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.websiteUrl!)}
-                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-all hover:opacity-90 active:scale-[0.98]"
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[opacity,transform] hover:opacity-90 active:scale-[0.98]"
                   style={{
                     background: `linear-gradient(135deg, ${typeConfig.color}, ${typeConfig.color}cc)`,
                     color: "white",
@@ -516,3 +537,24 @@ export const ToolCard = memo(function ToolCard({
     </div>
   );
 });
+
+function RelatedMatchBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-lg border border-[rgba(0,120,212,0.18)] bg-[rgba(0,120,212,0.07)] px-2 py-1 text-[11px] font-semibold text-[var(--accent-primary)]">
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z" />
+      </svg>
+      Related
+    </span>
+  );
+}

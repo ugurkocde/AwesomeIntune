@@ -1,203 +1,286 @@
 "use client";
 
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { Suspense, useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CharReveal } from "./TextReveal";
 import { SponsorStrip } from "./SponsorStrip";
 import { SearchBar } from "./tools/SearchBar";
-import { SearchExamples } from "./tools/SearchExamples";
-import { useIsMobile } from "~/hooks/useIsMobile";
-import { useStats, formatNumber } from "~/hooks/useStats";
-import { useDebounce } from "~/hooks/useDebounce";
 import { shouldUseAiSearch } from "~/lib/aiSearch";
+import { CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
+import { isVerified } from "~/lib/tools";
+import type { Tool, ToolCategory } from "~/types/tool";
 
 interface HeroProps {
+  tools: Tool[];
   toolCount: number;
   authorCount: number;
+  verifiedCount: number;
 }
 
-/**
- * Hero search box. Writes the query to the URL (`/?q=`) so the directory below
- * reacts via its URL-synced filters, and scrolls to it on first input. Reads
- * the `q` param too, so deep links and the directory's own SearchBar keep the
- * hero input in sync. The useSearchParams call is Suspense-wrapped inside
- * HeroSearch, so only the search box bails to client-side rendering - the rest
- * of the hero stays statically rendered.
- */
 function HeroSearchInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlQuery = searchParams.get("q") ?? "";
   const [value, setValue] = useState(urlQuery);
-  const debounced = useDebounce(value, 350);
-  const hasScrolledRef = useRef(false);
-  const lastWrittenQueryRef = useRef(urlQuery);
+  const isHandoffPending = useRef(false);
 
-  // Sync debounced input -> URL. Per-keystroke updates use replace so Back
-  // does not step through query fragments.
-  useEffect(() => {
-    const q = debounced.trim();
-    if (!q) return; // never clobber the directory's filters when the hero is empty
-    if (q === lastWrittenQueryRef.current) return;
-    lastWrittenQueryRef.current = q;
-    router.replace(`/?q=${encodeURIComponent(q)}`, { scroll: false });
-  }, [debounced, router]);
+  const handoffToDirectory = useCallback(() => {
+    requestAnimationFrame(() => {
+      const toolsSection = document.getElementById("tools");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const isMobile = window.matchMedia("(max-width: 639px)").matches;
 
-  // Sync URL -> input for external changes (deep links, the directory's
-  // SearchBar, back/forward). Our own writes are skipped via the ref above.
+      toolsSection?.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+
+      if (isMobile) {
+        (document.activeElement as HTMLElement | null)?.blur();
+        document
+          .getElementById("tool-results-heading")
+          ?.focus({ preventScroll: true });
+      } else {
+        document
+          .getElementById("directory-search")
+          ?.focus({ preventScroll: true });
+      }
+    });
+  }, []);
+
   useEffect(() => {
-    if (urlQuery === lastWrittenQueryRef.current) return;
-    lastWrittenQueryRef.current = urlQuery;
     setValue(urlQuery);
-  }, [urlQuery]);
-
-  const handleChange = (next: string) => {
-    setValue(next);
-    if (next && !hasScrolledRef.current) {
-      hasScrolledRef.current = true;
-      document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" });
+    if (isHandoffPending.current) {
+      isHandoffPending.current = false;
+      handoffToDirectory();
     }
-    if (!next) hasScrolledRef.current = false;
+  }, [handoffToDirectory, urlQuery]);
+
+  const handleSubmit = () => {
+    const query = value.trim();
+    if (query === urlQuery.trim()) {
+      handoffToDirectory();
+      return;
+    }
+
+    isHandoffPending.current = true;
+    router.replace(
+      query ? `/?q=${encodeURIComponent(query)}#tools` : "/#tools",
+    );
   };
 
   return (
-    <>
-      <SearchBar
-        value={value}
-        onChange={handleChange}
-        isAiMode={shouldUseAiSearch(debounced)}
-      />
-      <div className="mt-4">
-        <SearchExamples isVisible={value.length === 0} onExampleClick={handleChange} />
-      </div>
-    </>
+    <SearchBar
+      value={value}
+      onChange={setValue}
+      onSubmit={handleSubmit}
+      inputId="hero-search"
+      ariaControls="tool-search-results"
+      placeholder="Describe your problem, e.g. “devices not syncing”…"
+      isAiMode={shouldUseAiSearch(value)}
+    />
   );
 }
 
 function HeroSearch() {
   return (
-    <div className="mx-auto w-full max-w-xl">
-      <Suspense
-        fallback={
-          <>
-            <SearchBar value="" onChange={() => undefined} />
-            <div className="mt-4">
-              <SearchExamples isVisible onExampleClick={() => undefined} />
-            </div>
-          </>
-        }
-      >
-        <HeroSearchInner />
-      </Suspense>
-    </div>
+    <Suspense
+      fallback={
+        <SearchBar
+          value=""
+          onChange={() => undefined}
+          onSubmit={() => undefined}
+          inputId="hero-search"
+          ariaControls="tool-search-results"
+          placeholder="Describe your problem, e.g. “devices not syncing”…"
+        />
+      }
+    >
+      <HeroSearchInner />
+    </Suspense>
   );
 }
 
-export function Hero({ toolCount, authorCount }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const { isMobile } = useIsMobile();
-  const { stats } = useStats();
+export function Hero({
+  tools,
+  toolCount,
+  authorCount,
+  verifiedCount,
+}: HeroProps) {
+  const newestTools = useMemo(
+    () =>
+      [...tools]
+        .sort(
+          (a, b) =>
+            new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
+        )
+        .slice(0, 5),
+    [tools],
+  );
 
-  const shouldReduceMotion = prefersReducedMotion === true || isMobile;
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], shouldReduceMotion ? [1, 1] : [1, 0]);
+  const categoryStats = useMemo(() => {
+    const counts = new Map<ToolCategory, number>();
+    tools.forEach((tool) =>
+      counts.set(tool.category, (counts.get(tool.category) ?? 0) + 1),
+    );
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
+  }, [tools]);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative flex min-h-screen flex-col overflow-hidden pt-24"
-    >
-      {/* Subtle Center Glow */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div
-          className="h-[280px] w-[560px] rounded-full opacity-15 blur-[60px] sm:h-[360px] sm:w-[760px] sm:blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+    <section className="pt-[68px]">
+      <div className="container-main grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.2fr_0.9fr] lg:gap-16 lg:py-[72px]">
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(0,120,212,0.2)] bg-[rgba(0,120,212,0.08)] px-3.5 py-1.5 text-xs font-semibold text-[var(--accent-primary)]">
+            <ShieldCheckIcon className="h-3.5 w-3.5" />
+            Every tool security-scanned or hand-vetted
+          </span>
 
-      {/* Main Content - fills the available height so the directory sits below the fold */}
-      <motion.div
-        style={shouldReduceMotion ? undefined : { y, opacity }}
-        className="container-main relative z-10 flex flex-1 flex-col items-center justify-center text-center"
-      >
-        <div className="mx-auto w-full max-w-4xl">
-          {/* Wordmark */}
-          <h1 className="font-display text-6xl font-black leading-[0.9] tracking-tight sm:text-7xl md:text-8xl lg:text-[9rem]">
-            <span className="block">
-              <CharReveal className="text-gradient" delay={0.1}>
-                AWESOME
-              </CharReveal>
-            </span>
-            <span className="block" style={{ color: "var(--text-primary)" }}>
-              <CharReveal delay={0.35}>INTUNE</CharReveal>
-            </span>
+          <h1 className="font-display mt-5 max-w-3xl text-[clamp(3rem,6vw,3.875rem)] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance text-[var(--text-primary)]">
+            Every Intune tool worth knowing.
           </h1>
-
-          {/* Outcome subhead */}
-          <p
-            className="mx-auto mt-6 max-w-xl text-lg md:text-xl"
-            style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}
-          >
-            {toolCount}+ free, security-scanned and community-vetted tools for Microsoft Intune.{" "}
-            <br className="hidden sm:block" />
-            <span style={{ color: "var(--text-tertiary)" }}>
-              Describe your problem - find the right tool in seconds.
-            </span>
+          <p className="mt-[18px] max-w-[520px] text-base leading-[1.65] text-[var(--text-secondary)] sm:text-lg">
+            {toolCount}+ free tools, scripts and modules, curated by the
+            community, scanned for security, and searchable by the problem you
+            are facing.
           </p>
 
-          {/* Embedded search */}
-          <div className="mt-8">
+          <div className="mt-[30px] max-w-[540px]">
             <HeroSearch />
+            <div
+              className="mt-3.5 flex flex-wrap gap-2"
+              aria-label="Popular categories"
+            >
+              {categoryStats.map(([category, count]) => {
+                const config = CATEGORY_CONFIG[category];
+                return (
+                  <Link
+                    key={category}
+                    href={`/?category=${category}#tools`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border-subtle)] bg-white px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:border-[color:var(--border-accent)] hover:text-[var(--accent-primary)]"
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ background: config.color }}
+                      aria-hidden="true"
+                    />
+                    {config.label}
+                    <span className="text-slate-400">{count}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Proof row */}
-          <div
-            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
-            style={{ color: "var(--text-tertiary)" }}
-          >
-            <ProofItem value={`${toolCount}+`} label="tools" />
-            <Dot />
-            <ProofItem value={`${authorCount}+`} label="contributors" />
-            {stats && stats.totalViews > 0 && (
-              <>
-                <Dot />
-                <ProofItem value={formatNumber(stats.totalViews)} label="views" />
-              </>
-            )}
+          <div className="mt-8 flex flex-wrap items-stretch gap-5 sm:gap-7">
+            <Stat value={`${toolCount}+`} label="free tools" />
+            <Divider />
+            <Stat
+              value={String(verifiedCount)}
+              label="passed all 6 security checks"
+            />
+            <Divider />
+            <Stat value={`${authorCount}+`} label="community contributors" />
           </div>
         </div>
-      </motion.div>
 
-      {/* Sponsors anchored at the bottom of the full-height hero */}
+        <aside
+          className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-white p-2 shadow-[0_20px_50px_rgba(15,23,42,0.07)]"
+          aria-label="Newest additions"
+        >
+          <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5">
+            <h2 className="font-display text-sm font-bold text-[var(--text-primary)]">
+              Newest additions
+            </h2>
+            <Link
+              href="#tools"
+              className="text-xs font-medium text-[var(--accent-primary)] hover:text-[var(--accent-secondary)]"
+            >
+              All tools →
+            </Link>
+          </div>
+          <div>
+            {newestTools.map((tool) => (
+              <Link
+                key={tool.id}
+                href={`/tools/${tool.id}`}
+                className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-slate-100"
+              >
+                <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-sm font-bold text-[var(--accent-primary)]">
+                  {tool.authorPicture ? (
+                    <Image
+                      src={tool.authorPicture}
+                      alt=""
+                      width={34}
+                      height={34}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    tool.author.charAt(0).toUpperCase()
+                  )}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-semibold text-[var(--text-primary)]">
+                    {tool.name}
+                  </span>
+                  <span className="block truncate text-xs text-[var(--text-tertiary)]">
+                    {TYPE_CONFIG[tool.type].label} · {tool.author}
+                  </span>
+                </span>
+                {isVerified(tool) && (
+                  <ShieldCheckIcon className="h-4 w-4 shrink-0 text-[var(--signal-success)]" />
+                )}
+              </Link>
+            ))}
+          </div>
+        </aside>
+      </div>
+
       <SponsorStrip />
     </section>
   );
 }
 
-function ProofItem({ value, label }: { value: string; label: string }) {
+function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5">
-      <span style={{ color: "var(--accent-primary)", fontWeight: 600 }}>{value}</span>
-      <span style={{ color: "var(--text-secondary)" }}>{label}</span>
-    </span>
+    <div className="max-w-[150px]">
+      <div className="font-display text-[26px] leading-none font-extrabold text-[var(--text-primary)]">
+        {value}
+      </div>
+      <div className="mt-1 text-xs leading-tight text-[var(--text-tertiary)]">
+        {label}
+      </div>
+    </div>
   );
 }
 
-function Dot() {
+function Divider() {
+  return <span className="w-px bg-[var(--border-subtle)]" aria-hidden="true" />;
+}
+
+function ShieldCheckIcon({ className }: { className?: string }) {
   return (
-    <span aria-hidden className="opacity-40">
-      &middot;
-    </span>
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
   );
 }

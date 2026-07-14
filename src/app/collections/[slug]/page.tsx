@@ -65,18 +65,48 @@ export async function generateMetadata({
 }
 
 // Icon components
-function BookOpenIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function BookOpenIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
       <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
     </svg>
   );
 }
 
-function RocketIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function RocketIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
       <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
       <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
@@ -85,26 +115,67 @@ function RocketIcon({ className, style }: { className?: string; style?: React.CS
   );
 }
 
-function SettingsIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function SettingsIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
       <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
 
-function AppleIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function AppleIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
     </svg>
   );
 }
 
-function PackageIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function PackageIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m7.5 4.27 9 5.15" />
       <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
       <path d="m3.3 7 8.7 5 8.7-5" />
@@ -113,9 +184,24 @@ function PackageIcon({ className, style }: { className?: string; style?: React.C
   );
 }
 
-function BugIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function BugIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m8 2 1.88 1.88" />
       <path d="M14.12 3.88 16 2" />
       <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" />
@@ -131,9 +217,24 @@ function BugIcon({ className, style }: { className?: string; style?: React.CSSPr
   );
 }
 
-function LayersIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function LayersIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      style={style}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
       <path d="m22 12.18-8.58 3.91a2 2 0 0 1-1.66 0L2.6 12.09" />
       <path d="m22 17.18-8.58 3.91a2 2 0 0 1-1.66 0L2.6 17.09" />
@@ -170,7 +271,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
     collection.title,
     collection.description,
     `${SITE_CONFIG.url}/collections/${collection.slug}`,
-    tools.length
+    tools.length,
   );
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -229,7 +330,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
       />
 
       {/* Content Container */}
-      <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-24 sm:pb-32 sm:pt-28">
+      <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-20 sm:pt-28 sm:pb-32">
         {/* Breadcrumb Navigation */}
         <nav className="mb-8 flex items-center gap-2 text-sm sm:mb-12">
           <Link
@@ -251,7 +352,9 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
           >
             <path d="m9 18 6-6-6-6" />
           </svg>
-          <span style={{ color: "var(--text-primary)" }}>{collection.title}</span>
+          <span style={{ color: "var(--text-primary)" }}>
+            {collection.title}
+          </span>
         </nav>
 
         {/* Collection Card */}
@@ -260,13 +363,12 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
           style={{
             background: "var(--bg-secondary)",
             border: "1px solid var(--border-subtle)",
-            boxShadow:
-              "0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 100px -30px rgba(0, 212, 255, 0.15)",
+            boxShadow: "0 16px 36px rgba(15, 23, 42, 0.08)",
           }}
         >
           {/* Top Gradient Accent */}
           <div
-            className="absolute left-0 right-0 top-0 h-1"
+            className="absolute top-0 right-0 left-0 h-1"
             style={{
               background: `linear-gradient(90deg, transparent 10%, ${iconConfig.color}, transparent 90%)`,
             }}
@@ -332,7 +434,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
               style={{ borderColor: "var(--border-subtle)" }}
             >
               <h2
-                className="mb-6 font-display text-2xl font-bold"
+                className="font-display mb-6 text-2xl font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
                 Tools in this collection
@@ -361,129 +463,129 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </p>
                 </div>
               ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {tools.map((tool) => {
-                  const typeConfig = TYPE_CONFIG[tool.type];
-                  const categoryConfig = CATEGORY_CONFIG[tool.category];
-                  const authors = getToolAuthors(tool);
-                  const primaryAuthor = authors[0];
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {tools.map((tool) => {
+                    const typeConfig = TYPE_CONFIG[tool.type];
+                    const categoryConfig = CATEGORY_CONFIG[tool.category];
+                    const authors = getToolAuthors(tool);
+                    const primaryAuthor = authors[0];
 
-                  return (
-                    <Link
-                      key={tool.id}
-                      href={`/tools/${tool.id}`}
-                      className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02]"
-                      style={{
-                        background: "var(--bg-tertiary)",
-                        border: "1px solid var(--border-subtle)",
-                      }}
-                    >
-                      {/* Hover glow */}
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    return (
+                      <Link
+                        key={tool.id}
+                        href={`/tools/${tool.id}`}
+                        className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02]"
                         style={{
-                          background: `radial-gradient(circle at 50% 0%, ${typeConfig.color}10, transparent 70%)`,
+                          background: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-subtle)",
                         }}
-                      />
+                      >
+                        {/* Hover glow */}
+                        <div
+                          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          style={{
+                            background: `radial-gradient(circle at 50% 0%, ${typeConfig.color}10, transparent 70%)`,
+                          }}
+                        />
 
-                      {/* Hover border */}
-                      <div
-                        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                        style={{
-                          boxShadow: `inset 0 0 0 1px ${typeConfig.color}30`,
-                        }}
-                      />
+                        {/* Hover border */}
+                        <div
+                          className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          style={{
+                            boxShadow: `inset 0 0 0 1px ${typeConfig.color}30`,
+                          }}
+                        />
 
-                      <div className="relative p-4">
-                        {/* Badges */}
-                        <div className="mb-3 flex flex-wrap gap-2">
-                          <span
-                            className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold uppercase tracking-wider"
-                            style={{
-                              background: `${typeConfig.color}15`,
-                              color: typeConfig.color,
-                              border: `1px solid ${typeConfig.color}25`,
-                            }}
-                          >
-                            {typeConfig.label}
-                          </span>
-                          <span
-                            className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium"
-                            style={{
-                              background: `${categoryConfig.color}12`,
-                              color: categoryConfig.color,
-                            }}
-                          >
-                            {categoryConfig.label}
-                          </span>
-                        </div>
-
-                        {/* Tool Name with Arrow */}
-                        <div className="flex items-start justify-between gap-2">
-                          <h3
-                            className="text-base font-semibold transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
-                            style={{ color: "var(--text-primary)" }}
-                          >
-                            {tool.name}
-                          </h3>
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="var(--text-tertiary)"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="mt-1 flex-shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-hover:stroke-[var(--accent-primary)]"
-                          >
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                          </svg>
-                        </div>
-
-                        {/* Description */}
-                        <p
-                          className="mt-1.5 line-clamp-2 text-sm"
-                          style={{ color: "var(--text-secondary)" }}
-                        >
-                          {tool.description}
-                        </p>
-
-                        {/* Author */}
-                        <div className="mt-3 flex items-center gap-2">
-                          {primaryAuthor?.picture ? (
-                            <Image
-                              src={primaryAuthor.picture}
-                              alt={primaryAuthor.name}
-                              width={20}
-                              height={20}
-                              className="rounded-full"
-                            />
-                          ) : (
-                            <div
-                              className="flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold"
+                        <div className="relative p-4">
+                          {/* Badges */}
+                          <div className="mb-3 flex flex-wrap gap-2">
+                            <span
+                              className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold tracking-wider uppercase"
                               style={{
-                                background: `${categoryConfig.color}30`,
+                                background: `${typeConfig.color}15`,
+                                color: typeConfig.color,
+                                border: `1px solid ${typeConfig.color}25`,
+                              }}
+                            >
+                              {typeConfig.label}
+                            </span>
+                            <span
+                              className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium"
+                              style={{
+                                background: `${categoryConfig.color}12`,
                                 color: categoryConfig.color,
                               }}
                             >
-                              {primaryAuthor?.name.charAt(0).toUpperCase()}
-                            </div>
-                          )}
-                          <span
-                            className="text-xs"
-                            style={{ color: "var(--text-tertiary)" }}
+                              {categoryConfig.label}
+                            </span>
+                          </div>
+
+                          {/* Tool Name with Arrow */}
+                          <div className="flex items-start justify-between gap-2">
+                            <h3
+                              className="text-base font-semibold transition-colors duration-300 group-hover:text-[var(--accent-primary)]"
+                              style={{ color: "var(--text-primary)" }}
+                            >
+                              {tool.name}
+                            </h3>
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="var(--text-tertiary)"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="mt-1 flex-shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:stroke-[var(--accent-primary)] group-hover:opacity-100"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
+                          </div>
+
+                          {/* Description */}
+                          <p
+                            className="mt-1.5 line-clamp-2 text-sm"
+                            style={{ color: "var(--text-secondary)" }}
                           >
-                            {primaryAuthor?.name}
-                            {authors.length > 1 && ` +${authors.length - 1}`}
-                          </span>
+                            {tool.description}
+                          </p>
+
+                          {/* Author */}
+                          <div className="mt-3 flex items-center gap-2">
+                            {primaryAuthor?.picture ? (
+                              <Image
+                                src={primaryAuthor.picture}
+                                alt={primaryAuthor.name}
+                                width={20}
+                                height={20}
+                                className="rounded-full"
+                              />
+                            ) : (
+                              <div
+                                className="flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold"
+                                style={{
+                                  background: `${categoryConfig.color}30`,
+                                  color: categoryConfig.color,
+                                }}
+                              >
+                                {primaryAuthor?.name.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                            <span
+                              className="text-xs"
+                              style={{ color: "var(--text-tertiary)" }}
+                            >
+                              {primaryAuthor?.name}
+                              {authors.length > 1 && ` +${authors.length - 1}`}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </div>

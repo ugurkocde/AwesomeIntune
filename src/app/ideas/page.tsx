@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { RequestCard, RequestModal } from "~/components/requests";
 import { useRequestVoting } from "~/hooks/useRequestVoting";
 import { CATEGORIES } from "~/lib/constants";
@@ -60,7 +59,7 @@ function SelectChevron() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+      className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2"
       style={{ color: "var(--text-tertiary)" }}
     >
       <path d="M6 9l6 6 6-6" />
@@ -153,61 +152,41 @@ export default function RequestsPage() {
     } else {
       sorted.sort(
         (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
       );
     }
     return sorted;
   }, [requestsWithVotes, sortBy]);
 
   return (
-    <section className="min-h-screen pb-20 pt-32">
+    <section className="min-h-screen pt-32 pb-20">
       <div className="container-main">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-5xl"
+          className="mx-auto max-w-[920px]"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="mb-10 text-center">
-            <Link
-              href="/#tools"
-              className="mb-6 inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent-primary)]"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5" />
-                <path d="M12 19l-7-7 7-7" />
-              </svg>
-              Back to all tools
-            </Link>
-            <h1
-              className="font-display text-4xl font-bold sm:text-5xl"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Tool Ideas
-            </h1>
-            <p
-              className="mt-4 text-lg"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              Submit ideas for tools that don&apos;t exist yet and vote for the
-              ones you need most
-            </p>
-
-            {/* Submit Idea Button */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-8 flex flex-wrap items-end justify-between gap-5"
+          >
+            <div>
+              <span className="text-xs font-bold tracking-[0.14em] text-[var(--accent-primary)] uppercase">
+                The wishlist
+              </span>
+              <h1 className="font-display mt-3 text-[44px] leading-tight font-extrabold tracking-[-0.02em] text-[var(--text-primary)]">
+                Tool ideas
+              </h1>
+              <p className="mt-3 max-w-xl text-base leading-[1.65] text-[var(--text-secondary)]">
+                Tools the community wants but nobody has built yet. Vote for
+                what you need, builders pick from the top of this list.
+              </p>
+            </div>
             <motion.button
               onClick={() => setIsModalOpen(true)}
-              className="btn btn-primary mt-6 inline-flex px-6 py-3"
+              className="btn btn-primary inline-flex px-5 py-3"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -224,14 +203,14 @@ export default function RequestsPage() {
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
-              Submit an Idea
+              Request a tool
             </motion.button>
           </motion.div>
 
           {/* Filters */}
           <motion.div
             variants={itemVariants}
-            className="mb-8 flex flex-wrap items-center justify-center gap-3"
+            className="mb-5 flex flex-wrap items-center gap-2"
           >
             {/* Status Filter */}
             <div className="relative">
@@ -240,7 +219,7 @@ export default function RequestsPage() {
                 onChange={(e) =>
                   setStatusFilter(e.target.value as RequestStatus | "")
                 }
-                className="input appearance-none py-2 pr-10 text-sm"
+                className="input appearance-none rounded-full py-1.5 pr-10 text-xs font-medium"
                 style={{ minWidth: "140px" }}
               >
                 {STATUS_OPTIONS.map((option) => (
@@ -257,7 +236,7 @@ export default function RequestsPage() {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="input appearance-none py-2 pr-10 text-sm"
+                className="input appearance-none rounded-full py-1.5 pr-10 text-xs font-medium"
                 style={{ minWidth: "160px" }}
               >
                 <option value="">All Categories</option>
@@ -275,7 +254,7 @@ export default function RequestsPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="input appearance-none py-2 pr-10 text-sm"
+                className="input appearance-none rounded-full py-1.5 pr-10 text-xs font-medium"
                 style={{ minWidth: "140px" }}
               >
                 {SORT_OPTIONS.map((option) => (
@@ -291,11 +270,11 @@ export default function RequestsPage() {
           {/* Results Count */}
           <motion.div
             variants={itemVariants}
-            className="mb-6 text-center text-sm"
+            className="mb-4 text-left text-xs"
             style={{ color: "var(--text-tertiary)" }}
           >
             {isLoading ? (
-              "Loading ideas..."
+              "Loading ideas…"
             ) : (
               <>
                 {sortedRequests.length}{" "}
@@ -346,7 +325,7 @@ export default function RequestsPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="rounded-xl p-12 text-center"
+                className="rounded-[14px] p-10 text-center"
                 style={{
                   background: "var(--bg-secondary)",
                   border: "1px solid var(--border-subtle)",

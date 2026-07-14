@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface TrustStripProps {
   verifiedCount: number;
   toolCount: number;
@@ -42,58 +40,59 @@ const PILLARS = [
 
 export function TrustStrip({ verifiedCount, toolCount }: TrustStripProps) {
   return (
-    <section className="relative py-16 sm:py-20">
-      {/* Subtle top gradient hairline */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 10%, rgba(0, 212, 255, 0.2), transparent 90%)",
-        }}
-      />
-
+    <section className="border-y border-[color:var(--border-subtle)] bg-white py-14 sm:py-16">
       <div className="container-main">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="max-w-xl">
           <span
-            className="text-[11px] font-semibold uppercase tracking-[0.2em]"
+            className="text-xs font-bold tracking-[0.14em] uppercase"
             style={{ color: "var(--accent-primary)" }}
           >
             Why you can trust these tools
           </span>
           <p
-            className="mt-4 text-balance text-lg sm:text-xl"
-            style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}
+            className="font-display mt-3 text-2xl font-bold text-balance sm:text-[26px]"
+            style={{ color: "var(--text-primary)", lineHeight: 1.3 }}
           >
             {verifiedCount > 0 ? (
               <>
-                <span
-                  style={{ color: "var(--text-primary)", fontWeight: 600 }}
-                >
+                <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>
                   {verifiedCount} of {toolCount}
                 </span>{" "}
                 listed tools passed every automated security check.
               </>
             ) : (
-              <>Every open-source tool is automatically scanned before it ships.</>
+              <>
+                Every open-source tool is automatically scanned before it ships.
+              </>
             )}
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {PILLARS.map((pillar) => (
+        <div className="mt-9 grid gap-5 md:grid-cols-3">
+          {PILLARS.map((pillar, index) => (
             <div
               key={pillar.title}
-              className="rounded-2xl p-6"
+              className="rounded-[14px] p-6"
               style={{
-                background: "var(--bg-secondary)",
+                background: "var(--bg-primary)",
                 border: "1px solid var(--border-subtle)",
               }}
             >
               <div
                 className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl"
                 style={{
-                  background: "rgba(0, 212, 255, 0.08)",
-                  border: "1px solid rgba(0, 212, 255, 0.15)",
+                  background:
+                    index === 0
+                      ? "rgba(5,150,105,0.08)"
+                      : index === 1
+                        ? "rgba(0,120,212,0.08)"
+                        : "rgba(124,58,237,0.08)",
+                  border:
+                    index === 0
+                      ? "1px solid rgba(5,150,105,0.2)"
+                      : index === 1
+                        ? "1px solid rgba(0,120,212,0.2)"
+                        : "1px solid rgba(124,58,237,0.2)",
                 }}
               >
                 <svg
@@ -101,7 +100,13 @@ export function TrustStrip({ verifiedCount, toolCount }: TrustStripProps) {
                   height="22"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="var(--accent-primary)"
+                  stroke={
+                    index === 0
+                      ? "var(--signal-success)"
+                      : index === 1
+                        ? "var(--accent-primary)"
+                        : "var(--signal-purple)"
+                  }
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -110,29 +115,19 @@ export function TrustStrip({ verifiedCount, toolCount }: TrustStripProps) {
                 </svg>
               </div>
               <h3
-                className="font-display text-base font-semibold"
+                className="font-display text-base font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
                 {pillar.title}
               </h3>
               <p
-                className="mt-2 text-sm"
-                style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}
+                className="mt-2 text-[13px]"
+                style={{ color: "var(--text-secondary)", lineHeight: 1.65 }}
               >
                 {pillar.body}
               </p>
             </div>
           ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <Link
-            href="#faq"
-            className="text-sm font-medium transition-colors"
-            style={{ color: "var(--text-tertiary)" }}
-          >
-            How verification works &rarr;
-          </Link>
         </div>
       </div>
     </section>
