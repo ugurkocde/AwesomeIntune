@@ -1,0 +1,70 @@
+{
+  "id": "adobe-dc-user-admx-templates",
+  "name": "Adobe DC (User) ADMX Templates",
+  "description": "Per-user Adobe Acrobat DC and Reader DC ADMX/ADML templates for Intune, enabling HKCU policy management on Windows. The v1.10 User bundle includes 501 policies (across Reader and Acrobat), with security hardening, nags reduction, and full documentation to configure per-user preferences via Intune or GPO. It ships AdobeDC_User.admx/adml files and user-scoped policy controls for per-user settings.",
+  "keywords": [
+    "intune",
+    "admx",
+    "adml",
+    "adobe",
+    "acrobat",
+    "reader",
+    "hkcu",
+    "per-user"
+  ],
+  "author": "Darren Milne",
+  "authorPicture": "https://github.com/systmworks.png",
+  "githubUrl": "https://github.com/systmworks",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/systmworks/Adobe-DC-User-ADMX",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No malicious or high-risk patterns detected. The code is a legitimate Intune ADMX policy export tool with Graph API integration. Key considerations: exported data may contain sensitive policy values—enforce access control and protect exported files; beta Graph usage may require monitoring for API changes.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 6,
+    "forks": 0,
+    "license": "NOASSERTION",
+    "lastUpdated": "2026-07-01T02:12:54Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Darren Milne",
+      "githubUrl": "https://github.com/systmworks",
+      "picture": "https://github.com/systmworks.png"
+    }
+  ]
+}
