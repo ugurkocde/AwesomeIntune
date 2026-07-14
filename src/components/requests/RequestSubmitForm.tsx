@@ -276,8 +276,8 @@ export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
                 formData.title.length > 200
                   ? "var(--signal-error)"
                   : formData.title.length < 10
-                  ? "var(--text-tertiary)"
-                  : "var(--signal-success)",
+                    ? "var(--text-tertiary)"
+                    : "var(--signal-success)",
             }}
           >
             {formData.title.length}/200
@@ -321,8 +321,8 @@ export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
                 formData.description.length > 2000
                   ? "var(--signal-error)"
                   : formData.description.length < 50
-                  ? "var(--text-tertiary)"
-                  : "var(--signal-success)",
+                    ? "var(--text-tertiary)"
+                    : "var(--signal-success)",
             }}
           >
             {formData.description.length}/2000
@@ -405,7 +405,7 @@ export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
           onError={() => setTurnstileToken("")}
           onExpire={() => setTurnstileToken("")}
           options={{
-            theme: "dark",
+            theme: "light",
           }}
         />
         {errors.turnstile && (

@@ -24,7 +24,10 @@ function isValidUrl(value: string): boolean {
 function parseGitHubRepo(url: string): { owner: string; repo: string } | null {
   try {
     const parsed = new URL(url);
-    if (parsed.hostname !== "github.com" && parsed.hostname !== "www.github.com") {
+    if (
+      parsed.hostname !== "github.com" &&
+      parsed.hostname !== "www.github.com"
+    ) {
       return null;
     }
     const parts = parsed.pathname.split("/").filter(Boolean);
@@ -77,7 +80,7 @@ function SelectChevron() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+      className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
       style={{ color: "var(--text-tertiary)" }}
     >
       <path d="M6 9l6 6 6-6" />
@@ -157,7 +160,10 @@ export function ToolSubmitForm() {
   const formDataRef = useRef(formData);
   formDataRef.current = formData;
 
-  const updateField = (field: keyof FormData, value: string | boolean | FormAuthor[]) => {
+  const updateField = (
+    field: keyof FormData,
+    value: string | boolean | FormAuthor[],
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when field is updated
     if (errors[field]) {
@@ -172,7 +178,7 @@ export function ToolSubmitForm() {
   // repoUrl must be a valid URL, downloadUrl/websiteUrl may be empty
   const validateUrlField = (
     field: "repoUrl" | "downloadUrl" | "websiteUrl",
-    value: string
+    value: string,
   ) => {
     const trimmed = value.trim();
     if (!trimmed) {
@@ -183,7 +189,9 @@ export function ToolSubmitForm() {
       setErrors((prev) => ({
         ...prev,
         [field]:
-          field === "repoUrl" ? "Please enter a valid URL" : "Must be a valid URL",
+          field === "repoUrl"
+            ? "Please enter a valid URL"
+            : "Must be a valid URL",
       }));
       return false;
     }
@@ -203,7 +211,7 @@ export function ToolSubmitForm() {
 
     try {
       const response = await fetch(
-        `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}`
+        `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}`,
       );
       if (!response.ok) return;
 
@@ -237,7 +245,7 @@ export function ToolSubmitForm() {
                     ? `https://github.com/${prefillAuthor}`
                     : author.githubUrl,
               }
-            : author
+            : author,
         );
         didPrefill = true;
       }
@@ -258,16 +266,23 @@ export function ToolSubmitForm() {
     }
   };
 
-  const updateAuthor = (index: number, field: keyof FormAuthor, value: string) => {
+  const updateAuthor = (
+    index: number,
+    field: keyof FormAuthor,
+    value: string,
+  ) => {
     setFormData((prev) => {
       const newAuthors = prev.authors.map((author, i) =>
-        i === index ? { ...author, [field]: value } : author
+        i === index ? { ...author, [field]: value } : author,
       );
       return { ...prev, authors: newAuthors };
     });
     // Clear author error when updated
     if (errors[`author_${index}_${field}`]) {
-      setErrors((prev) => ({ ...prev, [`author_${index}_${field}`]: undefined }));
+      setErrors((prev) => ({
+        ...prev,
+        [`author_${index}_${field}`]: undefined,
+      }));
     }
   };
 
@@ -275,7 +290,10 @@ export function ToolSubmitForm() {
     if (formData.authors.length < 5) {
       setFormData((prev) => ({
         ...prev,
-        authors: [...prev.authors, { name: "", githubUrl: "", linkedinUrl: "", xUrl: "" }],
+        authors: [
+          ...prev.authors,
+          { name: "", githubUrl: "", linkedinUrl: "", xUrl: "" },
+        ],
       }));
     }
   };
@@ -315,7 +333,8 @@ export function ToolSubmitForm() {
     } else {
       formData.authors.forEach((author, index) => {
         if (!author.name || author.name.length < 2) {
-          newErrors[`author_${index}_name`] = "Author name must be at least 2 characters";
+          newErrors[`author_${index}_name`] =
+            "Author name must be at least 2 characters";
         }
       });
     }
@@ -324,7 +343,10 @@ export function ToolSubmitForm() {
     } else if (!isValidUrl(formData.repoUrl.trim())) {
       newErrors.repoUrl = "Please enter a valid URL";
     }
-    if (formData.downloadUrl.trim() && !isValidUrl(formData.downloadUrl.trim())) {
+    if (
+      formData.downloadUrl.trim() &&
+      !isValidUrl(formData.downloadUrl.trim())
+    ) {
       newErrors.downloadUrl = "Must be a valid URL";
     }
     if (formData.websiteUrl.trim() && !isValidUrl(formData.websiteUrl.trim())) {
@@ -443,11 +465,17 @@ export function ToolSubmitForm() {
         >
           Submission Received!
         </h2>
-        <p className="mx-auto mt-3 max-w-md" style={{ color: "var(--text-secondary)" }}>
-          Your submission has been received! A GitHub issue has been created for our
-          maintainers to review.
+        <p
+          className="mx-auto mt-3 max-w-md"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          Your submission has been received! A GitHub issue has been created for
+          our maintainers to review.
         </p>
-        <p className="mx-auto mt-2 max-w-md text-sm" style={{ color: "var(--text-tertiary)" }}>
+        <p
+          className="mx-auto mt-2 max-w-md text-sm"
+          style={{ color: "var(--text-tertiary)" }}
+        >
           Submissions are typically reviewed within a few days.
         </p>
 
@@ -481,7 +509,10 @@ export function ToolSubmitForm() {
           >
             Submit another tool
           </motion.button>
-          <Link href="/#tools" className="btn btn-secondary inline-flex px-6 py-3">
+          <Link
+            href="/#tools"
+            className="btn btn-secondary inline-flex px-6 py-3"
+          >
             Browse tools
           </Link>
         </div>
@@ -529,11 +560,17 @@ export function ToolSubmitForm() {
             disabled={state === "loading"}
           />
           {errors.name ? (
-            <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+            <p
+              className="mt-1 text-xs"
+              style={{ color: "var(--signal-error)" }}
+            >
               {errors.name}
             </p>
           ) : (
-            <p className="mt-1 text-xs" style={{ color: "var(--text-tertiary)" }}>
+            <p
+              className="mt-1 text-xs"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               Minimum 2 characters
             </p>
           )}
@@ -574,8 +611,8 @@ export function ToolSubmitForm() {
                   formData.description.length > 500
                     ? "var(--signal-error)"
                     : formData.description.length < 20
-                    ? "var(--text-tertiary)"
-                    : "var(--signal-success)",
+                      ? "var(--text-tertiary)"
+                      : "var(--signal-success)",
               }}
             >
               {formData.description.length}/500
@@ -600,7 +637,14 @@ export function ToolSubmitForm() {
                 style={{ color: "var(--accent-primary)" }}
                 disabled={state === "loading"}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
@@ -609,7 +653,10 @@ export function ToolSubmitForm() {
             )}
           </div>
           {errors.authors && (
-            <p className="mb-2 text-xs" style={{ color: "var(--signal-error)" }}>
+            <p
+              className="mb-2 text-xs"
+              style={{ color: "var(--signal-error)" }}
+            >
               {errors.authors}
             </p>
           )}
@@ -619,8 +666,8 @@ export function ToolSubmitForm() {
                 key={index}
                 className="rounded-lg p-4"
                 style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  background: "var(--bg-primary)",
+                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <div className="mb-3 flex items-center justify-between">
@@ -638,7 +685,14 @@ export function ToolSubmitForm() {
                       style={{ color: "var(--signal-error)" }}
                       disabled={state === "loading"}
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
@@ -652,13 +706,18 @@ export function ToolSubmitForm() {
                     <input
                       type="text"
                       value={author.name}
-                      onChange={(e) => updateAuthor(index, "name", e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "name", e.target.value)
+                      }
                       placeholder="Author name"
                       className="input"
                       disabled={state === "loading"}
                     />
                     {errors[`author_${index}_name`] && (
-                      <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+                      <p
+                        className="mt-1 text-xs"
+                        style={{ color: "var(--signal-error)" }}
+                      >
                         {errors[`author_${index}_name`]}
                       </p>
                     )}
@@ -668,7 +727,9 @@ export function ToolSubmitForm() {
                     <input
                       type="url"
                       value={author.githubUrl}
-                      onChange={(e) => updateAuthor(index, "githubUrl", e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "githubUrl", e.target.value)
+                      }
                       placeholder="GitHub URL (optional)"
                       className="input text-sm"
                       disabled={state === "loading"}
@@ -676,7 +737,9 @@ export function ToolSubmitForm() {
                     <input
                       type="url"
                       value={author.linkedinUrl}
-                      onChange={(e) => updateAuthor(index, "linkedinUrl", e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "linkedinUrl", e.target.value)
+                      }
                       placeholder="LinkedIn URL (optional)"
                       className="input text-sm"
                       disabled={state === "loading"}
@@ -684,7 +747,9 @@ export function ToolSubmitForm() {
                     <input
                       type="url"
                       value={author.xUrl}
-                      onChange={(e) => updateAuthor(index, "xUrl", e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "xUrl", e.target.value)
+                      }
                       placeholder="X/Twitter URL (optional)"
                       className="input text-sm"
                       disabled={state === "loading"}
@@ -707,13 +772,16 @@ export function ToolSubmitForm() {
             style={{ color: "var(--text-primary)" }}
           >
             Tool URL <span style={{ color: "var(--signal-error)" }}>*</span>
-            <span className="ml-2 font-normal" style={{ color: "var(--text-tertiary)" }}>
+            <span
+              className="ml-2 font-normal"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               (GitHub recommended)
             </span>
           </label>
           <div className="relative">
             <div
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+              className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2"
               style={{ color: "var(--text-tertiary)" }}
             >
               <svg
@@ -742,11 +810,17 @@ export function ToolSubmitForm() {
             />
           </div>
           {errors.repoUrl ? (
-            <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+            <p
+              className="mt-1 text-xs"
+              style={{ color: "var(--signal-error)" }}
+            >
               {errors.repoUrl}
             </p>
           ) : githubPrefilled ? (
-            <p className="mt-1 text-xs" style={{ color: "var(--signal-success)" }}>
+            <p
+              className="mt-1 text-xs"
+              style={{ color: "var(--signal-success)" }}
+            >
               Fetched details from GitHub
             </p>
           ) : null}
@@ -790,7 +864,10 @@ export function ToolSubmitForm() {
               <SelectChevron />
             </div>
             {errors.category && (
-              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+              <p
+                className="mt-1 text-xs"
+                style={{ color: "var(--signal-error)" }}
+              >
                 {errors.category}
               </p>
             )}
@@ -823,7 +900,10 @@ export function ToolSubmitForm() {
               <SelectChevron />
             </div>
             {errors.type && (
-              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+              <p
+                className="mt-1 text-xs"
+                style={{ color: "var(--signal-error)" }}
+              >
                 {errors.type}
               </p>
             )}
@@ -854,7 +934,10 @@ export function ToolSubmitForm() {
               disabled={state === "loading"}
             />
             {errors.downloadUrl && (
-              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+              <p
+                className="mt-1 text-xs"
+                style={{ color: "var(--signal-error)" }}
+              >
                 {errors.downloadUrl}
               </p>
             )}
@@ -880,7 +963,10 @@ export function ToolSubmitForm() {
               disabled={state === "loading"}
             />
             {errors.websiteUrl && (
-              <p className="mt-1 text-xs" style={{ color: "var(--signal-error)" }}>
+              <p
+                className="mt-1 text-xs"
+                style={{ color: "var(--signal-error)" }}
+              >
                 {errors.websiteUrl}
               </p>
             )}
@@ -916,7 +1002,7 @@ export function ToolSubmitForm() {
           onError={() => setTurnstileToken("")}
           onExpire={() => setTurnstileToken("")}
           options={{
-            theme: "dark",
+            theme: "light",
           }}
         />
         {errors.turnstile && (
@@ -940,11 +1026,15 @@ export function ToolSubmitForm() {
             disabled={state === "loading"}
           />
           <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            I confirm this tool is Intune-related, publicly accessible, and I have permission to submit it.
+            I confirm this tool is Intune-related, publicly accessible, and I
+            have permission to submit it.
           </span>
         </label>
         {errors.acceptTerms && (
-          <p className="mt-1 ml-8 text-xs" style={{ color: "var(--signal-error)" }}>
+          <p
+            className="mt-1 ml-8 text-xs"
+            style={{ color: "var(--signal-error)" }}
+          >
             {errors.acceptTerms}
           </p>
         )}

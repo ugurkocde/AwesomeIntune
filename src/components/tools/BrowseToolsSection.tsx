@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import type { Tool, ToolCategory } from "~/types/tool";
+import type { Tool } from "~/types/tool";
 import { useUrlFilters } from "~/hooks/useUrlFilters";
 import { useViewTracking } from "~/hooks/useViewTracking";
 import { useVoting } from "~/hooks/useVoting";
@@ -11,16 +11,14 @@ import { useDebounce } from "~/hooks/useDebounce";
 import { useAiSearch } from "~/hooks/useAiSearch";
 import { filterTools } from "~/lib/tools";
 import { CATEGORY_CONFIG } from "~/lib/constants";
-import { SearchBar } from "./SearchBar";
-import { SearchExamples } from "./SearchExamples";
 import { AISearchSection } from "./AISearchSection";
-import { FilterSidebar, FilterDrawer } from "./FilterSidebar";
+import { FilterDrawer } from "./FilterSidebar";
 import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
 import { LoadMoreButton } from "./LoadMoreButton";
 
-const INITIAL_LOAD = 18;
+const INITIAL_LOAD = 9;
 const LOAD_MORE_COUNT = 9;
 const SCROLL_STATE_KEY = "tools-list-scroll-state";
 
@@ -114,7 +112,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
   // Use empty string if localSearchQuery is cleared (bypass debounce delay)
-  const effectiveSearchQuery = localSearchQuery === "" ? "" : debouncedSearchQuery;
+  const effectiveSearchQuery =
+    localSearchQuery === "" ? "" : debouncedSearchQuery;
 
   // AI search (single source of truth, keyed on the effective query)
   const {
@@ -156,7 +155,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     return savedScrollState.current?.displayCount ?? INITIAL_LOAD;
   });
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [pendingScrollRestore, setPendingScrollRestore] = useState<number | null>(() => {
+  const [pendingScrollRestore, setPendingScrollRestore] = useState<
+    number | null
+  >(() => {
     return savedScrollState.current?.scrollPosition ?? null;
   });
 
@@ -188,7 +189,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
 
     if (selectedWorksWith.length > 0) {
       filtered = filtered.filter((t) =>
-        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag)),
       );
     }
 
@@ -206,14 +207,25 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
       });
     } else if (sortBy === "newest") {
       filtered = [...filtered].sort((a, b) => {
-        return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+        return (
+          new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
+        );
       });
     } else {
       filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     }
 
     return filtered;
-  }, [tools, effectiveSearchQuery, selectedCategory, selectedType, selectedWorksWith, sortBy, viewCounts, voteCounts]);
+  }, [
+    tools,
+    effectiveSearchQuery,
+    selectedCategory,
+    selectedType,
+    selectedWorksWith,
+    sortBy,
+    viewCounts,
+    voteCounts,
+  ]);
 
   // AI-recommended tools — only populated when AI returned results
   const aiTools = useMemo(() => {
@@ -231,7 +243,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
     if (selectedWorksWith.length > 0) {
       aiFiltered = aiFiltered.filter((t) =>
-        t.worksWith?.some((tag) => selectedWorksWith.includes(tag))
+        t.worksWith?.some((tag) => selectedWorksWith.includes(tag)),
       );
     }
 
@@ -243,13 +255,22 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
       const viewsB = viewCounts[b.id] ?? 0;
       return viewsB - viewsA;
     });
-  }, [tools, effectiveIsAiMode, aiToolIds, aiConfidenceScores, selectedCategory, selectedType, selectedWorksWith, viewCounts]);
+  }, [
+    tools,
+    effectiveIsAiMode,
+    aiToolIds,
+    aiConfidenceScores,
+    selectedCategory,
+    selectedType,
+    selectedWorksWith,
+    viewCounts,
+  ]);
 
   // Dedupe: tools already shown in the AI section don't appear again in the keyword grid
   const aiIdSet = useMemo(() => new Set(aiTools.map((t) => t.id)), [aiTools]);
   const dedupedKeywordTools = useMemo(
     () => keywordTools.filter((t) => !aiIdSet.has(t.id)),
-    [keywordTools, aiIdSet]
+    [keywordTools, aiIdSet],
   );
 
   // Tools to display (with infinite scroll) — applies to keyword section only
@@ -259,7 +280,10 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
 
   // AI responded successfully but nothing survived (no matches, or all filtered out)
   const isAiEmptyResult =
-    !isAiSearching && aiError === null && aiToolIds !== null && aiTools.length === 0;
+    !isAiSearching &&
+    aiError === null &&
+    aiToolIds !== null &&
+    aiTools.length === 0;
   // The empty note reads "keyword results below", so only show it when there
   // are keyword results; the full empty state covers the nothing-at-all case
   const showAiSection =
@@ -292,22 +316,11 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setIsLoadingMore(true);
     setTimeout(() => {
       setDisplayCount((prev) =>
-        Math.min(prev + LOAD_MORE_COUNT, dedupedKeywordTools.length)
+        Math.min(prev + LOAD_MORE_COUNT, dedupedKeywordTools.length),
       );
       setIsLoadingMore(false);
     }, 300);
   }, [isLoadingMore, hasMore, dedupedKeywordTools.length]);
-
-  // Calculate category stats
-  const categoryStats = useMemo(() => {
-    const stats = Object.entries(CATEGORY_CONFIG).map(([key, config]) => ({
-      category: key,
-      label: config.label,
-      color: config.color,
-      count: tools.filter((t) => t.category === key).length,
-    }));
-    return stats.filter((s) => s.count > 0).sort((a, b) => b.count - a.count);
-  }, [tools]);
 
   const filterProps = {
     tools,
@@ -324,114 +337,30 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   };
 
   return (
-    <section className="relative min-h-screen">
-      {/* Page Header */}
-      <div className="border-b" style={{ borderColor: "rgba(255, 255, 255, 0.06)" }}>
-        <div className="mx-auto max-w-7xl px-6 py-8 sm:py-12">
-          {/* Title and Stats */}
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2
-                className="font-display text-3xl font-bold tracking-tight sm:text-4xl"
-                style={{ color: "var(--text-primary)" }}
-              >
-                Browse all {tools.length} Intune tools
-              </h2>
-              <p
-                className="mt-2 text-base sm:text-lg"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Search by problem or keyword, or filter by category, type, and
-                platform.
-              </p>
-            </div>
-
-            {/* Quick Category Stats */}
-            <div className="flex flex-wrap gap-2">
-              {categoryStats.slice(0, 4).map((stat) => (
-                <button
-                  key={stat.category}
-                  onClick={() =>
-                    setCategory(
-                      selectedCategory === stat.category ? null : (stat.category as ToolCategory)
-                    )
-                  }
-                  className="flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-all hover:scale-105"
-                  style={{
-                    background:
-                      selectedCategory === stat.category
-                        ? `${stat.color}20`
-                        : "rgba(255, 255, 255, 0.05)",
-                    border:
-                      selectedCategory === stat.category
-                        ? `1px solid ${stat.color}40`
-                        : "1px solid rgba(255, 255, 255, 0.1)",
-                    color:
-                      selectedCategory === stat.category
-                        ? stat.color
-                        : "var(--text-secondary)",
-                  }}
-                >
-                  {stat.label}
-                  <span
-                    className="rounded-full px-1.5 py-0.5 text-xs"
-                    style={{
-                      background:
-                        selectedCategory === stat.category
-                          ? `${stat.color}30`
-                          : "rgba(255, 255, 255, 0.05)",
-                    }}
-                  >
-                    {stat.count}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-6 py-8">
-        {/* Search and Controls Bar */}
-        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          {/* Search */}
-          <div className="max-w-md flex-1">
-            <SearchBar
-              value={localSearchQuery}
-              onChange={setLocalSearchQuery}
-              isAiSearching={isAiSearching}
-              isAiMode={effectiveIsAiMode}
-            />
-            {/* AI Mode Hint */}
-            <AnimatePresence>
-              {!effectiveIsAiMode && localSearchQuery.trim().length > 0 && (
-                <motion.p
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mt-2 text-xs"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  Try a multi-word question to get AI suggestions
-                </motion.p>
-              )}
-            </AnimatePresence>
+    <section className="relative pb-16">
+      <div className="container-main py-4 sm:py-6">
+        <div className="mb-[18px] flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="font-display text-[22px] font-bold text-[var(--text-primary)]">
+              {hasActiveFilters
+                ? `${visibleResultCount} matching tools`
+                : "Newest tools"}
+            </h2>
+            <p aria-live="polite" role="status" className="sr-only">
+              {visibleResultCount} {visibleResultCount === 1 ? "tool" : "tools"}{" "}
+              found
+            </p>
           </div>
 
-          {/* Controls */}
-          <div className="flex items-center gap-3">
-            {/* Mobile Filter Button */}
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
-              className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors hover:bg-white/10 lg:hidden"
+              className="flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors hover:border-[color:var(--border-accent)] hover:text-[var(--accent-primary)]"
               style={{
-                background: hasActiveFilters
-                  ? "rgba(0, 212, 255, 0.1)"
-                  : "rgba(255, 255, 255, 0.05)",
-                border: hasActiveFilters
-                  ? "1px solid rgba(0, 212, 255, 0.3)"
-                  : "1px solid rgba(255, 255, 255, 0.1)",
+                background: hasActiveFilters ? "var(--accent-glow)" : "white",
+                borderColor: hasActiveFilters
+                  ? "var(--border-accent)"
+                  : "var(--border-subtle)",
                 color: hasActiveFilters
                   ? "var(--accent-primary)"
                   : "var(--text-secondary)",
@@ -462,56 +391,26 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               )}
             </button>
 
-            {/* View Toggle */}
-            <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
-
-            {/* Results Count */}
-            <p
-              className="hidden text-sm sm:block"
-              style={{ color: "var(--text-tertiary)" }}
+            <select
+              value={sortBy}
+              onChange={(event) =>
+                setSortBy(event.currentTarget.value as typeof sortBy)
+              }
+              aria-label="Sort tools"
+              className="cursor-pointer appearance-none rounded-full border border-[color:var(--border-subtle)] bg-white px-3.5 py-1.5 text-xs font-medium text-[var(--text-secondary)] focus-visible:border-[var(--accent-primary)]"
             >
-              <span style={{ color: "var(--accent-primary)", fontWeight: 600 }}>
-                {visibleResultCount}
-              </span>{" "}
-              {visibleResultCount === 1 ? "tool" : "tools"}
-            </p>
+              <option value="newest">Sort: Newest</option>
+              <option value="alphabetical">Sort: A–Z</option>
+              <option value="popular">Sort: Popular</option>
+              <option value="most-voted">Sort: Most voted</option>
+            </select>
 
-            {/* Screen reader announcement for result count changes */}
-            <p aria-live="polite" role="status" className="sr-only">
-              {visibleResultCount} {visibleResultCount === 1 ? "tool" : "tools"}{" "}
-              found
-            </p>
+            <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
           </div>
         </div>
 
-        {/* Search Examples - Full width, left aligned */}
-        <div className="mb-6">
-          <AnimatePresence>
-            {localSearchQuery.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-              >
-                <SearchExamples
-                  isVisible={true}
-                  onExampleClick={setLocalSearchQuery}
-                  align="left"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Content Layout - Split scroll: sidebar fixed, content scrolls */}
-        <div className="flex gap-8 lg:h-[calc(100vh-280px)]">
-          {/* Desktop Sidebar - Fixed, doesn't scroll with content */}
-          <div className="hidden flex-shrink-0 lg:block">
-            <FilterSidebar {...filterProps} />
-          </div>
-
-          {/* Tools Display - Scrollable area */}
-          <div className="min-w-0 flex-1 lg:overflow-y-auto lg:pr-2">
+        <div>
+          <div>
             {/* Active Filters Pills */}
             <AnimatePresence>
               {hasActiveFilters && (
@@ -598,7 +497,10 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                     >
                       More matching tools
                     </h3>
-                    <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+                    <span
+                      className="text-xs"
+                      style={{ color: "var(--text-tertiary)" }}
+                    >
                       {dedupedKeywordTools.length} match
                       {dedupedKeywordTools.length === 1 ? "" : "es"}
                     </span>
@@ -606,12 +508,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 )}
 
                 {viewMode === "grid" && (
-                  <div
-                    className="grid gap-6"
-                    style={{
-                      gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
-                    }}
-                  >
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                     {displayedTools.map((tool, index) => (
                       <ToolCard
                         key={tool.id}
@@ -687,7 +584,9 @@ function FilterPill({ label, color, onRemove }: FilterPillProps) {
       className="group flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
       style={{
         background: color ? `${color}15` : "rgba(255, 255, 255, 0.05)",
-        border: color ? `1px solid ${color}30` : "1px solid rgba(255, 255, 255, 0.1)",
+        border: color
+          ? `1px solid ${color}30`
+          : "1px solid rgba(255, 255, 255, 0.1)",
         color: color ?? "var(--text-secondary)",
       }}
     >
@@ -757,10 +656,7 @@ function EmptyState({ searchQuery, onClearFilters }: EmptyStateProps) {
           : "Try adjusting your filters to find what you're looking for."}
       </p>
       <div className="mt-6 flex gap-3">
-        <button
-          onClick={onClearFilters}
-          className="btn btn-secondary"
-        >
+        <button onClick={onClearFilters} className="btn btn-secondary">
           Clear Filters
         </button>
         <Link href="/submit" className="btn btn-primary">

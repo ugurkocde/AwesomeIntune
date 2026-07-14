@@ -32,7 +32,7 @@ export const CATEGORIES = Object.entries(CATEGORY_CONFIG).map(
     value: value as ToolCategory,
     label: config.label,
     color: config.color,
-  })
+  }),
 );
 
 export const TYPES = Object.entries(TYPE_CONFIG).map(([value, config]) => ({
@@ -42,7 +42,8 @@ export const TYPES = Object.entries(TYPE_CONFIG).map(([value, config]) => ({
 }));
 
 export const GITHUB_REPO_URL = "https://github.com/ugurkocde/awesomeintune";
-export const GITHUB_RAW_BASE_URL = "https://raw.githubusercontent.com/ugurkocde/awesomeintune/main";
+export const GITHUB_RAW_BASE_URL =
+  "https://raw.githubusercontent.com/ugurkocde/awesomeintune/main";
 export const GITHUB_ISSUES_URL = `${GITHUB_REPO_URL}/issues/new?template=tool-submission.yml`;
 
 export const SITE_CONFIG = {
@@ -96,19 +97,28 @@ export const WORKS_WITH_TAGS = Object.entries(WORKS_WITH_CONFIG).map(
     value: value as WorksWithTag,
     label: config.label,
     color: config.color,
-  })
+  }),
 );
 
 // Collection icons and accent colors
 export const COLLECTION_ICONS: Record<
   string,
-  { icon: "book-open" | "rocket" | "settings" | "apple" | "package" | "bug" | "layers"; color: string }
+  {
+    icon:
+      | "book-open"
+      | "rocket"
+      | "settings"
+      | "apple"
+      | "package"
+      | "bug"
+      | "layers";
+    color: string;
+  }
 > = {
-  "getting-started": { icon: "book-open", color: "#00d4ff" },
+  "getting-started": { icon: "book-open", color: "#0078d4" },
   "autopilot-toolkit": { icon: "rocket", color: "#7c3aed" },
   "device-management": { icon: "settings", color: "#10b981" },
   "macos-management": { icon: "apple", color: "#a3a3a3" },
   "app-packaging": { icon: "package", color: "#f59e0b" },
   troubleshooting: { icon: "bug", color: "#ef4444" },
 };
-

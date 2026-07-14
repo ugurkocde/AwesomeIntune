@@ -13,7 +13,7 @@ interface SearchBarProps {
 export function SearchBar({
   value,
   onChange,
-  placeholder = "Describe your problem or search for tools...",
+  placeholder = "Describe your problem or search for tools…",
   isAiSearching = false,
   isAiMode = false,
 }: SearchBarProps) {
@@ -28,8 +28,10 @@ export function SearchBar({
     >
       {/* Search/AI Icon */}
       <div
-        className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2"
-        style={{ color: isAiMode ? "var(--accent-primary)" : "var(--text-tertiary)" }}
+        className="pointer-events-none absolute top-1/2 left-5 -translate-y-1/2"
+        style={{
+          color: isAiMode ? "var(--accent-primary)" : "var(--text-tertiary)",
+        }}
         aria-hidden="true"
       >
         <AnimatePresence mode="wait">
@@ -37,12 +39,18 @@ export function SearchBar({
             <motion.div
               key="loading"
               initial={{ opacity: 0, rotate: 0 }}
-              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, rotate: 360 }}
+              animate={
+                prefersReducedMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, rotate: 360 }
+              }
               exit={{ opacity: 0 }}
               transition={
                 prefersReducedMotion
                   ? { duration: 0.2 }
-                  : { rotate: { duration: 1, repeat: Infinity, ease: "linear" } }
+                  : {
+                      rotate: { duration: 1, repeat: Infinity, ease: "linear" },
+                    }
               }
             >
               <svg
@@ -110,7 +118,10 @@ export function SearchBar({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label="Search tools"
-        className="input input-lg w-full"
+        name="tool-search"
+        autoComplete="off"
+        spellCheck={false}
+        className="input input-lg w-full shadow-[0_8px_24px_rgba(15,23,42,0.06)]"
         style={{
           height: "56px",
           fontSize: "1rem",
@@ -128,7 +139,7 @@ export function SearchBar({
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
-            className="absolute right-14 top-1/2 -translate-y-1/2"
+            className="absolute top-1/2 right-14 -translate-y-1/2"
           >
             <span
               className="rounded-full px-2 py-0.5 text-xs font-medium"
@@ -150,7 +161,7 @@ export function SearchBar({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => onChange("")}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1.5 transition-colors hover:bg-[var(--bg-tertiary)]"
+          className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors hover:bg-[var(--bg-tertiary)]"
           style={{ color: "var(--text-tertiary)" }}
           aria-label="Clear search"
         >
@@ -173,7 +184,7 @@ export function SearchBar({
 
       {/* Focus Ring Enhancement */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 group-focus-within:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-200 group-focus-within:opacity-100"
         style={{
           boxShadow: "0 0 0 4px var(--accent-glow)",
         }}

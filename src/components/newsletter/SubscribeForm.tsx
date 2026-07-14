@@ -35,7 +35,11 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
         body: JSON.stringify({ email }),
       });
 
-      const data = (await response.json()) as { success?: boolean; message?: string; error?: string };
+      const data = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+        error?: string;
+      };
 
       if (response.ok && data.success) {
         setState("success");
@@ -58,14 +62,17 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
   };
 
   return (
-    <div className={isHero ? "w-full max-w-md mx-auto" : "space-y-3"}>
+    <div className={isHero ? "mx-auto w-full max-w-md" : "space-y-2"}>
       {isHero && (
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-3"
-          style={{ color: "var(--text-secondary)", fontSize: "var(--text-small)" }}
+          className="mb-3 text-center"
+          style={{
+            color: "var(--text-secondary)",
+            fontSize: "var(--text-small)",
+          }}
         >
           Get notified when new tools are added
         </motion.p>
@@ -79,6 +86,8 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             className={`flex items-center gap-3 ${isHero ? "justify-center" : ""}`}
+            role="status"
+            aria-live="polite"
           >
             <div
               className="flex items-center gap-2 rounded-lg px-4 py-3"
@@ -99,7 +108,12 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
               >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              <span style={{ color: "var(--signal-success)", fontSize: "var(--text-small)" }}>
+              <span
+                style={{
+                  color: "var(--signal-success)",
+                  fontSize: "var(--text-small)",
+                }}
+              >
                 {message}
               </span>
             </div>
@@ -111,11 +125,11 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             onSubmit={handleSubmit}
-            className={isHero ? "flex gap-2" : "space-y-3"}
+            className="flex gap-2"
           >
-            <div className={`relative ${isHero ? "flex-1" : ""}`}>
+            <div className="relative flex-1">
               <div
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2"
                 style={{ color: "var(--text-tertiary)" }}
               >
                 <svg
@@ -158,7 +172,7 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
               className="btn btn-primary"
               style={{
                 height: isHero ? "48px" : "44px",
-                minWidth: isHero ? "120px" : "100%",
+                minWidth: isHero ? "120px" : "96px",
                 opacity: state === "loading" ? 0.7 : 1,
               }}
             >
@@ -179,11 +193,15 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
                       stroke="currentColor"
                       strokeWidth="2"
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     >
                       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                     </motion.svg>
-                    <span>Signing up...</span>
+                    <span>Signing up…</span>
                   </motion.div>
                 ) : (
                   <motion.span
@@ -208,7 +226,12 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
             className="text-center"
-            style={{ color: "var(--signal-error)", fontSize: "var(--text-small)" }}
+            role="status"
+            aria-live="polite"
+            style={{
+              color: "var(--signal-error)",
+              fontSize: "var(--text-small)",
+            }}
           >
             {message}
           </motion.p>
@@ -216,7 +239,12 @@ export function SubscribeForm({ variant = "footer" }: SubscribeFormProps) {
       </AnimatePresence>
 
       {!isHero && state !== "success" && (
-        <p style={{ color: "var(--text-tertiary)", fontSize: "var(--text-micro)" }}>
+        <p
+          style={{
+            color: "var(--text-tertiary)",
+            fontSize: "var(--text-micro)",
+          }}
+        >
           Get notified when new tools are added
         </p>
       )}

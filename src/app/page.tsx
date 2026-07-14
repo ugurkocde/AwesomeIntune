@@ -4,7 +4,6 @@ import { Hero } from "~/components/Hero";
 import { BrowseToolsSection } from "~/components/tools/BrowseToolsSection";
 import { TrustStrip } from "~/components/TrustStrip";
 import { AuthorSpotlight } from "~/components/AuthorSpotlight";
-import { FAQ } from "~/components/FAQ";
 import { ToolCard } from "~/components/tools/ToolCard";
 import type { Tool } from "~/types/tool";
 import { isVerified } from "~/lib/tools";
@@ -57,7 +56,12 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <Hero toolCount={toolCount} authorCount={authorCount} />
+      <Hero
+        tools={tools}
+        toolCount={toolCount}
+        authorCount={authorCount}
+        verifiedCount={verifiedCount}
+      />
 
       {/* The directory is the page. Suspense lets the URL-driven filters hydrate
           on top of a server-rendered grid of cards (crawlable, no blank shell). */}
@@ -69,7 +73,6 @@ export default function HomePage() {
 
       <TrustStrip verifiedCount={verifiedCount} toolCount={toolCount} />
       <AuthorSpotlight authors={authors} />
-      <FAQ toolCount={toolCount} />
     </>
   );
 }
@@ -83,14 +86,14 @@ function DirectoryFallback({ tools }: { tools: Tool[] }) {
   const initial = [...tools]
     .sort(
       (a, b) =>
-        new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
+        new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
     )
     .slice(0, 18);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <h2
-        className="mb-6 font-display text-2xl font-bold tracking-tight sm:text-3xl"
+        className="font-display mb-6 text-2xl font-bold tracking-tight sm:text-3xl"
         style={{ color: "var(--text-primary)" }}
       >
         Browse {tools.length} Microsoft Intune tools
