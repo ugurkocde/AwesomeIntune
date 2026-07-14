@@ -5,26 +5,45 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit: () => void;
+  onClear?: () => void;
   placeholder?: string;
   isAiSearching?: boolean;
   isAiMode?: boolean;
+  inputId?: string;
+  ariaControls?: string;
+  submitLabel?: string;
 }
 
 export function SearchBar({
   value,
   onChange,
+  onSubmit,
+  onClear,
   placeholder = "Describe your problem or search for tools…",
   isAiSearching = false,
   isAiMode = false,
+  inputId,
+  ariaControls,
+  submitLabel = "Search",
 }: SearchBarProps) {
   const prefersReducedMotion = useReducedMotion();
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.form
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={
+        prefersReducedMotion
+          ? { duration: 0 }
+          : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+      }
       className="group relative w-full"
       role="search"
+      aria-busy={isAiSearching || undefined}
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit();
+      }}
     >
       {/* Search/AI Icon */}
       <div
@@ -69,9 +88,15 @@ export function SearchBar({
           ) : isAiMode ? (
             <motion.div
               key="ai"
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={
+                prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }
+              }
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
+              exit={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 0.8 }
+              }
             >
               <svg
                 width="20"
@@ -89,9 +114,15 @@ export function SearchBar({
           ) : (
             <motion.div
               key="search"
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={
+                prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }
+              }
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
+              exit={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 0.8 }
+              }
             >
               <svg
                 width="20"
@@ -113,74 +144,70 @@ export function SearchBar({
 
       {/* Input */}
       <input
+        id={inputId}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label="Search tools"
+        aria-controls={ariaControls}
         name="tool-search"
         autoComplete="off"
         spellCheck={false}
+        enterKeyHint="search"
         className="input input-lg w-full shadow-[0_8px_24px_rgba(15,23,42,0.06)]"
         style={{
           height: "56px",
           fontSize: "1rem",
           paddingLeft: "56px",
-          paddingRight: "48px",
+          paddingRight: value ? "148px" : "112px",
           borderColor: isAiMode ? "var(--accent-primary)" : undefined,
           boxShadow: isAiMode ? "0 0 0 1px var(--accent-glow)" : undefined,
         }}
       />
 
-      {/* AI Mode Indicator */}
+      {/* Clear Button */}
       <AnimatePresence>
-        {isAiMode && !isAiSearching && (
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            className="absolute top-1/2 right-14 -translate-y-1/2"
+        {value && (
+          <motion.button
+            type="button"
+            initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={
+              prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8 }
+            }
+            onClick={() => {
+              onChange("");
+              onClear?.();
+            }}
+            className="absolute top-1/2 right-[96px] -translate-y-1/2 rounded-full p-1.5 transition-colors hover:bg-[var(--bg-tertiary)]"
+            style={{ color: "var(--text-tertiary)" }}
+            aria-label="Clear search"
           >
-            <span
-              className="rounded-full px-2 py-0.5 text-xs font-medium"
-              style={{
-                background: "var(--accent-glow)",
-                color: "var(--accent-primary)",
-              }}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
             >
-              AI
-            </span>
-          </motion.div>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </motion.button>
         )}
       </AnimatePresence>
 
-      {/* Clear Button */}
-      {value && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          onClick={() => onChange("")}
-          className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors hover:bg-[var(--bg-tertiary)]"
-          style={{ color: "var(--text-tertiary)" }}
-          aria-label="Clear search"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </motion.button>
-      )}
+      <button
+        type="submit"
+        className="absolute top-1/2 right-2 inline-flex h-10 -translate-y-1/2 items-center justify-center rounded-[10px] bg-[var(--accent-primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-secondary)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2"
+      >
+        {submitLabel}
+      </button>
 
       {/* Focus Ring Enhancement */}
       <div
@@ -189,6 +216,6 @@ export function SearchBar({
           boxShadow: "0 0 0 4px var(--accent-glow)",
         }}
       />
-    </motion.div>
+    </motion.form>
   );
 }

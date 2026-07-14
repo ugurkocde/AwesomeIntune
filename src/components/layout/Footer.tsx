@@ -266,7 +266,7 @@ export function Footer() {
                 href="https://devicie.com/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-block rounded-lg bg-slate-900 px-3 py-2 transition-transform duration-300 hover:scale-[1.02]"
+                className="group inline-block transition-transform duration-300 hover:scale-[1.02]"
                 onClick={() => trackSponsorClick("devicie", "footer")}
               >
                 <Image
@@ -274,7 +274,7 @@ export function Footer() {
                   alt="Devicie - Sponsor"
                   width={95}
                   height={34}
-                  className="h-[27px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
+                  className="h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
                 />
               </a>
             </div>

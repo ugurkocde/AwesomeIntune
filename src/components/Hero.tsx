@@ -2,11 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SponsorStrip } from "./SponsorStrip";
 import { SearchBar } from "./tools/SearchBar";
-import { useDebounce } from "~/hooks/useDebounce";
 import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
 import { isVerified } from "~/lib/tools";
@@ -24,37 +30,64 @@ function HeroSearchInner() {
   const searchParams = useSearchParams();
   const urlQuery = searchParams.get("q") ?? "";
   const [value, setValue] = useState(urlQuery);
-  const debounced = useDebounce(value, 350);
-  const lastWrittenQueryRef = useRef(urlQuery);
+  const isHandoffPending = useRef(false);
 
-  useEffect(() => {
-    const query = debounced.trim();
-    if (query === lastWrittenQueryRef.current) return;
-    lastWrittenQueryRef.current = query;
-    router.replace(query ? `/?q=${encodeURIComponent(query)}` : "/", {
-      scroll: false,
+  const handoffToDirectory = useCallback(() => {
+    requestAnimationFrame(() => {
+      const toolsSection = document.getElementById("tools");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const isMobile = window.matchMedia("(max-width: 639px)").matches;
+
+      toolsSection?.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+
+      if (isMobile) {
+        (document.activeElement as HTMLElement | null)?.blur();
+        document
+          .getElementById("tool-results-heading")
+          ?.focus({ preventScroll: true });
+      } else {
+        document
+          .getElementById("directory-search")
+          ?.focus({ preventScroll: true });
+      }
     });
-  }, [debounced, router]);
+  }, []);
 
   useEffect(() => {
-    if (urlQuery === lastWrittenQueryRef.current) return;
-    lastWrittenQueryRef.current = urlQuery;
     setValue(urlQuery);
-  }, [urlQuery]);
-
-  const handleChange = (next: string) => {
-    setValue(next);
-    if (next) {
-      document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" });
+    if (isHandoffPending.current) {
+      isHandoffPending.current = false;
+      handoffToDirectory();
     }
+  }, [handoffToDirectory, urlQuery]);
+
+  const handleSubmit = () => {
+    const query = value.trim();
+    if (query === urlQuery.trim()) {
+      handoffToDirectory();
+      return;
+    }
+
+    isHandoffPending.current = true;
+    router.replace(
+      query ? `/?q=${encodeURIComponent(query)}#tools` : "/#tools",
+    );
   };
 
   return (
     <SearchBar
       value={value}
-      onChange={handleChange}
-      placeholder="Describe your problem, e.g. ‘devices not syncing’"
-      isAiMode={shouldUseAiSearch(debounced)}
+      onChange={setValue}
+      onSubmit={handleSubmit}
+      inputId="hero-search"
+      ariaControls="tool-search-results"
+      placeholder="Describe your problem, e.g. “devices not syncing”…"
+      isAiMode={shouldUseAiSearch(value)}
     />
   );
 }
@@ -66,7 +99,10 @@ function HeroSearch() {
         <SearchBar
           value=""
           onChange={() => undefined}
-          placeholder="Describe your problem, e.g. ‘devices not syncing’"
+          onSubmit={() => undefined}
+          inputId="hero-search"
+          ariaControls="tool-search-results"
+          placeholder="Describe your problem, e.g. “devices not syncing”…"
         />
       }
     >

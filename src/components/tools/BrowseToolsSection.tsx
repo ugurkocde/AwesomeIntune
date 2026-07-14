@@ -7,8 +7,8 @@ import type { Tool } from "~/types/tool";
 import { useUrlFilters } from "~/hooks/useUrlFilters";
 import { useViewTracking } from "~/hooks/useViewTracking";
 import { useVoting } from "~/hooks/useVoting";
-import { useDebounce } from "~/hooks/useDebounce";
 import { useAiSearch } from "~/hooks/useAiSearch";
+import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { filterTools } from "~/lib/tools";
 import { CATEGORY_CONFIG } from "~/lib/constants";
 import { AISearchSection } from "./AISearchSection";
@@ -17,6 +17,7 @@ import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
 import { LoadMoreButton } from "./LoadMoreButton";
+import { SearchBar } from "./SearchBar";
 
 const INITIAL_LOAD = 9;
 const LOAD_MORE_COUNT = 9;
@@ -74,34 +75,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     activeFilterCount,
   } = useUrlFilters();
 
-  // Local search input state (for debouncing)
+  // The local value is a draft. Results and AI update only after submit.
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
-  const debouncedSearchQuery = useDebounce(localSearchQuery, 300);
-
-  // Sync debounced search to URL
-  // Detect external URL changes (hero handoff, back/forward, deep links) during
-  // render - before any effect runs - so the debounced writer below can't clobber
-  // a freshly-set ?q= with its stale (empty) value before local state catches up.
-  const prevSearchQueryRef = useRef(searchQuery);
-  const skipNextUrlWrite = useRef(false);
-  if (prevSearchQueryRef.current !== searchQuery) {
-    prevSearchQueryRef.current = searchQuery;
-    skipNextUrlWrite.current = true;
-  }
-
-  // Sync debounced local input -> URL (user typing in this input)
-  useEffect(() => {
-    if (skipNextUrlWrite.current) {
-      skipNextUrlWrite.current = false;
-      return;
-    }
-    if (
-      debouncedSearchQuery === localSearchQuery &&
-      debouncedSearchQuery !== searchQuery
-    ) {
-      setSearchQuery(debouncedSearchQuery);
-    }
-  }, [debouncedSearchQuery, localSearchQuery, searchQuery, setSearchQuery]);
 
   // Sync URL search -> local input (initial load, back/forward, hero handoff)
   useEffect(() => {
@@ -111,11 +86,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   // Mobile filter drawer state
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
-  // Use empty string if localSearchQuery is cleared (bypass debounce delay)
-  const effectiveSearchQuery =
-    localSearchQuery === "" ? "" : debouncedSearchQuery;
+  const effectiveSearchQuery = searchQuery;
 
-  // AI search (single source of truth, keyed on the effective query)
+  // AI runs only for a committed query, never for partial keystrokes.
   const {
     isAiMode: effectiveIsAiMode,
     isAiSearching,
@@ -144,6 +117,25 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setLocalSearchQuery("");
     setSearchQuery("");
   }, [clearAiSearch, setSearchQuery]);
+
+  const handleSearchSubmit = useCallback(() => {
+    const normalizedQuery = localSearchQuery.trim();
+    setLocalSearchQuery(normalizedQuery);
+
+    if (normalizedQuery === searchQuery) {
+      if (shouldUseAiSearch(normalizedQuery)) retryAiSearch();
+      return;
+    }
+
+    clearAiSearch();
+    setSearchQuery(normalizedQuery);
+  }, [
+    clearAiSearch,
+    localSearchQuery,
+    retryAiSearch,
+    searchQuery,
+    setSearchQuery,
+  ]);
 
   // Load more state - initialize from saved state if available
   const savedScrollState = useRef<ScrollState | null>(null);
@@ -177,7 +169,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
       return;
     }
     setDisplayCount(INITIAL_LOAD);
-  }, [selectedCategory, selectedType, sortBy, debouncedSearchQuery, aiToolIds]);
+  }, [selectedCategory, selectedType, sortBy, effectiveSearchQuery]);
 
   // Keyword-filtered list — always populated, never gated on AI
   const keywordTools = useMemo(() => {
@@ -266,35 +258,32 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     viewCounts,
   ]);
 
-  // Dedupe: tools already shown in the AI section don't appear again in the keyword grid
-  const aiIdSet = useMemo(() => new Set(aiTools.map((t) => t.id)), [aiTools]);
-  const dedupedKeywordTools = useMemo(
-    () => keywordTools.filter((t) => !aiIdSet.has(t.id)),
-    [keywordTools, aiIdSet],
+  // Keep immediate keyword results stable. AI only adds tools that are not
+  // already visible, so completed AI requests never move existing cards.
+  const keywordIdSet = useMemo(
+    () => new Set(keywordTools.map((tool) => tool.id)),
+    [keywordTools],
+  );
+  const additionalAiTools = useMemo(
+    () => aiTools.filter((tool) => !keywordIdSet.has(tool.id)),
+    [aiTools, keywordIdSet],
   );
 
-  // Tools to display (with infinite scroll) — applies to keyword section only
+  // Tools to display (with infinite scroll) — applies to direct matches only
   const displayedTools = useMemo(() => {
-    return dedupedKeywordTools.slice(0, displayCount);
-  }, [dedupedKeywordTools, displayCount]);
+    return keywordTools.slice(0, displayCount);
+  }, [keywordTools, displayCount]);
 
-  // AI responded successfully but nothing survived (no matches, or all filtered out)
-  const isAiEmptyResult =
-    !isAiSearching &&
-    aiError === null &&
-    aiToolIds !== null &&
-    aiTools.length === 0;
-  // The empty note reads "keyword results below", so only show it when there
-  // are keyword results; the full empty state covers the nothing-at-all case
+  // AI is a progressive enhancement below direct matches. Hide it after a
+  // successful response when it has nothing new to add.
   const showAiSection =
     effectiveIsAiMode &&
-    (isAiSearching ||
-      aiTools.length > 0 ||
-      aiError !== null ||
-      (isAiEmptyResult && dedupedKeywordTools.length > 0));
-  const visibleResultCount = aiTools.length + dedupedKeywordTools.length;
+    (isAiSearching || additionalAiTools.length > 0 || aiError !== null);
+  const visibleResultCount = keywordTools.length + additionalAiTools.length;
   const showEmptyState =
-    !isAiSearching && aiTools.length === 0 && dedupedKeywordTools.length === 0;
+    !isAiSearching &&
+    additionalAiTools.length === 0 &&
+    keywordTools.length === 0;
 
   // Restore scroll position after content has rendered
   useEffect(() => {
@@ -307,7 +296,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
   }, [pendingScrollRestore, displayedTools.length]);
 
-  const hasMore = displayCount < dedupedKeywordTools.length;
+  const hasMore = displayCount < keywordTools.length;
 
   // Load more handler
   const loadMore = useCallback(() => {
@@ -316,11 +305,11 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setIsLoadingMore(true);
     setTimeout(() => {
       setDisplayCount((prev) =>
-        Math.min(prev + LOAD_MORE_COUNT, dedupedKeywordTools.length),
+        Math.min(prev + LOAD_MORE_COUNT, keywordTools.length),
       );
       setIsLoadingMore(false);
     }, 300);
-  }, [isLoadingMore, hasMore, dedupedKeywordTools.length]);
+  }, [isLoadingMore, hasMore, keywordTools.length]);
 
   const filterProps = {
     tools,
@@ -339,11 +328,39 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   return (
     <section className="relative pb-16">
       <div className="container-main py-4 sm:py-6">
+        <div className="mb-6 rounded-2xl border border-[color:var(--border-subtle)] bg-white p-3 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-4">
+          <div className="max-w-2xl">
+            <label
+              htmlFor="directory-search"
+              className="mb-2 block text-xs font-semibold tracking-[0.12em] text-[var(--text-tertiary)] uppercase"
+            >
+              Search the directory
+            </label>
+            <SearchBar
+              value={localSearchQuery}
+              onChange={setLocalSearchQuery}
+              onSubmit={handleSearchSubmit}
+              onClear={handleClearSearch}
+              inputId="directory-search"
+              ariaControls="tool-search-results"
+              isAiMode={shouldUseAiSearch(localSearchQuery)}
+              isAiSearching={
+                isAiSearching && localSearchQuery.trim() === searchQuery
+              }
+              placeholder="Search by tool, task, or problem…"
+            />
+          </div>
+        </div>
+
         <div className="mb-[18px] flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="font-display text-[22px] font-bold text-[var(--text-primary)]">
+            <h2
+              id="tool-results-heading"
+              tabIndex={-1}
+              className="font-display text-[22px] font-bold text-[var(--text-primary)]"
+            >
               {hasActiveFilters
-                ? `${visibleResultCount} matching tools`
+                ? `${visibleResultCount} matching ${visibleResultCount === 1 ? "tool" : "tools"}`
                 : "Newest tools"}
             </h2>
             <p aria-live="polite" role="status" className="sr-only">
@@ -409,7 +426,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
           </div>
         </div>
 
-        <div>
+        <div id="tool-search-results">
           <div>
             {/* Active Filters Pills */}
             <AnimatePresence>
@@ -439,9 +456,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                       onRemove={() => setType(null)}
                     />
                   )}
-                  {debouncedSearchQuery && (
+                  {effectiveSearchQuery && (
                     <FilterPill
-                      label={`"${debouncedSearchQuery}"`}
+                      label={`"${effectiveSearchQuery}"`}
                       onRemove={handleClearSearch}
                     />
                   )}
@@ -456,57 +473,14 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               )}
             </AnimatePresence>
 
-            {/* AI Suggestions Section — runs in parallel with keyword grid */}
-            <AnimatePresence>
-              {showAiSection && (
-                <AISearchSection
-                  key="ai-section"
-                  tools={aiTools}
-                  isLoading={isAiSearching}
-                  error={aiError}
-                  retryAfterSeconds={retryAfterSeconds}
-                  onRetry={retryAiSearch}
-                  isEmptyResult={isAiEmptyResult}
-                  aiExplanations={aiExplanations}
-                  aiConfidenceScores={aiConfidenceScores}
-                  viewMode={viewMode}
-                  viewCounts={viewCounts}
-                  onToolVisible={recordView}
-                  voteCounts={voteCounts}
-                  hasVoted={hasVoted}
-                  isVotePending={isVotePending}
-                  onVote={vote}
-                  onBeforeNavigate={handleBeforeNavigate}
-                />
-              )}
-            </AnimatePresence>
-
-            {/* Keyword Section */}
+            {/* Direct keyword matches always render before AI enrichment. */}
             {showEmptyState ? (
               <EmptyState
-                searchQuery={debouncedSearchQuery}
+                searchQuery={effectiveSearchQuery}
                 onClearFilters={handleClearAll}
               />
-            ) : dedupedKeywordTools.length > 0 ? (
+            ) : keywordTools.length > 0 ? (
               <>
-                {showAiSection && (
-                  <div className="mb-5 flex items-center gap-3">
-                    <h3
-                      className="font-display text-base font-semibold tracking-tight"
-                      style={{ color: "var(--text-secondary)" }}
-                    >
-                      More matching tools
-                    </h3>
-                    <span
-                      className="text-xs"
-                      style={{ color: "var(--text-tertiary)" }}
-                    >
-                      {dedupedKeywordTools.length} match
-                      {dedupedKeywordTools.length === 1 ? "" : "es"}
-                    </span>
-                  </div>
-                )}
-
                 {viewMode === "grid" && (
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                     {displayedTools.map((tool, index) => (
@@ -550,10 +524,32 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   isLoading={isLoadingMore}
                   hasMore={hasMore}
                   shownCount={displayedTools.length}
-                  totalCount={dedupedKeywordTools.length}
+                  totalCount={keywordTools.length}
                 />
               </>
             ) : null}
+
+            {showAiSection && (
+              <div className="mt-10 border-t border-[color:var(--border-subtle)] pt-8">
+                <AISearchSection
+                  tools={additionalAiTools}
+                  isLoading={isAiSearching}
+                  error={aiError}
+                  retryAfterSeconds={retryAfterSeconds}
+                  onRetry={retryAiSearch}
+                  aiExplanations={aiExplanations}
+                  aiConfidenceScores={aiConfidenceScores}
+                  viewMode={viewMode}
+                  viewCounts={viewCounts}
+                  onToolVisible={recordView}
+                  voteCounts={voteCounts}
+                  hasVoted={hasVoted}
+                  isVotePending={isVotePending}
+                  onVote={vote}
+                  onBeforeNavigate={handleBeforeNavigate}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

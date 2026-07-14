@@ -65,7 +65,7 @@ export function SponsorStrip() {
           href="https://devicie.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-[10px] bg-slate-900 px-3 py-2 transition-transform duration-300 hover:scale-[1.02]"
+          className="group block transition-transform duration-300 hover:scale-[1.02]"
           onClick={() => trackSponsorClick("devicie", "hero")}
         >
           <Image
@@ -73,7 +73,7 @@ export function SponsorStrip() {
             alt="Devicie - Sponsor"
             width={150}
             height={55}
-            className="h-9 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
+            className="h-9 w-auto opacity-70 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
           />
         </a>
       </div>

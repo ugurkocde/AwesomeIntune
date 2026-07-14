@@ -165,8 +165,8 @@ export function useUrlFilters(): UseUrlFiltersReturn {
 
   const setSearchQuery = useCallback(
     (query: string) => {
-      // Search updates arrive per keystroke (debounced), so replace instead of
-      // push - Back should not step through query fragments
+      // Query refinements replace the current directory state. Back should
+      // return to the previous page, not step through searches on this page.
       updateParams({ q: query || null }, { replace: true });
     },
     [updateParams]
