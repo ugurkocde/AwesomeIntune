@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -97,20 +98,14 @@ export function Header() {
             className="flex items-center gap-2.5"
             aria-label="Awesome Intune home"
           >
-            <span className="flex h-[30px] w-[30px] items-center justify-center rounded-lg border border-[color:var(--border-accent)] bg-[var(--accent-glow)] text-[var(--accent-primary)]">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <path d="M12 2 2 7l10 5 10-5-10-5Z" />
-                <path d="m2 17 10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </span>
+            <Image
+              src="/favicon.svg"
+              alt=""
+              width={34}
+              height={34}
+              priority
+              className="h-[34px] w-[34px] shrink-0"
+            />
             <span className="font-display text-base font-bold tracking-[-0.02em] text-[var(--text-primary)]">
               AWESOME
               <span className="text-[var(--accent-primary)]"> INTUNE</span>

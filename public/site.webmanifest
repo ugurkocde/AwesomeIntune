@@ -4,8 +4,8 @@
   "description": "Discover the best community-built tools, scripts, and resources for Microsoft Intune.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0e14",
-  "theme_color": "#00d4ff",
+  "background_color": "#f5f7fb",
+  "theme_color": "#0078d4",
   "icons": [
     {
       "src": "/favicon-192x192.png",
