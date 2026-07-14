@@ -1,0 +1,71 @@
+{
+  "id": "intune-profile-bulk-renamer-tool",
+  "name": "Intune Profile Bulk Renamer Tool",
+  "description": "Intune Profile Bulk Renamer Tool is a self-contained PowerShell 7 + Windows Forms desktop app that connects to Microsoft Graph to bulk rename and re-describe Intune configuration profiles. It pulls multiple content types into an editable grid, supports inline edits, CSV export/import, and literal/regex Find & Replace; updates are applied as minimal PATCH requests only to changed items. Includes dry-run, JSON backups, automatic safety backups, and thorough logging.",
+  "keywords": [
+    "intune",
+    "bulk-editing",
+    "profile-renaming",
+    "microsoft-graph",
+    "powershell",
+    "windows-forms",
+    "find-replace",
+    "csv-import-export"
+  ],
+  "author": "Alex Durrant",
+  "authorPicture": "https://github.com/durrante.png",
+  "githubUrl": "https://github.com/durrante",
+  "linkedinUrl": "https://www.linkedin.com/in/alexdurrant/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/durrante/Intune-Profile-Bulk-Renamer-Tool",
+  "downloadUrl": "https://www.powershellgallery.com/packages/Invoke-IntuneProfileManager/",
+  "websiteUrl": "https://modernworkspacehub.com/intune-bulk-rename-policies-tool/",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No code provided for analysis. Please supply the Intune Profile Bulk Renamer Tool code to perform a security review.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-14T09:18:10Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Alex Durrant",
+      "githubUrl": "https://github.com/durrante",
+      "picture": "https://github.com/durrante.png",
+      "linkedinUrl": "https://www.linkedin.com/in/alexdurrant/"
+    }
+  ]
+}
