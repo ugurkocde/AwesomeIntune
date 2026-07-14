@@ -17,6 +17,7 @@ import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
 import { LoadMoreButton } from "./LoadMoreButton";
 import { SearchBar } from "./SearchBar";
+import { SearchProgress } from "./SearchProgress";
 
 const INITIAL_LOAD = 9;
 const LOAD_MORE_COUNT = 9;
@@ -357,21 +358,15 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               tabIndex={-1}
               className="font-display text-[22px] font-bold text-[var(--text-primary)]"
             >
-              {hasActiveFilters
-                ? `${visibleResultCount} matching ${visibleResultCount === 1 ? "tool" : "tools"}`
-                : "Newest tools"}
+              {isAiSearching && keywordTools.length === 0
+                ? "Searching for matching tools…"
+                : hasActiveFilters
+                  ? `${visibleResultCount} matching ${visibleResultCount === 1 ? "tool" : "tools"}`
+                  : "Newest tools"}
             </h2>
-            {effectiveIsAiMode && (
+            {effectiveIsAiMode && !isAiSearching && (
               <div className="mt-1.5 flex min-h-5 items-center gap-2 text-xs text-[var(--text-tertiary)]">
-                {isAiSearching ? (
-                  <>
-                    <span
-                      className="h-3.5 w-3.5 rounded-full border-2 border-[color:var(--border-accent)] border-t-[var(--accent-primary)] motion-safe:animate-spin"
-                      aria-hidden="true"
-                    />
-                    Finding related tools…
-                  </>
-                ) : aiError ? (
+                {aiError ? (
                   <>
                     <span>Related search is temporarily unavailable.</span>
                     {retryAfterSeconds ? (
@@ -394,19 +389,19 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   </>
                 ) : aiToolIds !== null ? (
                   "No additional related tools found."
-                ) : (
-                  "Preparing related search…"
-                )}
+                ) : null}
               </div>
             )}
             <p aria-live="polite" role="status" className="sr-only">
-              {visibleResultCount} {visibleResultCount === 1 ? "tool" : "tools"}{" "}
-              found.
-              {isAiSearching
-                ? " Finding related tools."
-                : additionalAiTools.length > 0
-                  ? ` ${additionalAiTools.length} related ${additionalAiTools.length === 1 ? "match" : "matches"} added.`
-                  : ""}
+              {isAiSearching && keywordTools.length === 0
+                ? "Searching for matching tools."
+                : `${visibleResultCount} ${visibleResultCount === 1 ? "tool" : "tools"} found.${
+                    isAiSearching
+                      ? " Finding related tools."
+                      : additionalAiTools.length > 0
+                        ? ` ${additionalAiTools.length} related ${additionalAiTools.length === 1 ? "match" : "matches"} added.`
+                        : ""
+                  }`}
             </p>
           </div>
 
@@ -513,6 +508,15 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {isAiSearching && (
+              <SearchProgress
+                key={effectiveSearchQuery}
+                query={effectiveSearchQuery}
+                toolCount={tools.length}
+                directMatchCount={keywordTools.length}
+              />
+            )}
 
             {/* One stable grid: direct matches first, then deduplicated related matches. */}
             {showEmptyState ? (
