@@ -302,6 +302,12 @@
       "reason": "Website blocked; No images in README"
     },
     {
+      "name": "Microsoft Intune & Entra ID MCP Server",
+      "id": "microsoft-intune-entra-id-mcp-server",
+      "url": "https://github.com/nelladath/intune-mcp-server",
+      "reason": "No images in README"
+    },
+    {
       "name": "Microsoft Team Rooms Wallpaper package wrapper",
       "id": "microsoft-team-rooms-wallpaper-package-wrapper",
       "url": "https://github.com/niklasrst/microsoft-teams-rooms-custom-wallpaper",
