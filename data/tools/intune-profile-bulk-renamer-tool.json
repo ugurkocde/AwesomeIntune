@@ -67,5 +67,11 @@
       "picture": "https://github.com/durrante.png",
       "linkedinUrl": "https://www.linkedin.com/in/alexdurrant/"
     }
+  ],
+  "screenshots": [
+    "screenshots/intune-profile-bulk-renamer-tool/screenshot-1.png",
+    "screenshots/intune-profile-bulk-renamer-tool/screenshot-2.png",
+    "screenshots/intune-profile-bulk-renamer-tool/screenshot-3.png",
+    "screenshots/intune-profile-bulk-renamer-tool/screenshot-4.png"
   ]
 }
