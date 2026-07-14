@@ -1,0 +1,71 @@
+{
+  "id": "intunewin32appuninstall",
+  "name": "IntuneWin32AppUninstall",
+  "description": "IntuneWin32AppUninstall is a PowerShell GUI tool that inventories MSI-based apps by scanning uninstall registry keys (HKLM and HKCU) and generates Intune-compatible detection and remediation scripts. For each selected app it creates a ready-to-deploy package with Detect and Remediate scripts, a README, and AppInfo.json, with batch generation, per-app folders, and CSV export. Remediation uninstalls silently via msiexec /X {GUID} and logs results for Intune deployment under Endpoint Security.",
+  "keywords": [
+    "intune",
+    "win32app",
+    "powershell",
+    "msi",
+    "registry",
+    "uninstall",
+    "detection",
+    "remediation"
+  ],
+  "author": "Mert Ozsoy",
+  "authorPicture": "https://github.com/mertozsoy.png",
+  "githubUrl": "https://github.com/mertozsoy",
+  "linkedinUrl": "https://www.linkedin.com/in/mertozsoy365",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mertozsoy/IntuneWin32AppUninstall",
+  "downloadUrl": "",
+  "websiteUrl": "https://mertozsoy.com/IntuneWin32AppUninstall/",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No analysis performed: code to analyze was not provided in the request.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 10,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-06-16T12:33:15Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mert Ozsoy",
+      "githubUrl": "https://github.com/mertozsoy",
+      "picture": "https://github.com/mertozsoy.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mertozsoy365"
+    }
+  ]
+}
