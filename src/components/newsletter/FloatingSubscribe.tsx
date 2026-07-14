@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSubscriptionPersistence } from "~/hooks/useLocalStorage";
 import { useScrollDirection } from "~/hooks/useScrollDirection";
@@ -38,8 +43,16 @@ export function FloatingSubscribe() {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
   const { isMobile, isLoaded: mobileLoaded } = useIsMobile();
-  const { hasScrolledPastThreshold } = useScrollDirection({ scrollThreshold: 50 });
-  const { dismissed, subscribed, isLoaded: persistenceLoaded, dismiss, markSubscribed } = useSubscriptionPersistence();
+  const { hasScrolledPastThreshold } = useScrollDirection({
+    scrollThreshold: 50,
+  });
+  const {
+    dismissed,
+    subscribed,
+    isLoaded: persistenceLoaded,
+    dismiss,
+    markSubscribed,
+  } = useSubscriptionPersistence();
 
   // Fetch subscriber count on mount
   useEffect(() => {
@@ -80,12 +93,12 @@ export function FloatingSubscribe() {
     }
   }, []);
 
-  // Focus input when expanded
+  // Focus the compact desktop panel without forcing the mobile keyboard open.
   useEffect(() => {
-    if (formState === "expanded" && inputRef.current) {
+    if (formState === "expanded" && !isMobile && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [formState]);
+  }, [formState, isMobile]);
 
   // Handle escape key
   useEffect(() => {
@@ -134,7 +147,11 @@ export function FloatingSubscribe() {
         body: JSON.stringify({ email }),
       });
 
-      const data = (await response.json()) as { success?: boolean; message?: string; error?: string };
+      const data = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+        error?: string;
+      };
 
       if (response.ok && data.success) {
         setFormState("success");
@@ -147,12 +164,17 @@ export function FloatingSubscribe() {
         }
 
         // Auto-dismiss after celebration
-        setTimeout(() => {
-          setFormState("collapsed");
-        }, isMobile ? 2000 : 3000);
+        setTimeout(
+          () => {
+            setFormState("collapsed");
+          },
+          isMobile ? 2000 : 3000,
+        );
       } else {
         setFormState("error");
-        setErrorMessage(data.error ?? "Something went wrong. Please try again.");
+        setErrorMessage(
+          data.error ?? "Something went wrong. Please try again.",
+        );
       }
     } catch {
       setFormState("error");
@@ -276,7 +298,11 @@ export function FloatingSubscribe() {
             className={`floating-subscribe-container ${isMobile ? "mobile" : "desktop"} ${formState}`}
             role="complementary"
             aria-label="Newsletter subscription"
-            variants={isMobile && formState === "expanded" ? mobileSheetVariants : orbVariants}
+            variants={
+              isMobile && formState === "expanded"
+                ? mobileSheetVariants
+                : orbVariants
+            }
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -307,6 +333,7 @@ export function FloatingSubscribe() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden="true"
                   >
                     <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
                     <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
@@ -330,7 +357,9 @@ export function FloatingSubscribe() {
                   }}
                 >
                   {/* Scan line effect (desktop only) */}
-                  {!isMobile && !prefersReducedMotion && <div className="floating-subscribe-scanline" />}
+                  {!isMobile && !prefersReducedMotion && (
+                    <div className="floating-subscribe-scanline" />
+                  )}
 
                   {/* Close button */}
                   <motion.button
@@ -342,13 +371,23 @@ export function FloatingSubscribe() {
                     initial="hidden"
                     animate="visible"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
                       <path d="M18 6 6 18M6 6l12 12" />
                     </svg>
                   </motion.button>
 
                   {/* Drag handle for mobile */}
-                  {isMobile && <div className="floating-subscribe-drag-handle" />}
+                  {isMobile && (
+                    <div className="floating-subscribe-drag-handle" />
+                  )}
 
                   <AnimatePresence mode="wait">
                     {formState === "success" ? (
@@ -358,6 +397,8 @@ export function FloatingSubscribe() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
+                        role="status"
+                        aria-live="polite"
                       >
                         {/* Animated checkmark */}
                         <svg
@@ -366,6 +407,7 @@ export function FloatingSubscribe() {
                           height="48"
                           viewBox="0 0 24 24"
                           fill="none"
+                          aria-hidden="true"
                         >
                           <motion.circle
                             cx="12"
@@ -389,11 +431,17 @@ export function FloatingSubscribe() {
                             transition={{ duration: 0.4, delay: 0.2 }}
                           />
                         </svg>
-                        <p className="floating-subscribe-success-text">You&apos;re connected!</p>
-                        <p className="floating-subscribe-success-subtext">Check your email to confirm.</p>
+                        <p className="floating-subscribe-success-text">
+                          You&apos;re connected!
+                        </p>
+                        <p className="floating-subscribe-success-subtext">
+                          Check your email to confirm.
+                        </p>
 
                         {/* Confetti particles (desktop only) */}
-                        {!isMobile && !prefersReducedMotion && <ConfettiParticles />}
+                        {!isMobile && !prefersReducedMotion && (
+                          <ConfettiParticles />
+                        )}
                       </motion.div>
                     ) : (
                       <motion.form
@@ -422,7 +470,8 @@ export function FloatingSubscribe() {
                             initial="hidden"
                             animate="visible"
                           >
-                            Join {subscriberCount.toLocaleString()}+ Intune admins
+                            Join {subscriberCount.toLocaleString()}+ Intune
+                            admins
                           </motion.p>
                         )}
 
@@ -436,6 +485,10 @@ export function FloatingSubscribe() {
                           <input
                             ref={inputRef}
                             type="email"
+                            name="email"
+                            autoComplete="email"
+                            inputMode="email"
+                            spellCheck={false}
                             value={email}
                             onChange={(e) => {
                               setEmail(e.target.value);
@@ -444,12 +497,16 @@ export function FloatingSubscribe() {
                                 setErrorMessage("");
                               }
                             }}
-                            placeholder="Enter your email"
+                            placeholder="you@example.com…"
                             disabled={formState === "loading"}
                             className="floating-subscribe-input"
                             aria-label="Email address"
                             aria-invalid={formState === "error"}
-                            aria-describedby={formState === "error" ? "floating-subscribe-error" : undefined}
+                            aria-describedby={
+                              formState === "error"
+                                ? "floating-subscribe-error"
+                                : undefined
+                            }
                           />
                         </motion.div>
 
@@ -457,6 +514,9 @@ export function FloatingSubscribe() {
                           type="submit"
                           disabled={formState === "loading"}
                           className="floating-subscribe-submit"
+                          aria-label={
+                            formState === "loading" ? "Connecting" : "Notify Me"
+                          }
                           custom={4}
                           variants={contentVariants}
                           initial="hidden"
@@ -473,15 +533,28 @@ export function FloatingSubscribe() {
                                 stroke="currentColor"
                                 strokeWidth="2"
                                 animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                transition={{
+                                  duration: 1,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
+                                aria-hidden="true"
                               >
                                 <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                               </motion.svg>
-                              Connecting...
+                              Connecting…
                             </span>
                           ) : (
                             <span className="floating-subscribe-submit-text">
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                aria-hidden="true"
+                              >
                                 <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
                               </svg>
                               Notify Me
@@ -519,7 +592,11 @@ export function FloatingSubscribe() {
 // Confetti particles component
 function ConfettiParticles() {
   const PARTICLE_COUNT = 30;
-  const colors = ["var(--accent-primary)", "var(--signal-success)", "var(--signal-purple)"];
+  const colors = [
+    "var(--accent-primary)",
+    "var(--signal-success)",
+    "var(--signal-purple)",
+  ];
 
   return (
     <div className="floating-subscribe-confetti">
