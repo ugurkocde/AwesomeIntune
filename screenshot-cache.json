@@ -62,6 +62,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Autopilotlens",
+      "id": "autopilotlens",
+      "url": "https://autopilotlens.com",
+      "reason": "No images in README"
+    },
+    {
       "name": "AutopilotProfileFunctions",
       "id": "autopilotprofilefunctions",
       "url": "https://github.com/amirjs/AutopilotProfileFunctions",
