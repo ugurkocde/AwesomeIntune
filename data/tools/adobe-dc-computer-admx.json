@@ -1,0 +1,70 @@
+{
+  "id": "adobe-dc-computer-admx",
+  "name": "Adobe DC (Computer) ADMX",
+  "description": "Adobe DC (Computer) ADMX provides machine-level Group Policy and Intune management templates for Adobe Acrobat DC and Reader DC on Windows. It ships as a combined AdobeDC.admx/ADML pair (plus separate x64 and x86 files) and enables 552 policies covering cloud connectors, security hardening, trust, UI, updates, and upsell controls via HKLM. The documentation notes per-architecture deployment, unified installer considerations, and inverted registry values for some bToggle policies, ensuring consistent Enabled/Disabled behavior in GPO and Intune.",
+  "keywords": [
+    "intune",
+    "group-policy",
+    "admx",
+    "adml",
+    "adobe-dc",
+    "acrobat-dc",
+    "reader-dc",
+    "policy-management"
+  ],
+  "author": "Darren Milne",
+  "authorPicture": "https://github.com/systmworks.png",
+  "githubUrl": "https://github.com/systmworks",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/systmworks/Adobe-DC-ADMX/tree/main",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 6,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 59,
+    "forks": 5,
+    "license": "NOASSERTION",
+    "lastUpdated": "2026-06-28T06:48:38Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Darren Milne",
+      "githubUrl": "https://github.com/systmworks",
+      "picture": "https://github.com/systmworks.png"
+    }
+  ]
+}
