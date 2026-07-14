@@ -4,6 +4,7 @@
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://intunediff.com/",
     "https://intuneguardian.com/",
+    "https://mertozsoy.com/IntuneWin32AppUninstall/",
     "https://www.kqlsearch.com/",
     "https://www.ssmacadmin.com/posts/2026-02-06-macos%20defender%20check/",
     "https://openintunebaseline.com",
@@ -263,6 +264,12 @@
       "id": "intunestatefuldevicefingerprinting",
       "url": "https://github.com/KuShuSec/KuShu-Shimon",
       "reason": "No images in README"
+    },
+    {
+      "name": "IntuneWin32AppUninstall",
+      "id": "intunewin32appuninstall",
+      "url": "https://mertozsoy.com/IntuneWin32AppUninstall/",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "JUMP-IN",
