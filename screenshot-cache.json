@@ -26,7 +26,8 @@
     "https://raw.githubusercontent.com/danielpetri666/DUDE-Manager/main/docs/images/dude-manager.png",
     "https://raw.githubusercontent.com/JanicVerboon/EAM-AutoUpdater/main/Documentation/Screenshots/solution-overview.png",
     "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Content/Screenshots/Dat_Logo.png",
-    "https://raw.githubusercontent.com/Ringosystems/RepoFabric-Public/main/docs/repofabric-overview.png"
+    "https://raw.githubusercontent.com/Ringosystems/RepoFabric-Public/main/docs/repofabric-overview.png",
+    "https://raw.githubusercontent.com/glueckkanja/IntuneLinuxBaseline/main/pictures/banner.png"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -231,6 +232,12 @@
       "name": "IntuneComplianceMaintainer",
       "id": "intunecompliancemaintainer",
       "url": "https://github.com/SkipToTheEndpoint/IntuneComplianceMaintainer",
+      "reason": "No images in README"
+    },
+    {
+      "name": "IntuneLinuxBaseline",
+      "id": "intunelinuxbaseline",
+      "url": "https://github.com/glueckkanja/IntuneLinuxBaseline",
       "reason": "No images in README"
     },
     {
