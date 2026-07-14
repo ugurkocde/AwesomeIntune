@@ -1,0 +1,71 @@
+{
+  "id": "intuneoscompliance",
+  "name": "IntuneOSCompliance",
+  "description": "IntuneOSCompliance is a PowerShell tool that automatically updates Windows, Android, and Apple OS compliance policies, app protection policies, and device enrollment platform restrictions to the latest supported OS versions. It fetches current builds via APIs and RSS feeds, detects policies needing updates, and can push results to a rich Microsoft Teams card via an Incoming Webhook. Public Preview with configurable report-only mode and OS version offsets.",
+  "keywords": [
+    "intune",
+    "endpoint-management",
+    "compliance-policy",
+    "app-protection",
+    "device-enrollment",
+    "powershell",
+    "microsoft-graph",
+    "teams-webhook"
+  ],
+  "author": "Nick Benton",
+  "authorPicture": "https://github.com/ennnbeee.png",
+  "githubUrl": "https://github.com/ennnbeee",
+  "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/ennnbeee/IntuneOSCompliance",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No code provided for analysis. Unable to identify obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets without the codebase. Please provide the IntuneOSCompliance code to perform a thorough review.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-08T11:24:08Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Nick Benton",
+      "githubUrl": "https://github.com/ennnbeee",
+      "picture": "https://github.com/ennnbeee.png",
+      "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
+    }
+  ]
+}
