@@ -1,0 +1,68 @@
+{
+  "id": "microsoft-intune-entra-id-mcp-server",
+  "name": "Microsoft Intune & Entra ID MCP Server",
+  "description": "A comprehensive MCP server that manages Microsoft Intune and Entra ID via the Microsoft Graph API. It exposes 134 tools across 16 categories, enabling AI assistants to perform device and user management, security configuration, policy enforcement, and rich reporting. Features include remote actions (sync, restart, lock, wipe, retire), device inventory, Autopilot management, conditional access, app and group management, and bulk operations.",
+  "keywords": [
+    "intune",
+    "entra-id",
+    "azure-ad",
+    "graph-api",
+    "device-management",
+    "user-management",
+    "security-policies",
+    "remote-actions"
+  ],
+  "author": "Sujin Nelladath",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/nelladath/intune-mcp-server",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "api-wrapper",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 17,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The codebase largely adheres to standard secure practices for a Microsoft Graph Intune management tool. No obfuscated code, no remote script execution, and no credential theft or data exfiltration detected in the shown components. Minor security considerations: secret management via environment variables and potential error-detail leakage on Graph API errors. Recommended mitigations include using a secrets vault or managed identity, strict RBAC on app registration, rotating credentials, and implementing sanitized error reporting.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 8,
+    "forks": 2,
+    "license": "MIT",
+    "lastUpdated": "2026-07-13T11:07:01Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Sujin Nelladath"
+    }
+  ]
+}
