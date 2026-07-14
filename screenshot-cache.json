@@ -373,6 +373,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Tenant Banner",
+      "id": "tenant-banner",
+      "url": "https://microsoftedge.microsoft.com/addons/detail/tenant-banner/epdolmkjnglmfnhegfnlmdcgckfjnpcj",
+      "reason": "No images in README"
+    },
+    {
       "name": "Toast Notification Creator for Intune",
       "id": "toast-notification-creator-for-intune",
       "url": "https://github.com/AntoPorter/Intune-ToastNotifications",
