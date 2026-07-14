@@ -67,5 +67,12 @@
       "picture": "https://github.com/ennnbeee.png",
       "linkedinUrl": "https://www.linkedin.com/in/ennnbeee/"
     }
+  ],
+  "screenshots": [
+    "screenshots/intuneoscompliance/screenshot-1.jpg",
+    "screenshots/intuneoscompliance/screenshot-2.png",
+    "screenshots/intuneoscompliance/screenshot-3.png",
+    "screenshots/intuneoscompliance/screenshot-4.png",
+    "screenshots/intuneoscompliance/screenshot-5.png"
   ]
 }
