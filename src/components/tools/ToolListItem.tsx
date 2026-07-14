@@ -13,6 +13,7 @@ import { UpvoteButton } from "./UpvoteButton";
 interface ToolListItemProps {
   tool: Tool;
   index?: number;
+  isRelatedMatch?: boolean;
   aiExplanation?: string;
   confidenceScore?: number;
   viewCount?: number;
@@ -27,6 +28,7 @@ interface ToolListItemProps {
 export const ToolListItem = memo(function ToolListItem({
   tool,
   index = 0,
+  isRelatedMatch = false,
   aiExplanation,
   confidenceScore,
   viewCount,
@@ -81,16 +83,15 @@ export const ToolListItem = memo(function ToolListItem({
   return (
     <div ref={itemRef} className="block">
       <article
-        className={`group relative transition-all duration-300 ease-out-expo ${
+        className={`group relative transition-[transform,opacity] duration-300 ease-out-expo ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
         }`}
         style={{ transitionDelay: isVisible ? `${staggerDelay}s` : "0s" }}
       >
         <div
-          className="relative grid items-center gap-4 rounded-2xl border border-[color:var(--border-subtle)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-accent)]"
+          className="relative grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-4 rounded-2xl border border-[color:var(--border-subtle)] p-4 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-accent)] sm:grid-cols-[48px_minmax(200px,1fr)_140px_auto] md:grid-cols-[48px_minmax(200px,1fr)_140px_100px_auto]"
           style={{
             background: "var(--bg-secondary)",
-            gridTemplateColumns: "48px minmax(200px, 1fr) auto auto auto",
           }}
         >
           {/* Hover accent line */}
@@ -142,9 +143,9 @@ export const ToolListItem = memo(function ToolListItem({
 
           {/* Content - Flexible width column */}
           <div className="min-w-0">
-            <div className="flex items-center gap-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
               <h3
-                className="truncate font-display text-base font-semibold transition-colors group-hover:text-[var(--accent-primary)]"
+                className="font-display w-full min-w-0 truncate text-base font-semibold transition-colors group-hover:text-[var(--accent-primary)] sm:w-auto sm:flex-1"
                 style={{ color: "var(--text-primary)" }}
               >
                 {tool.name}
@@ -158,6 +159,11 @@ export const ToolListItem = memo(function ToolListItem({
               >
                 {categoryConfig.label}
               </span>
+              {isRelatedMatch && (
+                <span className="flex-shrink-0 rounded border border-[rgba(0,120,212,0.18)] bg-[rgba(0,120,212,0.07)] px-2 py-0.5 text-xs font-semibold text-[var(--accent-primary)]">
+                  Related
+                </span>
+              )}
               {confidenceScore !== undefined && (
                 <span
                   className="flex-shrink-0 rounded px-2 py-0.5 text-xs font-semibold"
@@ -251,7 +257,7 @@ export const ToolListItem = memo(function ToolListItem({
           </div>
 
           {/* Actions - Fixed width column */}
-          <div className="flex w-[88px] items-center justify-end gap-2">
+          <div className="flex items-center justify-end gap-2">
             {/* Stretched primary link makes the whole row navigable */}
             <Link
               href={`/tools/${tool.id}`}
@@ -283,7 +289,7 @@ export const ToolListItem = memo(function ToolListItem({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleOutboundClick(tool.repoUrl!)}
-                className="relative z-10 flex h-8 w-8 items-center justify-center rounded-lg transition-colors before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:bg-white/10"
+                className="relative z-10 hidden h-8 w-8 items-center justify-center rounded-lg transition-colors before:absolute before:top-1/2 before:left-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:bg-white/10 sm:flex"
                 style={{
                   background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",

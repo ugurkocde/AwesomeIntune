@@ -15,6 +15,7 @@ import { WorksWithTags } from "./WorksWithTags";
 interface ToolCardProps {
   tool: Tool;
   index?: number;
+  isRelatedMatch?: boolean;
   aiExplanation?: string;
   confidenceScore?: number;
   viewCount?: number;
@@ -29,6 +30,7 @@ interface ToolCardProps {
 export const ToolCard = memo(function ToolCard({
   tool,
   index = 0,
+  isRelatedMatch = false,
   aiExplanation,
   confidenceScore,
   viewCount,
@@ -113,54 +115,60 @@ export const ToolCard = memo(function ToolCard({
           <div className="relative p-5">
             {/* Header Row */}
             <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-              {/* Type Badge */}
-              <span
-                className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-semibold tracking-[0.05em] uppercase"
-                style={{
-                  background: `${typeConfig.color}15`,
-                  color: typeConfig.color,
-                  border: `1px solid ${typeConfig.color}25`,
-                }}
-              >
-                {tool.type === "powershell-module" ||
-                tool.type === "powershell-script" ? (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
-                  </svg>
-                ) : tool.type === "web-app" ? (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                ) : (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                    <line x1="8" y1="21" x2="16" y2="21" />
-                    <line x1="12" y1="17" x2="12" y2="21" />
-                  </svg>
-                )}
-                {typeConfig.label}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Type Badge */}
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-semibold tracking-[0.05em] uppercase"
+                  style={{
+                    background: `${typeConfig.color}15`,
+                    color: typeConfig.color,
+                    border: `1px solid ${typeConfig.color}25`,
+                  }}
+                >
+                  {tool.type === "powershell-module" ||
+                  tool.type === "powershell-script" ? (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M23.181 2.974c.568.3.819.972.568 1.525l-8.167 17.03c-.317.687-1.186.823-1.687.345l-4.59-4.374c-.318-.303-.352-.805-.079-1.143l5.083-6.283-5.818 3.333c-.48.274-1.085.105-1.37-.384l-4.922-8.458c-.303-.52-.112-1.193.426-1.492l20.556-1.099z" />
+                    </svg>
+                  ) : tool.type === "web-app" ? (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  )}
+                  {typeConfig.label}
+                </span>
+                {isRelatedMatch && <RelatedMatchBadge />}
+              </div>
 
               {/* Security Badge, View Count and Upvote */}
               <div className="relative z-10 flex items-center gap-2">
@@ -529,3 +537,24 @@ export const ToolCard = memo(function ToolCard({
     </div>
   );
 });
+
+function RelatedMatchBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-lg border border-[rgba(0,120,212,0.18)] bg-[rgba(0,120,212,0.07)] px-2 py-1 text-[11px] font-semibold text-[var(--accent-primary)]">
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z" />
+      </svg>
+      Related
+    </span>
+  );
+}

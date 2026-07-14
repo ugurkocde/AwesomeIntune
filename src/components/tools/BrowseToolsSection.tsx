@@ -11,7 +11,6 @@ import { useAiSearch } from "~/hooks/useAiSearch";
 import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { filterTools } from "~/lib/tools";
 import { CATEGORY_CONFIG } from "~/lib/constants";
-import { AISearchSection } from "./AISearchSection";
 import { FilterDrawer } from "./FilterSidebar";
 import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
@@ -92,7 +91,6 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   const {
     isAiMode: effectiveIsAiMode,
     isAiSearching,
-    aiExplanations,
     aiConfidenceScores,
     aiToolIds,
     aiError,
@@ -268,22 +266,22 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     () => aiTools.filter((tool) => !keywordIdSet.has(tool.id)),
     [aiTools, keywordIdSet],
   );
+  const additionalAiIdSet = useMemo(
+    () => new Set(additionalAiTools.map((tool) => tool.id)),
+    [additionalAiTools],
+  );
+  const unifiedTools = useMemo(
+    () => [...keywordTools, ...additionalAiTools],
+    [keywordTools, additionalAiTools],
+  );
 
-  // Tools to display (with infinite scroll) — applies to direct matches only
+  // Direct matches stay in place. AI-only matches append to the same list.
   const displayedTools = useMemo(() => {
-    return keywordTools.slice(0, displayCount);
-  }, [keywordTools, displayCount]);
+    return unifiedTools.slice(0, displayCount);
+  }, [unifiedTools, displayCount]);
 
-  // AI is a progressive enhancement below direct matches. Hide it after a
-  // successful response when it has nothing new to add.
-  const showAiSection =
-    effectiveIsAiMode &&
-    (isAiSearching || additionalAiTools.length > 0 || aiError !== null);
-  const visibleResultCount = keywordTools.length + additionalAiTools.length;
-  const showEmptyState =
-    !isAiSearching &&
-    additionalAiTools.length === 0 &&
-    keywordTools.length === 0;
+  const visibleResultCount = unifiedTools.length;
+  const showEmptyState = !isAiSearching && unifiedTools.length === 0;
 
   // Restore scroll position after content has rendered
   useEffect(() => {
@@ -296,7 +294,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     }
   }, [pendingScrollRestore, displayedTools.length]);
 
-  const hasMore = displayCount < keywordTools.length;
+  const hasMore = displayCount < unifiedTools.length;
 
   // Load more handler
   const loadMore = useCallback(() => {
@@ -305,11 +303,11 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
     setIsLoadingMore(true);
     setTimeout(() => {
       setDisplayCount((prev) =>
-        Math.min(prev + LOAD_MORE_COUNT, keywordTools.length),
+        Math.min(prev + LOAD_MORE_COUNT, unifiedTools.length),
       );
       setIsLoadingMore(false);
     }, 300);
-  }, [isLoadingMore, hasMore, keywordTools.length]);
+  }, [isLoadingMore, hasMore, unifiedTools.length]);
 
   const filterProps = {
     tools,
@@ -363,9 +361,52 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 ? `${visibleResultCount} matching ${visibleResultCount === 1 ? "tool" : "tools"}`
                 : "Newest tools"}
             </h2>
+            {effectiveIsAiMode && (
+              <div className="mt-1.5 flex min-h-5 items-center gap-2 text-xs text-[var(--text-tertiary)]">
+                {isAiSearching ? (
+                  <>
+                    <span
+                      className="h-3.5 w-3.5 rounded-full border-2 border-[color:var(--border-accent)] border-t-[var(--accent-primary)] motion-safe:animate-spin"
+                      aria-hidden="true"
+                    />
+                    Finding related tools…
+                  </>
+                ) : aiError ? (
+                  <>
+                    <span>Related search is temporarily unavailable.</span>
+                    {retryAfterSeconds ? (
+                      <span>Try again in a moment.</span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={retryAiSearch}
+                        className="font-semibold text-[var(--accent-primary)] transition-colors hover:text-[var(--accent-secondary)]"
+                      >
+                        Try Again
+                      </button>
+                    )}
+                  </>
+                ) : additionalAiTools.length > 0 ? (
+                  <>
+                    <SparkleIcon />
+                    {additionalAiTools.length} related{" "}
+                    {additionalAiTools.length === 1 ? "match" : "matches"} added
+                  </>
+                ) : aiToolIds !== null ? (
+                  "No additional related tools found."
+                ) : (
+                  "Preparing related search…"
+                )}
+              </div>
+            )}
             <p aria-live="polite" role="status" className="sr-only">
               {visibleResultCount} {visibleResultCount === 1 ? "tool" : "tools"}{" "}
-              found
+              found.
+              {isAiSearching
+                ? " Finding related tools."
+                : additionalAiTools.length > 0
+                  ? ` ${additionalAiTools.length} related ${additionalAiTools.length === 1 ? "match" : "matches"} added.`
+                  : ""}
             </p>
           </div>
 
@@ -473,13 +514,13 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               )}
             </AnimatePresence>
 
-            {/* Direct keyword matches always render before AI enrichment. */}
+            {/* One stable grid: direct matches first, then deduplicated related matches. */}
             {showEmptyState ? (
               <EmptyState
                 searchQuery={effectiveSearchQuery}
                 onClearFilters={handleClearAll}
               />
-            ) : keywordTools.length > 0 ? (
+            ) : unifiedTools.length > 0 ? (
               <>
                 {viewMode === "grid" && (
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -488,6 +529,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                         key={tool.id}
                         tool={tool}
                         index={index}
+                        isRelatedMatch={additionalAiIdSet.has(tool.id)}
                         viewCount={viewCounts[tool.id]}
                         onVisible={recordView}
                         voteCount={voteCounts[tool.id] ?? 0}
@@ -507,6 +549,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                         key={tool.id}
                         tool={tool}
                         index={index}
+                        isRelatedMatch={additionalAiIdSet.has(tool.id)}
                         viewCount={viewCounts[tool.id]}
                         onVisible={recordView}
                         voteCount={voteCounts[tool.id] ?? 0}
@@ -519,37 +562,17 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                   </div>
                 )}
 
-                <LoadMoreButton
-                  onLoadMore={loadMore}
-                  isLoading={isLoadingMore}
-                  hasMore={hasMore}
-                  shownCount={displayedTools.length}
-                  totalCount={keywordTools.length}
-                />
+                {(hasMore || !isAiSearching) && (
+                  <LoadMoreButton
+                    onLoadMore={loadMore}
+                    isLoading={isLoadingMore}
+                    hasMore={hasMore}
+                    shownCount={displayedTools.length}
+                    totalCount={unifiedTools.length}
+                  />
+                )}
               </>
             ) : null}
-
-            {showAiSection && (
-              <div className="mt-10 border-t border-[color:var(--border-subtle)] pt-8">
-                <AISearchSection
-                  tools={additionalAiTools}
-                  isLoading={isAiSearching}
-                  error={aiError}
-                  retryAfterSeconds={retryAfterSeconds}
-                  onRetry={retryAiSearch}
-                  aiExplanations={aiExplanations}
-                  aiConfidenceScores={aiConfidenceScores}
-                  viewMode={viewMode}
-                  viewCounts={viewCounts}
-                  onToolVisible={recordView}
-                  voteCounts={voteCounts}
-                  hasVoted={hasVoted}
-                  isVotePending={isVotePending}
-                  onVote={vote}
-                  onBeforeNavigate={handleBeforeNavigate}
-                />
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -561,6 +584,25 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
         {...filterProps}
       />
     </section>
+  );
+}
+
+function SparkleIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-[var(--accent-primary)]"
+      aria-hidden="true"
+    >
+      <path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z" />
+    </svg>
   );
 }
 
