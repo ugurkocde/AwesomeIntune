@@ -1,0 +1,77 @@
+{
+  "id": "intunelinuxbaseline",
+  "name": "IntuneLinuxBaseline",
+  "description": "IntuneLinuxBaseline is a modular baseline for Linux devices managed with Microsoft Intune. It delivers custom compliance policies, configuration scripts, and an automated enrollment workflow to establish a consistent, secure Ubuntu posture. The baseline includes an autoinstall ready enrollment, full-disk LUKS encryption, and recurring, idempotent scripts to re-apply settings and maintain compliance.",
+  "keywords": [
+    "linux",
+    "microsoft-intune",
+    "ubuntu",
+    "baseline",
+    "compliance",
+    "enrollment",
+    "security-hardening",
+    "platform-scripts"
+  ],
+  "author": "Ahmad Hajjouz",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/steven-beeler/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/glueckkanja/IntuneLinuxBaseline",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "other",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 12,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "One potential risk identified: telemetry/privacy modifications that reduce observability. No evidence of obfuscated code, remote code execution, credential theft, data exfiltration, malicious persistence, or hardcoded secrets across the provided Intune Linux baseline scripts.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 12,
+    "forks": 2,
+    "license": "MIT",
+    "lastUpdated": "2026-06-23T13:40:45Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Ahmad Hajjouz",
+      "linkedinUrl": "https://www.linkedin.com/in/ahmad-hajjouz/"
+    },
+    {
+      "name": "Daniel Rung",
+      "linkedinUrl": "https://www.linkedin.com/in/daniel-rung/"
+    },
+    {
+      "name": "Steven Beeler",
+      "linkedinUrl": "https://www.linkedin.com/in/steven-beeler/"
+    }
+  ]
+}
