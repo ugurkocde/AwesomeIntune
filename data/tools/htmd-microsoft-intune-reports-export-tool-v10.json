@@ -1,0 +1,68 @@
+{
+  "id": "htmd-microsoft-intune-reports-export-tool-v10",
+  "name": "HTMD – Microsoft Intune Reports Export Tool v1.0",
+  "description": "HTMD – Microsoft Intune Reports Export Tool v1.0 exports all available Intune data via Microsoft Graph and then enables post-export column selection to tailor reports. Built with Python (requests, pandas) and a tkinter GUI, it supports optional Power BI automation and Excel export via openpyxl. Prerequisites include Python 3.8+, Windows 10/11, and Graph permissions such as DeviceManagementConfiguration.Read.All, DeviceManagementManagedDevices.Read.All, and DeviceManagementApps.Read.All.",
+  "keywords": [
+    "intune",
+    "reports",
+    "export",
+    "dynamic-columns",
+    "python",
+    "graph-api",
+    "tkinter",
+    "pandas"
+  ],
+  "author": "Sujin Nelladath",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/HTMDCommunity/HTMD-Microsoft-Intune-Reports-Export-ToolV1.0/tree/main",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "desktop-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 2,
+    "license": null,
+    "lastUpdated": "2025-12-13T09:57:07Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Sujin Nelladath"
+    }
+  ]
+}
