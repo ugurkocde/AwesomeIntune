@@ -1,0 +1,54 @@
+{
+  "id": "autopilotlens",
+  "name": "Autopilotlens",
+  "description": "Autopilotlens.  see what actually applies in Intune.",
+  "keywords": [],
+  "author": "Morten Glimme",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/morten-glimme-31640535",
+  "xUrl": "",
+  "repoUrl": "https://autopilotlens.com",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "monitoring",
+  "type": "web-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Morten Glimme",
+      "linkedinUrl": "https://www.linkedin.com/in/morten-glimme-31640535"
+    }
+  ]
+}
