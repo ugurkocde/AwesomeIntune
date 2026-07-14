@@ -1,0 +1,71 @@
+{
+  "id": "intune-ios-minimum-version-automation",
+  "name": "Intune iOS Minimum Version Automation",
+  "description": "An Azure Automation Runbook for Microsoft Intune that automatically updates the iOS compliance policy osMinimumVersion based on real device inventory. It queries devices via Microsoft Graph, derives a safe minimum iOS version (third newest when enough data, with a fallback), updates the policy if needed, and sends a detailed HTML notification. Emphasizes idempotency, robust error handling, and routine scheduling.",
+  "keywords": [
+    "intune",
+    "ios",
+    "compliance",
+    "policy",
+    "automation",
+    "azure-automation",
+    "microsoft-graph",
+    "device-management"
+  ],
+  "author": "Maurice Flöthmann",
+  "authorPicture": "https://github.com/Mau2rice0.png",
+  "githubUrl": "https://github.com/Mau2rice0",
+  "linkedinUrl": "https://linkedin.com/in/maurice-flöthmann-268344276",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Mau2rice0/intune-ios-minimum-version-automation",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The code is a legitimate Intune Graph-based automation script. It does not obfuscate or execute remote scripts and uses standard Graph endpoints for policy management. Primary security considerations are normal for admin tooling: secrets are read from automation variables (risk if the automation account is compromised), and inventory data is surfaced in runbook logs and outgoing emails. Mitigate by minimal log verbosity, secure automation asset management, possible use of managed identities/certificates, and strict data handling for emails.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 7,
+    "forks": 1,
+    "license": "GPL-3.0",
+    "lastUpdated": "2026-04-13T22:59:34Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Maurice Flöthmann",
+      "githubUrl": "https://github.com/Mau2rice0",
+      "picture": "https://github.com/Mau2rice0.png",
+      "linkedinUrl": "https://linkedin.com/in/maurice-flöthmann-268344276"
+    }
+  ]
+}
