@@ -1,0 +1,71 @@
+{
+  "id": "repofabric",
+  "name": "RepoFabric",
+  "description": "RepoFabric is a self-hosted WinGet source platform for Microsoft-managed fleets. It provides Entra ID sign-in, one-click Intune policy export (DesktopAppInstaller CSP) to point endpoints to a private source, Azure Arc readiness, and a GUI admin console. It also offers a REST API and a 48-cmdlet PowerShell module, GitOps manifests, scheduled sync, and LAN peer-caching to reduce bandwidth.",
+  "keywords": [
+    "windows-management",
+    "intune",
+    "winget",
+    "entra-id",
+    "azure-arc",
+    "rest-api",
+    "powershell",
+    "gitops"
+  ],
+  "author": "Mark Ringo",
+  "authorPicture": "https://github.com/Ringosystems.png",
+  "githubUrl": "https://github.com/Ringosystems",
+  "linkedinUrl": "https://www.linkedin.com/in/markringo/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Ringosystems/RepoFabric-Public",
+  "downloadUrl": "https://hub.docker.com/r/ringosystems/repofabric",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Overall assessment: The RepoFabric client code appears to be legitimate admin tooling for managing a private WinGet source and related client defaults in an Intune/enterprise environment. There are no obfuscated payloads or direct remote code execution vectors. However, there are security considerations: (1) hardcoded/seeding secret templates in deployment scripts can lead to credential exposure if mishandled; (2) privileged actions (certificate import, registry edits, zone mappings) require strict RBAC and auditing; (3) error handling/logging could be improved for better traceability. Enforce secret management, validate REST sources, and standardize logging to strengthen the security posture.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-04T01:15:43Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mark Ringo",
+      "githubUrl": "https://github.com/Ringosystems",
+      "picture": "https://github.com/Ringosystems.png",
+      "linkedinUrl": "https://www.linkedin.com/in/markringo/"
+    }
+  ]
+}
