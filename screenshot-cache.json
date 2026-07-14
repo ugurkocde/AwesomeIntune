@@ -36,6 +36,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Adobe DC (User) ADMX Templates",
+      "id": "adobe-dc-user-admx-templates",
+      "url": "https://github.com/systmworks/Adobe-DC-User-ADMX",
+      "reason": "No images in README"
+    },
+    {
       "name": "AppLocker Policy Creator",
       "id": "applocker-policy-creator",
       "url": "https://app-locker-cloud.vercel.app/",
