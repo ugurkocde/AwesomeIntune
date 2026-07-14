@@ -1,0 +1,68 @@
+{
+  "id": "intunewin32bulkmanagement",
+  "name": "IntuneWin32BulkManagement",
+  "description": "IntuneWin32BulkManagement is a PowerShell-based GUI for managing Win32 apps in Microsoft Intune. It offers a WPF interface to browse apps, perform bulk group assignments, and streamline update workflows using Winget, with per-app workspaces and live logging. The tool can download, package to .intunewin, upload updates, enrich metadata from Winget, and export or backup catalog data for easy Intune administration.",
+  "keywords": [
+    "intune",
+    "win32",
+    "bulk-management",
+    "powershell",
+    "winget",
+    "wpf",
+    "graph-api",
+    "app-management"
+  ],
+  "author": "Dhiraj Dhote",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Dhirajdh/IntuneWin32BulkManagement",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "desktop-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 6,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 3,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-03T16:37:59Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Dhiraj Dhote"
+    }
+  ]
+}
