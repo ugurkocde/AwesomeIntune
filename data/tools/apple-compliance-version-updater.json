@@ -1,0 +1,71 @@
+{
+  "id": "apple-compliance-version-updater",
+  "name": "Apple Compliance Version Updater",
+  "description": "Apple Compliance Version Updater automatically updates the osMinimumVersion in macOS and iOS/iPadOS Intune compliance policies based on the SOFA feed. It provides per-platform control, supports flexible version strategies (track major, pin to major, or track minor), and runs in Azure Automation with Managed Identity for zero-secret maintenance. Choose separate or unified runbooks for scalable, diagnostics-driven policy updates.",
+  "keywords": [
+    "intune",
+    "macos",
+    "ios",
+    "compliance",
+    "policy",
+    "sofa",
+    "azure",
+    "automation"
+  ],
+  "author": "Niklas Bruhn",
+  "authorPicture": "https://github.com/SSMacAdmin.png",
+  "githubUrl": "https://github.com/SSMacAdmin/",
+  "linkedinUrl": "https://www.linkedin.com/in/niklas-bruhn-b19ab728/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/SSMacAdmin/Apple_ComplianceVersion_Updater",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 8,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 1,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-05-15T12:32:18Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Niklas Bruhn",
+      "githubUrl": "https://github.com/SSMacAdmin/",
+      "picture": "https://github.com/SSMacAdmin.png",
+      "linkedinUrl": "https://www.linkedin.com/in/niklas-bruhn-b19ab728/"
+    }
+  ]
+}
