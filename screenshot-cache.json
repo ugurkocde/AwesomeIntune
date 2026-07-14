@@ -86,6 +86,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Edge Extension Inventory Collector",
+      "id": "edge-extension-inventory-collector",
+      "url": "https://github.com/Mau2rice0/World-of-M365/tree/main/Security/Reporting/EdgeExtensions",
+      "reason": "No images in README"
+    },
+    {
       "name": "Edge Favorites Builder",
       "id": "edge-favorites-builder",
       "url": "https://github.com/Simsen/Edge-Favorit-Builder",
