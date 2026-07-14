@@ -200,6 +200,12 @@
       "reason": "Website blocked; No images in README"
     },
     {
+      "name": "Intune iOS Minimum Version Automation",
+      "id": "intune-ios-minimum-version-automation",
+      "url": "https://github.com/Mau2rice0/intune-ios-minimum-version-automation",
+      "reason": "No images in README"
+    },
+    {
       "name": "Intune Mermaid",
       "id": "intune-mermaid",
       "url": "https://intunemermaid.com/",
