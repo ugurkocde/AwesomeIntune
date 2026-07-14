@@ -1,0 +1,72 @@
+{
+  "id": "device-control-policy-editor-for-macos",
+  "name": "Device Control Policy Editor for macOS",
+  "description": "Defender Device Control macOS Policy Manager is a browser-based editor for authoring and exporting Microsoft Defender for Endpoint device-control policies as Apple .mobileconfig profiles. It combines a Monaco JSON editor, visual Groups/Rules/Entries, a recursive query builder, live validation, and a policy simulator, plus import/export to standard .mobileconfig for deployment via Jamf, Intune, or any MDM.",
+  "keywords": [
+    "macos",
+    "device-control",
+    "policy-editor",
+    "defender-for-endpoint",
+    "mobileconfig",
+    "mdm",
+    "intune",
+    "jamf"
+  ],
+  "author": "Sascha Stumpler",
+  "authorPicture": "https://github.com/SasStu.png",
+  "githubUrl": "https://github.com/SasStu",
+  "linkedinUrl": "https://www.linkedin.com/in/sascha-stumpler-a5a5ab123/",
+  "xUrl": "https://twitter.com/sasStu",
+  "repoUrl": "https://github.com/SasStu/Defender-Device-Control-macOS-Policy-Manager",
+  "downloadUrl": "https://github.com/SasStu/Defender-Device-Control-macOS-Policy-Manager",
+  "websiteUrl": "https://macdevicecontrol.sastu-insights.com",
+  "category": "security",
+  "type": "web-app",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 34,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": null,
+    "lastUpdated": "2026-06-05T08:46:46Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Sascha Stumpler",
+      "githubUrl": "https://github.com/SasStu",
+      "picture": "https://github.com/SasStu.png",
+      "linkedinUrl": "https://www.linkedin.com/in/sascha-stumpler-a5a5ab123/",
+      "xUrl": "https://twitter.com/sasStu"
+    }
+  ]
+}
