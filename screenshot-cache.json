@@ -36,6 +36,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Adobe DC (Computer) ADMX",
+      "id": "adobe-dc-computer-admx",
+      "url": "https://github.com/systmworks/Adobe-DC-ADMX/tree/main",
+      "reason": "No images in README"
+    },
+    {
       "name": "Adobe DC (User) ADMX Templates",
       "id": "adobe-dc-user-admx-templates",
       "url": "https://github.com/systmworks/Adobe-DC-User-ADMX",
