@@ -1,0 +1,71 @@
+{
+  "id": "edge-extension-inventory-collector",
+  "name": "Edge Extension Inventory Collector",
+  "description": "Edge Extension Inventory Collector is a lightweight tool that scans endpoints to enumerate installed Microsoft Edge extensions, capturing extension ID, name, publisher, version, enabled state, and install source. It exports a consolidated inventory to JSON or CSV for software asset management, security audits, and Intune/Endpoint Manager workflows. It helps maintain visibility of browser extensions across managed devices and supports baseline compliance checks.",
+  "keywords": [
+    "edge-extension",
+    "extension-inventory",
+    "endpoint-inventory",
+    "powershell",
+    "intune",
+    "microsoft-365",
+    "compliance",
+    "reporting"
+  ],
+  "author": "Maurice Flöthmann",
+  "authorPicture": "https://github.com/Mau2rice0.png",
+  "githubUrl": "https://github.com/Mau2rice0",
+  "linkedinUrl": "https://www.linkedin.com/in/maurice-fl%C3%B6thmann-268344276",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Mau2rice0/World-of-M365/tree/main/Security/Reporting/EdgeExtensions",
+  "downloadUrl": "https://github.com/Mau2rice0/World-of-M365/tree/main/Security/Reporting/EdgeExtensions",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 8,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Security assessment: No obfuscated code, no remote code execution, no evident credential theft, and no data exfiltration observed. Major concerns are the presence of hardcoded credentials in the Client Secret authentication script (risk of secret leakage), logging of recipient/sender emails (potential information exposure), and the use of a Graph Beta endpoint for sign-in data (may have stability/security implications). Address hardcoded secrets by adopting secure vault-based storage and managed identity flow, minimize sensitive data in logs, and review Beta API usage for production deployments.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 51,
+    "forks": 6,
+    "license": "MIT",
+    "lastUpdated": "2026-07-06T12:13:04Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Maurice Flöthmann",
+      "githubUrl": "https://github.com/Mau2rice0",
+      "picture": "https://github.com/Mau2rice0.png",
+      "linkedinUrl": "https://www.linkedin.com/in/maurice-fl%C3%B6thmann-268344276"
+    }
+  ]
+}
