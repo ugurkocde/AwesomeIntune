@@ -1,0 +1,53 @@
+{
+  "id": "tenant-banner",
+  "name": "Tenant Banner",
+  "description": "Tenant Banner adds a clear banner to Microsoft admin portals, showing the active Microsoft Entra tenant at all times. Administrators can configure tenant IDs, names, and colors for instant visual identification. Designed for IT admins, MSPs, consultants, and support teams working across Intune, Entra, Microsoft 365, Azure, Defender, Teams, Purview, and Power Platform. It reduces the risk of mistakes by making the current tenant immediately visible when managing multiple environments.",
+  "keywords": [],
+  "author": "Solido",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://microsoftedge.microsoft.com/addons/detail/tenant-banner/epdolmkjnglmfnhegfnlmdcgckfjnpcj",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "other",
+  "type": "browser-extension",
+  "dateAdded": "2026-07-14",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-14",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Solido"
+    }
+  ]
+}
