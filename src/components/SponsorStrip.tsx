@@ -95,7 +95,7 @@ export function SponsorStrip() {
           href="https://www.algiz-technology.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 sm:-ml-2"
           onClick={() => trackSponsorClick("algiz", "hero")}
         >
           <Image
