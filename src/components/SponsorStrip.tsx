@@ -62,6 +62,21 @@ export function SponsorStrip() {
           />
         </a>
         <a
+          href="https://devote.com/?utm_source=awesome_intune"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          onClick={() => trackSponsorClick("devote", "hero")}
+        >
+          <Image
+            src="/sponsors/devote.png"
+            alt="Devote - Sponsor"
+            width={441}
+            height={520}
+            className="h-12 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-16"
+          />
+        </a>
+        <a
           href="https://devicie.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
