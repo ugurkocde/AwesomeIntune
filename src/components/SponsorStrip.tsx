@@ -12,14 +12,14 @@ export function SponsorStrip() {
   return (
     <section aria-label="Sponsors" className="container-main pb-10">
       <div className="flex flex-wrap items-center justify-center gap-8 rounded-2xl border border-[color:var(--border-subtle)] bg-white px-6 py-6 sm:gap-12 sm:px-10">
-        <span className="text-[11px] font-semibold tracking-[0.18em] text-slate-400 uppercase">
+        <span className="basis-full text-center text-[11px] font-semibold tracking-[0.18em] text-slate-400 uppercase sm:basis-auto sm:text-left">
           Sponsored by
         </span>
         <a
           href="https://eido.io/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="sponsor-logo-link group block transition-transform duration-300 hover:scale-[1.02]"
+          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
           onClick={() => trackSponsorClick("eido", "hero")}
         >
           {/* Light logo for dark theme (default) */}
@@ -43,7 +43,7 @@ export function SponsorStrip() {
           href="https://zerotouch.ai/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="sponsor-logo-link group block transition-transform duration-300 hover:scale-[1.02]"
+          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
           onClick={() => trackSponsorClick("zerotouch", "hero")}
         >
           <Image
@@ -65,7 +65,7 @@ export function SponsorStrip() {
           href="https://devicie.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block transition-transform duration-300 hover:scale-[1.02]"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
           onClick={() => trackSponsorClick("devicie", "hero")}
         >
           <Image
@@ -74,6 +74,21 @@ export function SponsorStrip() {
             width={150}
             height={55}
             className="h-9 w-auto opacity-70 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
+          />
+        </a>
+        <a
+          href="https://www.algiz-technology.com/?utm_source=awesome_intune"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          onClick={() => trackSponsorClick("algiz", "hero")}
+        >
+          <Image
+            src="/sponsors/algiz.png"
+            alt="Algiz Technology - Sponsor"
+            width={520}
+            height={197}
+            className="h-9 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
           />
         </a>
       </div>
