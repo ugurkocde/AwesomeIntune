@@ -217,12 +217,12 @@ export function Footer() {
             >
               Sponsors
             </h3>
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <div className="grid grid-cols-[repeat(3,max-content)] items-center gap-4 sm:flex sm:flex-wrap sm:gap-6">
               <a
                 href="https://eido.io/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block transition-transform duration-300 hover:scale-[1.02]"
+                className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
                 onClick={() => trackSponsorClick("eido", "footer")}
               >
                 <Image
@@ -244,7 +244,7 @@ export function Footer() {
                 href="https://zerotouch.ai/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block transition-transform duration-300 hover:scale-[1.02]"
+                className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
                 onClick={() => trackSponsorClick("zerotouch", "footer")}
               >
                 <Image
@@ -263,10 +263,25 @@ export function Footer() {
                 />
               </a>
               <a
+                href="https://devote.com/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+                onClick={() => trackSponsorClick("devote", "footer")}
+              >
+                <Image
+                  src="/sponsors/devote.png"
+                  alt="Devote - Sponsor"
+                  width={441}
+                  height={520}
+                  className="h-[38px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
+                />
+              </a>
+              <a
                 href="https://devicie.com/?utm_source=awesome_intune"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-block transition-transform duration-300 hover:scale-[1.02]"
+                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
                 onClick={() => trackSponsorClick("devicie", "footer")}
               >
                 <Image
@@ -275,6 +290,21 @@ export function Footer() {
                   width={95}
                   height={34}
                   className="h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
+                />
+              </a>
+              <a
+                href="https://www.algiz-technology.com/?utm_source=awesome_intune"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 sm:-ml-1"
+                onClick={() => trackSponsorClick("algiz", "footer")}
+              >
+                <Image
+                  src="/sponsors/algiz.png"
+                  alt="Algiz Technology - Sponsor"
+                  width={520}
+                  height={197}
+                  className="h-[27px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
                 />
               </a>
             </div>
