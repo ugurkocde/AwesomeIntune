@@ -1,6 +1,7 @@
 {
   "blockedWebsites": [
     "https://www.cloudpolicypreferences.com/",
+    "https://cmtrace.dev/",
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://intunediff.com/",
     "https://intuneguardian.com/",
@@ -84,6 +85,12 @@
       "id": "cloud-policy-preferences",
       "url": "https://www.cloudpolicypreferences.com/",
       "reason": "Website blocked; No images in README"
+    },
+    {
+      "name": "CMTrace Web",
+      "id": "cmtrace-web",
+      "url": "https://cmtrace.dev/",
+      "reason": "Website blocked"
     },
     {
       "name": "Conditional Access simulator",
@@ -389,12 +396,6 @@
       "name": "PowerShell ADMX wizard",
       "id": "powershell-admx-wizard",
       "url": "https://github.com/niklasrst/windows-admx-wizard",
-      "reason": "No images in README"
-    },
-    {
-      "name": "PPPC Builder for macOS",
-      "id": "pppc-builder-for-macos",
-      "url": "https://github.com/Simsen/PPPC-Builder",
       "reason": "No images in README"
     },
     {
