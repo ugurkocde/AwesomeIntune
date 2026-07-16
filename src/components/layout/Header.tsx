@@ -106,9 +106,14 @@ export function Header() {
               priority
               className="h-[34px] w-[34px] shrink-0"
             />
-            <span className="font-display text-base font-bold tracking-[-0.02em] text-[var(--text-primary)]">
-              AWESOME
-              <span className="text-[var(--accent-primary)]"> INTUNE</span>
+            <span className="flex flex-col items-start">
+              <span className="font-display text-base leading-none font-bold tracking-[-0.02em] text-[var(--text-primary)]">
+                AWESOME
+                <span className="text-[var(--accent-primary)]"> INTUNE</span>
+              </span>
+              <span className="mt-1 text-[10px] leading-none font-medium tracking-[0.03em] text-slate-400">
+                by Ugur Labs
+              </span>
             </span>
           </Link>
 
