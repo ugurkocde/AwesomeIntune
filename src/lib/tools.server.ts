@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import type { Tool, Author } from "~/types/tool";
 import type { Collection } from "~/types/collection";
-import { getToolAuthors, generateAuthorSlug } from "./tools";
+import { getToolAuthors, generateAuthorSlug, getToolSlug } from "./tools";
 
 export interface AuthorWithTools extends Author {
   slug: string;
@@ -64,6 +64,14 @@ export function getToolById(id: string): Tool | undefined {
 }
 
 /**
+ * Get a tool by its public URL slug.
+ */
+export function getToolBySlug(slug: string): Tool | undefined {
+  const tools = getAllTools();
+  return tools.find((tool) => getToolSlug(tool) === slug);
+}
+
+/**
  * Get all tools in a specific category
  */
 export function getToolsByCategory(category: string): Tool[] {
@@ -77,6 +85,14 @@ export function getToolsByCategory(category: string): Tool[] {
 export function getAllToolIds(): string[] {
   const tools = getAllTools();
   return tools.map((tool) => tool.id);
+}
+
+/**
+ * Get all public tool slugs (for static generation).
+ */
+export function getAllToolSlugs(): string[] {
+  const tools = getAllTools();
+  return tools.map(getToolSlug);
 }
 
 /**

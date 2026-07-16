@@ -7,6 +7,7 @@ import {
   getCollectionTools,
 } from "~/lib/tools.server";
 import { SITE_CONFIG, STATIC_PAGES_LAST_MODIFIED } from "~/lib/constants";
+import { getToolSlug } from "~/lib/tools";
 import type { Tool, ToolCategory, ToolType } from "~/types/tool";
 
 // Map categories to best-of URL slugs
@@ -99,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Tool detail pages
   const toolPages: MetadataRoute.Sitemap = tools.map((tool) => ({
-    url: `${baseUrl}/tools/${tool.id}`,
+    url: `${baseUrl}/tools/${getToolSlug(tool)}`,
     lastModified: new Date(tool.dateAdded),
     changeFrequency: "weekly" as const,
     priority: 0.8,

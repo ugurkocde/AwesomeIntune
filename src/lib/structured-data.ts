@@ -4,7 +4,7 @@ import {
   CATEGORY_CONFIG,
   STATIC_PAGES_LAST_MODIFIED,
 } from "./constants";
-import { getToolAuthors } from "./tools";
+import { getToolAuthors, getToolSlug } from "./tools";
 
 /**
  * Generate JSON-LD structured data for a tool (SoftwareApplication schema)
@@ -193,7 +193,7 @@ export function generateItemListStructuredData(tools: Tool[]) {
         "@type": "SoftwareApplication",
         name: tool.name,
         description: tool.description,
-        url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+        url: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}`,
         applicationCategory:
           CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
         offers: {

@@ -6,6 +6,7 @@ import type { Tool } from "~/types/tool";
 import type { ViewCounts } from "~/hooks/useViewTracking";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
+import { getToolSlug } from "~/lib/tools";
 
 interface AuthorPageClientProps {
   tools: Tool[];
@@ -380,7 +381,7 @@ function ToolCard({
 
   return (
     <Link
-      href={`/tools/${tool.id}`}
+      href={`/tools/${getToolSlug(tool)}`}
       className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
       style={{
         background: "var(--bg-tertiary)",

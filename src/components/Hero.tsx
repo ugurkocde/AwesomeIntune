@@ -15,7 +15,7 @@ import { SponsorStrip } from "./SponsorStrip";
 import { SearchBar } from "./tools/SearchBar";
 import { shouldUseAiSearch } from "~/lib/aiSearch";
 import { CATEGORY_CONFIG, TYPE_CONFIG } from "~/lib/constants";
-import { isVerified } from "~/lib/tools";
+import { getToolSlug, isVerified } from "~/lib/tools";
 import type { Tool, ToolCategory } from "~/types/tool";
 
 interface HeroProps {
@@ -212,7 +212,7 @@ export function Hero({
             {newestTools.map((tool) => (
               <Link
                 key={tool.id}
-                href={`/tools/${tool.id}`}
+                href={`/tools/${getToolSlug(tool)}`}
                 className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-slate-100"
               >
                 <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-sm font-bold text-[var(--accent-primary)]">

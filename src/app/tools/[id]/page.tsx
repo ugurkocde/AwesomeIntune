@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import {
-  getToolById,
-  getAllToolIds,
+  getToolBySlug,
+  getAllToolSlugs,
   getRelatedTools,
 } from "~/lib/tools.server";
-import { getToolAuthors, generateAuthorSlug } from "~/lib/tools";
+import { getToolAuthors, generateAuthorSlug, getToolSlug } from "~/lib/tools";
 import { TYPE_CONFIG, CATEGORY_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import {
   generateToolStructuredData,
@@ -34,15 +34,15 @@ interface ToolPageProps {
 }
 
 export async function generateStaticParams() {
-  const toolIds = getAllToolIds();
-  return toolIds.map((id) => ({ id }));
+  const toolSlugs = getAllToolSlugs();
+  return toolSlugs.map((id) => ({ id }));
 }
 
 export async function generateMetadata({
   params,
 }: ToolPageProps): Promise<Metadata> {
   const { id } = await params;
-  const tool = getToolById(id);
+  const tool = getToolBySlug(id);
 
   if (!tool) {
     return {
@@ -81,13 +81,13 @@ export async function generateMetadata({
     description,
     keywords,
     alternates: {
-      canonical: `${SITE_CONFIG.url}/tools/${tool.id}`,
+      canonical: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}`,
     },
     openGraph: {
       title,
       description,
       type: "website",
-      url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+      url: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}`,
       images: [
         {
           url: ogImageUrl,
@@ -172,7 +172,7 @@ function TypeIcon({ type }: { type: string }) {
 
 export default async function ToolPage({ params }: ToolPageProps) {
   const { id } = await params;
-  const tool = getToolById(id);
+  const tool = getToolBySlug(id);
 
   if (!tool) {
     notFound();
@@ -194,7 +194,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
       name: categoryConfig.label,
       url: `${SITE_CONFIG.url}/tools/category/${tool.category}`,
     },
-    { name: tool.name, url: `${SITE_CONFIG.url}/tools/${tool.id}` },
+    { name: tool.name, url: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}` },
   ]);
   const faqData = generateToolFAQStructuredData(tool);
 

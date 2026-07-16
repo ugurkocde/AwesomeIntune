@@ -1,6 +1,13 @@
 import type { Author, Tool, ToolCategory, ToolType } from "~/types/tool";
 
 /**
+ * Get the public URL slug for a tool while keeping its internal ID stable.
+ */
+export function getToolSlug(tool: Tool): string {
+  return tool.slug ?? tool.id;
+}
+
+/**
  * Whether a tool's source genuinely passed every automated security check.
  *
  * Single source of truth for the "verified" count (trust strip, stats). Honest
