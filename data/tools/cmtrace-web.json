@@ -1,0 +1,66 @@
+{
+  "id": "cmtrace-web",
+  "name": "CMTrace Web",
+  "description": "CMTrace Web (CMTrace.dev) is a free, browser-based log viewer for ConfigMgr/SCCM and Intune logs. Reimplementing CMTrace in the browser, it handles 1M+ line logs with color-coded severities, error-code lookups, and side-by-side diffs, all client-side and offline as a PWA. It opens .log, .txt, .gz, and .zip, with Intune/IME presets to jump straight to relevant logs.",
+  "keywords": [
+    "log-viewer",
+    "cmtrace",
+    "configmgr",
+    "intune",
+    "ime-logs",
+    "web-pwa",
+    "offline",
+    "log-analysis"
+  ],
+  "author": "Florian Salzmann",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "https://www.linkedin.com/in/fsalzmann/",
+  "xUrl": "",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://cmtrace.dev/",
+  "category": "troubleshooting",
+  "type": "web-app",
+  "dateAdded": "2026-07-16",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-16",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Florian Salzmann",
+      "linkedinUrl": "https://www.linkedin.com/in/fsalzmann/"
+    },
+    {
+      "name": "Jannik Reinhard"
+    }
+  ]
+}
