@@ -184,6 +184,16 @@ jobs:
               try { new URL(str); return true; } catch { return false; }
             }
 
+            function isGitHubRepoUrl(str) {
+              try {
+                const url = new URL(str);
+                const parts = url.pathname.split('/').filter(Boolean);
+                return ['github.com', 'www.github.com'].includes(url.hostname.toLowerCase()) && parts.length >= 2;
+              } catch {
+                return false;
+              }
+            }
+
             function extractRepoName(repoUrl) {
               const match = repoUrl.match(/github\.com\/[^/]+\/([^/]+)/);
               if (!match) return null;
@@ -413,8 +423,11 @@ jobs:
 
             // STEP 3: Create catalog entry
 
-            const readmeContent = fields.repoUrl ? await fetchReadme(fields.repoUrl, securityResults.branch) : null;
-            const websiteContent = fields.websiteUrl ? await fetchWebsite(fields.websiteUrl) : null;
+            const hasGitHubRepo = isGitHubRepoUrl(fields.repoUrl);
+            const catalogRepoUrl = hasGitHubRepo ? fields.repoUrl : '';
+            const catalogWebsiteUrl = fields.websiteUrl || (!hasGitHubRepo ? fields.repoUrl : '');
+            const readmeContent = hasGitHubRepo ? await fetchReadme(fields.repoUrl, securityResults.branch) : null;
+            const websiteContent = catalogWebsiteUrl ? await fetchWebsite(catalogWebsiteUrl) : null;
 
             let enhancedDescription = fields.description;
             let keywords = [];
@@ -435,9 +448,9 @@ jobs:
               githubUrl: fields.githubUrl || '',
               linkedinUrl: fields.linkedinUrl || '',
               xUrl: fields.xUrl || '',
-              repoUrl: fields.repoUrl,
+              repoUrl: catalogRepoUrl,
               downloadUrl: fields.downloadUrl || '',
-              websiteUrl: fields.websiteUrl || '',
+              websiteUrl: catalogWebsiteUrl,
               category: normalizeCategory(fields.category),
               type: normalizeType(fields.type),
               dateAdded: today,
