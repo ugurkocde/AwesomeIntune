@@ -1,7 +1,7 @@
 {
   "id": "pppc-builder-for-macos",
-  "name": "PPPC Builder for macOS",
-  "description": "PPPC Builder for macOS is a lightweight web-based tool that generates macOS PPPC (.mobileconfig) profiles tailored for Microsoft Intune deployments. You can select an app (or upload its Info.plist), choose required privacy permissions (Screen Recording, Full Disk Access, Camera, Microphone, Accessibility), and download a ready-to-deploy .mobileconfig for Intune. No Jamf dependency; simple, fast, Intune-focused.",
+  "name": "MacPPPC",
+  "description": "MacPPPC is a browser-based builder for macOS Privacy Preferences Policy Control profiles. It generates unsigned .mobileconfig or Settings Catalog JSON output and can deploy profiles, scope tags, and assignments directly to Microsoft Intune through delegated Microsoft Graph access.",
   "keywords": [
     "intune",
     "macos",
@@ -9,22 +9,26 @@
     "privacy",
     "mobileconfig",
     "configuration-profile",
-    "web-based",
+    "settings-catalog",
+    "microsoft-graph",
+    "scope-tags",
+    "assignments",
     "deployment"
   ],
-  "author": "Simon Hartmann Eriksen",
-  "authorPicture": "",
-  "githubUrl": "",
-  "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
-  "xUrl": "https://x.com/Sim0nEriksen",
+  "author": "Roy Klooster",
+  "authorPicture": "https://github.com/royklo.png",
+  "githubUrl": "https://github.com/royklo",
+  "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/",
+  "xUrl": "",
   "repoUrl": "https://github.com/Simsen/PPPC-Builder",
   "downloadUrl": "",
-  "websiteUrl": "",
+  "websiteUrl": "https://macpppc.com",
   "category": "configuration",
   "type": "web-app",
   "worksWith": [
     "macos",
-    "configuration-profiles"
+    "configuration-profiles",
+    "entra-id"
   ],
   "dateAdded": "2026-02-23",
   "securityCheck": {
@@ -66,7 +70,15 @@
   },
   "authors": [
     {
+      "name": "Roy Klooster",
+      "githubUrl": "https://github.com/royklo",
+      "picture": "https://github.com/royklo.png",
+      "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/"
+    },
+    {
       "name": "Simon Hartmann Eriksen",
+      "githubUrl": "https://github.com/Simsen",
+      "picture": "https://github.com/Simsen.png",
       "linkedinUrl": "https://www.linkedin.com/in/simoneriksendk/",
       "xUrl": "https://x.com/Sim0nEriksen"
     }
