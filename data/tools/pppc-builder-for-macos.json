@@ -1,5 +1,6 @@
 {
   "id": "pppc-builder-for-macos",
+  "slug": "macpppc",
   "name": "MacPPPC",
   "description": "MacPPPC is a browser-based builder for macOS Privacy Preferences Policy Control profiles. It generates unsigned .mobileconfig or Settings Catalog JSON output and can deploy profiles, scope tags, and assignments directly to Microsoft Intune through delegated Microsoft Graph access.",
   "keywords": [

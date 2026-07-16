@@ -6,7 +6,7 @@ import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
-import { getToolAuthors } from "~/lib/tools";
+import { getToolAuthors, getToolSlug } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
 
@@ -260,7 +260,7 @@ export const ToolListItem = memo(function ToolListItem({
           <div className="flex items-center justify-end gap-2">
             {/* Stretched primary link makes the whole row navigable */}
             <Link
-              href={`/tools/${tool.id}`}
+              href={`/tools/${getToolSlug(tool)}`}
               onClick={handleViewClick}
               className="flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium transition-colors hover:bg-white/10"
               style={{

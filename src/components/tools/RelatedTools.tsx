@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
-import { getToolAuthors } from "~/lib/tools";
+import { getToolAuthors, getToolSlug } from "~/lib/tools";
 
 interface RelatedToolsProps {
   tools: Tool[];
@@ -54,7 +54,7 @@ export function RelatedTools({ tools, currentToolId }: RelatedToolsProps) {
           return (
             <Link
               key={tool.id}
-              href={`/tools/${tool.id}`}
+              href={`/tools/${getToolSlug(tool)}`}
               className="group relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-accent)]"
               style={{
                 background: "var(--bg-secondary)",

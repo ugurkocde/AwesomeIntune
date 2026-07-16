@@ -7,7 +7,7 @@ import {
   getAllCollectionSlugs,
   getCollectionTools,
 } from "~/lib/tools.server";
-import { getToolAuthors } from "~/lib/tools";
+import { getToolAuthors, getToolSlug } from "~/lib/tools";
 import {
   SITE_CONFIG,
   TYPE_CONFIG,
@@ -286,7 +286,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
         "@type": "SoftwareApplication",
         name: tool.name,
         description: tool.description,
-        url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+        url: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}`,
         applicationCategory:
           CATEGORY_CONFIG[tool.category]?.label ?? tool.category,
         offers: {
@@ -473,7 +473,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                     return (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.id}`}
+                        href={`/tools/${getToolSlug(tool)}`}
                         className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02]"
                         style={{
                           background: "var(--bg-tertiary)",

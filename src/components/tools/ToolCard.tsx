@@ -6,7 +6,7 @@ import Image from "next/image";
 import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
-import { getToolAuthors, generateAuthorSlug } from "~/lib/tools";
+import { getToolAuthors, generateAuthorSlug, getToolSlug } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
 import { SecurityBadge } from "./SecurityBadge";
@@ -427,7 +427,7 @@ export const ToolCard = memo(function ToolCard({
             >
               {/* View Details Link - stretched to make the whole card clickable */}
               <Link
-                href={`/tools/${tool.id}`}
+                href={`/tools/${getToolSlug(tool)}`}
                 onClick={handleDetailsClick}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-slate-200 hover:text-[var(--text-primary)]"
                 style={{

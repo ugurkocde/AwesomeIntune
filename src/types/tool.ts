@@ -113,6 +113,8 @@ export interface RepoStats {
 
 export interface Tool {
   id: string;
+  /** Optional public URL slug when it should differ from the stable internal ID. */
+  slug?: string;
   name: string;
   description: string;
   keywords?: string[];

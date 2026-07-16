@@ -9,6 +9,7 @@ import {
   BEST_TYPE_SLUGS,
 } from "~/lib/best-categories";
 import type { ToolCategory } from "~/types/tool";
+import { getToolSlug } from "~/lib/tools";
 
 // Labels for the type-based PowerShell pages
 const TYPE_PAGE_LABELS: Record<string, string> = {
@@ -175,7 +176,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
         "@type": "SoftwareApplication",
         name: tool.name,
         description: tool.description,
-        url: `${SITE_CONFIG.url}/tools/${tool.id}`,
+        url: `${SITE_CONFIG.url}/tools/${getToolSlug(tool)}`,
         applicationCategory: categoryConfig?.label ?? "Utility",
         ...(tool.repoStats?.stars && {
           aggregateRating: {
@@ -348,7 +349,7 @@ export default async function BestCategoryPage({ params }: BestCategoryPageProps
               return (
                 <Link
                   key={tool.id}
-                  href={`/tools/${tool.id}`}
+                  href={`/tools/${getToolSlug(tool)}`}
                   className="group block rounded-2xl transition-all hover:scale-[1.01]"
                   style={{
                     background: "var(--bg-secondary)",

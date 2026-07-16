@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllTools, getAllCategories, getUniqueAuthorsCount } from "~/lib/tools.server";
-import { isVerified } from "~/lib/tools";
+import { getToolSlug, isVerified } from "~/lib/tools";
 import { CATEGORY_CONFIG, TYPE_CONFIG, SITE_CONFIG } from "~/lib/constants";
 import { generateStatsPageStructuredData, generateDataCatalogStructuredData } from "~/lib/structured-data";
 import type { ToolCategory, ToolType } from "~/types/tool";
@@ -291,7 +291,7 @@ export default function StatsPage() {
                   {topByStars.map((tool, index) => (
                     <Link
                       key={tool.id}
-                      href={`/tools/${tool.id}`}
+                      href={`/tools/${getToolSlug(tool)}`}
                       className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
                     >
                       <span
@@ -343,7 +343,7 @@ export default function StatsPage() {
                   {newestTools.map((tool) => (
                     <Link
                       key={tool.id}
-                      href={`/tools/${tool.id}`}
+                      href={`/tools/${getToolSlug(tool)}`}
                       className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
                     >
                       <span

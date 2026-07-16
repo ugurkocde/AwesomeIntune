@@ -29,6 +29,11 @@ const config = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/tools/pppc-builder-for-macos",
+        destination: "/tools/macpppc",
+        permanent: true,
+      },
     ];
   },
   async headers() {
