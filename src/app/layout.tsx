@@ -15,6 +15,7 @@ import {
 } from "~/lib/structured-data";
 import { STATIC_PAGES_LAST_MODIFIED } from "~/lib/constants";
 import { getAllTools } from "~/lib/tools.server";
+import { THEME_STORAGE_KEY } from "~/lib/theme";
 
 // Outfit - Display font (similar to Cabinet Grotesk)
 const outfit = Outfit({
@@ -36,6 +37,30 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
+
+const themeInitializationScript = `
+  (function () {
+    var theme = "light";
+    try {
+      var savedTheme = window.localStorage.getItem("${THEME_STORAGE_KEY}");
+      theme = savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    } catch (error) {
+      theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    var themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute("content", theme === "dark" ? "#0b1220" : "#f8fafc");
+    }
+  })();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.awesomeintune.com"),
@@ -120,9 +145,15 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
+      suppressHydrationWarning
       className={`${outfit.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#f8fafc" />
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
+        />
         <meta name="msvalidate.01" content="3E85A4E6616AA104DB060F4E3AC73298" />
         {/* Citation meta tags for GEO (Generative Engine Optimization) */}
         <meta
@@ -168,7 +199,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col">
         <a
           href="#main-content"
-          className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-lg bg-[var(--accent-primary)] px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0"
+          className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-lg bg-[var(--accent-solid)] px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0"
         >
           Skip to content
         </a>

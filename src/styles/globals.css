@@ -5,15 +5,28 @@
    ============================================ */
 
 :root {
-  /* Light Editorial palette */
+  color-scheme: light;
+
+  /* Light Editorial palette (also used as the no-JavaScript fallback) */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
   --bg-elevated: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(15, 23, 42, 0.06);
+  --surface-subtle: rgba(255, 255, 255, 0.5);
+  --search-progress-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(0, 120, 212, 0.07)
+  );
+  --panel-inset: rgba(255, 255, 255, 0.8);
 
   /* Microsoft blue accent */
   --accent-primary: #0078d4;
   --accent-secondary: #005a9e;
+  --accent-solid: #0078d4;
+  --accent-solid-hover: #005a9e;
   --accent-glow: rgba(0, 120, 212, 0.1);
   --accent-glow-strong: rgba(0, 120, 212, 0.2);
 
@@ -96,13 +109,26 @@
 
 /* Light Theme */
 [data-theme="light"] {
+  color-scheme: light;
+
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
   --bg-elevated: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(15, 23, 42, 0.06);
+  --surface-subtle: rgba(255, 255, 255, 0.5);
+  --search-progress-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(0, 120, 212, 0.07)
+  );
+  --panel-inset: rgba(255, 255, 255, 0.8);
 
   --accent-primary: #0078d4;
   --accent-secondary: #005a9e;
+  --accent-solid: #0078d4;
+  --accent-solid-hover: #005a9e;
   --accent-glow: rgba(0, 120, 212, 0.1);
   --accent-glow-strong: rgba(0, 120, 212, 0.2);
 
@@ -127,6 +153,53 @@
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
   --shadow-glow: 0 0 30px rgba(0, 120, 212, 0.15);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-primary: #0b1220;
+  --bg-secondary: #111b2e;
+  --bg-tertiary: #1a2940;
+  --bg-elevated: #203049;
+  --header-bg: rgba(11, 18, 32, 0.92);
+  --surface-hover: rgba(148, 163, 184, 0.12);
+  --surface-subtle: rgba(17, 27, 46, 0.55);
+  --search-progress-bg: linear-gradient(
+    135deg,
+    rgba(17, 27, 46, 0.98),
+    rgba(78, 181, 247, 0.1)
+  );
+  --panel-inset: rgba(255, 255, 255, 0.06);
+
+  --accent-primary: #4eb5f7;
+  --accent-secondary: #84cefb;
+  --accent-solid: #0078d4;
+  --accent-solid-hover: #106ebe;
+  --accent-glow: rgba(78, 181, 247, 0.14);
+  --accent-glow-strong: rgba(78, 181, 247, 0.25);
+
+  --signal-success: #34d399;
+  --signal-warning: #fbbf24;
+  --signal-error: #fb7185;
+  --signal-purple: #c084fc;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #b5c3d5;
+  --text-tertiary: #8fa2ba;
+
+  --border-subtle: rgba(226, 232, 240, 0.09);
+  --border-medium: rgba(226, 232, 240, 0.16);
+  --border-accent: rgba(78, 181, 247, 0.38);
+
+  --grid-line: rgba(78, 181, 247, 0.06);
+  --grid-node: rgba(78, 181, 247, 0.36);
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.34);
+  --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.42);
+  --shadow-glow: 0 0 30px rgba(78, 181, 247, 0.16);
 }
 
 /* ============================================
@@ -164,6 +237,7 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg-primary);
 }
 
 body {
@@ -270,12 +344,12 @@ textarea {
 }
 
 .btn-primary {
-  background: var(--accent-primary);
+  background: var(--accent-solid);
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background: var(--accent-secondary);
+  background: var(--accent-solid-hover);
   box-shadow: var(--shadow-glow);
 }
 
@@ -486,6 +560,36 @@ textarea {
 }
 
 /* ============================================
+   Theme Toggle
+   ============================================ */
+
+.theme-icon {
+  transition:
+    opacity var(--duration-fast) var(--ease-out-expo),
+    transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-icon-sun {
+  opacity: 0;
+  transform: rotate(-35deg) scale(0.65);
+}
+
+[data-theme="dark"] .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(35deg) scale(0.65);
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* ============================================
    Sponsor Logo Theme Switching
    ============================================ */
 
@@ -509,4 +613,18 @@ textarea {
 
 [data-theme="light"] .sponsor-logo-link:hover .sponsor-logo-light {
   opacity: 1;
+}
+
+[data-theme="dark"] .sponsor-logo-dark {
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .sponsor-logo-monochrome {
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .sponsor-logo-on-dark {
+  filter: brightness(2.75) contrast(1.05) saturate(1.05);
+  opacity: 0.95;
 }

@@ -64,7 +64,7 @@ export function RequestModal({ isOpen, onClose }: RequestModalProps) {
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute right-4 top-4 rounded-lg p-2 transition-colors hover:bg-white/5"
+                className="absolute right-4 top-4 rounded-lg p-2 transition-colors hover:bg-[var(--surface-hover)]"
                 style={{ color: "var(--text-tertiary)" }}
                 aria-label="Close modal"
               >

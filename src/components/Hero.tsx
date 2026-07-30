@@ -166,7 +166,7 @@ export function Hero({
                   <Link
                     key={category}
                     href={`/?category=${category}#tools`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border-subtle)] bg-white px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:border-[color:var(--border-accent)] hover:text-[var(--accent-primary)]"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:border-[color:var(--border-accent)] hover:text-[var(--accent-primary)]"
                   >
                     <span
                       className="h-1.5 w-1.5 rounded-full"
@@ -174,7 +174,7 @@ export function Hero({
                       aria-hidden="true"
                     />
                     {config.label}
-                    <span className="text-slate-400">{count}</span>
+                    <span className="text-[var(--text-tertiary)]">{count}</span>
                   </Link>
                 );
               })}
@@ -194,7 +194,7 @@ export function Hero({
         </div>
 
         <aside
-          className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-white p-2 shadow-[0_20px_50px_rgba(15,23,42,0.07)]"
+          className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-2 shadow-[var(--shadow-md)]"
           aria-label="Newest additions"
         >
           <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5">
@@ -213,9 +213,9 @@ export function Hero({
               <Link
                 key={tool.id}
                 href={`/tools/${getToolSlug(tool)}`}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-slate-100"
+                className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-[var(--surface-hover)]"
               >
-                <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-sm font-bold text-[var(--accent-primary)]">
+                <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--bg-tertiary)] text-sm font-bold text-[var(--accent-primary)]">
                   {tool.authorPicture ? (
                     <Image
                       src={tool.authorPicture}

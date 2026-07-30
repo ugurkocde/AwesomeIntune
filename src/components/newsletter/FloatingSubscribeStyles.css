@@ -141,13 +141,12 @@
 
 /* Expanded panel */
 .floating-subscribe-panel {
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-accent);
   box-shadow:
-    0 24px 60px rgba(15, 23, 42, 0.18),
-    0 4px 14px rgba(15, 23, 42, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    var(--shadow-lg),
+    0 0 0 1px var(--panel-inset) inset;
   overflow: hidden;
   position: relative;
 }
@@ -280,7 +279,7 @@
   width: 100%;
   padding: 13px 15px;
   background: var(--bg-primary);
-  border: 1px solid rgba(15, 23, 42, 0.14);
+  border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -321,7 +320,7 @@
   width: 100%;
   min-height: 48px;
   padding: 12px 16px;
-  background: var(--accent-primary);
+  background: var(--accent-solid);
   color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
@@ -336,7 +335,7 @@
 }
 
 .floating-subscribe-submit:hover:not(:disabled) {
-  background: var(--accent-secondary);
+  background: var(--accent-solid-hover);
   box-shadow: var(--shadow-glow);
 }
 

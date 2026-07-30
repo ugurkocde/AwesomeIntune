@@ -6,6 +6,7 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "~/env";
 import { CATEGORIES } from "~/lib/constants";
 import { trackFormSubmission } from "~/lib/plausible";
+import { useTheme } from "~/hooks/useTheme";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -56,6 +57,7 @@ const itemVariants = {
 };
 
 export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
+  const { theme } = useTheme();
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
   const [issueUrl, setIssueUrl] = useState("");
@@ -80,6 +82,8 @@ export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
       setTurnstileToken("");
     }
   }, [isOpen]);
+
+  useEffect(() => setTurnstileToken(""), [theme]);
 
   const updateField = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -400,12 +404,13 @@ export function RequestSubmitForm({ isOpen }: RequestSubmitFormProps) {
       {/* Turnstile CAPTCHA */}
       <motion.div variants={itemVariants}>
         <Turnstile
+          key={theme}
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onSuccess={setTurnstileToken}
           onError={() => setTurnstileToken("")}
           onExpire={() => setTurnstileToken("")}
           options={{
-            theme: "light",
+            theme,
           }}
         />
         {errors.turnstile && (

@@ -292,7 +292,7 @@ export default function StatsPage() {
                     <Link
                       key={tool.id}
                       href={`/tools/${getToolSlug(tool)}`}
-                      className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
+                      className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-[var(--surface-hover)]"
                     >
                       <span
                         className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold"
@@ -344,7 +344,7 @@ export default function StatsPage() {
                     <Link
                       key={tool.id}
                       href={`/tools/${getToolSlug(tool)}`}
-                      className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
+                      className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-[var(--surface-hover)]"
                     >
                       <span
                         className="flex-1 truncate text-sm font-medium transition-colors group-hover:text-[var(--accent-primary)]"

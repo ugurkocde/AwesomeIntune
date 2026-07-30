@@ -11,15 +11,15 @@ import { trackSponsorClick } from "~/lib/plausible";
 export function SponsorStrip() {
   return (
     <section aria-label="Sponsors" className="container-main pb-10">
-      <div className="flex flex-wrap items-center justify-center gap-8 rounded-2xl border border-[color:var(--border-subtle)] bg-white px-6 py-6 sm:gap-12 sm:px-10">
-        <span className="basis-full text-center text-[11px] font-semibold tracking-[0.18em] text-slate-400 uppercase sm:basis-auto sm:text-left">
+      <div className="flex flex-wrap items-center justify-center gap-8 rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-6 py-6 sm:gap-12 sm:px-10">
+        <span className="basis-full text-center text-[11px] font-semibold tracking-[0.18em] text-[var(--text-tertiary)] uppercase sm:basis-auto sm:text-left">
           Sponsored by
         </span>
         <a
           href="https://eido.io/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)]"
           onClick={() => trackSponsorClick("eido", "hero")}
         >
           {/* Light logo for dark theme (default) */}
@@ -43,7 +43,7 @@ export function SponsorStrip() {
           href="https://zerotouch.ai/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          className="sponsor-logo-link group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)]"
           onClick={() => trackSponsorClick("zerotouch", "hero")}
         >
           <Image
@@ -65,7 +65,7 @@ export function SponsorStrip() {
           href="https://devote.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)]"
           onClick={() => trackSponsorClick("devote", "hero")}
         >
           <Image
@@ -73,14 +73,14 @@ export function SponsorStrip() {
             alt="Devote - Sponsor"
             width={441}
             height={520}
-            className="h-12 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-16"
+            className="sponsor-logo-on-dark h-12 w-auto opacity-80 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-16"
           />
         </a>
         <a
           href="https://devicie.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)]"
           onClick={() => trackSponsorClick("devicie", "hero")}
         >
           <Image
@@ -88,14 +88,14 @@ export function SponsorStrip() {
             alt="Devicie - Sponsor"
             width={150}
             height={55}
-            className="h-9 w-auto opacity-70 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
+            className="sponsor-logo-monochrome h-9 w-auto opacity-70 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
           />
         </a>
         <a
           href="https://www.algiz-technology.com/?utm_source=awesome_intune"
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 sm:-ml-2"
+          className="group block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)] sm:-ml-2"
           onClick={() => trackSponsorClick("algiz", "hero")}
         >
           <Image
@@ -103,7 +103,7 @@ export function SponsorStrip() {
             alt="Algiz Technology - Sponsor"
             width={520}
             height={197}
-            className="h-9 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-[44px]"
+            className="sponsor-logo-on-dark h-9 w-auto opacity-80 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[44px]"
           />
         </a>
       </div>

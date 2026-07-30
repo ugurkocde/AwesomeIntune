@@ -274,7 +274,7 @@ export function Footer() {
                   alt="Devote - Sponsor"
                   width={441}
                   height={520}
-                  className="h-[38px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
+                  className="sponsor-logo-on-dark h-[38px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[50px]"
                 />
               </a>
               <a
@@ -289,7 +289,7 @@ export function Footer() {
                   alt="Devicie - Sponsor"
                   width={95}
                   height={34}
-                  className="h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
+                  className="sponsor-logo-monochrome h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
                 />
               </a>
               <a
@@ -304,7 +304,7 @@ export function Footer() {
                   alt="Algiz Technology - Sponsor"
                   width={520}
                   height={197}
-                  className="h-[27px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
+                  className="sponsor-logo-on-dark h-[27px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[34px]"
                 />
               </a>
             </div>

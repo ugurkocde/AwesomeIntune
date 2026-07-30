@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -8,6 +8,7 @@ import { env } from "~/env";
 import { CATEGORIES, TYPES } from "~/lib/constants";
 import { CollapsibleSection } from "./CollapsibleSection";
 import { trackFormSubmission } from "~/lib/plausible";
+import { useTheme } from "~/hooks/useTheme";
 
 // Mirrors the server-side Zod schema: z.string().url() accepts any value the
 // URL constructor can parse
@@ -145,6 +146,7 @@ const itemVariants = {
 };
 
 export function ToolSubmitForm() {
+  const { theme } = useTheme();
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
   const [issueUrl, setIssueUrl] = useState("");
@@ -154,6 +156,8 @@ export function ToolSubmitForm() {
   const lastFetchedRepoRef = useRef("");
 
   const [formData, setFormData] = useState<FormData>(createInitialFormData);
+
+  useEffect(() => setTurnstileToken(""), [theme]);
 
   // Keep a live snapshot so the async GitHub prefill never overwrites
   // values typed while the fetch was in flight
@@ -633,7 +637,7 @@ export function ToolSubmitForm() {
               <button
                 type="button"
                 onClick={addAuthor}
-                className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-white/5"
+                className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-hover)]"
                 style={{ color: "var(--accent-primary)" }}
                 disabled={state === "loading"}
               >
@@ -681,7 +685,7 @@ export function ToolSubmitForm() {
                     <button
                       type="button"
                       onClick={() => removeAuthor(index)}
-                      className="flex items-center gap-1 rounded px-2 py-1 text-xs transition-colors hover:bg-white/5"
+                      className="flex items-center gap-1 rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-hover)]"
                       style={{ color: "var(--signal-error)" }}
                       disabled={state === "loading"}
                     >
@@ -997,12 +1001,13 @@ export function ToolSubmitForm() {
       {/* Turnstile CAPTCHA */}
       <motion.div variants={itemVariants} className="mt-8">
         <Turnstile
+          key={theme}
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onSuccess={setTurnstileToken}
           onError={() => setTurnstileToken("")}
           onExpire={() => setTurnstileToken("")}
           options={{
-            theme: "light",
+            theme,
           }}
         />
         {errors.turnstile && (

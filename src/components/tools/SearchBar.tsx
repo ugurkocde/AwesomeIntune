@@ -204,7 +204,7 @@ export function SearchBar({
 
       <button
         type="submit"
-        className="absolute top-1/2 right-2 inline-flex h-10 -translate-y-1/2 items-center justify-center rounded-[10px] bg-[var(--accent-primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-secondary)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2"
+        className="absolute top-1/2 right-2 inline-flex h-10 -translate-y-1/2 items-center justify-center rounded-[10px] bg-[var(--accent-solid)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-solid-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-secondary)]"
       >
         {submitLabel}
       </button>

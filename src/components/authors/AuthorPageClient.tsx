@@ -124,7 +124,7 @@ export function AuthorPageClient({
             />
             <div className="relative">
               {isLoading ? (
-                <span className="block h-8 w-16 animate-pulse rounded bg-white/10 sm:h-9" />
+                <span className="block h-8 w-16 animate-pulse rounded bg-[var(--surface-hover)] sm:h-9" />
               ) : (
                 <span
                   className="block text-2xl font-bold sm:text-3xl"

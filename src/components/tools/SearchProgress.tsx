@@ -48,9 +48,10 @@ export function SearchProgress({
           : { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
       }
       aria-hidden="true"
-      className={`relative mb-6 overflow-hidden rounded-2xl border border-[rgba(0,120,212,0.2)] bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(0,120,212,0.07))] shadow-[0_14px_36px_rgba(15,23,42,0.06)] ${
+      className={`relative mb-6 overflow-hidden rounded-2xl border border-[color:var(--border-accent)] shadow-[var(--shadow-md)] ${
         hasDirectMatches ? "px-5 py-4 sm:px-6" : "px-6 py-9 sm:px-10 sm:py-11"
       }`}
+      style={{ background: "var(--search-progress-bg)" }}
     >
       <div className="absolute inset-x-0 top-0 h-1 bg-[rgba(0,120,212,0.08)]">
         <motion.div
@@ -78,7 +79,7 @@ export function SearchProgress({
             hasDirectMatches ? "" : "justify-center text-center"
           }`}
         >
-          <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[rgba(0,120,212,0.2)] bg-white text-[var(--accent-primary)] shadow-[0_8px_20px_rgba(0,120,212,0.12)]">
+          <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[color:var(--border-accent)] bg-[var(--bg-secondary)] text-[var(--accent-primary)] shadow-[var(--shadow-sm)]">
             {!prefersReducedMotion && (
               <motion.span
                 className="absolute inset-0 rounded-2xl border border-[rgba(0,120,212,0.28)]"
@@ -123,19 +124,19 @@ export function SearchProgress({
                 key={stage}
                 className={`flex min-w-0 items-center gap-2.5 rounded-xl border px-3 py-2.5 text-xs font-medium transition-[border-color,background-color,color] ${
                   isActive
-                    ? "border-[rgba(0,120,212,0.25)] bg-white text-[var(--text-primary)] shadow-[0_6px_18px_rgba(15,23,42,0.05)]"
+                    ? "border-[color:var(--border-accent)] bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-[var(--shadow-sm)]"
                     : isComplete
                       ? "border-transparent bg-[rgba(0,120,212,0.06)] text-[var(--accent-primary)]"
-                      : "border-transparent bg-white/50 text-[var(--text-tertiary)]"
+                      : "border-transparent bg-[var(--surface-subtle)] text-[var(--text-tertiary)]"
                 }`}
               >
                 <span
                   className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] font-bold ${
                     isActive
-                      ? "border-[var(--accent-primary)] bg-[var(--accent-primary)] text-white"
+                      ? "border-[var(--accent-solid)] bg-[var(--accent-solid)] text-white"
                       : isComplete
-                        ? "border-[rgba(0,120,212,0.2)] bg-white text-[var(--accent-primary)]"
-                        : "border-[color:var(--border-subtle)] bg-white text-[var(--text-tertiary)]"
+                        ? "border-[color:var(--border-accent)] bg-[var(--bg-secondary)] text-[var(--accent-primary)]"
+                        : "border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-tertiary)]"
                   }`}
                 >
                   {isComplete ? <CheckIcon /> : index + 1}

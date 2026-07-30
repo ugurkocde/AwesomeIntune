@@ -331,7 +331,7 @@ function FilterCheckbox({
   return (
     <button
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors hover:bg-white/5"
+      className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors hover:bg-[var(--surface-hover)]"
     >
       {/* Checkbox */}
       <div
@@ -433,7 +433,7 @@ export function FilterDrawer({
               </h2>
               <button
                 onClick={onClose}
-                className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+                className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-[var(--surface-hover)]"
                 style={{ color: "var(--text-secondary)" }}
               >
                 <svg
@@ -531,7 +531,7 @@ function FilterSidebarContent(props: FilterSidebarProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           onClick={props.onClearAll}
-          className="mb-5 flex w-full items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition-colors hover:bg-white/10"
+          className="mb-5 flex w-full items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition-colors hover:bg-[var(--surface-hover)]"
           style={{
             background: "var(--bg-tertiary)",
             color: "var(--text-secondary)",

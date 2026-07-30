@@ -262,7 +262,7 @@ export const ToolListItem = memo(function ToolListItem({
             <Link
               href={`/tools/${getToolSlug(tool)}`}
               onClick={handleViewClick}
-              className="flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium transition-colors hover:bg-white/10"
+              className="flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium transition-colors hover:bg-[var(--surface-hover)]"
               style={{
                 background: "var(--bg-tertiary)",
                 color: "var(--text-secondary)",
@@ -289,7 +289,7 @@ export const ToolListItem = memo(function ToolListItem({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleOutboundClick(tool.repoUrl!)}
-                className="relative z-10 hidden h-8 w-8 items-center justify-center rounded-lg transition-colors before:absolute before:top-1/2 before:left-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:bg-white/10 sm:flex"
+                className="relative z-10 hidden h-8 w-8 items-center justify-center rounded-lg transition-colors before:absolute before:top-1/2 before:left-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] hover:bg-[var(--surface-hover)] sm:flex"
                 style={{
                   background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",

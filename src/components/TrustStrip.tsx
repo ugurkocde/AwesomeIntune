@@ -40,7 +40,7 @@ const PILLARS = [
 
 export function TrustStrip({ verifiedCount, toolCount }: TrustStripProps) {
   return (
-    <section className="border-y border-[color:var(--border-subtle)] bg-white py-14 sm:py-16">
+    <section className="border-y border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] py-14 sm:py-16">
       <div className="container-main">
         <div className="max-w-xl">
           <span

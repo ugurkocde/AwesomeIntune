@@ -68,14 +68,14 @@ export function SearchExamples({ isVisible, onExampleClick, align = "center" }: 
               onClick={() => onExampleClick(query)}
               className="cursor-pointer group relative overflow-hidden rounded-full px-3 py-1.5 text-xs transition-all duration-200"
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
+                background: "var(--surface-subtle)",
+                border: "1px solid var(--border-subtle)",
                 color: "var(--text-secondary)",
               }}
               whileHover={{
                 scale: 1.02,
-                borderColor: "rgba(0, 212, 255, 0.3)",
-                background: "rgba(0, 212, 255, 0.08)",
+                borderColor: "var(--border-accent)",
+                background: "var(--accent-glow)",
               }}
               whileTap={{ scale: 0.98 }}
             >

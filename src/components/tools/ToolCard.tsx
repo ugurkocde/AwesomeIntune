@@ -429,7 +429,7 @@ export const ToolCard = memo(function ToolCard({
               <Link
                 href={`/tools/${getToolSlug(tool)}`}
                 onClick={handleDetailsClick}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-slate-200 hover:text-[var(--text-primary)]"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                 style={{
                   background: "var(--bg-tertiary)",
                   color: "var(--text-secondary)",
@@ -456,7 +456,7 @@ export const ToolCard = memo(function ToolCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.repoUrl!)}
-                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-slate-200 hover:text-[var(--text-primary)]"
+                  className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[background-color,color] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                   style={{
                     background: "var(--bg-tertiary)",
                     color: "var(--text-secondary)",

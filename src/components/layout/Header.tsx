@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GITHUB_REPO_URL } from "~/lib/constants";
+import { ThemeToggle } from "./ThemeToggle";
 
 function HeaderSearch() {
   const router = useRouter();
@@ -40,13 +41,13 @@ function HeaderSearch() {
           name="site-search"
           autoComplete="off"
           spellCheck={false}
-          className="mr-2 h-9 w-44 rounded-lg border border-[color:var(--border-subtle)] bg-white px-3 text-sm text-[var(--text-primary)] focus-visible:border-[var(--accent-primary)]"
+          className="mr-2 h-9 w-44 rounded-lg border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-3 text-sm text-[var(--text-primary)] focus-visible:border-[var(--accent-primary)]"
         />
       )}
       <button
         type={open ? "submit" : "button"}
         onClick={open ? undefined : () => setOpen(true)}
-        className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-slate-100 hover:text-[var(--text-primary)]"
+        className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
         aria-label="Search tools"
         aria-expanded={open}
       >
@@ -87,7 +88,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--border-subtle)] bg-white/95 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--border-subtle)] bg-[var(--header-bg)] backdrop-blur-md">
       <div className="container-main">
         <nav
           aria-label="Primary navigation"
@@ -111,7 +112,7 @@ export function Header() {
                 AWESOME
                 <span className="text-[var(--accent-primary)]"> INTUNE</span>
               </span>
-              <span className="mt-1 text-[10px] leading-none font-medium tracking-[0.03em] text-slate-400">
+              <span className="mt-1 text-[10px] leading-none font-medium tracking-[0.03em] text-[var(--text-tertiary)]">
                 by Ugur Labs
               </span>
             </span>
@@ -129,7 +130,7 @@ export function Header() {
                   className={`rounded-[10px] px-3.5 py-2 text-[13px] font-medium transition-colors ${
                     active
                       ? "bg-[var(--accent-glow)] text-[var(--accent-primary)]"
-                      : "text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+                      : "text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                   }`}
                 >
                   {item.label}
@@ -140,22 +141,24 @@ export function Header() {
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-[10px] px-3.5 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-slate-100 hover:text-[var(--text-primary)]"
+              className="rounded-[10px] px-3.5 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>
+            <ThemeToggle />
             <Link
               href="/submit"
-              className="ml-1 inline-flex items-center gap-1.5 rounded-[10px] bg-[var(--accent-primary)] px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[var(--accent-secondary)]"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-[10px] bg-[var(--accent-solid)] px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[var(--accent-solid-hover)]"
             >
               <span aria-hidden="true">＋</span> Add Tool
             </Link>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
             <Link
               href="/submit"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent-primary)] text-lg text-white"
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent-solid)] text-lg text-white"
               aria-label="Add a tool"
             >
               +
@@ -163,7 +166,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen((value) => !value)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-primary)] hover:bg-slate-100"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-primary)] hover:bg-[var(--surface-hover)]"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileOpen}
             >
@@ -188,13 +191,13 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[color:var(--border-subtle)] bg-white px-5 py-4 md:hidden">
+        <div className="border-t border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-4 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
               >
                 {item.label}
               </Link>
@@ -203,7 +206,7 @@ export function Header() {
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-slate-100 hover:text-[var(--text-primary)]"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>

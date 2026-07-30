@@ -14,7 +14,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
   if (topAuthors.length === 0) return null;
 
   return (
-    <section className="border-y border-[color:var(--border-subtle)] bg-slate-50 py-14 sm:py-16">
+    <section className="border-y border-[color:var(--border-subtle)] bg-[var(--bg-primary)] py-14 sm:py-16">
       <div className="container-main">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-2xl font-bold text-[var(--text-primary)]">
@@ -33,9 +33,9 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
             <Link
               key={author.slug}
               href={`/authors/${author.slug}`}
-              className="flex min-w-0 flex-col items-center gap-2 rounded-[14px] border border-[color:var(--border-subtle)] bg-white px-3 py-5 text-center shadow-[0_2px_10px_rgba(15,23,42,0.03)] transition-[transform,border-color,box-shadow] hover:-translate-y-0.5 hover:border-[color:var(--border-accent)] hover:shadow-[0_12px_24px_rgba(15,23,42,0.08)]"
+              className="flex min-w-0 flex-col items-center gap-2 rounded-[14px] border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-5 text-center shadow-[var(--shadow-sm)] transition-[transform,border-color,box-shadow] hover:-translate-y-0.5 hover:border-[color:var(--border-accent)] hover:shadow-[var(--shadow-md)]"
             >
-              <span className="font-display flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-lg font-bold text-[var(--accent-primary)]">
+              <span className="font-display flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-[var(--bg-tertiary)] text-lg font-bold text-[var(--accent-primary)]">
                 {author.picture ? (
                   <Image
                     src={author.picture}
@@ -52,7 +52,7 @@ export function AuthorSpotlight({ authors }: AuthorSpotlightProps) {
               <span className="w-full truncate text-[13px] font-semibold text-[var(--text-primary)]">
                 {author.name}
               </span>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-[var(--text-tertiary)]">
                 {author.toolCount} {author.toolCount === 1 ? "tool" : "tools"}
               </span>
             </Link>

@@ -116,7 +116,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
         {/* Back Navigation */}
         <Link
           href="/#tools"
-          className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-white/5 sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
+          className="group mb-8 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:bg-[var(--surface-hover)] sm:mb-12 sm:px-0 sm:py-0 sm:hover:bg-transparent"
           style={{
             color: "var(--text-secondary)",
             marginLeft: "-0.75rem",

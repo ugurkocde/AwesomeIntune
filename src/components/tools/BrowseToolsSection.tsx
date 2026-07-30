@@ -327,7 +327,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
   return (
     <section className="relative pb-16">
       <div className="container-main py-4 sm:py-6">
-        <div className="mb-6 rounded-2xl border border-[color:var(--border-subtle)] bg-white p-3 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:p-4">
+        <div className="mb-6 rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-3 shadow-[var(--shadow-sm)] sm:p-4">
           <div className="max-w-2xl">
             <label
               htmlFor="directory-search"
@@ -410,7 +410,9 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
               onClick={() => setIsFilterDrawerOpen(true)}
               className="flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors hover:border-[color:var(--border-accent)] hover:text-[var(--accent-primary)]"
               style={{
-                background: hasActiveFilters ? "var(--accent-glow)" : "white",
+                background: hasActiveFilters
+                  ? "var(--accent-glow)"
+                  : "var(--bg-secondary)",
                 borderColor: hasActiveFilters
                   ? "var(--border-accent)"
                   : "var(--border-subtle)",
@@ -435,8 +437,8 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 <span
                   className="flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold"
                   style={{
-                    background: "var(--accent-primary)",
-                    color: "var(--bg-primary)",
+                    background: "var(--accent-solid)",
+                    color: "#ffffff",
                   }}
                 >
                   {activeFilterCount}
@@ -450,7 +452,7 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 setSortBy(event.currentTarget.value as typeof sortBy)
               }
               aria-label="Sort tools"
-              className="cursor-pointer appearance-none rounded-full border border-[color:var(--border-subtle)] bg-white px-3.5 py-1.5 text-xs font-medium text-[var(--text-secondary)] focus-visible:border-[var(--accent-primary)]"
+              className="cursor-pointer appearance-none rounded-full border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-3.5 py-1.5 text-xs font-medium text-[var(--text-secondary)] focus-visible:border-[var(--accent-primary)]"
             >
               <option value="newest">Sort: Newest</option>
               <option value="alphabetical">Sort: A–Z</option>
@@ -625,10 +627,10 @@ function FilterPill({ label, color, onRemove }: FilterPillProps) {
       onClick={onRemove}
       className="group flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
       style={{
-        background: color ? `${color}15` : "rgba(255, 255, 255, 0.05)",
+        background: color ? `${color}15` : "var(--surface-hover)",
         border: color
           ? `1px solid ${color}30`
-          : "1px solid rgba(255, 255, 255, 0.1)",
+          : "1px solid var(--border-medium)",
         color: color ?? "var(--text-secondary)",
       }}
     >

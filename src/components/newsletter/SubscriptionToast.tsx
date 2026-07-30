@@ -152,7 +152,7 @@ export function SubscriptionToast() {
             </div>
             <button
               onClick={() => setToast(null)}
-              className="ml-4 rounded p-1 transition-colors hover:bg-white/10"
+              className="ml-4 rounded p-1 transition-colors hover:bg-[var(--surface-hover)]"
               style={{ color: "var(--text-tertiary)" }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
