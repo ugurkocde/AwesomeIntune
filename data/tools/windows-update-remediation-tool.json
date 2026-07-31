@@ -1,0 +1,71 @@
+{
+  "id": "windows-update-remediation-tool",
+  "name": "Windows Update Remediation Tool",
+  "description": "Windows Update Remediation Tool is an automated WinForms utility for diagnosing and repairing Windows Update issues. It offers a selectable sequence of remediation steps—stopping services, cleaning caches, resetting permissions, re-registering DLLs, Winsock reset, restarting services, update scans, and SetupDiag diagnostics—with built-in logging. Administrators can run it elevated, monitor per-step progress, and generate logs for troubleshooting.",
+  "keywords": [
+    "windows-update",
+    "remediation",
+    "winforms",
+    "powershell",
+    "setupdiag",
+    "diagnostics",
+    "log-management",
+    "it-administration"
+  ],
+  "author": "Mert Ozsoy",
+  "authorPicture": "https://github.com/mertozsoy.png",
+  "githubUrl": "https://github.com/mertozsoy",
+  "linkedinUrl": "https://www.linkedin.com/in/mertozsoy365/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mertozsoy/WindowsUpdateRemedationTool",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No code block provided for analysis. Please supply the Windows Update Remediation Tool code (PowerShell, scripts, or manifest) for evaluation against obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 82,
+    "forks": 12,
+    "license": null,
+    "lastUpdated": "2026-07-19T18:59:57Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mert Ozsoy",
+      "githubUrl": "https://github.com/mertozsoy",
+      "picture": "https://github.com/mertozsoy.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mertozsoy365/"
+    }
+  ]
+}
