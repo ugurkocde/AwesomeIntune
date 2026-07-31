@@ -1,0 +1,71 @@
+{
+  "id": "laps-reader",
+  "name": "LAPS Reader",
+  "description": "LAPS Reader is a Windows PowerShell/WPF GUI tool that retrieves Windows LAPS passwords stored in Intune (Entra) via Microsoft Graph. It signs in to Graph, resolves a device by display name, and displays the local account, password, backup time, and account SID with a one-click copy. Intended for IT/helpdesk staff, it requires the Microsoft.Graph.Authentication module and permissions DeviceLocalCredential.Read.All and Device.Read.All.",
+  "keywords": [
+    "laps",
+    "intune",
+    "microsoft graph",
+    "wpf",
+    "powershell",
+    "device lookup",
+    "password retrieval",
+    "helpdesk"
+  ],
+  "author": "Reshat Bekteshi",
+  "authorPicture": "https://github.com/reshatbb.png",
+  "githubUrl": "https://github.com/reshatbb",
+  "linkedinUrl": "https://www.linkedin.com/in/reshat-bekteshi/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/reshatbb/Get-IntuneLapsPassword",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "security",
+  "type": "powershell-script",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Overall assessment: The code implements a legitimate Intune/LAPS reader UI that uses Microsoft Graph to retrieve device local credentials. Primary security considerations include handling of sensitive LAPS passwords (exposure in UI and clipboard), reliance on dynamic module installation from external sources, and a policy bypass during STA re-launch. The usage of high-sensitivity Graph scopes is expected for this tool but warrants strict RBAC, auditing, and secure UI practices. Recommendations: pin and verify module versions, minimize plaintext password exposure (e.g., avoid displaying or limit display duration, implement secure UI controls), document and monitor access to DeviceLocalCredential.Read.All, and avoid ExecutionPolicy bypass where feasible.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-21T09:42:00Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Reshat Bekteshi",
+      "githubUrl": "https://github.com/reshatbb",
+      "picture": "https://github.com/reshatbb.png",
+      "linkedinUrl": "https://www.linkedin.com/in/reshat-bekteshi/"
+    }
+  ]
+}
