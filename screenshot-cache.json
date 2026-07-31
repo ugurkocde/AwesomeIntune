@@ -235,6 +235,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "Intune Remote Help Launcher",
+      "id": "intune-remote-help-launcher",
+      "url": "https://github.com/Kanlikilic/Intune-Remote-Help-Launcher",
+      "reason": "No images in README"
+    },
+    {
       "name": "Intune Reporting",
       "id": "intune-reporting",
       "url": "https://github.com/damienvanrobaeys/Intune-Reporting/tree/main/Entra%20ID%20groups%20inspector",
