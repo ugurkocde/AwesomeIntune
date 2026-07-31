@@ -67,5 +67,8 @@
       "picture": "https://github.com/MG-Cloudflow.png",
       "linkedinUrl": "https://www.linkedin.com/in/maxime-guillemin-526618161/"
     }
+  ],
+  "screenshots": [
+    "screenshots/win32-toolkit/screenshot-1.png"
   ]
 }

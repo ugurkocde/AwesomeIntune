@@ -66,5 +66,8 @@
       "githubUrl": "https://github.com/SecondSonConsulting",
       "picture": "https://github.com/SecondSonConsulting.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/baseline/screenshot-1.png"
   ]
 }

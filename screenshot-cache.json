@@ -8,6 +8,7 @@
     "https://mertozsoy.com/IntuneWin32AppUninstall/",
     "https://www.kqlsearch.com/",
     "https://www.ssmacadmin.com/posts/2026-02-06-macos%20defender%20check/",
+    "https://www.msiinfo.com",
     "https://openintunebaseline.com",
     "https://www.osdeploy.com/",
     "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/"
@@ -324,6 +325,12 @@
       "reason": "Website blocked"
     },
     {
+      "name": "LAPS Reader",
+      "id": "laps-reader",
+      "url": "https://github.com/reshatbb/Get-IntuneLapsPassword",
+      "reason": "No images in README"
+    },
+    {
       "name": "Mace",
       "id": "mace",
       "url": "https://github.com/mace-app/mace",
@@ -352,6 +359,12 @@
       "id": "misa",
       "url": "https://github.com/pathaksomesh06/MISA",
       "reason": "No images in README"
+    },
+    {
+      "name": "MSIinfo",
+      "id": "msiinfo",
+      "url": "https://www.msiinfo.com",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "NameTune (Ultimate Intune Naming Tool)",
@@ -435,6 +448,12 @@
       "name": "Windows Recovery Partition Editor",
       "id": "windows-recovery-partition-editor",
       "url": "https://github.com/niklasrst/windows-recovery-partition",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Windows Update Remediation Tool",
+      "id": "windows-update-remediation-tool",
+      "url": "https://github.com/mertozsoy/WindowsUpdateRemedationTool",
       "reason": "No images in README"
     },
     {

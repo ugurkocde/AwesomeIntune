@@ -67,5 +67,9 @@
       "picture": "https://github.com/daniel-fraubaum.png",
       "linkedinUrl": "https://www.linkedin.com/in/daniel-fraubaum-b352ba1aa/"
     }
+  ],
+  "screenshots": [
+    "screenshots/traylight/screenshot-1.png",
+    "screenshots/traylight/screenshot-2.png"
   ]
 }

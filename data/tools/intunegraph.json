@@ -66,5 +66,9 @@
       "githubUrl": "https://github.com/juandresrodca",
       "picture": "https://github.com/juandresrodca.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/intunegraph/screenshot-1.png",
+    "screenshots/intunegraph/screenshot-2.gif"
   ]
 }

@@ -67,5 +67,9 @@
       "picture": "https://github.com/gilburns.png",
       "linkedinUrl": "https://www.linkedin.com/in/gilburns"
     }
+  ],
+  "screenshots": [
+    "screenshots/third-party-patcher/screenshot-1.png",
+    "screenshots/third-party-patcher/screenshot-2.png"
   ]
 }
