@@ -1,0 +1,71 @@
+{
+  "id": "win32-toolkit",
+  "name": "win32-toolkit",
+  "description": "win32-toolkit delivers end-to-end Intune Win32 packaging: point at a winget package or any installer, scaffold a PSAppDeployToolkit v4 project, and capture real installs in a disposable Windows Sandbox or Hyper-V VM. It derives detection and uninstall logic, validates install/update paths, packages a .intunewin, and publishes to Intune with dependencies, branding, and requirements.",
+  "keywords": [
+    "intune",
+    "win32",
+    "packaging",
+    "psappdeploytoolkit",
+    "windows-sandbox",
+    "hyper-v",
+    "winget",
+    "publishing"
+  ],
+  "author": "Maxime Guillemin",
+  "authorPicture": "https://github.com/MG-Cloudflow.png",
+  "githubUrl": "https://github.com/MG-Cloudflow",
+  "linkedinUrl": "https://www.linkedin.com/in/maxime-guillemin-526618161/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/MG-Cloudflow/win32-toolkit",
+  "downloadUrl": "https://www.powershellgallery.com/packages/win32-toolkit/",
+  "websiteUrl": "https://win32toolkit.com",
+  "category": "packaging",
+  "type": "powershell-module",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Three low-severity observations: (1) no obfuscation detected beyond standard launcher usage; (2) execution policy bypass is used in the launcher (a common admin-tooling pattern but a potential bypass vector); (3) local module import from the script directory could be tampered with if deployment paths are writable. No remote code execution, credential theft, data exfiltration, or hardcoded secrets detected in the provided snippets. Core functionality relies on local modules and PSADT orchestration typical for Intune/Graph-based tooling.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 14,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-07-25T14:15:33Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Maxime Guillemin",
+      "githubUrl": "https://github.com/MG-Cloudflow",
+      "picture": "https://github.com/MG-Cloudflow.png",
+      "linkedinUrl": "https://www.linkedin.com/in/maxime-guillemin-526618161/"
+    }
+  ]
+}
