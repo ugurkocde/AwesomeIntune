@@ -1,0 +1,70 @@
+{
+  "id": "baseline",
+  "name": "Baseline",
+  "description": "Baseline is an MDM-agnostic, zero-touch or light-touch macOS deployment tool. It uses swiftDialog, Installomator, and custom code to automate app installation and script execution. Behavior is configured via a mobileconfig or plist, with Baseline installing packages, scripts, and Installomator labels as defined in the configuration.",
+  "keywords": [
+    "mdm",
+    "macos-management",
+    "zerotouch",
+    "lighttouch",
+    "automation",
+    "swiftdialog",
+    "installomator",
+    "mobileconfig"
+  ],
+  "author": "SecondSonConsulting",
+  "authorPicture": "https://github.com/SecondSonConsulting.png",
+  "githubUrl": "https://github.com/SecondSonConsulting",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/SecondSonConsulting/Baseline",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 354,
+    "forks": 38,
+    "license": "MIT",
+    "lastUpdated": "2026-07-23T15:51:30Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "SecondSonConsulting",
+      "githubUrl": "https://github.com/SecondSonConsulting",
+      "picture": "https://github.com/SecondSonConsulting.png"
+    }
+  ]
+}
