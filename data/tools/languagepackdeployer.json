@@ -1,0 +1,65 @@
+{
+  "id": "languagepackdeployer",
+  "name": "LanguagePackDeployer",
+  "description": "LanguagePackDeployer is a web-based Intune deployment tool that streamlines multilingual rollouts for Windows and macOS. From a browser, you select languages, region, timezone, and keyboard overrides, then publish assigned policies or download ready-to-run deployment bundles. It includes 100 locale presets, the option to designate a primary UI language, and supports packaging as a Win32 app, Platform Script, or macOS Intune shell script with granular assignment controls.",
+  "keywords": [
+    "intune",
+    "language-pack",
+    "multilingual",
+    "windows",
+    "macos",
+    "localization",
+    "rollout",
+    "deployment"
+  ],
+  "author": "Roy Klooster",
+  "authorPicture": "https://github.com/royklo.png",
+  "githubUrl": "https://github.com/royklo",
+  "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/",
+  "xUrl": "",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://rksolutions.nl/tools/#languagepack-deployer",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Roy Klooster",
+      "githubUrl": "https://github.com/royklo",
+      "picture": "https://github.com/royklo.png",
+      "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/"
+    }
+  ]
+}
