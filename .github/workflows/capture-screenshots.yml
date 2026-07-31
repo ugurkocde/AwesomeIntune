@@ -3,7 +3,7 @@ name: Capture Screenshots
 on:
   # Run weekly on Sunday at 2 AM UTC
   schedule:
-    - cron: '0 2 * * 0'
+    - cron: "0 2 * * 0"
   # Allow manual trigger
   workflow_dispatch:
   # Trigger when a tool submission is approved
@@ -13,6 +13,12 @@ on:
 
 permissions:
   contents: write
+
+# A burst of approvals can emit many workflow_run events. Keep the active run
+# and the latest pending run instead of letting them race to update main.
+concurrency:
+  group: capture-screenshots
+  cancel-in-progress: false
 
 jobs:
   capture-screenshots:
@@ -28,8 +34,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -59,4 +65,22 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add public/screenshots/ data/tools/ screenshot-cache.json
           git commit -m "Update tool screenshots [skip ci]"
-          git push
+          # Main may move while Playwright is capturing. Rebase the screenshot
+          # commit and retry rather than failing on a non-fast-forward push.
+          pushed=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Pushed on attempt ${attempt}"
+              pushed=true
+              break
+            fi
+            echo "Push rejected (attempt ${attempt}); rebasing onto origin/${GITHUB_REF_NAME}"
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}" || {
+              git rebase --abort
+              echo "Rebase conflict"
+              exit 1
+            }
+            sleep 3
+          done
+          [ "$pushed" = true ] || { echo "Failed to push after 5 attempts"; exit 1; }
