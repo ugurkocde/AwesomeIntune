@@ -67,5 +67,9 @@
       "picture": "https://github.com/j0eyv.png",
       "linkedinUrl": "https://www.linkedin.com/in/joeyverlinden/"
     }
+  ],
+  "screenshots": [
+    "screenshots/conditional-access-baseline/screenshot-1.png",
+    "screenshots/conditional-access-baseline/screenshot-2.png"
   ]
 }
