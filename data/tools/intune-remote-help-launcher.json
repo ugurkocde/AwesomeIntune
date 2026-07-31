@@ -21,7 +21,7 @@
   "downloadUrl": "",
   "websiteUrl": "",
   "category": "troubleshooting",
-  "type": "other",
+  "type": "powershell-script",
   "dateAdded": "2026-07-31",
   "securityCheck": {
     "passed": 6,
