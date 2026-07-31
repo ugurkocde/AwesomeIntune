@@ -1,0 +1,71 @@
+{
+  "id": "third-party-patcher",
+  "name": "Third Party Patcher",
+  "description": "Third Party Patcher is a macOS daemon-based patching system for IT administrators that automatically discovers installed third-party apps, checks for updates, downloads installers in the background, and applies them with optional user prompts via swiftDialog. Updates are driven by Installomator label files and can be customized with override labels. The solution provides a PatcherMenu and a self-service Available Software window, plus scheduled patching phases (Scan, Check, Stage, Apply) and detailed reporting.",
+  "keywords": [
+    "macos",
+    "patching",
+    "it-management",
+    "third-party",
+    "installomator",
+    "automation",
+    "user-prompts",
+    "self-service"
+  ],
+  "author": "Gil Burns",
+  "authorPicture": "https://github.com/gilburns.png",
+  "githubUrl": "https://github.com/gilburns",
+  "linkedinUrl": "https://www.linkedin.com/in/gilburns",
+  "xUrl": "",
+  "repoUrl": "https://github.com/gilburns/Third-Party-Patcher",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "desktop-app",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 29,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2026-07-31T03:14:57Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Gil Burns",
+      "githubUrl": "https://github.com/gilburns",
+      "picture": "https://github.com/gilburns.png",
+      "linkedinUrl": "https://www.linkedin.com/in/gilburns"
+    }
+  ]
+}
