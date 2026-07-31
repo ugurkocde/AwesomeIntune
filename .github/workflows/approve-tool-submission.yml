@@ -42,7 +42,9 @@ jobs:
           node-version: '20'
 
       - name: Install OpenAI SDK
-        run: npm install openai
+        # Keep tracked dependency files untouched so a rejected concurrent push
+        # can rebase and retry cleanly in the commit step below.
+        run: npm install --no-save --package-lock=false openai
 
       - name: Process tool submission
         id: process
