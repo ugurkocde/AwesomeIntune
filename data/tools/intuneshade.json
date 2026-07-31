@@ -1,0 +1,71 @@
+{
+  "id": "intuneshade",
+  "name": "IntuneShade",
+  "description": "IntuneShade is a free community console for Microsoft Intune admins that lets you sign in with a Microsoft 365 account to view and manage your tenant—assignments, device compliance, Autopilot, and reports—without any install or app registration. This multi-tenant SPA runs in the browser with delegated Graph permissions and no server-side data storage. Key features include Group Assignment Manager, Bulk Assign, AI policy analysis and script generation, conflict detection, smart bulk automation, assignment matrix, compliance reporting, and audit history.",
+  "keywords": [
+    "intune",
+    "devicemanagement",
+    "policy-management",
+    "group-management",
+    "ai-analysis",
+    "ai-script-generation",
+    "graph-api",
+    "compliance-reporting"
+  ],
+  "author": "Alper Atar",
+  "authorPicture": "https://github.com/Realcookie29.png",
+  "githubUrl": "https://github.com/Realcookie29",
+  "linkedinUrl": "https://nl.linkedin.com/in/alper-a-335a55137",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Realcookie29/Intuneshade",
+  "downloadUrl": "",
+  "websiteUrl": "https://intuneshade.com",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Overall, IntuneShade's Claude-based endpoints enable AI-assisted policy analysis and script generation but introduce data-leak risk to external AI providers, potential misuse via AI-generated scripts, and authentication weaknesses. There are also minor reliability concerns with JSON parsing and a hardcoded public client ID. Mitigations include data flow controls, stronger access control, input/script validation, and policy to restrict AI-generated content and data handling.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-07-07T20:58:48Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Alper Atar",
+      "githubUrl": "https://github.com/Realcookie29",
+      "picture": "https://github.com/Realcookie29.png",
+      "linkedinUrl": "https://nl.linkedin.com/in/alper-a-335a55137"
+    }
+  ]
+}
