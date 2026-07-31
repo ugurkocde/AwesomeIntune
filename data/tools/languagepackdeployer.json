@@ -61,5 +61,8 @@
       "picture": "https://github.com/royklo.png",
       "linkedinUrl": "https://www.linkedin.com/in/roy-klooster/"
     }
+  ],
+  "screenshots": [
+    "screenshots/languagepackdeployer/screenshot-1.png"
   ]
 }
