@@ -1,0 +1,65 @@
+{
+  "id": "getcurrent",
+  "name": "GetCurrent",
+  "description": "GetCurrent centralizes Microsoft 365 updates from Message Center, Roadmap, and What's New into a single, structured view. It surfaces important notifications, upcoming features, and latest changes across Defender, Intune, Entra, Windows 365, and more, helping IT teams stay informed and plan action items. Use it to monitor tenant updates, track roadmap items, and review new capabilities to optimize your environment.",
+  "keywords": [
+    "microsoft-365",
+    "updates",
+    "message-center",
+    "roadmap",
+    "whats-new",
+    "intune",
+    "defender",
+    "cloud-management"
+  ],
+  "author": "Frans Oudendorp",
+  "authorPicture": "https://avatars.githubusercontent.com/u/26741536?v=4",
+  "githubUrl": "https://github.com/foudendorp",
+  "linkedinUrl": "https://www.linkedin.com/in/fransoudendorp/",
+  "xUrl": "",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://updates.getcurrent.cloud",
+  "category": "monitoring",
+  "type": "web-app",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Frans Oudendorp",
+      "githubUrl": "https://github.com/foudendorp",
+      "picture": "https://avatars.githubusercontent.com/u/26741536?v=4",
+      "linkedinUrl": "https://www.linkedin.com/in/fransoudendorp/"
+    }
+  ]
+}
