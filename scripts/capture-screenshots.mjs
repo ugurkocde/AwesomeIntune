@@ -531,7 +531,7 @@ async function dismissCookieDialog(page) {
     try {
       if (await button.isVisible()) {
         await button.click({ timeout: 2000 });
-        await page.waitForTimeout(300);
+        await page.waitForTimeout(1500);
         console.log(`  Dismissed cookie dialog using "${name.source}"`);
         return;
       }
