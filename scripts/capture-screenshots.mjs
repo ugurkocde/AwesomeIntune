@@ -512,6 +512,36 @@ async function fetchReadme(repoUrl) {
 }
 
 /**
+ * Dismiss common cookie consent dialogs so they do not obscure the product UI.
+ * Prefer privacy-preserving rejection choices, then accept only as a fallback.
+ */
+async function dismissCookieDialog(page) {
+  const buttonNames = [
+    /^Reject optional$/i,
+    /^Reject all$/i,
+    /^Decline( all)?$/i,
+    /^(Use |Allow )?only (necessary|essential)( cookies)?$/i,
+    /^Accept all$/i,
+    /^Accept cookies$/i,
+  ];
+
+  for (const name of buttonNames) {
+    const button = page.getByRole('button', { name }).first();
+
+    try {
+      if (await button.isVisible()) {
+        await button.click({ timeout: 2000 });
+        await page.waitForTimeout(300);
+        console.log(`  Dismissed cookie dialog using "${name.source}"`);
+        return;
+      }
+    } catch {
+      // The dialog may disappear while the page settles; try the next option.
+    }
+  }
+}
+
+/**
  * Capture screenshot of a web app using Playwright
  * Returns: { screenshots: string[], blocked: boolean, reason?: string }
  */
@@ -553,6 +583,7 @@ async function captureWebAppScreenshot(tool) {
 
     // Wait a bit for any animations to settle
     await page.waitForTimeout(2000);
+    await dismissCookieDialog(page);
 
     // Check for bot protection
     const pageContent = await page.content();
