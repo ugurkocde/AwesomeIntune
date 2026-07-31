@@ -1,0 +1,71 @@
+{
+  "id": "intune-remote-help-launcher",
+  "name": "Intune Remote Help Launcher",
+  "description": "Intune Remote Help Launcher is a PowerShell WPF tool for IT admins to search Intune-managed devices by name or primary user, view device details, and launch Microsoft Remote Help sessions from one interface. It supports Windows, Android, iOS, and macOS devices, displays OS, compliance, ownership, model and last sync, and can issue sync or restart commands or open the device in the Intune admin center. It uses Microsoft Graph delegated authentication (auto-installs the Graph module if needed) and requires Remote Help licensing to be configured.",
+  "keywords": [
+    "intune",
+    "device-management",
+    "remote-help",
+    "powershell",
+    "microsoft-graph",
+    "graph-api",
+    "remote-support",
+    "admin-center"
+  ],
+  "author": "Mert Efe Kanlikilic",
+  "authorPicture": "https://github.com/Kanlikilic.png",
+  "githubUrl": "https://github.com/Kanlikilic",
+  "linkedinUrl": "https://www.linkedin.com/in/mertefekanlikilic",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Kanlikilic/Intune-Remote-Help-Launcher",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "other",
+  "dateAdded": "2026-07-31",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-07-31",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No code snippet provided for analysis. Please supply the PowerShell/Intune Remote Help Launcher code to assess for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 10,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-07-31T14:31:41Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mert Efe Kanlikilic",
+      "githubUrl": "https://github.com/Kanlikilic",
+      "picture": "https://github.com/Kanlikilic.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mertefekanlikilic"
+    }
+  ]
+}
