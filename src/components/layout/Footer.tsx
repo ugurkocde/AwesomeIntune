@@ -328,24 +328,28 @@ export function Footer() {
             Always test in non-production environments first
           </p>
 
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
+          <div>
+            <p
+              className="text-center text-sm md:text-left"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               &copy; {currentYear}{" "}
               <a
                 href="https://ugurlabs.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-[var(--accent-primary)]"
-                style={{ color: "var(--text-secondary)" }}
+                aria-label="Visit Ugur Labs"
+                className="inline-flex rounded-sm align-middle opacity-80 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-secondary)]"
               >
-                Ugur Labs
+                <Image
+                  src="/ugur-labs-logo.svg"
+                  alt=""
+                  width={74}
+                  height={14}
+                  className="h-[14px] w-auto"
+                />
               </a>
               . Built for the community.
-            </p>
-            <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>
-              Made with{" "}
-              <span style={{ color: "var(--accent-primary)" }}>&hearts;</span>{" "}
-              by Ugur
             </p>
           </div>
         </div>
