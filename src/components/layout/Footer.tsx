@@ -353,7 +353,14 @@ export function Footer() {
                   alt=""
                   width={74}
                   height={14}
-                  className="h-[14px] w-auto"
+                  className="ugur-labs-logo-light h-[14px] w-auto"
+                />
+                <Image
+                  src="/ugur-labs-logo-dark.svg"
+                  alt=""
+                  width={74}
+                  height={14}
+                  className="ugur-labs-logo-dark h-[14px] w-auto"
                 />
               </a>
               . Built for the community.

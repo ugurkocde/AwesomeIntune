@@ -628,3 +628,20 @@ textarea {
   filter: brightness(2.75) contrast(1.05) saturate(1.05);
   opacity: 0.95;
 }
+
+/* Footer brand logo theme switching */
+.ugur-labs-logo-light {
+  display: block;
+}
+
+.ugur-labs-logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] .ugur-labs-logo-light {
+  display: none;
+}
+
+[data-theme="dark"] .ugur-labs-logo-dark {
+  display: block;
+}
