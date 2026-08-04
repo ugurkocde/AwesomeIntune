@@ -13,7 +13,6 @@ interface ToolRequestRow {
   category: string | null;
   github_issue_number: number;
   github_issue_url: string;
-  submitter_email: string | null;
   status: RequestStatus;
   fulfilled_tool_id: string | null;
   created_at: string;
@@ -59,7 +58,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Build query
-    let query = supabase.from("tool_requests").select("*");
+    let query = supabase.from("tool_requests").select(
+      "id, title, description, use_case, category, github_issue_number, github_issue_url, status, fulfilled_tool_id, created_at, updated_at"
+    );
 
     // Apply filters
     if (status) {
@@ -247,6 +248,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // Supabase is intentionally untyped in this project; the insert selects only `id`.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const requestId = (insertedRequest as { id: string }).id;
 
     // Initialize vote count for the new request

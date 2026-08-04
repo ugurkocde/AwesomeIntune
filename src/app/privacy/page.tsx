@@ -1,253 +1,508 @@
-"use client";
+import {
+  LegalPageShell,
+  LegalSection,
+} from "~/components/legal/LegalPageShell";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { SITE_CONFIG } from "~/lib/constants";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
+const tableOfContents = [
+  { id: "controller", label: "Controller" },
+  { id: "hosting", label: "Hosting and logs" },
+  { id: "analytics", label: "Analytics" },
+  { id: "ai-search", label: "AI search" },
+  { id: "forms", label: "Forms and Turnstile" },
+  { id: "newsletter", label: "Newsletter" },
+  { id: "submissions", label: "Public submissions" },
+  { id: "api", label: "Developer API" },
+  { id: "voting", label: "Voting and views" },
+  { id: "storage", label: "Browser storage" },
+  { id: "transfers", label: "Recipients and transfers" },
+  { id: "retention", label: "Retention" },
+  { id: "rights", label: "Your rights" },
+] as const;
 
 export default function PrivacyPage() {
   return (
-    <section className="min-h-screen pt-32 pb-20">
-      <div className="container-main">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mx-auto max-w-3xl"
-        >
-          {/* Header */}
-          <motion.div variants={itemVariants} className="mb-12 text-center">
-            <Link
-              href="/"
-              className="mb-6 inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent-primary)]"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5" />
-                <path d="M12 19l-7-7 7-7" />
-              </svg>
-              Back to Home
-            </Link>
-            <h1
-              className="font-display text-4xl font-bold md:text-5xl"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Privacy Policy
-            </h1>
-            <p
-              className="mt-4 text-lg"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              Last updated: January 2026
-            </p>
-          </motion.div>
+    <LegalPageShell
+      eyebrow="Privacy"
+      title="Privacy Policy"
+      description="How Awesome Intune processes personal data when you browse the directory, search with AI, vote, subscribe, or submit content."
+      updated="August 4, 2026"
+      tableOfContents={tableOfContents}
+    >
+      <LegalSection id="controller" title="1. Controller">
+        <p>
+          The controller responsible for processing personal data on this
+          website is:
+        </p>
+        <address className="not-italic">
+          <strong>Ugurlabs UG (haftungsbeschränkt)</strong>
+          <br />
+          Fährstraße 217
+          <br />
+          40221 Düsseldorf
+          <br />
+          Germany
+        </address>
+        <p>
+          Managing Director: Ugur Koc
+          <br />
+          Email: <a href="mailto:support@ugurlabs.com">support@ugurlabs.com</a>
+        </p>
+        <p>
+          This policy applies to the Awesome Intune website at
+          www.awesomeintune.com. Where we refer to “we”, “us”, or “Awesome
+          Intune”, we mean Ugurlabs UG (haftungsbeschränkt).
+        </p>
+      </LegalSection>
 
-          {/* Content */}
-          <motion.div
-            variants={itemVariants}
-            className="prose prose-lg max-w-none"
-            style={{ color: "var(--text-secondary)" }}
+      <LegalSection id="hosting" title="2. Hosting, access data, and security">
+        <p>
+          We host this website with Vercel Inc. When you open a page, your
+          browser necessarily sends technical information to our hosting
+          systems. This can include your IP address, date and time, requested
+          URL, referrer, browser and operating-system information, and HTTP
+          response data.
+        </p>
+        <p>
+          We process this data to deliver the website, maintain its security and
+          stability, diagnose errors, and defend against abuse. The legal basis
+          is Article 6(1)(f) GDPR. Our legitimate interests are the secure,
+          reliable, and efficient operation of this website.
+        </p>
+        <p>
+          For abuse prevention, the application also uses IP addresses in
+          short-lived, in-memory rate-limit records. These records normally
+          expire after about one minute. For view-count deduplication, an IP
+          address may be converted to a SHA-256 hash held in application memory
+          for up to five minutes. The database receives only an aggregate view
+          increment, not that IP hash.
+        </p>
+        <p>
+          Vercel processes hosting data on our behalf. Its retention depends on
+          the applicable service and account configuration. We retain or permit
+          access to logs only for as long as they are needed for the purposes
+          above or to meet legal obligations. See the{" "}
+          <a
+            href="https://vercel.com/legal/privacy-notice"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <div
-              className="rounded-xl p-8 md:p-10"
-              style={{
-                background: "var(--bg-card)",
-                border: "1px solid var(--border-subtle)",
-              }}
-            >
-              <Section title="Introduction">
-                <p>
-                  Welcome to {SITE_CONFIG.name}. We respect your privacy and are
-                  committed to protecting any personal information you share with
-                  us. This Privacy Policy explains how we collect, use, and
-                  safeguard your information when you visit our website.
-                </p>
-              </Section>
+            Vercel Privacy Notice
+          </a>
+          .
+        </p>
+      </LegalSection>
 
-              <Section title="Information We Collect">
-                <p>We collect minimal information to provide our services:</p>
-                <ul className="mt-4 space-y-2">
-                  <li>
-                    <strong style={{ color: "var(--text-primary)" }}>
-                      Newsletter Subscription:
-                    </strong>{" "}
-                    If you subscribe to our newsletter, we collect your email
-                    address to send you updates about new tools and resources.
-                  </li>
-                  <li>
-                    <strong style={{ color: "var(--text-primary)" }}>
-                      Analytics Data:
-                    </strong>{" "}
-                    We use privacy-focused analytics (Plausible) to understand
-                    how visitors use our site. This data is aggregated and does
-                    not identify individual users.
-                  </li>
-                  <li>
-                    <strong style={{ color: "var(--text-primary)" }}>
-                      Tool Submissions:
-                    </strong>{" "}
-                    When you submit a tool, the submission is processed through
-                    GitHub Issues, subject to GitHub&apos;s privacy policy.
-                  </li>
-                </ul>
-              </Section>
+      <LegalSection id="analytics" title="3. Privacy-focused analytics">
+        <p>
+          We use Plausible Analytics, provided by Plausible Insights OÜ,
+          Estonia, to understand how the website is used and improve the
+          directory. Plausible does not set analytics cookies or create a
+          persistent cross-site identifier.
+        </p>
+        <p>
+          Plausible processes the visited page, referrer, campaign parameters,
+          browser, operating system, device type, and approximate location
+          derived from the IP address. It also receives events generated by the
+          site, such as category and tool interactions, outbound and sponsor
+          clicks, form type, newsletter-signup source, and the text and type of
+          an AI search. Do not put names, email addresses, tenant details, or
+          other confidential information into the search field.
+        </p>
+        <p>
+          According to Plausible, raw IP addresses and full user-agent strings
+          are not stored. They are used to create a daily identifier with a salt
+          that is deleted every 24 hours. Visitor analytics are processed and
+          stored in the EU and are presented to us in aggregate form.
+        </p>
+        <p>
+          The legal basis is Article 6(1)(f) GDPR. Our legitimate interest is to
+          measure the usefulness and performance of the website without
+          cross-site tracking or advertising profiles. For details, see
+          Plausible’s{" "}
+          <a
+            href="https://plausible.io/data-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Data Policy
+          </a>
+          .
+        </p>
+      </LegalSection>
 
-              <Section title="How We Use Your Information">
-                <p>We use the collected information to:</p>
-                <ul className="mt-4 space-y-2">
-                  <li>Send newsletter updates (only if you subscribed)</li>
-                  <li>Improve our website and user experience</li>
-                  <li>Process and review tool submissions</li>
-                  <li>Respond to inquiries or feedback</li>
-                </ul>
-              </Section>
+      <LegalSection id="ai-search" title="4. AI-assisted search">
+        <p>
+          If you use the AI search, we send the search text and a catalog of
+          publicly listed tools to the OpenAI API. OpenAI processes the request
+          to rank relevant tools and return an explanation. The feature uses an
+          OpenAI GPT model and does not make a decision that produces legal or
+          similarly significant effects for you.
+        </p>
+        <p>
+          The legal basis is Article 6(1)(b) GDPR where processing is necessary
+          to provide the search service you request, and otherwise Article
+          6(1)(f) GDPR. Our legitimate interest is to offer a useful
+          natural-language search for the directory. Using AI search is
+          optional; a standard keyword search remains available.
+        </p>
+        <p>
+          OpenAI states that API inputs and outputs are not used to train its
+          models by default unless the API customer opts in. Under the default
+          controls for the Chat Completions API, content may be retained in
+          abuse-monitoring logs for up to 30 days unless a longer period is
+          legally required. Learn more in OpenAI’s{" "}
+          <a
+            href="https://platform.openai.com/docs/guides/your-data"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            API data-controls documentation
+          </a>
+          .
+        </p>
+        <p>
+          Please describe the technical problem rather than a person. Do not
+          enter personal data, credentials, device identifiers, confidential
+          tenant information, or special-category data into the search field.
+        </p>
+      </LegalSection>
 
-              <Section title="Data Sharing">
-                <p>
-                  We do not sell, trade, or rent your personal information to
-                  third parties. We may share information only in these cases:
-                </p>
-                <ul className="mt-4 space-y-2">
-                  <li>
-                    With service providers who assist in operating our website
-                    (e.g., email service for newsletters)
-                  </li>
-                  <li>When required by law or to protect our rights</li>
-                  <li>With your explicit consent</li>
-                </ul>
-              </Section>
+      <LegalSection id="forms" title="5. Forms and Cloudflare Turnstile">
+        <p>
+          Our tool-submission, tool-idea, and developer API-key forms use
+          Cloudflare Turnstile to distinguish legitimate submissions from
+          automated abuse. The widget runs browser checks and processes signals
+          such as IP address, browser and device characteristics, interaction
+          data, and the resulting challenge token. Our server sends the token to
+          Cloudflare for verification.
+        </p>
+        <p>
+          The provider is Cloudflare, Inc., United States. The legal basis is
+          Article 6(1)(f) GDPR. Our legitimate interests are protecting the
+          forms, infrastructure, and community from spam and automated attacks.
+          Without successful verification, the protected form cannot be sent.
+          See Cloudflare’s{" "}
+          <a
+            href="https://www.cloudflare.com/turnstile-privacy-policy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Turnstile Privacy Addendum
+          </a>
+          .
+        </p>
+      </LegalSection>
 
-              <Section title="Cookies">
-                <p>
-                  Our website uses minimal cookies essential for functionality.
-                  We use Plausible Analytics, which is privacy-focused and does
-                  not use cookies to track individual users. You can control
-                  cookie preferences through your browser settings.
-                </p>
-              </Section>
+      <LegalSection id="newsletter" title="6. Newsletter">
+        <p>
+          If you subscribe, we process your email address, subscription time,
+          confirmation status, and confirmation and unsubscribe tokens. We use a
+          double-opt-in process: you receive updates only after confirming the
+          address through the link in our email.
+        </p>
+        <p>
+          The legal basis for sending the newsletter is your consent under
+          Article 6(1)(a) GDPR. We may retain limited evidence of the consent
+          process under Article 6(1)(f) GDPR to demonstrate compliance. You can
+          withdraw consent at any time using the unsubscribe link in each email
+          or by contacting us. Withdrawal does not affect processing that was
+          lawful before it.
+        </p>
+        <p>
+          Subscriber data is stored with Supabase. Emails are sent through
+          Resend, operated by Plus Five Five, Inc. Resend receives the recipient
+          address and message content required for delivery. Confirmed records
+          remain until you unsubscribe or request deletion. Unsubscribing
+          through our link deletes the subscriber record from our database.
+          Unconfirmed records may remain until deleted; you may ask us to remove
+          one at any time. Provider-side delivery logs are retained under the
+          provider’s applicable settings and legal requirements. See the{" "}
+          <a
+            href="https://resend.com/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Resend Privacy Policy
+          </a>
+          .
+        </p>
+      </LegalSection>
 
-              <Section title="Third-Party Links">
-                <p>
-                  {SITE_CONFIG.name} contains links to third-party tools,
-                  websites, and resources. We are not responsible for the
-                  privacy practices of these external sites. We encourage you to
-                  review their privacy policies before providing any personal
-                  information.
-                </p>
-              </Section>
+      <LegalSection id="submissions" title="7. Tool submissions and tool ideas">
+        <p>
+          Tool submissions can contain the tool name and description, repository
+          and product links, additional notes, and up to five authors’ names and
+          optional GitHub, LinkedIn, and X profile links. Tool ideas contain a
+          title, description, optional use case, and category.
+        </p>
+        <p>
+          <strong>These submissions are intended for public disclosure.</strong>{" "}
+          We create a public issue in the Awesome Intune GitHub repository with
+          the submitted content. Tool ideas are also stored in Supabase so they
+          can be displayed and ranked on the site. GitHub may retain public
+          issues and their history until they are removed under the project’s
+          and GitHub’s rules.
+        </p>
+        <p>
+          The legal basis is Article 6(1)(b) GDPR for processing the submission
+          you request and Article 6(1)(f) GDPR for reviewing, documenting, and
+          curating community contributions. Our legitimate interests are a
+          transparent submission process and the operation of a reliable public
+          directory.
+        </p>
+        <p>
+          Do not submit private contact details, credentials, customer or tenant
+          data, or information about another person unless you are entitled to
+          make it public. Submissions may be checked using automated security
+          tools and AI-assisted analysis. Maintainers make the final publication
+          decision; there is no solely automated decision with legal or
+          similarly significant effects.
+        </p>
+        <p>
+          GitHub, Inc. processes the public issue and ordinary connection data.
+          See the{" "}
+          <a
+            href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub General Privacy Statement
+          </a>
+          .
+        </p>
+      </LegalSection>
 
-              <Section title="Data Security">
-                <p>
-                  We implement reasonable security measures to protect your
-                  information. However, no method of transmission over the
-                  Internet is 100% secure, and we cannot guarantee absolute
-                  security.
-                </p>
-              </Section>
+      <LegalSection id="api" title="8. Developer API keys">
+        <p>
+          When you request a developer API key, we process your name, email
+          address, Turnstile token, a cryptographic hash and prefix of the key,
+          its active status, creation and last-use timestamps, and request
+          counters. The plaintext key is sent once by email through Resend and
+          is not stored in plaintext in our database.
+        </p>
+        <p>
+          The legal basis is Article 6(1)(b) GDPR. The required name, email, and
+          security verification are necessary to issue and administer a key; we
+          cannot provide one without them. API records are stored with Supabase
+          while the key is active and afterward only for as long as needed for
+          security, abuse prevention, dispute handling, or legal obligations.
+        </p>
+      </LegalSection>
 
-              <Section title="Your Rights">
-                <p>You have the right to:</p>
-                <ul className="mt-4 space-y-2">
-                  <li>Unsubscribe from our newsletter at any time</li>
-                  <li>Request information about data we hold about you</li>
-                  <li>Request deletion of your data</li>
-                </ul>
-              </Section>
+      <LegalSection id="voting" title="9. Voting and aggregate view statistics">
+        <p>
+          When you vote for a tool or idea, we assign a random voter identifier.
+          The server places a signed <code>ai_voter</code> cookie with a
+          lifetime of one year. The cookie is HttpOnly, Secure in production,
+          and SameSite=Lax. We store the identifier with the selected item in
+          Supabase to prevent duplicate votes. Your browser also stores a random
+          voter ID and lists of items voted for so the interface can display
+          your choices.
+        </p>
+        <p>
+          The legal basis is Article 6(1)(f) GDPR. Our legitimate interests are
+          maintaining fair community rankings, preventing manipulation, and
+          showing a consistent voting state. The cookie is used for the voting
+          feature you request and not for advertising or cross-site tracking.
+        </p>
+        <p>
+          Tool views increment aggregate counters in Supabase. To avoid counting
+          immediate repeats, we temporarily use the voter identifier where
+          available or otherwise a one-way hash of the IP address for up to five
+          minutes in application memory. The deduplication key is not written to
+          the view-count database.
+        </p>
+      </LegalSection>
 
-              <Section title="Changes to This Policy">
-                <p>
-                  We may update this Privacy Policy from time to time. Any
-                  changes will be posted on this page with an updated revision
-                  date.
-                </p>
-              </Section>
+      <LegalSection id="storage" title="10. Cookies and browser storage">
+        <p>
+          We do not use advertising cookies. Plausible Analytics does not set
+          analytics cookies. The site uses the following first-party storage to
+          provide requested features and remember interface preferences:
+        </p>
+        <div
+          className="overflow-x-auto rounded-xl border"
+          style={{ borderColor: "var(--border-subtle)" }}
+        >
+          <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
+            <thead style={{ background: "var(--bg-tertiary)" }}>
+              <tr>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-semibold text-[var(--text-primary)]"
+                >
+                  Storage
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-semibold text-[var(--text-primary)]"
+                >
+                  Purpose
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-semibold text-[var(--text-primary)]"
+                >
+                  Duration
+                </th>
+              </tr>
+            </thead>
+            <tbody className="[&_tr:not(:last-child)]:border-b [&_tr:not(:last-child)]:border-[var(--border-subtle)]">
+              <tr>
+                <td className="px-4 py-3 align-top">ai_voter cookie</td>
+                <td className="px-4 py-3 align-top">Vote integrity</td>
+                <td className="px-4 py-3 align-top">One year</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 align-top">Local storage</td>
+                <td className="px-4 py-3 align-top">
+                  Theme, sound, layout, voter state, and newsletter-prompt state
+                </td>
+                <td className="px-4 py-3 align-top">
+                  Until cleared; the newsletter prompt uses its timestamp to
+                  determine when it may be shown again
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 align-top">Session storage</td>
+                <td className="px-4 py-3 align-top">
+                  Temporary interface and scroll state
+                </td>
+                <td className="px-4 py-3 align-top">Until the session ends</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Where these entries involve personal data, the legal basis is Article
+          6(1)(f) GDPR. Our legitimate interest is to provide the selected
+          feature and retain user-requested preferences. You can remove stored
+          data in your browser settings, although doing so may reset preferences
+          and voting indicators.
+        </p>
+        <p>
+          Access to or storage of information on your device is based on Section
+          25(2)(2) of the German Telecommunications Digital Services Data
+          Protection Act (TDDDG) where it is strictly necessary to provide a
+          feature you expressly request. The voting cookie is set when you use
+          the voting feature; preference entries are created when you select the
+          corresponding setting.
+        </p>
+      </LegalSection>
 
-              <Section title="Contact Us" isLast>
-                <p>
-                  If you have any questions about this Privacy Policy, please
-                  contact us at{" "}
-                  <a
-                    href="mailto:support@ugurlabs.com"
-                    className="transition-colors hover:text-[var(--accent-primary)]"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
-                    support@ugurlabs.com
-                  </a>{" "}
-                  or through our{" "}
-                  <a
-                    href="https://github.com/ugurkocde/awesomeintune/issues"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-[var(--accent-primary)]"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
-                    GitHub repository
-                  </a>
-                  .
-                </p>
-              </Section>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function Section({
-  title,
-  children,
-  isLast = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  isLast?: boolean;
-}) {
-  return (
-    <div className={isLast ? "" : "mb-8"}>
-      <h2
-        className="mb-4 font-display text-xl font-semibold"
-        style={{ color: "var(--text-primary)" }}
+      <LegalSection
+        id="transfers"
+        title="11. Recipients and international transfers"
       >
-        {title}
-      </h2>
-      <div
-        className="space-y-3 text-sm leading-relaxed md:text-base"
-        style={{ color: "var(--text-secondary)" }}
-      >
-        {children}
-      </div>
-    </div>
+        <p>
+          Depending on the feature you use, recipients or processors can include
+          Vercel (hosting), Supabase (database), Plausible (analytics), OpenAI
+          (AI processing), Cloudflare (bot protection), Resend (email delivery),
+          and GitHub (public submissions and repository services). We also
+          disclose data where required by law or necessary to establish,
+          exercise, or defend legal claims.
+        </p>
+        <p>
+          Plausible states that visitor analytics are processed in the EU. Some
+          other providers are headquartered in the United States or use
+          subprocessors in countries outside the EEA. Where personal data is
+          transferred outside the EEA, the transfer is based on an applicable
+          adequacy decision, including the EU–U.S. Data Privacy Framework where
+          available, or on the European Commission’s Standard Contractual
+          Clauses and supplementary safeguards as applicable. Provider details
+          and subprocessor locations can change; the linked provider notices
+          contain their current information.
+        </p>
+        <p>
+          Supabase processes database data on our behalf under its data
+          processing terms. See the{" "}
+          <a
+            href="https://supabase.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Supabase Privacy Policy
+          </a>
+          .
+        </p>
+      </LegalSection>
+
+      <LegalSection id="retention" title="12. Retention principles">
+        <p>
+          The feature-specific periods above take priority. Where no fixed
+          period is stated, we retain personal data only while it is needed for
+          the stated purpose. We then delete or anonymize it unless a legal duty
+          requires longer retention or it remains necessary for the
+          establishment, exercise, or defense of legal claims.
+        </p>
+        <p>
+          Factors used to set a period include the duration of the
+          user-requested service, account or key status, whether content is
+          deliberately public, security and abuse-prevention needs, statutory
+          limitation periods, and tax or commercial record-keeping duties.
+          Public GitHub content and repository history may remain available
+          until removed in accordance with GitHub’s and the project’s rules.
+        </p>
+        <p>
+          If you contact us by email, we process your address, message, and
+          related metadata to answer the inquiry. The legal basis is Article
+          6(1)(b) GDPR for contract-related inquiries and otherwise Article
+          6(1)(f) GDPR. We normally delete correspondence after the matter is
+          resolved unless follow-up, legal retention, or claim-defense needs
+          require it for longer.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="rights" title="13. Your data-protection rights" isLast>
+        <p>
+          Subject to the conditions in the GDPR, you have the right to request
+          access to your personal data, correction of inaccurate data, deletion,
+          restriction of processing, and data portability. You may also object
+          to processing based on Article 6(1)(f) GDPR for reasons arising from
+          your particular situation. Where processing is based on consent, you
+          may withdraw that consent at any time for the future.
+        </p>
+        <p>
+          To exercise a right, email{" "}
+          <a href="mailto:support@ugurlabs.com">support@ugurlabs.com</a>. We may
+          need to verify your identity before acting on a request. Some rights
+          can be limited where an exemption applies or retention is required by
+          law.
+        </p>
+        <p>
+          You also have the right to lodge a complaint with a data-protection
+          supervisory authority. Our competent authority is:
+        </p>
+        <address className="not-italic">
+          <strong>
+            State Commissioner for Data Protection and Freedom of Information
+            North Rhine-Westphalia (LDI NRW)
+          </strong>
+          <br />
+          Kavalleriestraße 2–4
+          <br />
+          40213 Düsseldorf
+          <br />
+          Germany
+          <br />
+          Email:{" "}
+          <a href="mailto:poststelle@ldi.nrw.de">poststelle@ldi.nrw.de</a>
+          <br />
+          Website:{" "}
+          <a
+            href="https://www.ldi.nrw.de"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            www.ldi.nrw.de
+          </a>
+        </address>
+        <p>
+          We may revise this policy when the website, providers, or legal
+          requirements change. The date at the top identifies the current
+          version.
+        </p>
+      </LegalSection>
+    </LegalPageShell>
   );
 }
