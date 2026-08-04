@@ -137,6 +137,13 @@ export function Footer() {
                 Privacy Policy
               </Link>
               <Link
+                href="/legal"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Legal Notice
+              </Link>
+              <Link
                 href="/terms"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}

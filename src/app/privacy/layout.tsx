@@ -4,14 +4,14 @@ import { SITE_CONFIG } from "~/lib/constants";
 export const metadata: Metadata = {
   title: `Privacy Policy - ${SITE_CONFIG.name}`,
   description:
-    "How Awesome Intune collects, uses, and protects your data. Read the privacy policy for the community-curated Microsoft Intune tools directory.",
+    "How Awesome Intune processes personal data when you browse, search, vote, subscribe, or submit content.",
   alternates: {
     canonical: `${SITE_CONFIG.url}/privacy`,
   },
   openGraph: {
     title: `Privacy Policy - ${SITE_CONFIG.name}`,
     description:
-      "How Awesome Intune collects, uses, and protects your data.",
+      "How Awesome Intune processes personal data when you browse, search, vote, subscribe, or submit content.",
     type: "website",
     url: `${SITE_CONFIG.url}/privacy`,
   },

@@ -24,6 +24,7 @@ const CATEGORY_TO_BEST_SLUG: Record<ToolCategory, string> = {
 };
 
 const STATIC_LAST_MODIFIED = new Date(STATIC_PAGES_LAST_MODIFIED);
+const LEGAL_PAGES_LAST_MODIFIED = new Date("2026-08-04");
 
 // Derive lastModified from the newest tool in a list, falling back to the
 // static date when a list has no tools.
@@ -48,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const latestByType = (type: ToolType) =>
     latestDateAdded(tools.filter((tool) => tool.type === type));
   const latestAcrossCollections = latestDateAdded(
-    collections.flatMap((collection) => getCollectionTools(collection))
+    collections.flatMap((collection) => getCollectionTools(collection)),
   );
 
   // Static pages — top-level routes get high priority so Google
@@ -96,6 +97,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: LEGAL_PAGES_LAST_MODIFIED,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/legal`,
+      lastModified: LEGAL_PAGES_LAST_MODIFIED,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: STATIC_LAST_MODIFIED,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 
   // Tool detail pages
@@ -129,7 +148,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: latestDateAdded(getCollectionTools(collection)),
       changeFrequency: "weekly" as const,
       priority: 0.7,
-    })
+    }),
   );
 
   // Best-of category pages (high priority for GEO)
