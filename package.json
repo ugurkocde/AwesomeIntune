@@ -13,6 +13,7 @@
     "lint:fix": "eslint --fix .",
     "preview": "next build && next start",
     "start": "next start",
+    "test": "playwright test",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "productId": "awesomeintune",
+  "productName": "AwesomeIntune",
+  "websiteUrl": "https://www.awesomeintune.com",
+  "apiUrl": "https://changelog.ugurlabs.com/api/changelog",
+  "publishMode": "on-completion"
+}

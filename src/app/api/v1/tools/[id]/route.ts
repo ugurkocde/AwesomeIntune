@@ -8,6 +8,16 @@ import {
   API_SECURITY_HEADERS,
 } from "~/lib/api-auth";
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function readCount(value: unknown, column: string): number {
+  if (!isRecord(value)) return 0;
+  const count = value[column];
+  return typeof count === "number" ? count : 0;
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -50,10 +60,8 @@ export async function GET(
         .single(),
     ]);
 
-    const voteData = voteResult.data as { vote_count: number } | null;
-    const viewData = viewResult.data as { view_count: number } | null;
-    const votes = voteData?.vote_count ?? 0;
-    const views = viewData?.view_count ?? 0;
+    const votes = readCount(voteResult.data, "vote_count");
+    const views = readCount(viewResult.data, "view_count");
 
     // Compute security status
     const getSecurityStatus = () => {

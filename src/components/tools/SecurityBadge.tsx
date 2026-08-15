@@ -468,10 +468,10 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
   };
 
   const passedChecks = checkItems.filter(
-    (item) => getCheckStatus(securityCheck.checks[item.key] as boolean | { passed: boolean; reason?: string }).passed
+    (item) => getCheckStatus(securityCheck.checks[item.key]).passed
   );
   const failedChecks = checkItems.filter(
-    (item) => !getCheckStatus(securityCheck.checks[item.key] as boolean | { passed: boolean; reason?: string }).passed
+    (item) => !getCheckStatus(securityCheck.checks[item.key]).passed
   );
 
   return (
@@ -487,9 +487,7 @@ export function SecurityChecklist({ securityCheck }: SecurityChecklistProps) {
           </span>
           <div className="space-y-2">
             {failedChecks.map((item) => {
-              const { reason } = getCheckStatus(
-                securityCheck.checks[item.key] as boolean | { passed: boolean; reason?: string }
-              );
+              const { reason } = getCheckStatus(securityCheck.checks[item.key]);
               return (
                 <div
                   key={item.key}

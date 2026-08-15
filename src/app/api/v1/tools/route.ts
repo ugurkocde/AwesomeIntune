@@ -8,12 +8,30 @@ import {
   createApiErrorResponse,
   API_SECURITY_HEADERS,
 } from "~/lib/api-auth";
-import type { ToolCategory, ToolType } from "~/types/tool";
 
 // Cache for tools data
 let cachedTools: ReturnType<typeof getAllTools> | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 60 * 1000; // 60 seconds
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function countRowsByTool(
+  rows: unknown,
+  countColumn: string
+): Record<string, number> {
+  if (!Array.isArray(rows)) return {};
+
+  const counts: Record<string, number> = {};
+  for (const row of rows as unknown[]) {
+    if (!isRecord(row) || typeof row.tool_id !== "string") continue;
+    const count = row[countColumn];
+    if (typeof count === "number") counts[row.tool_id] = count;
+  }
+  return counts;
+}
 
 // Valid categories and types for validation
 const VALID_CATEGORIES = [
@@ -95,10 +113,10 @@ export async function GET(request: NextRequest) {
 
     // Apply filters
     if (category) {
-      tools = tools.filter((t) => t.category === (category as ToolCategory));
+      tools = tools.filter((t) => t.category === category);
     }
     if (type) {
-      tools = tools.filter((t) => t.type === (type as ToolType));
+      tools = tools.filter((t) => t.type === type);
     }
 
     // Get vote and view counts for sorting
@@ -109,24 +127,14 @@ export async function GET(request: NextRequest) {
       const { data: votes } = await supabase
         .from("tool_vote_counts")
         .select("tool_id, vote_count");
-      const voteData = votes as { tool_id: string; vote_count: number }[] | null;
-      if (voteData) {
-        voteCounts = Object.fromEntries(
-          voteData.map((v) => [v.tool_id, v.vote_count])
-        );
-      }
+      voteCounts = countRowsByTool(votes, "vote_count");
     }
 
     if (sort === "popular") {
       const { data: views } = await supabase
         .from("tool_view_counts")
         .select("tool_id, view_count");
-      const viewData = views as { tool_id: string; view_count: number }[] | null;
-      if (viewData) {
-        viewCounts = Object.fromEntries(
-          viewData.map((v) => [v.tool_id, v.view_count])
-        );
-      }
+      viewCounts = countRowsByTool(views, "view_count");
     }
 
     // Apply sorting

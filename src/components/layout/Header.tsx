@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GITHUB_REPO_URL } from "~/lib/constants";
+import { ChangelogBell } from "./ChangelogBell";
 import { ThemeToggle } from "./ThemeToggle";
 
 function HeaderSearch() {
@@ -140,6 +141,7 @@ export function Header() {
             >
               GitHub
             </a>
+            <ChangelogBell />
             <ThemeToggle />
             <Link
               href="/submit"
@@ -150,6 +152,7 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
+            <ChangelogBell />
             <ThemeToggle />
             <Link
               href="/submit"

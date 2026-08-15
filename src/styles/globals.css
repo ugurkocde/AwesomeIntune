@@ -645,3 +645,59 @@ textarea {
 [data-theme="dark"] .ugur-labs-logo-dark {
   display: block;
 }
+
+/* ============================================
+   Changelog Sheet
+   ============================================ */
+
+@keyframes changelog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes changelog-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.changelog-backdrop {
+  animation: changelog-backdrop-in var(--duration-fast) ease-out both;
+}
+
+.changelog-sheet {
+  animation: changelog-sheet-in var(--duration-normal) var(--ease-out-expo) both;
+}
+
+.changelog-entry {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 176px;
+}
+
+@media (max-width: 639px) {
+  .changelog-sheet-header {
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-right: max(20px, env(safe-area-inset-right));
+    padding-left: max(20px, env(safe-area-inset-left));
+  }
+
+  .changelog-sheet-content {
+    padding-right: max(20px, env(safe-area-inset-right));
+    padding-left: max(20px, env(safe-area-inset-left));
+  }
+
+  .changelog-sheet-footer {
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+  }
+}

@@ -14,6 +14,22 @@ let cachedStats: object | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 60 * 1000; // 60 seconds
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function sumColumn(rows: unknown, column: string): number {
+  if (!Array.isArray(rows)) return 0;
+
+  let total = 0;
+  for (const row of rows as unknown[]) {
+    if (!isRecord(row)) continue;
+    const value = row[column];
+    if (typeof value === "number") total += value;
+  }
+  return total;
+}
+
 export async function GET(request: NextRequest) {
   // Validate API key
   const apiKey = getApiKeyFromRequest(request);
@@ -79,18 +95,14 @@ export async function GET(request: NextRequest) {
       .from("tool_view_counts")
       .select("view_count");
 
-    const viewData = viewResults as { view_count: number }[] | null;
-    const totalViews =
-      viewData?.reduce((sum, v) => sum + (v.view_count ?? 0), 0) ?? 0;
+    const totalViews = sumColumn(viewResults, "view_count");
 
     // Get total votes
     const { data: voteResults } = await supabase
       .from("tool_vote_counts")
       .select("vote_count");
 
-    const voteData = voteResults as { vote_count: number }[] | null;
-    const totalVotes =
-      voteData?.reduce((sum, v) => sum + (v.vote_count ?? 0), 0) ?? 0;
+    const totalVotes = sumColumn(voteResults, "vote_count");
 
     // Build stats object
     const stats = {
