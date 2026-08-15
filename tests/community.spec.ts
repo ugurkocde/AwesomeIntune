@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const communityUrl = "https://www.linkedin.com/groups/14802021/";
+const repositoryUrl = "https://github.com/ugurkocde/awesomeintune";
 
 async function preparePage(page: Page) {
   await page.route("**/api/subscriber-count", async (route) => {
@@ -64,6 +65,15 @@ test("places Community in the desktop navigation and official group in the foote
   await expect(footerLink).toHaveAttribute("href", communityUrl);
   await expect(footerLink).toHaveAttribute("target", "_blank");
   await expect(footerLink).toHaveAttribute("rel", "noopener noreferrer");
+
+  const repositoryLink = page
+    .locator("footer")
+    .getByRole("link", { name: "GitHub", exact: true });
+  await expect(repositoryLink).toHaveAttribute("href", repositoryUrl);
+  await expect(repositoryLink).toHaveAttribute("target", "_blank");
+  await expect(
+    page.locator('footer a[href="https://x.com/UgurKocDe"]'),
+  ).toHaveCount(0);
 });
 
 test("presents the community as a touch-friendly mobile menu destination", async ({
