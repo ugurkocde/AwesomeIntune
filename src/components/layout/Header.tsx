@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { GITHUB_REPO_URL } from "~/lib/constants";
+import { COMMUNITY_URL, GITHUB_REPO_URL } from "~/lib/constants";
 import { ChangelogBell } from "./ChangelogBell";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -114,7 +114,7 @@ export function Header() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 xl:flex">
             {pathname !== "/" && <HeaderSearch />}
             {navItems.map((item) => {
               const active =
@@ -134,6 +134,29 @@ export function Header() {
               );
             })}
             <a
+              href={COMMUNITY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 touch-manipulation items-center gap-1.5 rounded-[10px] px-3.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--accent-glow)] hover:text-[var(--accent-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              Community
+            </a>
+            <a
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
@@ -151,7 +174,7 @@ export function Header() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <ChangelogBell />
             <ThemeToggle />
             <Link
@@ -189,7 +212,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-4 md:hidden">
+        <div className="border-t border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-4 xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1">
             {navItems.map((item) => (
               <Link
@@ -200,6 +223,54 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <a
+              href={COMMUNITY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="my-2 flex min-h-16 touch-manipulation items-center gap-3 rounded-xl border border-[color:var(--border-accent)] bg-[var(--accent-glow)] px-3 py-3 transition-colors hover:bg-[var(--surface-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[var(--accent-primary)] text-white shadow-[var(--shadow-sm)]">
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-[var(--text-primary)]">
+                  Community
+                </span>
+                <span className="mt-0.5 block text-xs leading-5 text-[var(--text-secondary)]">
+                  Join the official LinkedIn group
+                </span>
+              </span>
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0 text-[var(--accent-primary)]"
+              >
+                <path d="M15 3h6v6" />
+                <path d="M10 14 21 3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              </svg>
+            </a>
             <a
               href={GITHUB_REPO_URL}
               target="_blank"
