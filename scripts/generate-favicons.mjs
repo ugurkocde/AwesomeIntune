@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
 
-const svgPath = join(publicDir, 'favicon.svg');
-const svgBuffer = readFileSync(svgPath);
+const sourcePath = join(publicDir, 'awesome-a-512.png');
+const sourceBuffer = readFileSync(sourcePath);
 
 const sizes = [
   { name: 'favicon-16x16.png', size: 16 },
@@ -18,10 +18,10 @@ const sizes = [
 ];
 
 async function generateFavicons() {
-  console.log('Generating favicons from SVG...');
+  console.log('Generating favicons from the Awesome Intune app icon...');
 
   for (const { name, size } of sizes) {
-    await sharp(svgBuffer)
+    await sharp(sourceBuffer)
       .resize(size, size)
       .png()
       .toFile(join(publicDir, name));
@@ -29,9 +29,9 @@ async function generateFavicons() {
   }
 
   // Generate ICO file (contains 16x16, 32x32, and 48x48)
-  const ico16 = await sharp(svgBuffer).resize(16, 16).png().toBuffer();
-  const ico32 = await sharp(svgBuffer).resize(32, 32).png().toBuffer();
-  const ico48 = await sharp(svgBuffer).resize(48, 48).png().toBuffer();
+  const ico16 = await sharp(sourceBuffer).resize(16, 16).png().toBuffer();
+  const ico32 = await sharp(sourceBuffer).resize(32, 32).png().toBuffer();
+  const ico48 = await sharp(sourceBuffer).resize(48, 48).png().toBuffer();
 
   // Create ICO file manually (simple ICO format)
   const icoBuffer = createIco([

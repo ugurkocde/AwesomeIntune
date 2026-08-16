@@ -139,7 +139,7 @@ export function generateOrganizationStructuredData() {
     "@type": "Organization",
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/favicon-512x512.png`,
+    logo: `${SITE_CONFIG.url}/awesome-a-512.png`,
     description: SITE_CONFIG.description,
     sameAs: [
       "https://github.com/ugurkocde/awesomeintune",

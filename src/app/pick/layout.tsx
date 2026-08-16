@@ -11,7 +11,7 @@ const archivo = Archivo({
 
 const title = "Awesome Pick - Monthly Community Recognition | Awesome Intune";
 const description =
-  "Awesome Pick recognizes the most useful contribution shared each month in the free, vendor-neutral Awesome Intune LinkedIn community.";
+  "Awesome Pick recognizes up to 3 contributions each month for the practical value and knowledge they share with the free, vendor-neutral Awesome Intune community.";
 const ogImage = "/api/og?title=Awesome%20Pick&variant=pick";
 
 export const metadata: Metadata = {

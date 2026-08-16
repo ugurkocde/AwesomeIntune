@@ -28,28 +28,13 @@ export function Footer() {
           {/* Brand Column */}
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-3">
-              <div
-                className="flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{
-                  background: "var(--accent-glow)",
-                  border: "1px solid var(--border-accent)",
-                }}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--accent-primary)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
+              <Image
+                src="/awesome-a-512.png"
+                alt=""
+                width={36}
+                height={36}
+                className="h-9 w-9 shrink-0"
+              />
               <span
                 className="font-display text-lg font-bold tracking-tight"
                 style={{ color: "var(--text-primary)" }}

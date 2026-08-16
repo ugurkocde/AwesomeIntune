@@ -4,7 +4,8 @@ export type Pick = {
   winnerLinkedIn: string;
   postUrl: string;
   contribution: string;
+  postAvailable?: boolean;
 };
 
-/** Add monthly winners here. The page renders the launch state while empty. */
+/** Add one entry per accepted Pick. Each month can have up to three entries. */
 export const picks: readonly Pick[] = [];

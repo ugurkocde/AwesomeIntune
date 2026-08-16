@@ -73,8 +73,19 @@ const navItems = [
   { href: "/#tools", label: "Browse" },
   { href: "/collections", label: "Collections" },
   { href: "/ideas", label: "Ideas" },
-  { href: "/pick", label: "Pick" },
+  { href: "/pick", label: "Pick", featured: true },
 ];
+
+function PickDiamond({ large = false }: { large?: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`block rotate-45 rounded-[2px] bg-[#bceeff] shadow-[0_0_10px_rgba(188,238,255,0.75)] ${
+        large ? "h-3.5 w-3.5" : "h-2.5 w-2.5"
+      }`}
+    />
+  );
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -102,7 +113,7 @@ export function Header() {
             aria-label="Awesome Intune home"
           >
             <Image
-              src="/favicon.svg"
+              src="/awesome-a-512.png"
               alt=""
               width={34}
               height={34}
@@ -120,17 +131,31 @@ export function Header() {
             {navItems.map((item) => {
               const active =
                 item.href !== "/#tools" && pathname.startsWith(item.href);
+              const featured = item.featured === true;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`inline-flex min-h-11 items-center rounded-[10px] px-3.5 py-2 text-[13px] font-medium transition-colors ${
-                    active
-                      ? "bg-[var(--accent-glow)] text-[var(--accent-primary)]"
-                      : "text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+                  aria-current={active ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center rounded-[10px] px-3.5 py-2 text-[13px] font-medium focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                    featured
+                      ? `touch-manipulation gap-2 border border-[#63d2fa]/70 bg-[linear-gradient(135deg,#005a9e_0%,#0078d4_55%,#19a7df_100%)] text-white shadow-[0_4px_14px_rgba(0,120,212,0.24)] transition-transform duration-200 hover:-translate-y-px hover:brightness-105 focus-visible:outline-[var(--text-primary)] motion-reduce:transform-none motion-reduce:transition-none ${
+                          active
+                            ? "ring-2 ring-[#63d2fa]/60 ring-offset-2 ring-offset-[var(--header-bg)]"
+                            : ""
+                        }`
+                      : active
+                        ? "bg-[var(--accent-glow)] text-[var(--accent-primary)] focus-visible:outline-[var(--accent-primary)]"
+                        : "text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)] focus-visible:outline-[var(--accent-primary)]"
                   }`}
                 >
+                  {featured && <PickDiamond />}
                   {item.label}
+                  {featured && (
+                    <span className="hidden rounded-full border border-white/20 bg-white/15 px-1.5 py-0.5 text-[9px] leading-none font-bold tracking-[0.08em] text-white/90 2xl:inline-flex">
+                      MONTHLY
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -215,15 +240,67 @@ export function Header() {
       {mobileOpen && (
         <div className="border-t border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] px-5 py-4 xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active =
+                item.href !== "/#tools" && pathname.startsWith(item.href);
+              const featured = item.featured === true;
+
+              if (featured) {
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`my-1 flex min-h-16 touch-manipulation items-center gap-3 rounded-xl border border-[#63d2fa]/70 bg-[linear-gradient(135deg,#005a9e_0%,#0078d4_55%,#19a7df_100%)] px-3 py-3 text-white shadow-[0_6px_20px_rgba(0,120,212,0.22)] transition-transform duration-200 hover:-translate-y-px hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] motion-reduce:transform-none motion-reduce:transition-none ${
+                      active
+                        ? "ring-2 ring-[#63d2fa]/60 ring-offset-2 ring-offset-[var(--bg-secondary)]"
+                        : ""
+                    }`}
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] border border-white/20 bg-white/15">
+                      <PickDiamond large />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold">
+                        Awesome Pick
+                      </span>
+                      <span className="mt-0.5 block text-xs leading-5 text-white/80">
+                        Monthly community recognition
+                      </span>
+                    </span>
+                    <svg
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="shrink-0 text-white/80"
+                    >
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
+                  </Link>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)] ${
+                    active
+                      ? "bg-[var(--accent-glow)] text-[var(--accent-primary)]"
+                      : "text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <a
               href={COMMUNITY_URL}
               target="_blank"

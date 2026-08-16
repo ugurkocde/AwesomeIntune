@@ -56,6 +56,7 @@ export async function GET(request: NextRequest) {
     ? "Monthly community recognition"
     : (CATEGORY_LABELS[category] ?? "Other");
   const typeLabel = TYPE_LABELS[type] ?? "";
+  const brandIconUrl = new URL("/awesome-a-512.png", request.url).toString();
 
   return new ImageResponse(
     <div
@@ -87,34 +88,20 @@ export async function GET(request: NextRequest) {
             gap: "16px",
           }}
         >
-          <div
+          {/* ImageResponse requires a standard img element. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={brandIconUrl}
+            alt=""
+            width="48"
+            height="48"
             style={{
               width: "48px",
               height: "48px",
               borderRadius: "12px",
-              background: isPick
-                ? "linear-gradient(135deg, #bceeff, #63d2fa)"
-                : `linear-gradient(135deg, ${categoryColor}, ${categoryColor}99)`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              boxShadow: "0 8px 20px rgba(0,0,0,0.18)",
             }}
-          >
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke={isPick ? "#005a9e" : "white"}
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
+          />
           <span
             style={{
               fontSize: "24px",

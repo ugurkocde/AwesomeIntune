@@ -11,6 +11,7 @@ const tableOfContents = [
   { id: "forms", label: "Forms and Turnstile" },
   { id: "newsletter", label: "Newsletter" },
   { id: "submissions", label: "Public submissions" },
+  { id: "awesome-pick", label: "Awesome Pick" },
   { id: "api", label: "Developer API" },
   { id: "voting", label: "Voting and views" },
   { id: "storage", label: "Browser storage" },
@@ -24,8 +25,8 @@ export default function PrivacyPage() {
     <LegalPageShell
       eyebrow="Privacy"
       title="Privacy Policy"
-      description="How Awesome Intune processes personal data when you browse the directory, search with AI, vote, subscribe, or submit content."
-      updated="August 4, 2026"
+      description="How Awesome Intune processes personal data when you browse the directory, search with AI, vote, subscribe, submit content, or take part in community recognition."
+      updated="August 16, 2026"
       tableOfContents={tableOfContents}
     >
       <LegalSection id="controller" title="1. Controller">
@@ -272,7 +273,56 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="api" title="8. Developer API keys">
+      <LegalSection id="awesome-pick" title="8. Awesome Pick recognition">
+        <p>
+          To identify potential Awesome Picks, we manually review posts shared
+          in the Awesome Intune LinkedIn group. We may process the poster&apos;s
+          name, LinkedIn profile URL, post URL, the public or group-visible
+          contribution, and limited notes about eligibility, conflicts, and how
+          the contribution meets the published selection criteria. The source of
+          this data is the member&apos;s LinkedIn post and profile.
+        </p>
+        <p>
+          The legal basis for this initial review is Article 6(1)(f) GDPR. Our
+          legitimate interest is to recognize and make useful, free,
+          vendor-neutral community knowledge easier to discover. Selection is
+          performed manually. We do not save or score likes, comments, views,
+          impressions, audience size, or other engagement metrics, and there is
+          no solely automated decision-making.
+        </p>
+        <p>
+          We contact provisional Picks through LinkedIn direct message. We
+          publish a person&apos;s name, profile link, post link, and
+          contribution description on the Hall of Fame and Awesome Intune social
+          channels only after the person affirmatively accepts and consents. The
+          legal basis for that publication is Article 6(1)(a) GDPR. Consent can
+          be withdrawn at any time for the future. We will then remove or
+          anonymize the Hall of Fame entry and future references under our
+          control where reasonably possible. Withdrawal does not affect
+          processing that was lawful before it.
+        </p>
+        <p>
+          To deliver an accepted prize, we may process eligibility and
+          acceptance records, a subscription receipt, reimbursement amount, and
+          the payment details required to reimburse the winner. Please redact
+          unrelated transaction or account information before sending a receipt.
+          The legal basis is Article 6(1)(b) GDPR for administering the accepted
+          recognition and Article 6(1)(c) GDPR where accounting or tax law
+          requires us to retain a record.
+        </p>
+        <p>
+          We delete review notes for people who are not selected within 90 days
+          after the announcement. Public winner information remains available
+          while consent remains in effect. Acceptance, receipt, and payment
+          records are retained for the applicable statutory accounting and tax
+          periods and then deleted. Data may be shared with LinkedIn when a
+          recognition post is published, with website visitors, and with the
+          organizer&apos;s bank or payment provider where needed for
+          reimbursement.
+        </p>
+      </LegalSection>
+
+      <LegalSection id="api" title="9. Developer API keys">
         <p>
           When you request a developer API key, we process your name, email
           address, Turnstile token, a cryptographic hash and prefix of the key,
@@ -289,7 +339,10 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="voting" title="9. Voting and aggregate view statistics">
+      <LegalSection
+        id="voting"
+        title="10. Voting and aggregate view statistics"
+      >
         <p>
           When you vote for a tool or idea, we assign a random voter identifier.
           The server places a signed <code>ai_voter</code> cookie with a
@@ -314,7 +367,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="storage" title="10. Cookies and browser storage">
+      <LegalSection id="storage" title="11. Cookies and browser storage">
         <p>
           We do not use advertising cookies. Plausible Analytics does not set
           analytics cookies. The site uses the following first-party storage to
@@ -392,15 +445,16 @@ export default function PrivacyPage() {
 
       <LegalSection
         id="transfers"
-        title="11. Recipients and international transfers"
+        title="12. Recipients and international transfers"
       >
         <p>
           Depending on the feature you use, recipients or processors can include
           Vercel (hosting), Supabase (database), Plausible (analytics), OpenAI
           (AI processing), Cloudflare (bot protection), Resend (email delivery),
-          and GitHub (public submissions and repository services). We also
-          disclose data where required by law or necessary to establish,
-          exercise, or defend legal claims.
+          GitHub (public submissions and repository services), LinkedIn (Awesome
+          Pick recognition posts and contact), and banks or payment providers
+          used for prize reimbursement. We also disclose data where required by
+          law or necessary to establish, exercise, or defend legal claims.
         </p>
         <p>
           Plausible states that visitor analytics are processed in the EU. Some
@@ -427,7 +481,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="retention" title="12. Retention principles">
+      <LegalSection id="retention" title="13. Retention principles">
         <p>
           The feature-specific periods above take priority. Where no fixed
           period is stated, we retain personal data only while it is needed for
@@ -439,9 +493,10 @@ export default function PrivacyPage() {
           Factors used to set a period include the duration of the
           user-requested service, account or key status, whether content is
           deliberately public, security and abuse-prevention needs, statutory
-          limitation periods, and tax or commercial record-keeping duties.
-          Public GitHub content and repository history may remain available
-          until removed in accordance with GitHub’s and the project’s rules.
+          limitation periods, community-recognition consent, and tax or
+          commercial record-keeping duties. Public GitHub content and repository
+          history may remain available until removed in accordance with GitHub’s
+          and the project’s rules.
         </p>
         <p>
           If you contact us by email, we process your address, message, and
@@ -453,7 +508,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection id="rights" title="13. Your data-protection rights" isLast>
+      <LegalSection id="rights" title="14. Your data-protection rights" isLast>
         <p>
           Subject to the conditions in the GDPR, you have the right to request
           access to your personal data, correction of inaccurate data, deletion,
