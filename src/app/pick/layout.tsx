@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     description,
     type: "website",
     locale: "en_US",
-    alternateLocale: ["de_DE"],
     url: `${SITE_CONFIG.url}/pick`,
     images: [
       {

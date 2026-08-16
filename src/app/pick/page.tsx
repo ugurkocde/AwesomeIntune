@@ -1,5 +1,5 @@
-import { JoinCommunityCta } from "~/components/pick/JoinCommunityCta";
 import { OutboundLink } from "~/components/OutboundLink";
+import { JoinCommunityCta } from "~/components/pick/JoinCommunityCta";
 import { PICK_PROGRAM } from "~/lib/pick-config";
 import { picks } from "~/lib/picks";
 
@@ -8,85 +8,55 @@ type ContentItem = {
   body: React.ReactNode;
 };
 
-type TermItem = {
-  title: string;
-  body: React.ReactNode;
-};
-
 const headingFont = "font-[family-name:var(--font-pick)]";
 
-function BilingualColumns({
+function SectionHeading({
+  id,
+  eyebrow,
   children,
-  pairId,
 }: {
-  children: [React.ReactNode, React.ReactNode];
-  pairId: string;
+  id: string;
+  eyebrow: string;
+  children: React.ReactNode;
 }) {
   return (
-    <div
-      className="grid gap-10 md:grid-cols-2 md:gap-0"
-      data-language-pair={pairId}
-    >
-      <div lang="en" className="md:pr-10 lg:pr-14">
-        <p className="mb-5 font-mono text-[11px] font-bold tracking-[0.16em] text-[var(--accent-primary)] uppercase">
-          English
-        </p>
-        {children[0]}
-      </div>
-      <div
-        lang="de"
-        className="border-t border-[color:var(--border-subtle)] pt-10 md:border-t-0 md:border-l md:pt-0 md:pl-10 lg:pl-14"
+    <div className="mb-10 max-w-3xl">
+      <p className="font-mono text-[11px] font-bold tracking-[0.16em] text-[var(--accent-primary)] uppercase">
+        {eyebrow}
+      </p>
+      <h2
+        id={id}
+        className={`${headingFont} mt-3 text-3xl leading-tight font-bold tracking-[-0.025em] text-balance text-[var(--text-primary)] sm:text-4xl`}
       >
-        <p className="mb-5 font-mono text-[11px] font-bold tracking-[0.16em] text-[var(--accent-primary)] uppercase">
-          Deutsch
-        </p>
-        {children[1]}
-      </div>
+        {children}
+      </h2>
     </div>
   );
 }
 
-function SectionHeading({ en, de }: { en: string; de: string }) {
+function NumberedCards({ items }: { items: readonly ContentItem[] }) {
   return (
-    <h2
-      className={`${headingFont} mb-10 text-3xl leading-tight font-bold tracking-[-0.025em] text-balance text-[var(--text-primary)] sm:text-4xl`}
-    >
-      <span lang="en">{en}</span>
-      <span aria-hidden="true" className="mx-2 text-[var(--border-medium)]">
-        /
-      </span>
-      <span lang="de">{de}</span>
-    </h2>
-  );
-}
-
-function NumberedList({ items }: { items: readonly ContentItem[] }) {
-  return (
-    <ol className="space-y-4">
+    <ol className="grid gap-4 lg:grid-cols-3">
       {items.map((item, index) => (
         <li
           key={item.title}
-          className="rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-5 shadow-[var(--shadow-sm)] sm:p-6"
+          className="rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-6 shadow-[var(--shadow-sm)]"
         >
-          <div className="flex gap-4">
-            <span
-              aria-hidden="true"
-              className="mt-1 flex h-9 w-9 shrink-0 rotate-45 items-center justify-center rounded-[8px] bg-[linear-gradient(135deg,#005a9e,#19a7df)] text-white"
-            >
-              <span className="-rotate-45 font-mono text-xs font-bold">
-                {index + 1}
-              </span>
+          <span
+            aria-hidden="true"
+            className="flex h-10 w-10 rotate-45 items-center justify-center rounded-[9px] bg-[linear-gradient(135deg,#005a9e,#19a7df)] text-white"
+          >
+            <span className="-rotate-45 font-mono text-xs font-bold">
+              {index + 1}
             </span>
-            <div>
-              <h3
-                className={`${headingFont} text-lg leading-snug font-bold text-[var(--text-primary)]`}
-              >
-                {item.title}
-              </h3>
-              <div className="mt-2 text-[15px] leading-7 text-[var(--text-secondary)]">
-                {item.body}
-              </div>
-            </div>
+          </span>
+          <h3
+            className={`${headingFont} mt-6 text-xl leading-snug font-bold text-[var(--text-primary)]`}
+          >
+            {item.title}
+          </h3>
+          <div className="mt-3 text-[15px] leading-7 text-[var(--text-secondary)]">
+            {item.body}
           </div>
         </li>
       ))}
@@ -94,20 +64,24 @@ function NumberedList({ items }: { items: readonly ContentItem[] }) {
   );
 }
 
-function FeatureList({ items }: { items: readonly ContentItem[] }) {
+function FeatureCards({ items }: { items: readonly ContentItem[] }) {
   return (
-    <ul className="space-y-4">
+    <ul className="grid gap-4 lg:grid-cols-3">
       {items.map((item) => (
         <li
           key={item.title}
-          className="border-l-2 border-[var(--accent-primary)] py-2 pl-5"
+          className="rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-6"
         >
+          <div
+            aria-hidden="true"
+            className="h-2.5 w-2.5 rotate-45 bg-[var(--accent-primary)]"
+          />
           <h3
-            className={`${headingFont} text-lg font-bold text-[var(--text-primary)]`}
+            className={`${headingFont} mt-5 text-xl font-bold text-[var(--text-primary)]`}
           >
             {item.title}
           </h3>
-          <div className="mt-1.5 text-[15px] leading-7 text-[var(--text-secondary)]">
+          <div className="mt-2 text-[15px] leading-7 text-[var(--text-secondary)]">
             {item.body}
           </div>
         </li>
@@ -116,21 +90,21 @@ function FeatureList({ items }: { items: readonly ContentItem[] }) {
   );
 }
 
-function TermsList({ items }: { items: readonly TermItem[] }) {
+function TermsList({ items }: { items: readonly ContentItem[] }) {
   return (
-    <ol className="space-y-7">
+    <ol className="grid gap-x-12 gap-y-8 md:grid-cols-2">
       {items.map((item, index) => (
-        <li key={item.title} className="flex gap-3">
-          <span className="mt-0.5 font-mono text-xs font-bold text-[var(--accent-primary)]">
+        <li key={item.title} className="flex min-w-0 gap-3">
+          <span className="mt-0.5 shrink-0 font-mono text-xs font-bold text-[var(--accent-primary)]">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <div>
+          <div className="min-w-0">
             <h3
               className={`${headingFont} text-base font-bold text-[var(--text-primary)]`}
             >
               {item.title}
             </h3>
-            <div className="mt-1.5 text-sm leading-6 text-[var(--text-secondary)]">
+            <div className="mt-1.5 text-sm leading-6 break-words text-[var(--text-secondary)]">
               {item.body}
             </div>
           </div>
@@ -161,19 +135,19 @@ function ExternalArrow() {
   );
 }
 
-function formatPickMonth(month: string, locale: "en-GB" | "de-DE") {
+function formatPickMonth(month: string) {
   const [year, monthNumber] = month.split("-").map(Number);
   if (!year || !monthNumber) return month;
 
-  return new Intl.DateTimeFormat(locale, {
+  return new Intl.DateTimeFormat("en-GB", {
     month: "long",
     year: "numeric",
     timeZone: "UTC",
   }).format(new Date(Date.UTC(year, monthNumber - 1, 1)));
 }
 
-function formatProgramDate(date: string, locale: "en-GB" | "de-DE") {
-  return new Intl.DateTimeFormat(locale, {
+function formatProgramDate(date: string) {
+  return new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -181,8 +155,8 @@ function formatProgramDate(date: string, locale: "en-GB" | "de-DE") {
   }).format(new Date(`${date}T00:00:00Z`));
 }
 
-function formatPrizeValue(locale: "en-GB" | "de-DE") {
-  return new Intl.NumberFormat(locale, {
+function formatPrizeValue() {
+  return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "EUR",
     currencyDisplay: "code",
@@ -190,7 +164,7 @@ function formatPrizeValue(locale: "en-GB" | "de-DE") {
   }).format(PICK_PROGRAM.prize.approximateValueEur);
 }
 
-const howItWorksEn: readonly ContentItem[] = [
+const howItWorks: readonly ContentItem[] = [
   {
     title: "Post in the group",
     body: (
@@ -217,7 +191,7 @@ const howItWorksEn: readonly ContentItem[] = [
     title: "The winner is featured and receives the prize",
     body: (
       <>
-        Pick of the Month opens on the 1st. The winner is announced in the first
+        Pick of the Month opens on the 1st. One winner is announced in the first
         week of the following month and receives a permanent place in the Hall
         of Fame.
       </>
@@ -225,43 +199,7 @@ const howItWorksEn: readonly ContentItem[] = [
   },
 ];
 
-const howItWorksDe: readonly ContentItem[] = [
-  {
-    title: "In der Gruppe posten",
-    body: (
-      <>
-        Teile deinen eigenen Beitrag in der Awesome Intune LinkedIn-Gruppe, zum
-        Beispiel ein Tool, Skript, Modul, einen Blogbeitrag, eine Anleitung oder
-        eine ausführliche Problemlösung. Es gibt kein Teilnahmeformular. Dein
-        Beitrag ist deine Teilnahme. Reine Reshares ohne eigenen Inhalt, bloße
-        Link-Posts und Werbebeiträge qualifizieren sich nicht.
-      </>
-    ),
-  },
-  {
-    title: "Die Jury prüft zum Monatsende",
-    body: (
-      <>
-        Alle qualifizierenden Beiträge des Kalendermonats werden geprüft. Für
-        die Monatsgrenzen gilt die Zeitzone {PICK_PROGRAM.timeZone}. Die
-        endgültige Entscheidung treffen {PICK_PROGRAM.jury.lead} und eingeladene
-        Co-Jurorinnen und Co-Juroren aus der Community.
-      </>
-    ),
-  },
-  {
-    title: "Der ausgezeichnete Beitrag erhält Sichtbarkeit und den Preis",
-    body: (
-      <>
-        Der Pick of the Month beginnt am 1. des Monats. Die Bekanntgabe erfolgt
-        in der ersten Woche des Folgemonats. Der ausgezeichnete Beitrag erhält
-        einen dauerhaften Platz in der Hall of Fame.
-      </>
-    ),
-  },
-];
-
-const criteriaEn: readonly ContentItem[] = [
+const criteria: readonly ContentItem[] = [
   {
     title: "Usefulness to Intune admins",
     body: "How directly and practically the contribution helps Intune admins solve real work.",
@@ -276,22 +214,7 @@ const criteriaEn: readonly ContentItem[] = [
   },
 ];
 
-const criteriaDe: readonly ContentItem[] = [
-  {
-    title: "Nutzen für Intune-Admins",
-    body: "Wie direkt und praktisch der Beitrag Intune-Admins bei ihrer täglichen Arbeit hilft.",
-  },
-  {
-    title: "Originalität",
-    body: "Ob der Beitrag eine eigenständige Idee, Herangehensweise oder Perspektive in die Community einbringt.",
-  },
-  {
-    title: "Aufwand und Tiefe",
-    body: "Welche erkennbare Recherche, Umsetzung, Prüfung oder Erklärung in der Arbeit steckt.",
-  },
-];
-
-const prizeEn: readonly ContentItem[] = [
+const prize: readonly ContentItem[] = [
   {
     title: "Permanent Hall of Fame entry",
     body: "The winner and contribution remain featured on this page.",
@@ -302,26 +225,11 @@ const prizeEn: readonly ContentItem[] = [
   },
   {
     title: `${PICK_PROGRAM.prize.durationMonths} months of ${PICK_PROGRAM.prize.subscriptionName}`,
-    body: `Reimbursed after a valid payment receipt is provided, with an approximate value of ${formatPrizeValue("en-GB")}.`,
+    body: `Reimbursed after a valid payment receipt is provided, with an approximate value of ${formatPrizeValue()}.`,
   },
 ];
 
-const prizeDe: readonly ContentItem[] = [
-  {
-    title: "Dauerhafter Eintrag in der Hall of Fame",
-    body: "Die ausgezeichnete Person und ihr Beitrag bleiben dauerhaft auf dieser Seite sichtbar.",
-  },
-  {
-    title: "LinkedIn-Shoutout",
-    body: `Ein eigener Anerkennungsbeitrag über den LinkedIn-Account von ${PICK_PROGRAM.jury.lead}.`,
-  },
-  {
-    title: `${PICK_PROGRAM.prize.durationMonths} Monate ${PICK_PROGRAM.prize.subscriptionName}`,
-    body: `Erstattung nach Vorlage eines gültigen Zahlungsbelegs, im ungefähren Wert von ${formatPrizeValue("de-DE")}.`,
-  },
-];
-
-const termsEn: readonly TermItem[] = [
+const terms: readonly ContentItem[] = [
   {
     title: "Organizer",
     body: `${PICK_PROGRAM.organizer.name}, ${PICK_PROGRAM.organizer.address}.`,
@@ -336,13 +244,7 @@ const termsEn: readonly TermItem[] = [
   },
   {
     title: "Winner selection",
-    body: (
-      <>
-        The jury selects the winner using the published criteria. The
-        jury&apos;s decision is final. Legal recourse is excluded (Der Rechtsweg
-        ist ausgeschlossen).
-      </>
-    ),
+    body: "The jury selects the winner using the published criteria. The jury's decision is final. Legal recourse is excluded.",
   },
   {
     title: "Winner contact",
@@ -380,78 +282,10 @@ const termsEn: readonly TermItem[] = [
   },
 ];
 
-const termsDe: readonly TermItem[] = [
-  {
-    title: "Veranstalter",
-    body: `${PICK_PROGRAM.organizer.name}, ${PICK_PROGRAM.organizer.address}.`,
-  },
-  {
-    title: "Teilnahmeberechtigung",
-    body: "Teilnahmeberechtigt sind Mitglieder der Awesome Intune LinkedIn-Gruppe ab 18 Jahren. Mitglieder der Jury sind während ihrer Tätigkeit von der Auszeichnung ausgeschlossen.",
-  },
-  {
-    title: "Teilnahme",
-    body: "Die Teilnahme erfolgt automatisch durch einen qualifizierenden Beitrag, der im jeweiligen Kalendermonat in der Gruppe veröffentlicht wird. Die Teilnahme ist kostenlos und nicht an einen Kauf gebunden.",
-  },
-  {
-    title: "Auswahl",
-    body: "Die Jury wählt den ausgezeichneten Beitrag anhand der veröffentlichten Kriterien aus. Die Entscheidung der Jury ist endgültig. Der Rechtsweg ist ausgeschlossen.",
-  },
-  {
-    title: "Kontaktaufnahme",
-    body: "Die ausgezeichnete Person wird per LinkedIn-Direktnachricht kontaktiert. Erfolgt innerhalb von 14 Tagen keine Antwort, kann die Jury eine andere Person auswählen.",
-  },
-  {
-    title: "Veröffentlichung und Einwilligung",
-    body: (
-      <>
-        Mit der Teilnahme willigen Mitglieder ein, im Fall einer Auszeichnung
-        mit Name, Profillink und Beitragslink auf dieser Seite sowie auf den
-        Social-Media-Kanälen von Awesome Intune genannt zu werden.
-        Rechtsgrundlage nach DSGVO ist die Einwilligung. Sie kann jederzeit per
-        LinkedIn-Direktnachricht an den Veranstalter oder per E-Mail an{" "}
-        <a
-          href={`mailto:${PICK_PROGRAM.contact.email}`}
-          className="font-semibold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
-        >
-          {PICK_PROGRAM.contact.email}
-        </a>{" "}
-        widerrufen werden.
-      </>
-    ),
-  },
-  {
-    title: "Preis",
-    body: `Der Preis ist nicht übertragbar. Eine Barauszahlung ist ausgeschlossen. Für die Erstattung des ${PICK_PROGRAM.prize.subscriptionName}-Abonnements ist ein gültiger Zahlungsbeleg erforderlich.`,
-  },
-  {
-    title: "Unabhängigkeit von LinkedIn",
-    body: "Dieses Programm wird weder von LinkedIn gesponsert, unterstützt oder verwaltet, noch steht es mit LinkedIn in Verbindung.",
-  },
-  {
-    title: "Künftige Änderungen",
-    body: "Der Veranstalter kann das Programm mit Wirkung für zukünftige Monate ändern oder einstellen.",
-  },
-];
-
 export default function PickPage() {
   const sortedPicks = [...picks].sort((a, b) => b.month.localeCompare(a.month));
-  const firstMonthEn = formatPickMonth(
-    PICK_PROGRAM.firstEligibleMonth,
-    "en-GB",
-  );
-  const firstMonthDe = formatPickMonth(
-    PICK_PROGRAM.firstEligibleMonth,
-    "de-DE",
-  );
-  const firstEligibleDateEn = formatProgramDate(
-    PICK_PROGRAM.firstEligibleDate,
-    "en-GB",
-  );
-  const firstEligibleDateDe = formatProgramDate(
-    PICK_PROGRAM.firstEligibleDate,
-    "de-DE",
-  );
+  const firstMonth = formatPickMonth(PICK_PROGRAM.firstEligibleMonth);
+  const firstEligibleDate = formatProgramDate(PICK_PROGRAM.firstEligibleDate);
 
   return (
     <div className="overflow-hidden bg-[var(--bg-primary)]">
@@ -470,11 +304,7 @@ export default function PickPage() {
         <div className="container-main relative py-20 sm:py-24 lg:py-28">
           <div className="max-w-5xl">
             <p className="font-mono text-xs font-bold tracking-[0.17em] text-[#bceeff] uppercase">
-              <span lang="en">Monthly community recognition</span>
-              <span aria-hidden="true" className="mx-2 text-white/40">
-                /
-              </span>
-              <span lang="de">Monatliche Community-Auszeichnung</span>
+              Monthly community recognition
             </p>
             <h1
               id="pick-title"
@@ -483,23 +313,10 @@ export default function PickPage() {
             >
               Awesome Pick
             </h1>
-
-            <div
-              className="mt-10 grid gap-7 text-lg leading-8 text-white/90 md:grid-cols-2 md:gap-12"
-              data-language-pair="hero-copy"
-            >
-              <p lang="en" className="max-w-xl">
-                Every month we recognize the most useful community contribution
-                in the Awesome Intune group.
-              </p>
-              <p
-                lang="de"
-                className="max-w-xl md:border-l md:border-white/20 md:pl-12"
-              >
-                Jeden Monat würdigen wir den nützlichsten Community-Beitrag in
-                der Awesome Intune Gruppe.
-              </p>
-            </div>
+            <p className="mt-10 max-w-3xl text-xl leading-8 text-pretty text-white/90 sm:text-2xl sm:leading-9">
+              Every month we recognize the most useful community contribution in
+              the Awesome Intune group.
+            </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <JoinCommunityCta appearance="hero" />
@@ -507,29 +324,19 @@ export default function PickPage() {
                 href="#rules"
                 className="inline-flex min-h-12 touch-manipulation items-center justify-center rounded-[10px] border border-white/45 px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                <span lang="en">See the rules</span>
-                <span aria-hidden="true" className="mx-2 opacity-50">
-                  /
-                </span>
-                <span lang="de">Regeln ansehen</span>
+                See the rules
               </a>
             </div>
 
-            <div className="mt-12 grid max-w-4xl gap-4 rounded-2xl border border-white/20 bg-[#005a9e]/35 p-5 backdrop-blur-sm sm:p-6 md:grid-cols-2 md:gap-0">
-              <p lang="en" className="text-sm leading-6 text-white/90 md:pr-8">
-                <strong className="text-white">
-                  Started in {firstMonthEn}.
-                </strong>{" "}
-                Every qualifying post published from {firstEligibleDateEn} is
-                included. No entry form, no registration.
+            <div className="mt-12 grid max-w-4xl gap-4 rounded-2xl border border-white/20 bg-[#005a9e]/35 p-5 backdrop-blur-sm sm:grid-cols-2 sm:p-6">
+              <p className="text-sm leading-6 text-white/90 sm:pr-8">
+                <strong className="text-white">Started in {firstMonth}.</strong>{" "}
+                Every qualifying post published from {firstEligibleDate} is
+                included.
               </p>
-              <p
-                lang="de"
-                className="border-t border-white/15 pt-4 text-sm leading-6 text-white/90 md:border-t-0 md:border-l md:pt-0 md:pl-8"
-              >
-                <strong className="text-white">Start im {firstMonthDe}.</strong>{" "}
-                Alle qualifizierenden Beiträge seit dem {firstEligibleDateDe}{" "}
-                sind dabei. Kein Teilnahmeformular, keine Registrierung.
+              <p className="border-t border-white/15 pt-4 text-sm leading-6 text-white/90 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-8">
+                <strong className="text-white">No entry form.</strong> Posting
+                your own qualifying contribution in the group is all it takes.
               </p>
             </div>
           </div>
@@ -541,13 +348,10 @@ export default function PickPage() {
         className="container-main py-20 sm:py-24"
       >
         <div className="mx-auto max-w-6xl">
-          <div id="how-it-works">
-            <SectionHeading en="How it works" de="So funktioniert es" />
-          </div>
-          <BilingualColumns pairId="how-it-works">
-            <NumberedList items={howItWorksEn} />
-            <NumberedList items={howItWorksDe} />
-          </BilingualColumns>
+          <SectionHeading id="how-it-works" eyebrow="Simple by design">
+            How it works
+          </SectionHeading>
+          <NumberedCards items={howItWorks} />
         </div>
       </section>
 
@@ -557,34 +361,19 @@ export default function PickPage() {
       >
         <div className="container-main">
           <div className="mx-auto max-w-6xl">
-            <div id="criteria">
-              <SectionHeading en="Selection criteria" de="Auswahlkriterien" />
-            </div>
-            <BilingualColumns pairId="criteria">
-              <FeatureList items={criteriaEn} />
-              <FeatureList items={criteriaDe} />
-            </BilingualColumns>
+            <SectionHeading id="criteria" eyebrow="Published in order">
+              Selection criteria
+            </SectionHeading>
+            <FeatureCards items={criteria} />
 
-            <div className="mt-10 grid gap-5 rounded-2xl border border-[color:var(--border-accent)] bg-[var(--accent-glow)] p-6 sm:p-8 md:grid-cols-2 md:gap-0">
-              <p
-                lang="en"
-                className="leading-7 text-[var(--text-primary)] md:pr-10"
-              >
+            <div className="mt-8 rounded-2xl border border-[color:var(--border-accent)] bg-[var(--accent-glow)] p-6 sm:p-8">
+              <p className="max-w-4xl text-lg leading-8 text-[var(--text-primary)]">
                 <strong>
                   Likes and comments are not the selection metric.
                 </strong>{" "}
                 Engagement may give the jury context, but it never decides the
                 winner. No contribution is ranked or featured because someone
                 paid.
-              </p>
-              <p
-                lang="de"
-                className="border-t border-[color:var(--border-subtle)] pt-5 leading-7 text-[var(--text-primary)] md:border-t-0 md:border-l md:pt-0 md:pl-10"
-              >
-                <strong>Likes und Kommentare sind kein Auswahlmaßstab.</strong>{" "}
-                Resonanz kann der Jury Kontext geben, entscheidet aber nie über
-                die Auszeichnung. Kein Beitrag wird aufgrund einer Zahlung
-                bewertet oder hervorgehoben.
               </p>
             </div>
           </div>
@@ -596,13 +385,10 @@ export default function PickPage() {
         className="container-main py-20 sm:py-24"
       >
         <div className="mx-auto max-w-6xl">
-          <div id="prize">
-            <SectionHeading en="What the winner receives" de="Der Preis" />
-          </div>
-          <BilingualColumns pairId="prize">
-            <FeatureList items={prizeEn} />
-            <FeatureList items={prizeDe} />
-          </BilingualColumns>
+          <SectionHeading id="prize" eyebrow="Recognition that lasts">
+            What the winner receives
+          </SectionHeading>
+          <FeatureCards items={prize} />
         </div>
       </section>
 
@@ -612,9 +398,9 @@ export default function PickPage() {
       >
         <div className="container-main">
           <div className="mx-auto max-w-6xl">
-            <div id="hall-of-fame">
-              <SectionHeading en="Hall of Fame" de="Hall of Fame" />
-            </div>
+            <SectionHeading id="hall-of-fame" eyebrow="Every Pick, preserved">
+              Hall of Fame
+            </SectionHeading>
 
             {sortedPicks.length > 0 ? (
               <div className="grid gap-5 md:grid-cols-2">
@@ -627,11 +413,10 @@ export default function PickPage() {
                       dateTime={pick.month}
                       className="font-mono text-xs font-bold tracking-[0.12em] text-[var(--accent-primary)] uppercase"
                     >
-                      {formatPickMonth(pick.month, "en-GB")} /{" "}
-                      {formatPickMonth(pick.month, "de-DE")}
+                      {formatPickMonth(pick.month)}
                     </time>
                     <h3
-                      className={`${headingFont} mt-4 text-2xl font-bold text-[var(--text-primary)]`}
+                      className={`${headingFont} mt-4 text-2xl font-bold break-words text-[var(--text-primary)]`}
                     >
                       <OutboundLink
                         href={pick.winnerLinkedIn}
@@ -648,11 +433,7 @@ export default function PickPage() {
                       href={pick.postUrl}
                       className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-bold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
                     >
-                      <span lang="en">Winning post</span>
-                      <span aria-hidden="true" className="opacity-50">
-                        /
-                      </span>
-                      <span lang="de">Ausgezeichneter Beitrag</span>
+                      Winning post
                       <ExternalArrow />
                     </OutboundLink>
                   </article>
@@ -660,32 +441,16 @@ export default function PickPage() {
               </div>
             ) : (
               <div className="rounded-3xl border border-[color:var(--border-accent)] bg-[var(--accent-glow)] p-6 sm:p-10">
-                <BilingualColumns pairId="hall-of-fame-empty">
-                  <div>
-                    <h3
-                      className={`${headingFont} text-2xl font-bold text-[var(--text-primary)]`}
-                    >
-                      First Pick: {firstMonthEn}
-                    </h3>
-                    <p className="mt-3 max-w-md leading-7 text-[var(--text-secondary)]">
-                      The first place in the Hall of Fame is waiting. Post your
-                      own contribution in the group to be in the running.
-                    </p>
-                  </div>
-                  <div>
-                    <h3
-                      className={`${headingFont} text-2xl font-bold text-[var(--text-primary)]`}
-                    >
-                      Erster Pick: {firstMonthDe}
-                    </h3>
-                    <p className="mt-3 max-w-md leading-7 text-[var(--text-secondary)]">
-                      Der erste Platz in der Hall of Fame ist noch frei. Poste
-                      deinen eigenen Beitrag in der Gruppe, um berücksichtigt zu
-                      werden.
-                    </p>
-                  </div>
-                </BilingualColumns>
-                <div className="mt-8">
+                <h3
+                  className={`${headingFont} text-2xl font-bold text-balance text-[var(--text-primary)] sm:text-3xl`}
+                >
+                  First Pick: {firstMonth}
+                </h3>
+                <p className="mt-3 max-w-2xl text-lg leading-8 text-[var(--text-secondary)]">
+                  The first place in the Hall of Fame is waiting. Post your own
+                  contribution in the group to be in the running.
+                </p>
+                <div className="mt-7">
                   <JoinCommunityCta />
                 </div>
               </div>
@@ -701,39 +466,18 @@ export default function PickPage() {
       >
         <div className="container-main">
           <div className="mx-auto max-w-6xl">
-            <div id="terms-title">
-              <SectionHeading
-                en="Participation terms"
-                de="Teilnahmebedingungen"
-              />
-            </div>
+            <SectionHeading id="terms-title" eyebrow="The complete rules">
+              Participation terms
+            </SectionHeading>
 
-            <div className="mb-6 grid gap-4 rounded-2xl border border-[color:var(--border-medium)] bg-[var(--bg-secondary)] p-5 text-sm leading-6 text-[var(--text-secondary)] sm:p-6 md:grid-cols-2 md:gap-0">
-              <p lang="en" className="md:pr-8">
-                This program is not sponsored, endorsed, administered by, or
-                associated with LinkedIn.
-              </p>
-              <p
-                lang="de"
-                className="border-t border-[color:var(--border-subtle)] pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-8"
-              >
-                Dieses Programm wird weder von LinkedIn gesponsert, unterstützt
-                oder verwaltet, noch steht es mit LinkedIn in Verbindung.
-              </p>
-            </div>
+            <p className="mb-6 rounded-2xl border border-[color:var(--border-medium)] bg-[var(--bg-secondary)] p-5 text-sm leading-6 text-[var(--text-secondary)] sm:p-6">
+              This program is not sponsored, endorsed, administered by, or
+              associated with LinkedIn.
+            </p>
 
             <details className="group rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] shadow-[var(--shadow-sm)]">
               <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-4 font-bold text-[var(--text-primary)] transition-colors hover:bg-[var(--surface-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)] sm:px-6 [&::-webkit-details-marker]:hidden">
-                <span>
-                  <span lang="en">Read the full terms</span>
-                  <span
-                    aria-hidden="true"
-                    className="mx-2 text-[var(--text-tertiary)]"
-                  >
-                    /
-                  </span>
-                  <span lang="de">Vollständige Bedingungen lesen</span>
-                </span>
+                <span>Read the full terms</span>
                 <svg
                   width="20"
                   height="20"
@@ -750,10 +494,7 @@ export default function PickPage() {
                 </svg>
               </summary>
               <div className="border-t border-[color:var(--border-subtle)] px-5 py-8 sm:px-8 sm:py-10">
-                <BilingualColumns pairId="terms">
-                  <TermsList items={termsEn} />
-                  <TermsList items={termsDe} />
-                </BilingualColumns>
+                <TermsList items={terms} />
               </div>
             </details>
           </div>
