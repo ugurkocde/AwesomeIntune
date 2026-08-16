@@ -7,5 +7,5 @@ export type Pick = {
   postAvailable?: boolean;
 };
 
-/** Add one entry per accepted Pick. Each month can have up to three entries. */
+/** Add one entry per announced Pick. Each month can have up to three entries. */
 export const picks: readonly Pick[] = [];

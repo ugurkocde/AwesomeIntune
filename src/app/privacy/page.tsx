@@ -278,47 +278,50 @@ export default function PrivacyPage() {
           To identify potential Awesome Picks, we manually review posts shared
           in the Awesome Intune LinkedIn group. We may process the poster&apos;s
           name, LinkedIn profile URL, post URL, the public or group-visible
-          contribution, and limited notes about eligibility, conflicts, and how
-          the contribution meets the published selection criteria. The source of
-          this data is the member&apos;s LinkedIn post and profile.
+          contribution, group-membership status, and limited notes about
+          eligibility, conflicts, and how the contribution meets the published
+          selection criteria. The source of this data is the member&apos;s
+          LinkedIn post and profile.
         </p>
         <p>
           The legal basis for this initial review is Article 6(1)(f) GDPR. Our
           legitimate interest is to recognize and make useful, free,
           vendor-neutral community knowledge easier to discover. Selection is
           performed manually. We do not save or score likes, comments, views,
-          impressions, audience size, or other engagement metrics, and there is
-          no solely automated decision-making.
+          impressions, audience size, personal-profile follows, or other
+          engagement metrics, and there is no solely automated decision-making.
         </p>
         <p>
-          We contact provisional Picks through LinkedIn direct message. We
-          publish a person&apos;s name, profile link, post link, and
-          contribution description on the Hall of Fame and Awesome Intune social
-          channels only after the person affirmatively accepts and consents. The
-          legal basis for that publication is Article 6(1)(a) GDPR. Consent can
-          be withdrawn at any time for the future. We will then remove or
-          anonymize the Hall of Fame entry and future references under our
-          control where reasonably possible. Withdrawal does not affect
-          processing that was lawful before it.
+          Selected Picks may be announced on the Hall of Fame and Awesome Intune
+          social channels before direct contact. We limit publication to the
+          winner&apos;s name, LinkedIn profile link, post link, and a short
+          description of the recognized contribution. The legal basis is Article
+          6(1)(f) GDPR. Our legitimate interest is to give visible credit for
+          useful community knowledge. A winner may object to this processing or
+          request removal by LinkedIn direct message or email. We will remove or
+          anonymize references under our control where reasonably possible.
+          Copies already shared by third parties may remain outside our control.
         </p>
         <p>
-          To deliver an accepted prize, we may process eligibility and
-          acceptance records, a subscription receipt, reimbursement amount, and
-          the payment details required to reimburse the winner. Please redact
-          unrelated transaction or account information before sending a receipt.
-          The legal basis is Article 6(1)(b) GDPR for administering the accepted
-          recognition and Article 6(1)(c) GDPR where accounting or tax law
+          Winners contact us through LinkedIn after the announcement if they
+          want to claim the prize. To handle a claim, we may process the
+          LinkedIn message, eligibility record, subscription receipt,
+          reimbursement amount, and payment details required to reimburse the
+          winner. Please redact unrelated transaction or account information
+          before sending a receipt. The legal basis is Article 6(1)(b) GDPR for
+          taking steps at the winner&apos;s request and administering the
+          claimed prize, and Article 6(1)(c) GDPR where accounting or tax law
           requires us to retain a record.
         </p>
         <p>
           We delete review notes for people who are not selected within 90 days
-          after the announcement. Public winner information remains available
-          while consent remains in effect. Acceptance, receipt, and payment
-          records are retained for the applicable statutory accounting and tax
-          periods and then deleted. Data may be shared with LinkedIn when a
-          recognition post is published, with website visitors, and with the
-          organizer&apos;s bank or payment provider where needed for
-          reimbursement.
+          after the announcement. Public winner information remains in the
+          program archive unless the winner objects or requests removal. Prize
+          claim, receipt, and payment records are retained for the applicable
+          statutory accounting and tax periods and then deleted. Data may be
+          shared with LinkedIn when a recognition post is published, with
+          website visitors, and with the organizer&apos;s bank or payment
+          provider where needed for reimbursement.
         </p>
       </LegalSection>
 
@@ -493,10 +496,10 @@ export default function PrivacyPage() {
           Factors used to set a period include the duration of the
           user-requested service, account or key status, whether content is
           deliberately public, security and abuse-prevention needs, statutory
-          limitation periods, community-recognition consent, and tax or
-          commercial record-keeping duties. Public GitHub content and repository
-          history may remain available until removed in accordance with GitHub’s
-          and the project’s rules.
+          limitation periods, community-recognition publication and objections,
+          and tax or commercial record-keeping duties. Public GitHub content and
+          repository history may remain available until removed in accordance
+          with GitHub’s and the project’s rules.
         </p>
         <p>
           If you contact us by email, we process your address, message, and

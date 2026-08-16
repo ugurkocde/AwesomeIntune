@@ -1,4 +1,4 @@
-import { COMMUNITY_URL } from "~/lib/constants";
+import { COMMUNITY_URL, UGUR_LINKEDIN_URL } from "~/lib/constants";
 
 export const PICK_PROGRAM = {
   winnersPerMonth: 3,
@@ -16,12 +16,12 @@ export const PICK_PROGRAM = {
     name: "Ugurlabs UG (haftungsbeschränkt)",
     address: "Fährstraße 217, 40221 Düsseldorf, Germany",
   },
-  recognitionPostAuthor: "Ugur Koc",
+  recognitionPostAuthor: {
+    name: "Ugur Koc",
+    linkedInProfileUrl: UGUR_LINKEDIN_URL,
+  },
   contact: {
     email: "support@ugurlabs.com",
-  },
-  selection: {
-    acceptanceWindowBusinessDays: 3,
   },
   prize: {
     subscriptionName: "Claude Pro",

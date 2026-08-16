@@ -3,6 +3,7 @@ import {
   SITE_CONFIG,
   CATEGORY_CONFIG,
   STATIC_PAGES_LAST_MODIFIED,
+  UGUR_LINKEDIN_URL,
 } from "./constants";
 import { getToolAuthors, getToolSlug } from "./tools";
 
@@ -144,7 +145,7 @@ export function generateOrganizationStructuredData() {
     sameAs: [
       "https://github.com/ugurkocde/awesomeintune",
       "https://github.com/ugurkocde",
-      "https://www.linkedin.com/in/ugurkocde/",
+      UGUR_LINKEDIN_URL,
       "https://x.com/UgurKocDe",
     ],
   };

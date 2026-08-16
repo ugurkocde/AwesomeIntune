@@ -13,6 +13,8 @@ type ContentItem = {
 };
 
 const headingFont = "font-[family-name:var(--font-pick)]";
+const inlineLinkClass =
+  "rounded-sm font-semibold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]";
 
 // Official Claude mark served by claude.com, embedded to avoid a third-party request.
 const claudeLogo =
@@ -230,12 +232,18 @@ const howItWorks: readonly ContentItem[] = [
     ),
   },
   {
-    title: "Provisional Picks choose to accept",
+    title: "Picks are announced",
     body: (
       <>
-        Up to {PICK_PROGRAM.winnersPerMonth} people are contacted privately.
-        After each person accepts the recognition and publication, the Picks are
-        announced, featured, and given the same prize.
+        Up to {PICK_PROGRAM.winnersPerMonth} Picks are announced on this page
+        and Awesome Intune social channels. Each winner then messages{" "}
+        <OutboundLink
+          href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+          className={inlineLinkClass}
+        >
+          {PICK_PROGRAM.recognitionPostAuthor.name} on LinkedIn
+        </OutboundLink>{" "}
+        within {PICK_PROGRAM.prize.claimWindowDays} days to claim the prize.
       </>
     ),
   },
@@ -259,15 +267,26 @@ const criteria: readonly ContentItem[] = [
 const prize: readonly ContentItem[] = [
   {
     title: "Hall of Fame recognition",
-    body: "Each accepted Pick and contribution is featured on this page for as long as publication consent remains in effect.",
+    body: "Each announced Pick and contribution is featured on this page. Winners can ask for their entry to be removed or anonymized.",
   },
   {
     title: "LinkedIn shoutout",
-    body: `A dedicated recognition post from ${PICK_PROGRAM.recognitionPostAuthor}'s LinkedIn account celebrates the knowledge shared.`,
+    body: (
+      <>
+        A dedicated recognition post from{" "}
+        <OutboundLink
+          href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+          className={inlineLinkClass}
+        >
+          {PICK_PROGRAM.recognitionPostAuthor.name}&apos;s LinkedIn account
+        </OutboundLink>{" "}
+        celebrates the knowledge shared.
+      </>
+    ),
   },
   {
     title: `${formatPrizeDuration()} of ${PICK_PROGRAM.prize.subscriptionName}`,
-    body: `Each accepted Pick can claim reimbursement for the actual eligible subscription cost, up to ${formatPrizeCap()}, after providing a valid receipt.`,
+    body: `Each announced Pick can claim reimbursement for the actual eligible subscription cost, up to ${formatPrizeCap()}, after messaging the organizer and providing a valid receipt.`,
     icon: (
       <Image
         src={claudeLogo}
@@ -284,7 +303,7 @@ const prize: readonly ContentItem[] = [
 const essentialRules: readonly ContentItem[] = [
   {
     title: "Who may be recognized",
-    body: "LinkedIn group members aged 18 or older who share an eligible contribution.",
+    body: "People aged 18 or older who belong to the Awesome Intune LinkedIn group when they post and when selections are finalized.",
   },
   {
     title: "What is reviewed",
@@ -295,8 +314,20 @@ const essentialRules: readonly ContentItem[] = [
     body: "Usefulness 50%, originality 30%, and effort and depth 20%. Engagement numbers are ignored.",
   },
   {
-    title: "What happens before publication",
-    body: `Provisional Picks have ${PICK_PROGRAM.selection.acceptanceWindowBusinessDays} business days to accept and consent before being named publicly.`,
+    title: "How winners claim",
+    body: (
+      <>
+        After the announcement, each winner messages{" "}
+        <OutboundLink
+          href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+          className={inlineLinkClass}
+        >
+          {PICK_PROGRAM.recognitionPostAuthor.name} on LinkedIn
+        </OutboundLink>{" "}
+        within {PICK_PROGRAM.prize.claimWindowDays} days. Following the profile
+        is optional.
+      </>
+    ),
   },
 ];
 
@@ -307,11 +338,11 @@ const terms: readonly ContentItem[] = [
   },
   {
     title: "Eligibility",
-    body: "Members of the Awesome Intune LinkedIn group who are at least 18 years old may be considered. The organizer, anyone materially involved in administering or selecting the Picks, and their household members cannot be selected.",
+    body: "People who are at least 18 years old and belong to the Awesome Intune LinkedIn group when they publish their contribution and when selections are finalized may be considered. Following Ugur Koc or any other personal profile is not required and does not affect eligibility. The organizer, anyone materially involved in administering or selecting the Picks, and their household members cannot be selected.",
   },
   {
     title: "Timing",
-    body: `Each cycle covers contributions posted during a calendar month in ${PICK_PROGRAM.timeZone}. The first cycle includes qualifying posts published from ${formatProgramDate(PICK_PROGRAM.firstEligibleDate)}. Announcements are planned for the first week of the following month, but eligibility checks, acceptance, or a replacement may delay publication.`,
+    body: `Each cycle covers contributions posted during a calendar month in ${PICK_PROGRAM.timeZone}. The first cycle includes qualifying posts published from ${formatProgramDate(PICK_PROGRAM.firstEligibleDate)}. Announcements are planned for the first week of the following month, but eligibility or integrity checks may delay publication.`,
   },
   {
     title: "Qualifying contributions",
@@ -319,7 +350,7 @@ const terms: readonly ContentItem[] = [
   },
   {
     title: "Review, not automatic entry",
-    body: "The organizer reviews eligible group posts for potential recognition. Posting does not create a contract, guarantee selection, or require the member to accept. Participation in the recognition process is free, and no purchase is required to be considered.",
+    body: "The organizer reviews eligible group posts for potential recognition. Posting does not create a contract or guarantee selection. Participation in the recognition process is free, and no purchase is required to be considered.",
   },
   {
     title: "Selection",
@@ -331,20 +362,34 @@ const terms: readonly ContentItem[] = [
   },
   {
     title: "Integrity and availability",
-    body: "The poster must own the contribution or have permission to share it. Plagiarized, unlawful, deceptive, unsafe, or rights-infringing content is excluded. The post must remain accessible when selection is completed. If it is removed later, the Hall of Fame may retain the accepted description and mark the contribution link as unavailable.",
+    body: "The poster must own the contribution or have permission to share it. Plagiarized, unlawful, deceptive, unsafe, or rights-infringing content is excluded. The post must remain accessible when selection is completed. If it is removed later, the Hall of Fame may retain the published description and mark the contribution link as unavailable unless the winner requests removal.",
   },
   {
-    title: "Contact and acceptance",
-    body: `Provisional Picks are contacted by LinkedIn direct message and have ${PICK_PROGRAM.selection.acceptanceWindowBusinessDays} business days to confirm eligibility, accept the recognition and prize, and consent to publication. If there is no timely response, the organizer may contact another person.`,
-  },
-  {
-    title: "Publication and consent",
+    title: "Announcement and prize contact",
     body: (
       <>
-        A person is named publicly only after affirmative consent. With that
-        consent, Awesome Intune may publish the winner&apos;s name, LinkedIn
+        Selected Picks are announced on this page and Awesome Intune social
+        channels without advance contact. To claim the prize, a winner must
+        message{" "}
+        <OutboundLink
+          href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+          className={inlineLinkClass}
+        >
+          {PICK_PROGRAM.recognitionPostAuthor.name} on LinkedIn
+        </OutboundLink>{" "}
+        within {PICK_PROGRAM.prize.claimWindowDays} days after the announcement.
+        If no message arrives in time, the reimbursement offer expires, but the
+        recognition remains unless the winner asks for removal.
+      </>
+    ),
+  },
+  {
+    title: "Publication and removal",
+    body: (
+      <>
+        Awesome Intune may publish a selected person&apos;s name, LinkedIn
         profile link, post link, and contribution description on this page and
-        its social channels. Consent can be withdrawn for the future by LinkedIn
+        its social channels. A winner may object or request removal by LinkedIn
         direct message or email to{" "}
         <a
           href={`mailto:${PICK_PROGRAM.contact.email}`}
@@ -352,9 +397,10 @@ const terms: readonly ContentItem[] = [
         >
           {PICK_PROGRAM.contact.email}
         </a>
-        . The Hall of Fame entry and future social references under Awesome
-        Intune&apos;s control will then be removed or anonymized where
-        reasonably possible. See the{" "}
+        . The Hall of Fame entry and references under Awesome Intune&apos;s
+        control will then be removed or anonymized where reasonably possible.
+        Copies already shared by third parties may remain outside the
+        organizer&apos;s control. See the{" "}
         <Link
           href="/privacy#awesome-pick"
           className="font-semibold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
@@ -367,11 +413,11 @@ const terms: readonly ContentItem[] = [
   },
   {
     title: "Prize claim",
-    body: `Each accepted Pick may claim the actual eligible cost of ${formatPrizeDuration()} of ${PICK_PROGRAM.prize.subscriptionName}, up to ${formatPrizeCap()} including applicable tax. A valid receipt must be submitted within ${PICK_PROGRAM.prize.claimWindowDays} days after acceptance. An existing annual subscription may be claimed at its documented monthly-equivalent cost. Currency-conversion and payment-provider charges are not reimbursed. The winner is responsible for any personal tax obligations.`,
+    body: `Each announced Pick may claim the actual eligible cost of ${formatPrizeDuration()} of ${PICK_PROGRAM.prize.subscriptionName}, up to ${formatPrizeCap()} including applicable tax. The winner must send a LinkedIn message within ${PICK_PROGRAM.prize.claimWindowDays} days after the announcement and provide a valid receipt using the instructions received in reply. Following the organizer's profile is welcome but not required. An existing annual subscription may be claimed at its documented monthly-equivalent cost. Currency-conversion and payment-provider charges are not reimbursed. The winner is responsible for any personal tax obligations.`,
   },
   {
     title: "Prize limits",
-    body: `The prize is personal, non-transferable, and has no cash alternative. A purchase is not required to be considered, but reimbursement requires an eligible purchase and receipt after acceptance. ${PICK_PROGRAM.prize.subscriptionName} must be legally available to the winner. If it is unavailable where a provisional Pick lives, the organizer may select another person.`,
+    body: `The prize is personal, non-transferable, and has no cash alternative. A purchase is not required to be considered, but reimbursement requires proof of an eligible subscription cost through a valid receipt. ${PICK_PROGRAM.prize.subscriptionName} must be legally available to the winner. If it is unavailable where a Pick lives, the recognition remains but no substitute prize is provided.`,
   },
   {
     title: "Platform and provider independence",
@@ -379,7 +425,7 @@ const terms: readonly ContentItem[] = [
   },
   {
     title: "Future changes",
-    body: "The organizer may amend or discontinue the program with effect for future months. Changes do not reduce an accepted prize from a completed cycle.",
+    body: "The organizer may amend or discontinue the program with effect for future months. Changes do not reduce a prize already claimed from a completed cycle.",
   },
 ];
 
@@ -390,7 +436,7 @@ const frequentlyAskedQuestions: readonly ContentItem[] = [
   },
   {
     title: "Do I need to enter or register?",
-    body: "No. Awesome Intune may review qualifying posts shared in the group. If your contribution becomes a provisional Pick, you decide privately whether to accept before anything is announced.",
+    body: "No form or registration is needed. You must be at least 18 years old and belong to the Awesome Intune LinkedIn group when you share the post and when selections are finalized.",
   },
   {
     title: "Can an update to existing work be recognized?",
@@ -402,11 +448,27 @@ const frequentlyAskedQuestions: readonly ContentItem[] = [
   },
   {
     title: "When are the Picks announced?",
-    body: "The target is the first week of the following month. Confirmation, eligibility checks, or contacting a replacement can occasionally make the announcement later.",
+    body: "The target is the first week of the following month. Eligibility or integrity checks can occasionally make the announcement later.",
   },
   {
-    title: "Does sharing a post mean I have accepted the prize?",
-    body: "No. Posting is not acceptance. Provisional Picks receive a LinkedIn message and choose whether to accept the recognition, public listing, and prize.",
+    title: "How does a winner claim the prize?",
+    body: (
+      <>
+        After the announcement, message{" "}
+        <OutboundLink
+          href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+          className={inlineLinkClass}
+        >
+          {PICK_PROGRAM.recognitionPostAuthor.name} on LinkedIn
+        </OutboundLink>{" "}
+        within {PICK_PROGRAM.prize.claimWindowDays} days. You will receive the
+        reimbursement instructions in reply.
+      </>
+    ),
+  },
+  {
+    title: `Do I have to follow ${PICK_PROGRAM.recognitionPostAuthor.name}?`,
+    body: "No. Following is welcome, but it is not required for eligibility, selection, announcement, or the prize. Winners only need to use the linked profile to send their claim message.",
   },
 ];
 
@@ -477,7 +539,8 @@ export default function PickPage() {
               />
               <p className="mt-4 px-1 text-sm leading-6 text-white/75">
                 The first cycle includes qualifying contributions posted from{" "}
-                {firstEligibleDate}. No form or registration is required.
+                {firstEligibleDate}. You must belong to the LinkedIn group, but
+                no form or registration is required.
               </p>
             </div>
           </div>
@@ -521,8 +584,9 @@ export default function PickPage() {
               </p>
               <p className="mt-3 max-w-4xl text-base leading-7 text-[var(--text-secondary)]">
                 Engagement is not used as context or as a tie-breaker. No
-                contribution is featured because someone paid, and no monthly
-                Pick is ranked above another.
+                contribution is featured because someone paid. Following the
+                organizer or any personal profile is not required or considered,
+                and no monthly Pick is ranked above another.
               </p>
             </div>
           </div>
@@ -538,6 +602,28 @@ export default function PickPage() {
             What every Pick receives
           </SectionHeading>
           <FeatureCards items={prize} />
+          <div className="mt-6 flex flex-col gap-5 rounded-2xl border border-[color:var(--border-accent)] bg-[var(--accent-glow)] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div className="max-w-3xl">
+              <h3
+                className={`${headingFont} text-2xl font-bold text-[var(--text-primary)]`}
+              >
+                Announced as a Pick?
+              </h3>
+              <p className="mt-2 text-base leading-7 text-[var(--text-secondary)]">
+                Message {PICK_PROGRAM.recognitionPostAuthor.name} on LinkedIn
+                within {PICK_PROGRAM.prize.claimWindowDays} days to receive the
+                reimbursement instructions. Following the profile is welcome,
+                but never required.
+              </p>
+            </div>
+            <OutboundLink
+              href={PICK_PROGRAM.recognitionPostAuthor.linkedInProfileUrl}
+              className="inline-flex min-h-12 shrink-0 touch-manipulation items-center justify-center gap-2 rounded-[10px] bg-[var(--accent-solid)] px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[var(--accent-solid-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"
+            >
+              Message Ugur on LinkedIn
+              <ExternalArrow />
+            </OutboundLink>
+          </div>
           <p className="mt-6 max-w-4xl text-base leading-7 text-[var(--text-secondary)]">
             The prize is a thank-you, not the purpose of the program. The real
             reward is making valuable community knowledge easier to discover and

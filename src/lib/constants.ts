@@ -46,6 +46,7 @@ export const GITHUB_RAW_BASE_URL =
   "https://raw.githubusercontent.com/ugurkocde/awesomeintune/main";
 export const GITHUB_ISSUES_URL = `${GITHUB_REPO_URL}/issues/new?template=tool-submission.yml`;
 export const COMMUNITY_URL = "https://www.linkedin.com/groups/14802021/";
+export const UGUR_LINKEDIN_URL = "https://www.linkedin.com/in/ugurkocde/";
 
 export const SITE_CONFIG = {
   name: "Awesome Intune",
