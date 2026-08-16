@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 33,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code appears to be legitimate admin tooling for ConfigMgr/Intune workflows. No malicious activity detected. Note a minor bug regarding variable naming in Get-AppList and a potential credential exposure risk if certificate objects are mishandled by callers.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -55,7 +55,7 @@
   },
   "repoStats": {
     "stars": 106,
-    "forks": 21,
+    "forks": 22,
     "license": "NOASSERTION",
     "lastUpdated": "2026-06-08T08:45:49Z",
     "archived": false

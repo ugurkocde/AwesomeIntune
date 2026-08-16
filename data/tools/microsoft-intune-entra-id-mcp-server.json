@@ -26,11 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 17,
-    "lastChecked": "2026-07-14",
+    "filesScanned": 20,
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase largely adheres to standard secure practices for a Microsoft Graph Intune management tool. No obfuscated code, no remote script execution, and no credential theft or data exfiltration detected in the shown components. Minor security considerations: secret management via environment variables and potential error-detail leakage on Graph API errors. Recommended mitigations include using a secrets vault or managed identity, strict RBAC on app registration, rotating credentials, and implementing sanitized error reporting.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -55,9 +55,9 @@
   },
   "repoStats": {
     "stars": 8,
-    "forks": 2,
+    "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-07-13T11:07:01Z",
+    "lastUpdated": "2026-08-02T04:59:01Z",
     "archived": false
   },
   "authors": [

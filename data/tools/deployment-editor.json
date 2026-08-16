@@ -42,20 +42,19 @@
     "screenshots/deployment-editor/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 4,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The Deployment Editor codebase includes notable security concerns around dynamic code execution (Invoke-Expression of external PSADT content), plaintext credential handling in memory, and a policy-bypass in MSI-related script. There are placeholders that could be misconfigured if left untouched. No direct data exfiltration or external downloads were observed in the provided snippets. Recommendations: eliminate or sandbox dynamic code execution, avoid converting SecureString to plaintext, remove execution policy changes, and ensure configuration values are securely provided and validated.",
+    "aiSummary": "Overall, the codebase contains routine Intune deployment tooling with normal Graph API usage patterns. However, notable security concerns include a PowerShell execution policy bypass in MSI reading, usage of Invoke-Expression to process content from PSADT files, and plaintext handling of credentials in memory. No evidence of base64 obfuscation or active data exfiltration observed in the reviewed snippets. Recommendations: remove or restrict Set-ExecutionPolicy ByPass, eliminate or minimize Invoke-Expression usage by parsing data structures instead, and adopt secure credential handling (e.g., using PSCredential objects or managed identities) without exposing plaintext secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": false,
-        "reason": "Parses PSADT deployment file Invoke-AppDeployToolkit.ps1 and uses Invoke-Expression on the Right.Extent.Text to assign to 'adtSession'. This effectively executes code from the PSADT file at runtime, creating a remote-execution risk if the PSADT script contents are tampered or crafted."
+        "passed": true
       },
       "noCredentialTheft": {
         "passed": true
@@ -65,7 +64,7 @@
       },
       "noMaliciousPatterns": {
         "passed": false,
-        "reason": "Sets PowerShell ExecutionPolicy to ByPass via Set-ExecutionPolicy. This weakens the security posture by bypassing policy controls and could be abused to execute unauthorized code. Avoid or restrict policy changes within scripts."
+        "reason": "Set-ExecutionPolicy ByPass -Scope CurrentUser is invoked. This bypasses PowerShell execution policy for the current user, enabling execution of unsigned or potentially untrusted code. This is a high-risk pattern that can be abused to execute malicious scripts locally."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -74,8 +73,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 153,
-    "forks": 14,
+    "stars": 154,
+    "forks": 15,
     "license": "GPL-3.0",
     "lastUpdated": "2026-04-12T10:06:43Z",
     "archived": false

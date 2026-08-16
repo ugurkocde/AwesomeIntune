@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please provide the Windows Autopilot Import GUI PowerShell/Code to review for security concerns related to obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets.",
+    "aiSummary": "No code provided for analysis. Provide the source code or script to analyze for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets. Once provided, I will return a detailed JSON findings list.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

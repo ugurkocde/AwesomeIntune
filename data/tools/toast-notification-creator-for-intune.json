@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code appears to be legitimate for Intune toast notifications. No credential harvesting or automated remote code execution detected. Primary security considerations are: (1) external URL activation in toasts could direct users to untrusted sites; (2) configuration is stored in plaintext in AppData; (3) user-supplied content is written and persisted. Recommendations: validate and whitelist URLs, sanitize inputs, secure or encrypt config storage, and consider signing generated remediation scripts.",
+    "aiSummary": "The Toast Notification Creator for Intune is generally appropriate for legitimate admin use. It does not perform credential harvesting, exfiltration, or hardcoded secret usage. The primary security consideration is the potential for toast action URLs to initiate external actions when clicked; validate and restrict such URLs as needed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code was provided for analysis. Unable to identify obfuscation, remote execution, credential theft, data exfiltration, or malicious patterns. Please provide the code snippet for the IntuneWin Utility to review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 10,
+    "stars": 11,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-06-16T15:19:54Z",
+    "lastUpdated": "2026-07-21T05:49:29Z",
     "archived": false
   },
   "authors": [

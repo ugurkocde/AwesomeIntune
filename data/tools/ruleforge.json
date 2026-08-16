@@ -45,7 +45,7 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 26,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "failed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",

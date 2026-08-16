@@ -50,16 +50,17 @@
   ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 37,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase contains notable security and reliability concerns: a garbled/possibly obfuscated module manifest; hardcoded identifiers that could affect permission scoping; credential handling relying on client secrets; collection of sensitive inventory data; and a logic error in permission assignment that could lead to misconfiguration. Recommended actions include validating and signing modules, parameterizing critical IDs/permissions, using certificate/Managed Identity auth where possible, enforcing data minimization and secure transmission, and fixing the foreach-permission loop to iterate over a proper collection.",
+    "status": "failed",
+    "aiSummary": "The IntuneDeviceInventory toolset contains legitimate Intune Graph integration patterns, but also notable security risks. Key concerns include obfuscated manifest/script content that hampers review, a privileged permission grant for a managed identity that could be misused, webhook-driven device-note updates that could be abused if authentication is weak, plaintext credential handling risks in Graph connection, and telemetry collection that could leak sensitive inventory data if not properly controlled. Recommend re-encoding/ signing the obfuscated modules, validating input/output strictly, enforcing least privilege, securing webhook authentication, and adopting safer authentication mechanisms (certificate/Managed Identity) where possible.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Module manifest contains heavily obfuscated/garbled content (non-ASCII characters, seemingly encoded blocks). This obscurity makes it difficult to review integrity and intent. Potential for hidden payloads; requires source verification, re-encoding in a readable format, and code signing validation."
       },
       "noRemoteExecution": {
         "passed": true
@@ -80,7 +81,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 20,
+    "stars": 21,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2024-07-26T08:38:42Z",

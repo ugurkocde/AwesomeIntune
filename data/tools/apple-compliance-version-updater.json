@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 8,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No evidence of obfuscated code, remote code execution, credential theft, data exfiltration, or malicious activity. The script performs legitimate Intune Graph API diagnostics and external SOFA data retrieval. The primary concern is minor information disclosure via logging sensitive metadata (secret length and partial IDs). Security posture remains acceptable for a diagnostic runbook when run in trusted automation contexts; apply the logging mitigation to further reduce risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

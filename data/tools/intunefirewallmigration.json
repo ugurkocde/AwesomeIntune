@@ -55,10 +55,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall, the script shows legitimate Graph/Intune management usage but includes self-relaunch obfuscation, on-demand module installation from the internet, and a manifest misconfiguration. These deserve scrutiny and hardening: pin module sources/versions, validate manifest consistency, audit Strings.ps1 content, and minimize logging of identifiers.",
+    "aiSummary": "The codebase largely aligns with a legitimate Intune firewall migration tool. The main concerns are: (1) a potential runtime break due to Break in a catch outside a loop when installing dependencies, (2) exposure of TenantId in console output, (3) automatic module installation from PSGallery without explicit signing verification, (4) use of Graph beta APIs which can introduce instability, and (5) credential handling that could benefit from vault-based storage. No hardcoded secrets or obfuscated/malicious payloads detected. Overall risk: low to medium; address dependency installation flow, minimize sensitive output, and review beta API usage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -82,7 +82,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 25,
+    "stars": 26,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-07-01T07:54:35Z",

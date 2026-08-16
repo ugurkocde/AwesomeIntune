@@ -50,10 +50,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The codebase consists largely of template and remediation scripts with placeholders and some potentially destructive operations. No evidence of obfuscated payload, remote script execution, credential theft, data exfiltration, or hardcoded secrets. However, several templates include placeholders and a potentially risky remediation that can affect hardware and registry state. Recommend auditing templates, removing or clearly gating placeholder logic, adding input validation, and ensuring destructive actions (like pnputil usage) are behind explicit confirmations and logging.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,10 +77,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 629,
+    "stars": 640,
     "forks": 130,
     "license": "MIT",
-    "lastUpdated": "2026-05-15T08:09:19Z",
+    "lastUpdated": "2026-07-28T10:59:21Z",
     "archived": false
   }
 }

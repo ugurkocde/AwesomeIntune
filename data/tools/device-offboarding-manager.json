@@ -65,10 +65,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall, the Playbooks show standard Intune/Graph API usage appropriate for an endpoint management tool. There is no obfuscated code, remote script execution, credential dumping, data exfiltration to external endpoints, malicious patterns, or hardcoded secrets detected. The primary security considerations relate to handling sensitive inventory data (especially BitLocker/FileVault key metadata) with strict RBAC and auditing, and ensuring that outputs do not leak sensitive information through logs or UI. Recommend enforcing least-privilege Graph scopes, using v1.0 endpoints where possible, redacting sensitive fields in UI, and auditing access to high-sensitivity data like recovery keys.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -92,8 +92,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 251,
-    "forks": 40,
+    "stars": 254,
+    "forks": 41,
     "license": "MIT",
     "lastUpdated": "2026-07-09T18:57:30Z",
     "archived": false

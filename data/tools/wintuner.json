@@ -58,10 +58,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears to be legitimate admin tooling for Intune and Graph API integration. Primary security considerations relate to logging practices (transcripts may expose secrets), telemetry-like data exposure via proxy events, and handling of credentials/tenant identifiers. No remote code execution, credential theft, or hardcoded secrets beyond placeholders were detected.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -85,10 +85,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 246,
-    "forks": 34,
+    "stars": 252,
+    "forks": 37,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-07-03T21:36:49Z",
+    "lastUpdated": "2026-07-13T14:09:23Z",
     "archived": false
   }
 }

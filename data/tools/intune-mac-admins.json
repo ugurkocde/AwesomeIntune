@@ -84,11 +84,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 49,
-    "lastChecked": "2026-07-12",
+    "filesScanned": 50,
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No obfuscated code, remote code execution, credential theft, hardcoded secrets, or clearly malicious patterns detected. The code appears to be a docs-freshness workflow with AI-assisted drift verification and edit verification. However, there are data exfiltration risks due to transmitting page content and sources to external AI services; mitigations include restricting data sharing, using on-prem models, or implementing strict sanitization/minimization.",
+    "aiSummary": "No obfuscated code, credential theft, remote code execution, or hardcoded secrets detected. The code is largely safe for an Intune management workflow. Notable considerations include external analytics loading in the changelog UI and the admin-bypass merge automation in CI, which should be governed with strong access controls and auditing.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -112,10 +112,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 105,
-    "forks": 43,
+    "stars": 110,
+    "forks": 44,
     "license": "MIT",
-    "lastUpdated": "2026-07-06T22:55:53Z",
+    "lastUpdated": "2026-08-10T07:36:33Z",
     "archived": false
   }
 }

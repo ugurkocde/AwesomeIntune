@@ -51,13 +51,13 @@
     "screenshots/intune-app-factory/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 22,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Assessment finds no remote code download, credential theft, or data exfiltration. Primary concerns are (1) execution policy bypass in deployment scripts, which lowers defense in depth, (2) a potential misuse surface in silent uninstall logic, and (3) templated placeholders that should be securely substituted and reviewed for unintended leakage. Overall, these scripts are typical for Intune/App Deployment Toolkit usage but require strict access control, signing, and auditing to prevent abuse.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The code appears to be standard deployment templates using the App Deploy Toolkit. No direct malicious patterns detected (no credential theft, no data exfiltration, no remote command execution). The main concerns are security hygiene around execution policy changes, trust and integrity of dynamically loaded toolkit scripts, and avoidance of embedding secrets directly. Recommended mitigations include signing scripts, validating and constraining the location and integrity of the toolkit, and ensuring runtime parameters are provided securely without hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -72,8 +72,7 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "The script explicitly sets the PowerShell execution policy to ByPass for the current process (Set-ExecutionPolicy -ExecutionPolicy 'ByPass' -Scope 'Process'). This bypasses execution restrictions and can be exploited to run unsigned or tampered code, particularly during deployment. While common in deployment contexts, it represents a potential abuse surface and should be constrained (e.g., sign scripts, scope limited, audit)."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -82,7 +81,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 65,
+    "stars": 66,
     "forks": 16,
     "license": "MIT",
     "lastUpdated": "2024-09-10T22:42:31Z",

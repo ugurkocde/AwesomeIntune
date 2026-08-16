@@ -50,16 +50,17 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase contains eval-based dynamic loading of label data, and mechanisms capable of downloading/executing components from remote sources, which pose legitimate security risks if inputs are not strictly validated and signed. Additionally, programmatic modification of build phases could be abused in CI environments. Mitigations include avoiding eval on untrusted data, strict validation and signing of downloaded artifacts, whitelisting allowed URLs, and auditing build-phase injections.",
+    "status": "failed",
+    "aiSummary": "The codebase contains notable security concerns around eval-based dynamic loading of label content, hardcoded signing credentials, and build-phase code injection risk. No direct credential theft or data exfiltration observed in the provided snippets. Remote URL retrievals are present but not executed within these files; require careful validation and integrity controls in the broader workflow to prevent remote code execution risks.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Eval-based loading of label contents: the script uses eval 'case \"$label\" in '\"$labelFile\"'; esac' to load label values. If a label file is tampered or crafted with malicious content, this can lead to arbitrary code execution during label processing."
       },
       "noRemoteExecution": {
         "passed": true
@@ -80,10 +81,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 70,
-    "forks": 2,
+    "stars": 72,
+    "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-07-11T23:13:00Z",
+    "lastUpdated": "2026-08-15T14:27:36Z",
     "archived": false
   }
 }

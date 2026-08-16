@@ -56,7 +56,7 @@
     "passed": 0,
     "total": 6,
     "filesScanned": 0,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "not_applicable",
     "aiSummary": null,
@@ -83,10 +83,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 81,
-    "forks": 22,
+    "stars": 91,
+    "forks": 23,
     "license": "MIT",
-    "lastUpdated": "2025-11-29T09:50:50Z",
+    "lastUpdated": "2026-08-08T17:36:28Z",
     "archived": false
   }
 }

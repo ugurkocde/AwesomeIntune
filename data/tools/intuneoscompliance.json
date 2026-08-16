@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Unable to identify obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets without the codebase. Please provide the IntuneOSCompliance code to perform a thorough review.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -57,7 +57,7 @@
     "stars": 4,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-07-08T11:24:08Z",
+    "lastUpdated": "2026-08-14T11:40:23Z",
     "archived": false
   },
   "authors": [

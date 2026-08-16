@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No active malware, credential theft, or exfiltration patterns detected. The tool aligns with Defender/Intune administration workflows. The primary security improvement is to HTML-encode dynamic content (notably section headers) in reports to mitigate potential HTML injection risks. Review private data handling and report storage/access controls to prevent unintended data exposure.",
+    "aiSummary": "No obfuscated code detected. No remote code execution attempts, credential theft, data exfiltration, malicious payloads, or hardcoded secrets observed in the provided code. The only notable risk is dynamic dot-sourcing of scripts from Private/Public directories at module load time, which could be abused if the hosting environment is not tightly controlled. Recommend tightening import strategy and enforcing code signing to mitigate this supply-chain risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -83,10 +83,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 45,
+    "stars": 49,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-07-11T13:20:26Z",
+    "lastUpdated": "2026-07-15T19:58:46Z",
     "archived": false
   }
 }

@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 18,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of credential theft, data exfiltration, or unsigned downloads. The code includes a facility for executing encoded commands with bypassed execution policy, which is a potential obfuscation/remote-execution vector. Admin tooling should prefer explicit, auditable execution paths and avoid bypassing policies; ensure input validation and secure handling of temporary logs.",
+    "aiSummary": "No evidence in the provided code of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets. The only notable pattern is the usage of base64-encoded -EncodedCommand in a helper function, which could be abused to obfuscate actions. The rest of the code appears to implement standard Intune/PSADT tooling constructs (modular dot-sourcing, logging, UI helpers) with no obvious security violations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 14,
+    "stars": 16,
     "forks": 2,
     "license": "MIT",
     "lastUpdated": "2026-02-26T15:54:34Z",

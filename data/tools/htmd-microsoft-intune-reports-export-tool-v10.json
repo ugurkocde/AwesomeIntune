@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code supplied for analysis. Please provide the HTMD Intune Reports Export Tool v1.0 source to perform a security review focused on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

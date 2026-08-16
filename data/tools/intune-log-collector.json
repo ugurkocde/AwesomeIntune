@@ -45,13 +45,13 @@
     "screenshots/intune-log-collector/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The Intune Log Collector code is functionally appropriate and includes authentication checks and storage access controls. However, there are notable security concerns around storage credentials in environment variables, and the SAS token workflow with broad permissions could be misused if tokens are intercepted. Data exposure via blob contents and metadata in logs also warrants tightening. Recommendations include migrating storage access to Managed Identity/Key Vault, tightening SAS token scope and TTL, limiting data exposure, and ensuring logs redact sensitive identifiers by default.",
+    "status": "failed",
+    "aiSummary": "The codebase contains legitimate Intune/Graph-oriented functionality, but presents notable security considerations. Data exposure risk exists in GetBlobContent by returning blob payloads to the caller. GetSASUri provides a write-capable SAS token to clients, which can be abused if token leakage occurs. Logging of sensitive header data when DebugLogging is enabled and environment-stored storage keys introduce additional risk. Recommendations: redact sensitive values in all logs, minimize and tightly scope SAS tokens (short lifetimes, IP restrictions, read-only where possible), move secrets to a secure store (e.g., Key Vault), and ensure strong device attestation and access control prior to token issuance.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -60,10 +60,12 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "Generates and returns a SAS token with UploadLogs permission for a storage container. This token can be misused if captured (e.g., to upload arbitrary data or tamper logs). Although time-bound, exposure to clients increases the risk surface for log data exfiltration or storage abuse."
       },
       "noDataExfiltration": {
-        "passed": true
+        "passed": false,
+        "reason": "The endpoint fetches a blob from Azure Storage and returns the blob contents in the HTTP response as JSON. If an attacker can bypass strict device validation or access control, this directly enables exfiltration of potentially sensitive blob data (e.g., logs, credentials, or other sensitive payloads) to a caller."
       },
       "noMaliciousPatterns": {
         "passed": true

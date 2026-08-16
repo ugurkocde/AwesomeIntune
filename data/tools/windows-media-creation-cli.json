@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase largely aligns with legitimate Intune/endpoint management use for offline driver provisioning (adding OEM driver packs to Windows install media). Primary security concerns are around remote code execution risk from downloaded drivers without integrity checks, and a potential undefined base URL variable that could affect URL construction. No credential or data exfiltration patterns are evident, and obfuscation is not present. Recommendations: enforce signature/checksum verification for downloaded drivers, initialize and validate all base URLs explicitly, consider signing the scripts and restricting network sources to trusted catalogs, and document the expected vendor catalogs to reduce risk of supply-chain compromise.",
+    "aiSummary": "The Windows Media Creation CLI driver injection scripts focus on integrating OEM drivers into a Windows install.wim by downloading vendor driver kits and executing installers. The primary security concern is remote code execution via downloaded payloads without signature or integrity verification, which could be exploited if the source content is compromised. There are no credential theft or external data exfiltration patterns detected, and obfuscation is not used. Some minor concerns include input sanitization of DriverModel, a suspicious empty baseDownloadUrl placeholder in the Dell path, and data written to a local CSV on USB media. Mitigations include enforcing digital signature or checksum validation on all downloads, validating and sanitizing inputs, and applying least-privilege execution practices when running vendor installers.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

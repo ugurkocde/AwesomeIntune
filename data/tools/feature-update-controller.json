@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The Failure.ps1 script functions as a diagnostic utility, gathering device information (OS details and optional geolocation) and writing logs to a local file. It does not perform remote code execution, credential theft, or direct data exfiltration. The primary concern is the collection of geolocation data, which could become a privacy issue if logs are uploaded to telemetry. Recommend clarifying data collection scope, ensuring minimization, and documenting consent/usage in policy. Additionally, consider modernizing any deprecated calls (e.g., Get-WmiObject) if targeting newer PowerShell versions and confirm the geolocation usage aligns with enterprise privacy controls.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

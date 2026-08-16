@@ -48,11 +48,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 35,
-    "lastChecked": "2026-07-12",
+    "filesScanned": 36,
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The Intune Toolkit script appears to be a legitimate administrative tool loading local modules and Graph-based context for Intune/Microsoft Graph interactions. There are no obfuscated commands, no remote-download execution, and no obvious credential harvesting. The primary security concerns are (1) logging/displaying PII (tenant and user) which could leak sensitive information if logs/UI are exposed, and (2) integrity risks from loading numerous local scripts without signing or integrity checks. Recommend redacting sensitive data in logs, enforcing script signing and integrity verification for all scripts in the Scripts directory, and validating that Graph tokens are handled securely with least-privilege scopes. Hardcoded secrets do not appear present, and no malicious patterns are detected beyond normal admin tooling behavior.",
+    "aiSummary": "The Intune Toolkit script largely implements legitimate admin tooling (UI loading, Graph interactions, local script loading). Notable security considerations: reliance on a directory of external scripts (supply-chain/trust boundary risk), logging of sensitive session details, and some lax error handling that could hinder security auditing. Recommendations include script signing/integrity checks, redacted logging for sensitive data, tightened error handling, and validation of loaded scripts before execution.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,10 +76,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 342,
-    "forks": 49,
+    "stars": 348,
+    "forks": 51,
     "license": "MIT",
-    "lastUpdated": "2026-07-03T13:33:52Z",
+    "lastUpdated": "2026-07-25T13:00:23Z",
     "archived": false
   }
 }

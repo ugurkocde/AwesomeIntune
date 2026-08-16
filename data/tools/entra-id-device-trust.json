@@ -41,13 +41,13 @@
   ],
   "dateAdded": "2026-01-06",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 15,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The codebase shows legitimate admin tooling for Entra ID Device Trust with Graph API usage and certificate-based signing. No obfuscated payloads, no evident remote script download/execution, no credential harvesting, no data exfiltration to external endpoints, and no hardcoded secrets detected. A concrete defect exists in New-RSACertificateSignature related to a variable naming error that can disrupt signing functionality. Recommend correcting the variable reference (use $Thumbprint in the certificate lookup) and validating the RSACng/CryptoProvider paths to ensure signing works across environments. Also consider adding input validation and signing flow error paths to prevent silent failures.",
+    "status": "failed",
+    "aiSummary": "No remote code execution, credential theft, or data exfiltration detected. The code is largely standard admin tooling for Microsoft Graph/Intune integration. The primary security concern is a defect in the RSACertificateSignature function (undefined variable causing signing to fail) and potential input handling risk when constructing Graph API queries from DeviceID. No hardcoded secrets detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -62,7 +62,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Bug: In New-RSACertificateSignature, the code uses an undefined variable ($CertificateThumbprint) when locating the signing certificate instead of the provided parameter ($Thumbprint). This results in the certificate lookup likely failing, causing signing to fail. This undermines signature-based validation in device trust flows."
       },
       "noHardcodedSecrets": {
         "passed": true

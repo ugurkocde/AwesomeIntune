@@ -56,13 +56,13 @@
     "screenshots/m365-documentation/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 0,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-07-12",
+    "filesScanned": 50,
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "scan_error",
-    "aiSummary": null,
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase aligns with expected admin tooling for Microsoft Graph/Intune workflows and contains no obfuscated code, reverse shells, credential harvesting, or hardcoded secrets. The main security considerations involve external data submission of translations (potential data exfiltration risk if translations contain sensitive data), a hard-coded user-specific path that could affect reliability/logging, and interactive secret handling during packaging/publishing. No malicious patterns detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -86,8 +86,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 615,
-    "forks": 83,
+    "stars": 628,
+    "forks": 82,
     "license": "NOASSERTION",
     "lastUpdated": "2026-03-15T13:48:54Z",
     "archived": false

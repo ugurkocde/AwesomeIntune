@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate security concerns identified. Primary risks come from (1) potential data leakage to OpenAI via the categorize-apps.js workflow, (2) self-modifying code behavior in add_new_app.py that mutates collect_app_info.py based on input, and (3) insufficient input validation that could enable injection-like issues. No hardcoded secrets or credential theft detected. Normal authentication flows and external API usage align with intended admin tooling, but privacy and code integrity considerations warrant mitigations (data minimization, explicit opt-ins, and moving data out of executable scripts).",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,10 +84,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 255,
-    "forks": 47,
+    "stars": 267,
+    "forks": 48,
     "license": "MIT",
-    "lastUpdated": "2026-07-12T03:03:38Z",
+    "lastUpdated": "2026-08-16T02:27:42Z",
     "archived": false
   }
 }

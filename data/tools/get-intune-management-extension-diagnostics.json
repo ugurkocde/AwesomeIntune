@@ -55,10 +55,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please supply the Get-IntuneManagementExtensionDiagnostics script or snippet to review for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No code provided for analysis. Please supply the Get-IntuneManagementExtensionDiagnostics script to evaluate for obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -82,7 +82,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 305,
+    "stars": 310,
     "forks": 25,
     "license": null,
     "lastUpdated": "2026-04-22T23:06:48Z",

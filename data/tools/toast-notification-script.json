@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No evidence of obfuscation, credential theft, data exfiltration, or malicious payloads. The script fetches configuration from a remote URL, which raises config integrity and trust concerns if the config is tampered or not signed. There is a potential XXE risk in XML parsing, and some brittle boolean handling in config parsing. Overall, the main security considerations center on strong config integrity (signing, schema validation, and possibly signature verification) and ensuring XML parsing is done securely. Minor PS hygiene improvements noted (removing -UseBasicParsing and using robust exit behavior).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 272,
+    "stars": 274,
     "forks": 66,
     "license": "MIT",
     "lastUpdated": "2026-02-16T07:03:29Z",

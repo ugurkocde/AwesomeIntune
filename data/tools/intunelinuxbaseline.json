@@ -26,11 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 12,
-    "lastChecked": "2026-07-14",
+    "filesScanned": 13,
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "One potential risk identified: telemetry/privacy modifications that reduce observability. No evidence of obfuscated code, remote code execution, credential theft, data exfiltration, malicious persistence, or hardcoded secrets across the provided Intune Linux baseline scripts.",
+    "aiSummary": "The Intune Linux baseline includes legitimate onboarding and compliance discovery flows, but notable security concerns exist around the Defender onboarding path. Primary issues are remote installer download without integrity verification (risk of RCE/supply chain compromise), transient handling of a sensitive onboarding blob on disk, and the potential to alter apt sources during onboarding. Telemetry suppression and default org binding also warrant scrutiny for security visibility and tenant scoping. No active credential harvesting or data exfiltration patterns are evident in the provided code.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 12,
-    "forks": 2,
+    "stars": 20,
+    "forks": 4,
     "license": "MIT",
-    "lastUpdated": "2026-06-23T13:40:45Z",
+    "lastUpdated": "2026-08-05T11:44:28Z",
     "archived": false
   },
   "authors": [

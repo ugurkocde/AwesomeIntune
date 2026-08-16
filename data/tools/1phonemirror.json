@@ -24,19 +24,20 @@
   "type": "desktop-app",
   "dateAdded": "2026-05-18",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The Intune deployment tooling codebase uses telemetry to Azure/Application Insights, which is expected for fleet monitoring but raises privacy considerations. Security hardening improvements are advised: switch code-signing timestamping to HTTPS, and validate/whitelist the external download base URL to prevent potential redirect to malicious hosts. No evidence of obfuscated code, credential harvesting, hardcoded secrets, or remote code execution patterns in the provided snippets.",
+    "status": "failed",
+    "aiSummary": "The codebase contains telemetry that exfiltrates usage data (including user agent and country) and build-time dependency actions that pull tools from remote sources. A notable security hardening issue is the use of an http timestamp URL for code signing. While the tooling and telemetry are expected in enterprise workflows, enforcing data minimization, secure timestamping, and tighter control over external dependencies will improve the security posture without impeding legitimate admin workflows.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "Code signing timestamp uses an http URL (http://timestamp.digicert.com). This introduces potential MITM risk for timestamp tokens, which could affect the validity of code signing. Recommend switching to https and/or using a trusted, validated timestamp source."
       },
       "noCredentialTheft": {
         "passed": true
@@ -54,8 +55,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 11,
-    "forks": 3,
+    "stars": 16,
+    "forks": 5,
     "license": "GPL-3.0",
     "lastUpdated": "2026-06-04T07:50:21Z",
     "archived": false

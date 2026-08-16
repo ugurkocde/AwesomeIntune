@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-01-18",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 27,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The code largely aligns with a legitimate Intune/Dell telemetry workflow, but there are notable security considerations. Primary concerns are exposure of credentials in code (Log Analytics keys, TenantID), potential over-permission via automated Graph AppRole assignments, and telemetry data exposure. Recommendations: avoid hardcoding secrets by using Key Vault/Managed Identity, implement strict approval and least-privilege controls for AppRole assignments, and minimize or redact sensitive fields in telemetry data. Consider migrating to Microsoft Graph PowerShell SDK and adding robust logging and error handling.",
+    "status": "failed",
+    "aiSummary": "Overall assessment: The codebase largely aligns with legitimate Intune/endpoint management tasks (inventory reporting, Dell BIOS update assessment, and Graph/AzureAD integration). Primary security concerns are (1) automated Graph AppRole assignments that could unintentionally elevate permissions, (2) telemetry that transmits sensitive asset data to an external service requiring governance, and (3) placeholders for credentials that should be supplied securely rather than embedded. No obfuscated code, no hardcoded secrets, and no direct remote code execution detected, though a minor bug risk exists (ModelGUID vs. modelGUID usage in BIOS data processing) that could affect functionality.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,7 +45,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Automated assignment of Microsoft Graph app roles to a service principal (New-AzureAdServiceAppRoleAssignment) based on listed permissions. This can grant elevated or unintended access to Intune/DeviceManagement data without explicit per-application consent. Recommend least-privilege configuration, require admin consent workflows, and implement robust auditing."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -54,7 +55,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 45,
+    "stars": 46,
     "forks": 15,
     "license": null,
     "lastUpdated": "2026-04-16T11:38:37Z",

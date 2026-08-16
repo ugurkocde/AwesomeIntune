@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-02-16",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The Reissue Key script is a legitimate macOS admin utility to rotate a FileVault recovery key. It does not contain remote code execution, obfuscated payloads, or hardcoded secrets. However, it handles user credentials in a potentially insecure manner by writing the plaintext password to a temporary plist on disk and not explicitly clearing the in-memory password. These patterns constitute credential exposure risks that could be exploited if the system is compromised. Recommend tightening credential handling (avoid disk persistence, clear memory promptly, escape plist inputs, and consider integrating with macOS keychains or secure APIs) to align with secure Intune/enterprise deployment practices.",
+    "status": "passed",
+    "aiSummary": "The script performs a legitimate macOS admin task (rotating FileVault recovery keys) but handles user credentials in plaintext and writes them to a temporary plist, posing credential exposure risks. It also displays the sensitive recovery key to the user, increasing exposure risk. No remote code execution, hardcoded secrets, or exfiltration detected. Mitigations include securing credential handling (avoid plaintext storage, escape inputs), reducing on-screen exposure of the recovery key, and validating input robustly.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,8 +39,7 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": false,
-        "reason": "The script writes the user-provided password into a temporary plist file (Username and Password) in plaintext and then uses it as input to fdesetup. Although the file is created with restricted permissions (chmod 600) and subsequently removed, the password briefly resides on disk and can potentially be exposed to root or other processes during its lifetime. This plaintext handling creates a credential exposure window. Recommendation: avoid persisting credentials to disk; if unavoidable, minimize lifetime, ensure strict cleanup, consider using memory-only APIs or secure keychain integration, and unset sensitive variables as soon as they are no longer needed."
+        "passed": true
       },
       "noDataExfiltration": {
         "passed": true

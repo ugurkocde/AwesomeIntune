@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "No code provided for analysis. Unable to identify potential security issues without source.",
+    "aiSummary": "No code content provided for analysis. Please provide the Intune Adaptive Engine code (PowerShell and related scripts) to perform a security review focusing on: obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets. If possible, include any base64 blocks, encoded commands, URL fetch or execute calls, credential access patterns, registry Run keys usage, scheduled tasks, and any Graph/Intune API calls for context.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,

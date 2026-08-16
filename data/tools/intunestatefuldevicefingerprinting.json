@@ -50,16 +50,17 @@
     }
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase contains legitimate Intune/endpoint management patterns, but it also includes obfuscated inline PowerShell for a persistent scheduled task and a cloud webhook data flow that can exfiltrate device data. Key risk areas to address: (1) reduce or remove EncodedCommand usage for better visibility and auditing, (2) validate and restrict the destination webhook, enforce data minimization, and (3) ensure strict access controls around certificate usage and scheduled task creation. Overall, behavior is consistent with a managed security/monitoring tool, but the data exfiltration path and obfuscation require careful governance and monitoring.",
+    "status": "failed",
+    "aiSummary": "Overall assessment: The codebase implements a fingerprinting/telemetry workflow with legitimate Intune-related functionality, but it includes notable security concerns. Obfuscated/encoded inline code (watchdog), elevated-privilege persistence (SYSTEM scheduled task), and cloud-based data exfiltration payloads to external webhook endpoints are the primary risk areas. Device certificates for webhook authentication are a standard pattern but require secure certificate management. Minor concerns include internal IMDS usage over HTTP and execution policy bypass in encoded commands. Reviewers should verify that encoded command usage is tightly scoped, ensure the Cloud webhook is restricted to trusted endpoints, confirm certificate handling policies, and consider replacing or auditing IMDS access patterns. Overall, these are implementation concerns rather than outright malicious activity, but the combination warrants strict control and auditing.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "The watchdog embeds a large inline PowerShell script and encodes it in Base64, then executes it using -EncodedCommand. This obfuscation can hide the exact actions being performed and may hinder detection/forensics."
       },
       "noRemoteExecution": {
         "passed": true

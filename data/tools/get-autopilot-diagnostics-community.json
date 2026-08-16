@@ -45,13 +45,13 @@
   ],
   "dateAdded": "2026-01-03",
   "securityCheck": {
-    "passed": 4,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The code largely implements a broad backup/restore workflow that copies extensive user data to OneDrive locations. While this can be legitimate in managed environments, it triggers significant data exfiltration/privacy concerns due to inclusion of highly sensitive data (PSTs, emails, RoamCache) and involves invisible execution wrappers that can obscure activity. No remote script downloads, credential harvesting, or hardcoded secrets observed. Recommend data minimization, encryption, access controls, user notification, signing/auditing of invisible executables, and alignment with organizational data governance policies.",
+    "aiSummary": "The codebase centers on backup and restore of user data to OneDrive locations, which is typical for admin/device management tooling. No remote script downloads, credential harvesting, explicit hardcoded secrets, or obfuscated commands were detected. Primary security considerations are data governance/privacy due to broad data backup to cloud storage, potential stealth execution via invisible VBScript, and a data restoration bug in the NEWrestore.bat script that could affect Links restoration. Recommend enabling explicit user consent where appropriate, auditing/logging for hidden executions, securing data in transit at rest, and fixing the Links restoration logic to ensure reliable recovery.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -64,8 +64,7 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "Large-scale backup of user data is performed by copying numerous directories (Documents, Music, Signatures, RoamCache, Favourites, Chrome bookmarks, PSTs, Word/Excel/UI templates, Sticky Notes, Start Menu items, etc.) to OneDrive and OneDriveCommercial. This constitutes broad data exfiltration to cloud storage. While intended as backup, it risks exposing highly sensitive data (e.g., PST/Outlook data, RoamCache, email signatures) and raises privacy/data governance concerns. Recommend data minimization, encryption at rest/in transit, strict access controls, and explicit user consent policies."
+        "passed": true
       },
       "noMaliciousPatterns": {
         "passed": true
@@ -77,10 +76,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 731,
-    "forks": 266,
+    "stars": 741,
+    "forks": 265,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-07-02T16:00:54Z",
+    "lastUpdated": "2026-08-13T10:28:28Z",
     "archived": false
   }
 }

@@ -47,10 +47,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is a legitimate Intune/Graph API integration with standard authentication flows. The primary security concern is external telemetry data leakage via the GoatCounter beacon. Other aspects (remote asset fetch for icons, token handling, and beta Graph API usage) are typical for admin tooling but should be monitored for privacy and stability considerations. Consider telemetry opt-in, data minimization, and validating the necessity of Beta API usage.",
+    "aiSummary": "Overall assessment: The code represents a legitimate Intune integration flow using MSAL and Graph API with typical SPA patterns. Primary concerns are token storage in sessionStorage (XSS risk) and external analytics exposure of tenant/user context. No obfuscated payloads, no remote script execution, and no hardcoded secret material beyond a public client ID.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,10 +74,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 13,
+    "stars": 14,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-05-22T08:28:24Z",
+    "lastUpdated": "2026-08-03T08:38:36Z",
     "archived": false
   }
 }

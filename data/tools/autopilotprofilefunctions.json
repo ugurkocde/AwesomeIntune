@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code demonstrates standard Microsoft Graph/Intune Autopilot management patterns suitable for an Intune tooling context. No indicators of obfuscated code, remote script execution, credential harvesting, data exfiltration, or other malicious activity were found. A medium-severity logic bug related to DeploymentMode case handling should be corrected to ensure reliable and secure profile creation across ProfileType branches.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

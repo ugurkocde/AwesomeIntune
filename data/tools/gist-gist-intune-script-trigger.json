@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "High risk: remote code execution via dynamic loading and execution of external scripts. Recommend eliminating remote execution or implementing strict verification (allowlists, code-signing, and safer invocation patterns).",
+    "aiSummary": "The GIST launcher exposes a high-risk remote code execution pattern by downloading and executing scripts from untrusted external URLs. This creates potential for supply chain tampering and arbitrary code execution on endpoints. To mitigate, avoid using Invoke-Expression on downloaded content; require code signing or hash verification; use a controlled, signed module or embedded scripts; implement strict auditing and least-privilege execution in Intune.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

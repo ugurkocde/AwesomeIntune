@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 30,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code appears to be a legitimate Intune/Graph API management tool with UI loading and local module initialization. No obfuscated code, no hardcoded secrets, and no evident remote script download/execution in the provided snippet. However, credential handling uses plain strings in parameters and memory, which is a security concern, and the broad Unblock-AllFiles routine could be abused if misused. Recommend tightening credential handling, minimizing or restricting file-unblock operations, and ensuring proper auditing of Graph/API usage.",
+    "aiSummary": "Overall assessment: The CloudAPIPowerShellManagement module appears to be a legitimate Intune/Graph management utility with no obfuscated code, no remote code execution from URLs, and no hardcoded secrets. The primary security concern is handling of credentials (tenantId, appId, secret, certificate) in plaintext within global variables. This memory-resident exposure could be mitigated by adopting secure credential handling (PSCredential, SecureString, managed identities, or certificate vaults) and avoiding global storage. Confirm that all loaded modules come from trusted sources, and implement robust access controls and auditing for UI-driven operations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,10 +81,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 1990,
-    "forks": 369,
+    "stars": 2031,
+    "forks": 376,
     "license": "MIT",
-    "lastUpdated": "2026-05-12T09:54:16Z",
+    "lastUpdated": "2026-08-14T11:56:15Z",
     "archived": false
   }
 }

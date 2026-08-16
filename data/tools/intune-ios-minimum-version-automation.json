@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is a legitimate Intune Graph-based automation script. It does not obfuscate or execute remote scripts and uses standard Graph endpoints for policy management. Primary security considerations are normal for admin tooling: secrets are read from automation variables (risk if the automation account is compromised), and inventory data is surfaced in runbook logs and outgoing emails. Mitigate by minimal log verbosity, secure automation asset management, possible use of managed identities/certificates, and strict data handling for emails.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 38,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of remote code download/execution, credential harvesting, or data exfiltration in the provided code. The primary concerns relate to: (1) potential HTML/script injection risk from rendering base64-decoded ScriptBody without escaping, and (2) unsafe pattern of auto-loading all scripts from Private/Public directories which could be abused if those files are tampered. Recommend: enforce script signing and integrity checks, sanitize decoded content before rendering, audit Private/Public scripts, and limit/explicitly define module dependencies.",
+    "aiSummary": "No explicit remote code execution, credential harvesting, or external data exfiltration detected. The primary concerns are (1) potential HTML/script injection in the generated reports due to unescaped data, and (2) handling of base64-encoded ScriptBody content that could reveal encoded scripts or be manipulated. Additionally, import-time loading of scripts from Private/Public folders warrants integrity controls to prevent tampering. Overall, the tool appears to be a legitimate Intune management/reporting utility with these guardrail considerations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

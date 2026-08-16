@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code includes external data flows (to OpenAI) and external callbacks that may leak enterprise catalog data, and uses high-privilege credentials in CI. No obfuscated code or explicit remote code execution patterns detected. Recommend strict data governance for external AI usage, secure management of Graph and Supabase credentials, and monitoring of callback endpoints.",
+    "aiSummary": "The IntuneGet-related code primarily relies on legitimate admin workflows (OpenAI classification, Graph API for Intune, and webhooks). However, notable concerns include data exfiltration risk via external AI classification in categorize-apps.js, high-privilege credentials (Supabase service role key) stored in env variables, and external callbacks in Check-DuplicateApp.ps1 that may reveal internal app details. Recommend tightening data governance, secret management (prefer scoped credentials and secret vaults), validating external endpoints, and minimizing external data transfer where possible.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,10 +81,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 97,
-    "forks": 36,
+    "stars": 118,
+    "forks": 38,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-07-11T21:07:28Z",
+    "lastUpdated": "2026-08-16T02:55:48Z",
     "archived": false
   }
 }

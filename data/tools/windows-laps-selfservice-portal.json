@@ -24,13 +24,13 @@
   "type": "web-app",
   "dateAdded": "2026-03-12",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 11,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase implements a legitimate Microsoft Graph-backed LAPS self-service portal with appropriate ownership checks and auditing. The primary security concerns are centered on the exposure of plaintext LAPS passwords in API responses and privacy considerations for audit data. There are no obvious obfuscated patterns, remote code execution, hardcoded secrets, or malicious patterns. Recommend tightening access controls around password delivery (RBAC, token-based handoff or short-lived exposure), reviewing audit data privacy, and validating that secret management follows best practices (prefer Key Vault/Managed Identity for secrets).",
+    "status": "failed",
+    "aiSummary": "The Windows LAPS Self-Service Portal codebase adheres to expected patterns for an Intune/Graph-backed service, with no malicious patterns detected. The primary security consideration is the handling of LAPS passwords: they are retrieved and returned to authenticated users after ownership verification. This is by design but requires strong access controls, encrypted transport, and careful monitoring of telemetry/audit data to minimize exposure risk. No hardcoded secrets or obfuscated payloads were found beyond legitimate header decoding for Easy Auth.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,7 +39,8 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "LAPS passwords are retrieved from Microsoft Graph and returned in the API response after ownership validation. Passwords are decoded from base64 to plaintext and included in the response. While this is the intended feature, it represents a high-risk data exposure point if the API response, transport, or client security is compromised. Mitigations include strict RBAC, TLS (implied), minimizing exposure, and ensuring responses are only delivered to authorized users."
       },
       "noDataExfiltration": {
         "passed": true
@@ -55,7 +56,7 @@
   },
   "repoStats": {
     "stars": 9,
-    "forks": 1,
+    "forks": 2,
     "license": "MIT",
     "lastUpdated": "2026-05-18T03:26:38Z",
     "archived": false

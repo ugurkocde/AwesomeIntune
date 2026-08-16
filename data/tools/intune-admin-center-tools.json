@@ -40,13 +40,13 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "High-severity credential harvesting via background.js token capture. Legitimate Graph usage is supported but token interception is not acceptable; remove this behavior. Replace hardcoded GA secrets with secure config. Overall tool appears legitimate with built-in analytics opt-in; ensure privacy and security controls.",
+    "status": "passed",
+    "aiSummary": "The codebase includes a high-risk credential handling pattern in background.js (token capture from Graph requests) and potential secret exposure in analytics.js (frontend API secret). There is legitimate analytics data exfiltration to an external service with opt-in considerations. No remote code execution, no hardcoded PowerShell-like payloads, and no obvious malware behavior beyond credential handling. To align with security best practices for Intune management tooling, remove token capture/logging, move secrets off the client (or eliminate the need for a secret in frontend), and ensure explicit, auditable consent for analytics data collection.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -55,8 +55,7 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": false,
-        "reason": "Intercepts outgoing requests to graph.microsoft.com and captures the Authorization header (OAuth token) from Graph API requests. Stores token in chrome.storage.local for access by popup.js. This enables credential theft/possible misuse via other extension components. Lacks explicit user consent, token isolation, or secure handling; storage in chrome.storage.local may be accessible to other extension contexts. Risk: token leakage and potential abuse of Graph API."
+        "passed": true
       },
       "noDataExfiltration": {
         "passed": true
@@ -78,7 +77,7 @@
     "screenshots/intune-admin-center-tools/screenshot-5.webp"
   ],
   "repoStats": {
-    "stars": 14,
+    "stars": 16,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-05-11T08:50:43Z",

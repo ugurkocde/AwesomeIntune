@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please supply the Intune Profile Bulk Renamer Tool code to perform a security review.",
+    "aiSummary": "No code provided for analysis. Please provide the PowerShell/Intune tool code (Intune Profile Bulk Renamer Tool) for review of obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 3,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-07-14T09:18:10Z",

@@ -53,13 +53,13 @@
     "screenshots/intune-make-enrollment-user-admin/screenshot-3.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase implements enrollment-related admin tooling with privilege elevation (adding the current user to the local Administrators group) and privilege-discovery behavior (checking admin membership). There are no obfuscated/encoded payloads, no remote script downloads, no credential harvesting, and no explicit data exfiltration observed. The primary security concern is legitimate but high-risk privilege elevation and privilege enumeration capabilities. Recommend enforcing strict access controls, approval workflows in Intune, auditing of such actions, and prefer Graph/Intune management APIs over local group modifications where possible to minimize risk.",
+    "status": "passed",
+    "aiSummary": "The code does not exhibit obfuscated code, remote code execution, credential theft, data exfiltration, or hardcoded secrets. The main security concern is a legitimate but sensitive privilege-escalation capability (adding the current user to the Administrators group) within the enrollment tooling. Ensure proper governance, auditing, and least-privilege controls around this capability.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,8 +74,7 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "Elevates the current user to local Administrators by adding the user SID to the Administrators group (Add-LocalGroupMember). This is a direct privilege escalation risk. The script also uses Start-Transcript for logging and supports uninstall via Remove-LocalGroupMember. While it aligns with intended admin tooling, it creates significant risk if misused or executed without proper approvals."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true

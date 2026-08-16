@@ -62,10 +62,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "No code provided for analysis. Please supply the InSight code (PowerShell scripts or related files) to assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No analysis performed: code snippet not provided. Please supply the PowerShell/Intune tool code (e.g., the InSight script or module) for thorough review focused on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,

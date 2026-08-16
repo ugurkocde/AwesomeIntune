@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No direct malicious behavior detected in this codebase. The changes pertain to building nightly update artifacts and diagnostics. Primary security considerations: (1) updater endpoints are external; ensure signatures and code signing are enforced in the update pipeline, (2) environment-variable expansion in the diagnostics collector could leak sensitive values if data bundles are exfiltrated; implement sanitization/redaction and strict telemetry controls. Overall, code appears legitimate for Intune/Graph-integrated management tooling when used with proper authentication and signed updates.",
+    "aiSummary": "No evidence of remote code execution, credential theft, or hardcoded secrets. The code primarily relies on GitHub CLI for data retrieval and file IO for nightly builds. However, there is a potential data exposure risk in review_state.py due to exposing full PR review content, and a supply-chain integrity risk in nightly-channel.mjs due to lack of signature verification for artifacts.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 216,
-    "forks": 9,
+    "stars": 265,
+    "forks": 13,
     "license": "MIT",
-    "lastUpdated": "2026-07-11T07:54:03Z",
+    "lastUpdated": "2026-08-16T02:34:48Z",
     "archived": false
   },
   "authors": [

@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is a destructive admin utility designed to locate and delete IME-related registry traces for a given Win32 AppId and then restart the IntuneManagementExtension service. It does not perform remote code execution, credential harvesting, data exfiltration, or obfuscated behavior. However, its registry-wide deletion capability poses a real risk of unintentionally disrupting Intune functionality. The tool includes ShouldProcess/WhatIf for safety, but operators should enforce strict input validation, explicit approvals, and targeted scope to minimize blast radius.",
+    "aiSummary": "The script performs destructive cleanup of Intune-related registry keys and restarts the IntuneManagementExtension service based on an AppId. While intended for recovery/retry flows, it poses risk of unintended data loss and service disruption. No remote code execution, credential harvesting, data exfiltration, or hardcoded secrets detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 12,
+    "stars": 14,
     "forks": 1,
     "license": null,
     "lastUpdated": "2026-01-09T10:31:33Z",

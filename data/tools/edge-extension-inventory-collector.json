@@ -24,13 +24,13 @@
   "type": "powershell-script",
   "dateAdded": "2026-07-14",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 8,
-    "lastChecked": "2026-07-14",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Security assessment: No obfuscated code, no remote code execution, no evident credential theft, and no data exfiltration observed. Major concerns are the presence of hardcoded credentials in the Client Secret authentication script (risk of secret leakage), logging of recipient/sender emails (potential information exposure), and the use of a Graph Beta endpoint for sign-in data (may have stability/security implications). Address hardcoded secrets by adopting secure vault-based storage and managed identity flow, minimize sensitive data in logs, and review Beta API usage for production deployments.",
+    "status": "failed",
+    "aiSummary": "Hardcoded secret detected in the Client Secret authentication script. No obfuscated code, remote code execution, or evident credential theft patterns observed in the provided snippets. Primary risk is secret management: move credentials out of code, use secure vaults or automation secret stores, and rotate credentials. Other scripts rely on managed identity or standard Graph API usage and do not exhibit immediate malicious behavior.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -48,16 +48,17 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Contains hardcoded client secret in the Configuration (ClientSecret). Secrets should not be stored in code. Use Azure Key Vault or Automation Variables with secret scope and rotate credentials regularly."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 51,
+    "stars": 52,
     "forks": 6,
     "license": "MIT",
-    "lastUpdated": "2026-07-06T12:13:04Z",
+    "lastUpdated": "2026-07-22T13:24:38Z",
     "archived": false
   },
   "authors": [

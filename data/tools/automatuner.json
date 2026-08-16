@@ -46,10 +46,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The code is largely legitimate for Intune/endpoint management (dependency installation, Windows component setup, and PowerShell module management). No obfuscated logic, no credential harvesting, no data exfiltration, and no hardcoded secrets detected. The primary security concern is reliance on external package sources for installation; mitigate with integrity checks, trusted sources, repository pinning, and signing of modules. Consider adding verification of downloaded content and a restricted, signed module policy to reduce risk from compromised packages.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

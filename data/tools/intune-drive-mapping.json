@@ -42,13 +42,13 @@
     "screenshots/intune-drive-mapping/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase includes enterprise drive-mapping functionality with legitimate admin features. Notable security concerns: a SYSTEM-level persistent scheduled task with a hidden PowerShell invocation via VBScript (which could be misused for persistence) and a VBScript wrapper that masks execution. There is no evidence of remote code download, credential harvesting, data exfiltration, or hardcoded secrets, but the persistence pattern and content-upload parsing require strong access control, script signing, and audit logging to prevent abuse.",
+    "status": "passed",
+    "aiSummary": "The core code for the Intune Drive Mapping Generator appears safe for normal admin use, with standard models and controllers. However, the embedded PowerShell script in DriveMapping.ps1 includes persistence mechanisms (scheduled task creation, SYSTEM context execution, and a hidden runner) which could be misused for persistence/evading detection. This warrants strict control: opt-in deployment, auditing, and constraints to prevent unwanted persistence. No remote code fetch, credential theft, or active data exfiltration patterns are observed in the provided code, and normal Intune management patterns (Graph API usage, Intune integration, and authentication flows) are present. Treat internal hardcoded configuration data with care and ensure logging is protected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -63,8 +63,7 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "PowerShell script creates a SYSTEM-level scheduled task to run on user logon and uses a VBScript helper to hide the PowerShell window. This is a persistence mechanism that can enable stealthy execution across logins. In an enterprise Intune context this behavior is risky and should be limited to clearly approved admin deployment with auditing."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -73,7 +72,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 201,
+    "stars": 202,
     "forks": 25,
     "license": "MIT",
     "lastUpdated": "2022-02-04T23:09:12Z",

@@ -57,13 +57,13 @@
     "screenshots/intune-prep-tool/screenshot-5.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-07-12",
+    "lastChecked": "2026-08-16",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The IntunePrepTool codebase demonstrates credential exposure risk (plaintext export in addAppRegPlainText.ps1) and local credential storage (addAppReg.ps1), plus a remote installer workflow without integrity checks (MicrosoftDesktopApp.ps1). These are areas where security controls (secret vaulting, controlled access, integrity verification) should be strengthened. Graph/Intune usage and API interactions align with expected admin tasks; no obfuscation or hardcoded secrets detected.",
+    "status": "failed",
+    "aiSummary": "The IntunePrepTool codebase includes legitimate admin automation for Azure AD app registrations but contains credential handling risks and a potential code quality issue. Plaintext storage of secrets in addAppRegPlainText.ps1 is the most critical risk. A credential storage via Windows Credential Manager in addAppReg.ps1 should be evaluated against secure vaults. Permissions requested by Graph API are broad; consider least privilege and auditing. Additionally, external binary downloads without integrity checks raise supply chain concerns.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,13 +81,14 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "The script stores the generated client secret (password) in plaintext in a CSV at C:\\Users\\$env:username\\.IntunePrepTool\\config_tenantinfo.csv. This exposes credentials on disk and across backups. Recommend avoiding plaintext storage; use a secure vault (Azure Key Vault, Windows Credential Manager with restricted access) and avoid app secrets persistence in files."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 95,
+    "stars": 96,
     "forks": 13,
     "license": "MIT",
     "lastUpdated": "2026-01-29T13:29:54Z",
