@@ -41,6 +41,7 @@ export function FloatingSubscribe() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
+  const isHiddenRoute = pathname === "/submit" || pathname === "/pick";
   const prefersReducedMotion = useReducedMotion();
   const { isMobile, isLoaded: mobileLoaded } = useIsMobile();
   const { hasScrolledPastThreshold } = useScrollDirection({
@@ -56,6 +57,8 @@ export function FloatingSubscribe() {
 
   // Fetch subscriber count on mount
   useEffect(() => {
+    if (isHiddenRoute) return;
+
     async function fetchCount() {
       try {
         const res = await fetch("/api/subscriber-count");
@@ -68,7 +71,7 @@ export function FloatingSubscribe() {
       }
     }
     void fetchCount();
-  }, []);
+  }, [isHiddenRoute]);
 
   // Delayed appearance
   useEffect(() => {
@@ -198,7 +201,6 @@ export function FloatingSubscribe() {
 
   // Determine visibility
   // Once shown, stays visible until dismissed or subscribed (no scroll-based hiding)
-  const isHiddenRoute = pathname === "/submit";
   const isHiddenByPersistence = dismissed || subscribed || sessionCollapsed;
   const isReady = persistenceLoaded && mobileLoaded && shouldShow;
 

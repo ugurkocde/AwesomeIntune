@@ -73,6 +73,7 @@ const navItems = [
   { href: "/#tools", label: "Browse" },
   { href: "/collections", label: "Collections" },
   { href: "/ideas", label: "Ideas" },
+  { href: "/pick", label: "Pick" },
 ];
 
 export function Header() {
@@ -123,7 +124,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-[10px] px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                  className={`inline-flex min-h-11 items-center rounded-[10px] px-3.5 py-2 text-[13px] font-medium transition-colors ${
                     active
                       ? "bg-[var(--accent-glow)] text-[var(--accent-primary)]"
                       : "text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
@@ -160,7 +161,7 @@ export function Header() {
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-[10px] px-3.5 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+              className="inline-flex min-h-11 items-center rounded-[10px] px-3.5 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>
@@ -218,7 +219,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+                className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
               >
                 {item.label}
               </Link>
@@ -275,7 +276,7 @@ export function Header() {
               href={GITHUB_REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+              className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>

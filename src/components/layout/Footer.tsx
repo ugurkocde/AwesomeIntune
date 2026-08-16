@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { COMMUNITY_URL, GITHUB_REPO_URL, SITE_CONFIG } from "~/lib/constants";
 import { SubscribeForm } from "~/components/newsletter/SubscribeForm";
 import { trackSponsorClick } from "~/lib/plausible";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isPickPage = pathname === "/pick";
+  const showNewsletter = !isPickPage;
 
   return (
     <footer
@@ -18,7 +22,9 @@ export function Footer() {
       }}
     >
       <div className="container-main pt-12 pb-6 md:pt-16 md:pb-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={`grid gap-8 md:grid-cols-2 ${isPickPage ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}
+        >
           {/* Brand Column */}
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-3">
@@ -58,15 +64,17 @@ export function Footer() {
             >
               {SITE_CONFIG.description}
             </p>
-            <div className="pt-2">
-              <p
-                className="mb-2 text-xs font-medium tracking-wide uppercase"
-                style={{ color: "var(--text-tertiary)" }}
-              >
-                Stay Updated
-              </p>
-              <SubscribeForm variant="footer" />
-            </div>
+            {showNewsletter && (
+              <div className="pt-2">
+                <p
+                  className="mb-2 text-xs font-medium tracking-wide uppercase"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Stay Updated
+                </p>
+                <SubscribeForm variant="footer" />
+              </div>
+            )}
           </div>
 
           {/* Links Column */}
@@ -98,6 +106,13 @@ export function Footer() {
                 style={{ color: "var(--text-secondary)" }}
               >
                 Tool Ideas
+              </Link>
+              <Link
+                href="/pick"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                Awesome Pick
               </Link>
               <Link
                 href="/stats"
@@ -202,105 +217,107 @@ export function Footer() {
           </div>
 
           {/* Sponsors Column */}
-          <div className="space-y-4">
-            <h3
-              className="font-display text-sm font-semibold tracking-wide uppercase"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Sponsors
-            </h3>
-            <div className="grid grid-cols-[repeat(3,max-content)] items-center gap-4 sm:flex sm:flex-wrap sm:gap-6">
-              <a
-                href="https://eido.io/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
-                onClick={() => trackSponsorClick("eido", "footer")}
+          {!isPickPage && (
+            <div className="space-y-4">
+              <h3
+                className="font-display text-sm font-semibold tracking-wide uppercase"
+                style={{ color: "var(--text-tertiary)" }}
               >
-                <Image
-                  src="/sponsors/eido-light.svg"
-                  alt="eido - Sponsor"
-                  width={86}
-                  height={29}
-                  className="sponsor-logo-dark h-auto w-[68px] opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
-                />
-                <Image
-                  src="/sponsors/eido-dark.svg"
-                  alt="eido - Sponsor"
-                  width={86}
-                  height={29}
-                  className="sponsor-logo-light h-auto w-[68px] transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
-                />
-              </a>
-              <a
-                href="https://zerotouch.ai/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
-                onClick={() => trackSponsorClick("zerotouch", "footer")}
-              >
-                <Image
-                  src="/sponsors/zerotouch-light.png"
-                  alt="ZeroTouch - Sponsor"
-                  width={125}
-                  height={50}
-                  className="sponsor-logo-dark h-[38px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
-                />
-                <Image
-                  src="/sponsors/zerotouch-dark.png"
-                  alt="ZeroTouch - Sponsor"
-                  width={125}
-                  height={50}
-                  className="sponsor-logo-light h-[38px] w-auto transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
-                />
-              </a>
-              <a
-                href="https://devote.com/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
-                onClick={() => trackSponsorClick("devote", "footer")}
-              >
-                <Image
-                  src="/sponsors/devote.png"
-                  alt="Devote - Sponsor"
-                  width={441}
-                  height={520}
-                  className="sponsor-logo-on-dark h-[38px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[50px]"
-                />
-              </a>
-              <a
-                href="https://devicie.com/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
-                onClick={() => trackSponsorClick("devicie", "footer")}
-              >
-                <Image
-                  src="/sponsors/devicie.png"
-                  alt="Devicie - Sponsor"
-                  width={95}
-                  height={34}
-                  className="sponsor-logo-monochrome h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
-                />
-              </a>
-              <a
-                href="https://www.algiz-technology.com/?utm_source=awesome_intune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 sm:-ml-1"
-                onClick={() => trackSponsorClick("algiz", "footer")}
-              >
-                <Image
-                  src="/sponsors/algiz.png"
-                  alt="Algiz Technology - Sponsor"
-                  width={520}
-                  height={197}
-                  className="sponsor-logo-on-dark h-[27px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[34px]"
-                />
-              </a>
+                Sponsors
+              </h3>
+              <div className="grid grid-cols-[repeat(3,max-content)] items-center gap-4 sm:flex sm:flex-wrap sm:gap-6">
+                <a
+                  href="https://eido.io/?utm_source=awesome_intune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+                  onClick={() => trackSponsorClick("eido", "footer")}
+                >
+                  <Image
+                    src="/sponsors/eido-light.svg"
+                    alt="eido - Sponsor"
+                    width={86}
+                    height={29}
+                    className="sponsor-logo-dark h-auto w-[68px] opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
+                  />
+                  <Image
+                    src="/sponsors/eido-dark.svg"
+                    alt="eido - Sponsor"
+                    width={86}
+                    height={29}
+                    className="sponsor-logo-light h-auto w-[68px] transition-opacity duration-300 group-hover:opacity-100 sm:w-[86px]"
+                  />
+                </a>
+                <a
+                  href="https://zerotouch.ai/?utm_source=awesome_intune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sponsor-logo-link group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+                  onClick={() => trackSponsorClick("zerotouch", "footer")}
+                >
+                  <Image
+                    src="/sponsors/zerotouch-light.png"
+                    alt="ZeroTouch - Sponsor"
+                    width={125}
+                    height={50}
+                    className="sponsor-logo-dark h-[38px] w-auto opacity-70 transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
+                  />
+                  <Image
+                    src="/sponsors/zerotouch-dark.png"
+                    alt="ZeroTouch - Sponsor"
+                    width={125}
+                    height={50}
+                    className="sponsor-logo-light h-[38px] w-auto transition-opacity duration-300 group-hover:opacity-100 sm:h-[50px]"
+                  />
+                </a>
+                <a
+                  href="https://devote.com/?utm_source=awesome_intune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+                  onClick={() => trackSponsorClick("devote", "footer")}
+                >
+                  <Image
+                    src="/sponsors/devote.png"
+                    alt="Devote - Sponsor"
+                    width={441}
+                    height={520}
+                    className="sponsor-logo-on-dark h-[38px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[50px]"
+                  />
+                </a>
+                <a
+                  href="https://devicie.com/?utm_source=awesome_intune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4"
+                  onClick={() => trackSponsorClick("devicie", "footer")}
+                >
+                  <Image
+                    src="/sponsors/devicie.png"
+                    alt="Devicie - Sponsor"
+                    width={95}
+                    height={34}
+                    className="sponsor-logo-monochrome h-[27px] w-auto opacity-60 brightness-0 transition-opacity duration-300 group-hover:opacity-100 sm:h-[34px]"
+                  />
+                </a>
+                <a
+                  href="https://www.algiz-technology.com/?utm_source=awesome_intune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-block rounded-sm transition-transform duration-300 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-4 sm:-ml-1"
+                  onClick={() => trackSponsorClick("algiz", "footer")}
+                >
+                  <Image
+                    src="/sponsors/algiz.png"
+                    alt="Algiz Technology - Sponsor"
+                    width={520}
+                    height={197}
+                    className="sponsor-logo-on-dark h-[27px] w-auto opacity-70 transition-[filter,opacity] duration-300 group-hover:opacity-100 sm:h-[34px]"
+                  />
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Bottom Bar */}

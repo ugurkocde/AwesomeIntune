@@ -9,6 +9,7 @@ import {
 import { SITE_CONFIG, STATIC_PAGES_LAST_MODIFIED } from "~/lib/constants";
 import { getToolSlug } from "~/lib/tools";
 import type { Tool, ToolCategory, ToolType } from "~/types/tool";
+import { PICK_PROGRAM } from "~/lib/pick-config";
 
 // Map categories to best-of URL slugs
 const CATEGORY_TO_BEST_SLUG: Record<ToolCategory, string> = {
@@ -72,6 +73,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/pick`,
+      lastModified: new Date(PICK_PROGRAM.launchDate),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/submit`,
