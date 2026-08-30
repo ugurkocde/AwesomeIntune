@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-31",
+    "lastChecked": "2026-08-30",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Three low-severity observations: (1) no obfuscation detected beyond standard launcher usage; (2) execution policy bypass is used in the launcher (a common admin-tooling pattern but a potential bypass vector); (3) local module import from the script directory could be tampered with if deployment paths are writable. No remote code execution, credential theft, data exfiltration, or hardcoded secrets detected in the provided snippets. Core functionality relies on local modules and PSADT orchestration typical for Intune/Graph-based tooling.",
+    "aiSummary": "The codebase has legitimate admin tooling patterns but includes a potentially risky dynamic hook injection mechanism and execution policy bypass. No evidence of credential theft, data exfiltration, hardcoded secrets, or remote code execution from URLs. Recommend hardening: avoid ExecutionPolicy bypass in production launchers, restrict and sign hook/asset contents, validate and integrity-check all org hooks before ingestion, and consider minimizing on-device shell code execution by requiring signed scripts and hardened path controls.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 14,
+    "stars": 19,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-07-25T14:15:33Z",
+    "lastUpdated": "2026-08-05T16:16:12Z",
     "archived": false
   },
   "authors": [

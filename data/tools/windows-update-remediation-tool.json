@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-31",
+    "lastChecked": "2026-08-30",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code block provided for analysis. Please supply the Windows Update Remediation Tool code (PowerShell, scripts, or manifest) for evaluation against obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 82,
+    "stars": 93,
     "forks": 12,
     "license": null,
     "lastUpdated": "2026-07-19T18:59:57Z",

@@ -24,13 +24,13 @@
   "type": "web-app",
   "dateAdded": "2026-07-31",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-07-31",
+    "lastChecked": "2026-08-30",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall, IntuneShade's Claude-based endpoints enable AI-assisted policy analysis and script generation but introduce data-leak risk to external AI providers, potential misuse via AI-generated scripts, and authentication weaknesses. There are also minor reliability concerns with JSON parsing and a hardcoded public client ID. Mitigations include data flow controls, stronger access control, input/script validation, and policy to restrict AI-generated content and data handling.",
+    "status": "failed",
+    "aiSummary": "Security review completed. No hardcoded API keys detected, and SSRF protections for Azure OpenAI endpoints are in place. However there is a significant data exfiltration risk due to sending tenant policy data to external LLM providers, and a potential risk around generated scripts that could be misused to perform remote code execution on endpoints. Additionally, a hard-coded public client ID is present (not a secret) and should be managed via configuration rather than embedded in code.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -42,7 +42,8 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": true
+        "passed": false,
+        "reason": "The tool sends policy data and other user-provided content to external AI providers (Anthropic/OpenAI/Gemini) for analysis, scripting, resolution, and compliance workflows. This constitutes data exfiltration risk for tenant data. Mitigations: implement data handling controls, redact sensitive information before sending to third parties, consider on-premises or enterprise LLM options, add opt-in/opt-out controls, and ensure transmission is governed by data processing agreements."
       },
       "noMaliciousPatterns": {
         "passed": true
@@ -57,7 +58,7 @@
     "stars": 0,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-07-07T20:58:48Z",
+    "lastUpdated": "2026-08-26T10:22:07Z",
     "archived": false
   },
   "authors": [

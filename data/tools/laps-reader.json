@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-07-31",
+    "lastChecked": "2026-08-30",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code implements a legitimate Intune/LAPS reader UI that uses Microsoft Graph to retrieve device local credentials. Primary security considerations include handling of sensitive LAPS passwords (exposure in UI and clipboard), reliance on dynamic module installation from external sources, and a policy bypass during STA re-launch. The usage of high-sensitivity Graph scopes is expected for this tool but warrants strict RBAC, auditing, and secure UI practices. Recommendations: pin and verify module versions, minimize plaintext password exposure (e.g., avoid displaying or limit display duration, implement secure UI controls), document and monitor access to DeviceLocalCredential.Read.All, and avoid ExecutionPolicy bypass where feasible.",
+    "aiSummary": "The Intune LAPS Reader tool is functionally legitimate for retrieving device LAPS passwords via Microsoft Graph. Key security considerations include: sensitive credential exposure in the UI and clipboard, dynamic installation of remote modules (Install-Module) from PSGallery, and broad Graph permissions to read LAPS credentials. Mitigations should emphasize strict RBAC and auditing, minimizing on-screen password exposure, validating and pinning external modules, and potentially avoiding policy bypass in non-critical paths. No hardcoded secrets are detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -55,7 +55,7 @@
   },
   "repoStats": {
     "stars": 0,
-    "forks": 0,
+    "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-07-21T09:42:00Z",
     "archived": false
