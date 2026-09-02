@@ -24,9 +24,7 @@ async function preparePickPage(page: Page) {
   await page.goto("/pick");
 }
 
-test("renders the complete English launch state and program terms", async ({
-  page,
-}) => {
+test("renders the complete English program and terms", async ({ page }) => {
   await preparePickPage(page);
 
   await expect(
@@ -34,10 +32,9 @@ test("renders the complete English launch state and program terms", async ({
   ).toBeVisible();
   await expect(
     page.getByText(
-      "Every month we recognize the most useful community contribution in the Awesome Intune group.",
+      "Every month we recognize community contributions for the value and knowledge they share with Intune admins.",
     ),
   ).toBeVisible();
-  await expect(page.getByText("First Pick: August 2026")).toBeVisible();
 
   const joinLink = page
     .getByRole("link", {
@@ -48,9 +45,9 @@ test("renders the complete English launch state and program terms", async ({
   await expect(joinLink).toHaveAttribute("target", "_blank");
   await expect(joinLink).toHaveAttribute("rel", "noopener noreferrer");
 
-  const terms = page.locator("details");
+  const terms = page.locator("#rules details");
   const summary = terms.locator("summary");
-  await expect(summary).toHaveText(/Read the full terms/);
+  await expect(summary).toHaveText(/Read the complete program terms/);
   await summary.click();
   await expect(terms).toHaveAttribute("open", "");
   await expect(
@@ -59,8 +56,7 @@ test("renders the complete English launch state and program terms", async ({
   await expect(terms.getByText(/Legal recourse is excluded\./)).toBeVisible();
   await expect(
     terms.getByText(
-      "This program is not sponsored, endorsed, administered by, or associated with LinkedIn.",
-      { exact: true },
+      /This program is not sponsored, endorsed, administered by, or associated with LinkedIn or Anthropic\./,
     ),
   ).toBeVisible();
 
@@ -72,7 +68,9 @@ test("uses English only and keeps selection jury-led", async ({ page }) => {
   await preparePickPage(page);
 
   await expect(
-    page.getByText("Likes and comments are not the selection metric."),
+    page.getByText(
+      /Likes, comments, views, impressions, and audience size are not selection criteria\./,
+    ),
   ).toBeVisible();
 
   const pageCopy = await page.locator("main").innerText();
@@ -91,6 +89,58 @@ test("uses English only and keeps selection jury-led", async ({ page }) => {
   expect(pageCopy).not.toMatch(
     /Kairavo|TenantPDF|Awesome Intune Master Class/i,
   );
+});
+
+test("shows the three August 2026 Picks and the September cycle", async ({
+  page,
+}) => {
+  await preparePickPage(page);
+
+  await expect(page.getByText("September 2026 closes in")).toBeVisible();
+
+  const hallOfFame = page.locator('section[aria-labelledby="hall-of-fame"]');
+  await expect(
+    hallOfFame.getByRole("heading", { name: "August 2026", level: 3 }),
+  ).toBeVisible();
+
+  const expectedPicks = [
+    {
+      name: "Daniel Rung",
+      image: "daniel-rung.webp",
+      profile: "https://www.linkedin.com/in/daniel-rung/",
+      post: "https://www.linkedin.com/feed/update/urn:li:activity:7495933023100678147/",
+    },
+    {
+      name: "Haakon Wibe",
+      image: "haakon-wibe.webp",
+      profile: "https://www.linkedin.com/in/haakonwibe/",
+      post: "https://www.linkedin.com/feed/update/urn:li:activity:7494844475454836736/",
+    },
+    {
+      name: "Ricardo Barbosa",
+      image: "ricardo-barbosa.webp",
+      profile: "https://www.linkedin.com/in/ricardo-barbosa-09745736/",
+      post: "https://www.linkedin.com/feed/update/urn:li:activity:7495821853916131329/",
+    },
+  ];
+
+  for (const pick of expectedPicks) {
+    const card = hallOfFame.locator("article").filter({ hasText: pick.name });
+    await expect(card).toHaveCount(1);
+    await expect(card.getByRole("img", { name: pick.name })).toHaveAttribute(
+      "src",
+      new RegExp(pick.image),
+    );
+    await expect(
+      card.getByRole("link", { name: "LinkedIn profile", exact: true }),
+    ).toHaveAttribute("href", pick.profile);
+    await expect(
+      card.getByRole("link", {
+        name: "View recognized contribution",
+        exact: true,
+      }),
+    ).toHaveAttribute("href", pick.post);
+  }
 });
 
 test("exposes Pick in site navigation and uses the required metadata", async ({

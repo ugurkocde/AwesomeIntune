@@ -7,9 +7,9 @@ export const PICK_PROGRAM = {
   launchDate: "2026-08-16",
   timeZone: "Europe/Berlin",
   currentCycle: {
-    label: "August 2026",
-    closesAt: "2026-08-31T23:59:59+02:00",
-    announcementDisplay: "the first week of September 2026",
+    label: "September 2026",
+    closesAt: "2026-09-30T23:59:59+02:00",
+    announcementDisplay: "the first week of October 2026",
   },
   linkedInGroupUrl: COMMUNITY_URL,
   organizer: {

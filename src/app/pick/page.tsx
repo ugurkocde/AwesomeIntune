@@ -476,7 +476,6 @@ export default function PickPage() {
   const sortedPicks = [...picks].sort((a, b) => b.month.localeCompare(a.month));
   const picksByMonth = groupPicksByMonth(sortedPicks);
   const firstMonth = formatPickMonth(PICK_PROGRAM.firstEligibleMonth);
-  const firstEligibleDate = formatProgramDate(PICK_PROGRAM.firstEligibleDate);
   const currentCycleDeadline = formatProgramDeadline(
     PICK_PROGRAM.currentCycle.closesAt,
   );
@@ -538,9 +537,9 @@ export default function PickPage() {
                 }
               />
               <p className="mt-4 px-1 text-sm leading-6 text-white/75">
-                The first cycle includes qualifying contributions posted from{" "}
-                {firstEligibleDate}. You must belong to the LinkedIn group, but
-                no form or registration is required.
+                Qualifying contributions must be posted in the LinkedIn group
+                during the current cycle. You must belong to the group, but no
+                form or registration is required.
               </p>
             </div>
           </div>
@@ -649,48 +648,84 @@ export default function PickPage() {
               <div className="space-y-10">
                 {[...picksByMonth].map(([month, monthPicks]) => (
                   <section key={month} aria-labelledby={`picks-${month}`}>
-                    <h3
-                      id={`picks-${month}`}
-                      className={`${headingFont} mb-4 text-2xl font-bold text-[var(--text-primary)]`}
-                    >
-                      {formatPickMonth(month)}
-                    </h3>
+                    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                      <h3
+                        id={`picks-${month}`}
+                        className={`${headingFont} scroll-mt-24 text-2xl font-bold text-[var(--text-primary)]`}
+                      >
+                        {formatPickMonth(month)}
+                      </h3>
+                      <p className="flex items-center gap-2 text-sm font-semibold text-[var(--text-muted)]">
+                        <span
+                          aria-hidden="true"
+                          className="h-2 w-2 rotate-45 bg-[var(--accent-primary)]"
+                        />
+                        Equal Picks, presented without ranking
+                      </p>
+                    </div>
                     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                       {monthPicks.map((pick) => (
                         <article
                           key={`${pick.month}-${pick.postUrl}`}
-                          className="rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-primary)] p-6 shadow-[var(--shadow-sm)]"
+                          className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[var(--bg-primary)] shadow-[var(--shadow-sm)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-[color:var(--border-accent)] hover:shadow-[var(--shadow-md)] motion-reduce:transform-none motion-reduce:transition-none"
                         >
-                          <p className="font-mono text-xs font-bold tracking-[0.12em] text-[var(--accent-primary)] uppercase">
-                            Awesome Pick
-                          </p>
-                          <h4
-                            className={`${headingFont} mt-4 text-2xl font-bold break-words text-[var(--text-primary)]`}
-                          >
+                          <div className="relative h-28 shrink-0 bg-[linear-gradient(135deg,#004c86_0%,#0078d4_58%,#19a7df_100%)]">
+                            <div
+                              aria-hidden="true"
+                              className="absolute -top-12 -right-10 h-32 w-32 rotate-45 rounded-[30px] border border-white/20 bg-white/10"
+                            />
+                            <p className="absolute top-5 right-5 font-mono text-[11px] font-bold tracking-[0.14em] text-[#d9f5ff] uppercase">
+                              Awesome Pick
+                            </p>
                             <OutboundLink
                               href={pick.winnerLinkedIn}
-                              className="inline-flex items-center gap-2 transition-colors hover:text-[var(--accent-primary)]"
+                              aria-label={`Open ${pick.winnerName}'s LinkedIn profile`}
+                              className="absolute bottom-0 left-6 translate-y-1/2 touch-manipulation rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                            >
+                              <Image
+                                src={pick.winnerImage}
+                                width={112}
+                                height={112}
+                                alt={pick.winnerName}
+                                sizes="112px"
+                                className="h-24 w-24 rounded-full border-4 border-[var(--bg-primary)] object-cover shadow-[0_10px_30px_rgba(0,43,78,0.24)] transition-transform duration-200 group-hover:scale-[1.03] motion-reduce:transition-none sm:h-28 sm:w-28"
+                              />
+                            </OutboundLink>
+                          </div>
+
+                          <div className="flex flex-1 flex-col p-6 pt-16 sm:pt-18">
+                            <h4
+                              className={`${headingFont} text-2xl font-bold break-words text-[var(--text-primary)]`}
                             >
                               {pick.winnerName}
-                              <ExternalArrow />
-                            </OutboundLink>
-                          </h4>
-                          <p className="mt-3 leading-7 break-words text-[var(--text-secondary)]">
-                            {pick.contribution}
-                          </p>
-                          {pick.postAvailable === false ? (
-                            <p className="mt-5 text-sm font-semibold text-[var(--text-muted)]">
-                              Contribution link unavailable
-                            </p>
-                          ) : (
+                            </h4>
                             <OutboundLink
-                              href={pick.postUrl}
-                              className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-bold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
+                              href={pick.winnerLinkedIn}
+                              className="mt-2 inline-flex min-h-11 w-fit touch-manipulation items-center gap-2 rounded-lg text-sm font-bold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"
                             >
-                              Recognized contribution
+                              LinkedIn profile
                               <ExternalArrow />
                             </OutboundLink>
-                          )}
+                            <p className="mt-4 leading-7 break-words text-[var(--text-secondary)]">
+                              {pick.contribution}
+                            </p>
+
+                            <div className="mt-auto border-t border-[color:var(--border-subtle)] pt-5">
+                              {pick.postAvailable === false ? (
+                                <p className="text-sm font-semibold text-[var(--text-muted)]">
+                                  Contribution link unavailable
+                                </p>
+                              ) : (
+                                <OutboundLink
+                                  href={pick.postUrl}
+                                  className="inline-flex min-h-11 touch-manipulation items-center gap-2 rounded-lg text-sm font-bold text-[var(--accent-primary)] underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"
+                                >
+                                  View recognized contribution
+                                  <ExternalArrow />
+                                </OutboundLink>
+                              )}
+                            </div>
+                          </div>
                         </article>
                       ))}
                     </div>
