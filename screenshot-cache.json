@@ -3,6 +3,7 @@
     "https://www.cloudpolicypreferences.com/",
     "https://cmtrace.dev/",
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
+    "https://gporais.com/en-us/",
     "https://intunediff.com/",
     "https://intuneguardian.com/",
     "https://mertozsoy.com/IntuneWin32AppUninstall/",
@@ -149,6 +150,12 @@
       "id": "get-intuneassignments",
       "url": "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
       "reason": "Website blocked; No images in README"
+    },
+    {
+      "name": "GPORais",
+      "id": "gporais",
+      "url": "https://gporais.com/en-us/",
+      "reason": "Website blocked"
     },
     {
       "name": "HTMD – Microsoft Intune Reports Export Tool v1.0",
