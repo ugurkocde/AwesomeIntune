@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { WhatsAppCommunityLink } from "../community/WhatsAppCommunity";
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -190,6 +191,7 @@ export function Header() {
             >
               GitHub
             </a>
+            <WhatsAppCommunityLink iconOnly />
             <ChangelogBell />
             <ThemeToggle />
             <Link
@@ -349,6 +351,7 @@ export function Header() {
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               </svg>
             </a>
+            <WhatsAppCommunityLink />
             <a
               href={GITHUB_REPO_URL}
               target="_blank"

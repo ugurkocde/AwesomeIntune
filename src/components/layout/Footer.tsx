@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { WhatsAppCommunityLink } from "../community/WhatsAppCommunity";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { COMMUNITY_URL, GITHUB_REPO_URL, SITE_CONFIG } from "~/lib/constants";
@@ -71,6 +72,9 @@ export function Footer() {
               Links
             </h3>
             <nav className="flex flex-col gap-2">
+              <div className="-ml-3">
+                <WhatsAppCommunityLink />
+              </div>
               <Link
                 href="/#tools"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"

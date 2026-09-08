@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { WhatsAppCommunityCard } from "./community/WhatsAppCommunity";
 import Link from "next/link";
 import {
   Suspense,
@@ -193,56 +194,59 @@ export function Hero({
           </div>
         </div>
 
-        <aside
-          className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-2 shadow-[var(--shadow-md)]"
-          aria-label="Newest additions"
-        >
-          <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5">
-            <h2 className="font-display text-sm font-bold text-[var(--text-primary)]">
-              Newest additions
-            </h2>
-            <Link
-              href="#tools"
-              className="text-xs font-medium text-[var(--accent-primary)] hover:text-[var(--accent-secondary)]"
-            >
-              All tools →
-            </Link>
-          </div>
-          <div>
-            {newestTools.map((tool) => (
+        <div className="min-w-0 space-y-4">
+          <aside
+            className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-2 shadow-[var(--shadow-md)]"
+            aria-label="Newest additions"
+          >
+            <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5">
+              <h2 className="font-display text-sm font-bold text-[var(--text-primary)]">
+                Newest additions
+              </h2>
               <Link
-                key={tool.id}
-                href={`/tools/${getToolSlug(tool)}`}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-[var(--surface-hover)]"
+                href="#tools"
+                className="text-xs font-medium text-[var(--accent-primary)] hover:text-[var(--accent-secondary)]"
               >
-                <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--bg-tertiary)] text-sm font-bold text-[var(--accent-primary)]">
-                  {tool.authorPicture ? (
-                    <Image
-                      src={tool.authorPicture}
-                      alt=""
-                      width={34}
-                      height={34}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    tool.author.charAt(0).toUpperCase()
-                  )}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-[var(--text-primary)]">
-                    {tool.name}
-                  </span>
-                  <span className="block truncate text-xs text-[var(--text-tertiary)]">
-                    {TYPE_CONFIG[tool.type].label} · {tool.author}
-                  </span>
-                </span>
-                {isVerified(tool) && (
-                  <ShieldCheckIcon className="h-4 w-4 shrink-0 text-[var(--signal-success)]" />
-                )}
+                All tools →
               </Link>
-            ))}
-          </div>
-        </aside>
+            </div>
+            <div>
+              {newestTools.map((tool) => (
+                <Link
+                  key={tool.id}
+                  href={`/tools/${getToolSlug(tool)}`}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-[var(--surface-hover)]"
+                >
+                  <span className="font-display flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--bg-tertiary)] text-sm font-bold text-[var(--accent-primary)]">
+                    {tool.authorPicture ? (
+                      <Image
+                        src={tool.authorPicture}
+                        alt=""
+                        width={34}
+                        height={34}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      tool.author.charAt(0).toUpperCase()
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-semibold text-[var(--text-primary)]">
+                      {tool.name}
+                    </span>
+                    <span className="block truncate text-xs text-[var(--text-tertiary)]">
+                      {TYPE_CONFIG[tool.type].label} · {tool.author}
+                    </span>
+                  </span>
+                  {isVerified(tool) && (
+                    <ShieldCheckIcon className="h-4 w-4 shrink-0 text-[var(--signal-success)]" />
+                  )}
+                </Link>
+              ))}
+            </div>
+          </aside>
+          <WhatsAppCommunityCard />
+        </div>
       </div>
 
       <SponsorStrip />
