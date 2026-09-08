@@ -1,0 +1,62 @@
+{
+  "id": "gporais",
+  "name": "GPORais",
+  "description": "GPORais is a searchable directory and reference for Group Policy (GPO) settings and ADMX templates. It lets admins search by outcome or registry key, view CSP mappings where available, and export ready-to-use outputs (reg, PowerShell, Intune/OMA-URI, SCCM) for deployment. It sources data from official ADMX/ADML files and offers a GPO Builder for multi-page exports, plus ongoing updates as an independent resource (not affiliated with Microsoft).",
+  "keywords": [
+    "gpo",
+    "admx",
+    "registry",
+    "policy-search",
+    "csp-mapping",
+    "intune",
+    "sccm",
+    "gpobuilder"
+  ],
+  "author": "Islam Rais",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "",
+  "downloadUrl": "",
+  "websiteUrl": "https://gporais.com/en-us/",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-09-08",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-09-08",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Islam Rais"
+    }
+  ]
+}
