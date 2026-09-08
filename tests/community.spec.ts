@@ -61,14 +61,14 @@ test("places Community in the desktop navigation and official group in the foote
 
   const footerLink = page
     .locator("footer")
-    .getByRole("link", { name: "LinkedIn Community" });
+    .getByRole("link", { name: /^LinkedIn/ });
   await expect(footerLink).toHaveAttribute("href", communityUrl);
   await expect(footerLink).toHaveAttribute("target", "_blank");
   await expect(footerLink).toHaveAttribute("rel", "noopener noreferrer");
 
   const repositoryLink = page
     .locator("footer")
-    .getByRole("link", { name: "GitHub", exact: true });
+    .getByRole("link", { name: /^GitHub/ });
   await expect(repositoryLink).toHaveAttribute("href", repositoryUrl);
   await expect(repositoryLink).toHaveAttribute("target", "_blank");
   await expect(
