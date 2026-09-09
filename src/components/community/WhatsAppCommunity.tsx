@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CommunityCount } from "./CommunityCount";
 import { CommunityAvatars } from "./CommunityAvatars";
 import { WHATSAPP_COMMUNITY } from "~/lib/whatsapp-community";
 
@@ -50,7 +51,7 @@ export function WhatsAppCommunityLink({
 }
 
 export function WhatsAppCommunityCard() {
-  const { inviteUrl, memberCount } = WHATSAPP_COMMUNITY;
+  const { inviteUrl } = WHATSAPP_COMMUNITY;
   if (!inviteUrl) return null;
   return (
     <section
@@ -84,22 +85,7 @@ export function WhatsAppCommunityCard() {
       <div className="mx-5 mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[var(--bg-primary)] p-3 sm:mx-6 sm:mb-6">
         <div className="flex w-full items-center justify-between gap-3 px-1">
           <div>
-            {memberCount !== null ? (
-              <>
-                <p className="font-display text-2xl leading-none font-bold text-[var(--text-primary)] tabular-nums">
-                  {new Intl.NumberFormat("en-US").format(memberCount)}
-                </p>
-                <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                  community members
-                </p>
-              </>
-            ) : (
-              <p className="text-sm font-medium text-[var(--text-secondary)]">
-                Awesome Intune
-                <br />
-                on WhatsApp
-              </p>
-            )}
+            <CommunityCount />
           </div>
           <CommunityAvatars />
         </div>
