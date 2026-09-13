@@ -1,0 +1,68 @@
+{
+  "id": "entradeviceauth",
+  "name": "EntraDeviceAuth",
+  "description": "Authenticate Entra ID-enrolled devices using their device certificates and Azure Functions with this PowerShell module.",
+  "keywords": [
+    "device authentication",
+    "certificates",
+    "azure functions",
+    "entra id"
+  ],
+  "author": "Florian Salzmann",
+  "authorPicture": "https://github.com/FlorianSLZ.png",
+  "githubUrl": "https://github.com/FlorianSLZ",
+  "linkedinUrl": "https://www.linkedin.com/in/fsalzmann/",
+  "xUrl": "https://x.com/FlorianSLZ",
+  "repoUrl": "https://github.com/FlorianSLZ/EntraDeviceAuth",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-module",
+  "dateAdded": "2026-09-13",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 7,
+    "lastChecked": "2026-09-13",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 1,
+    "forks": 0,
+    "license": "GPL-3.0",
+    "lastUpdated": "2024-08-19T11:08:02Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Florian Salzmann",
+      "githubUrl": "https://github.com/FlorianSLZ",
+      "picture": "https://github.com/FlorianSLZ.png",
+      "linkedinUrl": "https://www.linkedin.com/in/fsalzmann/",
+      "xUrl": "https://x.com/FlorianSLZ"
+    }
+  ]
+}

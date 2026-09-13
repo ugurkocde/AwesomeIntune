@@ -1,0 +1,67 @@
+{
+  "id": "intuneam-live",
+  "name": "IntunEAM-Live",
+  "description": "View Intune Enterprise App Catalog packages, deployed EAM apps, and available updates in a local Python dashboard.",
+  "keywords": [
+    "eam",
+    "enterprise app management",
+    "app updates",
+    "python"
+  ],
+  "author": "Vigneshwaran",
+  "authorPicture": "https://github.com/app2pack.png",
+  "githubUrl": "https://github.com/app2pack",
+  "linkedinUrl": "https://linkedin.com/in/vigneshwaranmvp",
+  "xUrl": "",
+  "repoUrl": "https://github.com/app2pack/IntunEAM-Live",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "other",
+  "dateAdded": "2026-09-13",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-09-13",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 3,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-08-20T13:45:17Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Vigneshwaran",
+      "githubUrl": "https://github.com/app2pack",
+      "picture": "https://github.com/app2pack.png",
+      "linkedinUrl": "https://linkedin.com/in/vigneshwaranmvp"
+    }
+  ]
+}

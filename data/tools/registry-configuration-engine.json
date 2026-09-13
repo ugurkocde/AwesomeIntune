@@ -1,0 +1,64 @@
+{
+  "id": "registry-configuration-engine",
+  "name": "Registry Configuration Engine",
+  "description": "Manage Windows registry settings through Intune Remediations using JSON configuration files and PowerShell.",
+  "keywords": [
+    "registry",
+    "json",
+    "remediations",
+    "powershell"
+  ],
+  "author": "Haakon Wibe",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/haakonwibe/registry-configuration-engine",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "configuration",
+  "type": "powershell-script",
+  "dateAdded": "2026-09-13",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 8,
+    "lastChecked": "2026-09-13",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 4,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-09-10T12:04:12Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Haakon Wibe"
+    }
+  ]
+}

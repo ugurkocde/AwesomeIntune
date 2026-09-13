@@ -1,0 +1,67 @@
+{
+  "id": "foundry-osd",
+  "name": "Foundry OSD",
+  "description": "Create bootable media and deploy Windows 11 with a graphical workflow for drivers, network setup, and Windows Autopilot.",
+  "keywords": [
+    "windows deployment",
+    "winpe",
+    "autopilot",
+    "bootable media"
+  ],
+  "author": "Mickaël CHAVE",
+  "authorPicture": "https://github.com/mchave3.png",
+  "githubUrl": "https://github.com/mchave3",
+  "linkedinUrl": "https://www.linkedin.com/in/mickaël-chave-5301ba15b",
+  "xUrl": "",
+  "repoUrl": "https://github.com/foundry-osd/foundry",
+  "downloadUrl": "https://github.com/foundry-osd/foundry/releases",
+  "websiteUrl": "https://foundry-osd.github.io/",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-09-13",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-09-13",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 75,
+    "forks": 6,
+    "license": "MIT",
+    "lastUpdated": "2026-09-13T10:49:03Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mickaël CHAVE",
+      "githubUrl": "https://github.com/mchave3",
+      "picture": "https://github.com/mchave3.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mickaël-chave-5301ba15b"
+    }
+  ]
+}
