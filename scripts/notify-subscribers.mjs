@@ -26,7 +26,8 @@ async function getAllTools() {
   const tools = [];
 
   for (const file of files) {
-    if (file.endsWith(".json")) {
+    // Match the site loader: never treat the empty template as a real tool.
+    if (file.endsWith(".json") && file !== "template.json") {
       const content = await readFile(join(TOOLS_DIR, file), "utf-8");
       const tool = JSON.parse(content);
       tools.push(tool);
@@ -42,8 +43,9 @@ async function getSentNotifications() {
     .select("tool_id");
 
   if (error) {
-    console.error("Failed to fetch sent notifications:", error);
-    return [];
+    // Never fall back to an empty list: that makes every tool look new and
+    // would re-announce the entire catalog on the next run.
+    throw new Error(`Failed to fetch sent notifications: ${error.message}`);
   }
 
   return data.map((n) => n.tool_id);
@@ -56,8 +58,9 @@ async function getConfirmedSubscribers() {
     .eq("confirmed", true);
 
   if (error) {
-    console.error("Failed to fetch subscribers:", error);
-    return [];
+    // An empty fallback here would record new tools as notified with zero
+    // recipients, silently dropping the notification.
+    throw new Error(`Failed to fetch subscribers: ${error.message}`);
   }
 
   return data;
@@ -70,7 +73,8 @@ async function recordSentNotification(toolId, recipientCount) {
   });
 
   if (error) {
-    console.error(`Failed to record notification for ${toolId}:`, error);
+    // Fail loudly so a missing record does not lead to a silent re-announce.
+    throw new Error(`Failed to record notification for ${toolId}: ${error.message}`);
   }
 }
 
@@ -233,7 +237,7 @@ async function sendNotifications(newTools, subscribers) {
   console.log(
     `Sent ${successCount} email(s) successfully, ${errorCount} failed`
   );
-  return successCount;
+  return { successCount, errorCount };
 }
 
 async function main() {
@@ -271,11 +275,24 @@ async function main() {
   console.log(`Found ${subscribers.length} confirmed subscriber(s)`);
 
   // Send notifications
-  const recipientCount = await sendNotifications(newTools, subscribers);
+  const { successCount, errorCount } = await sendNotifications(
+    newTools,
+    subscribers
+  );
+
+  if (errorCount > 0) {
+    // Do not mark any tool as notified while sends are failing. Leaving them
+    // unrecorded makes the next run retry; a subscriber who was already
+    // delivered may see a duplicate, which is preferable to silently
+    // dropping the notification for the failed recipients.
+    throw new Error(
+      `${errorCount} of ${subscribers.length} notification email(s) failed; tools left unrecorded for retry`
+    );
+  }
 
   // Record sent notifications
   for (const tool of newTools) {
-    await recordSentNotification(tool.id, recipientCount);
+    await recordSentNotification(tool.id, successCount);
   }
 
   console.log("Notification process completed successfully.");
