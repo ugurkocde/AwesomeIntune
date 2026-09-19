@@ -21,6 +21,8 @@ function securityLabel(tool: Tool): string {
       ? "passed"
       : undefined);
   if (status === "passed") return "Verified";
+  if (status === "failed") return "Checks failed";
+  if (status === "scan_error") return "Scan error";
   if (check.filesScanned === 0) return "Not applicable";
   return `${check.passed}/${check.total} checks passed`;
 }
