@@ -32,7 +32,9 @@ Awesome Intune is a community-curated collection of the best tools, scripts, and
 
 **Key Highlights:**
 - **AI-Powered Search** - Describe your problem in plain language and find the right tool instantly
-- **40+ Curated Tools** - Handpicked by the community, vetted for quality
+- **170+ Curated Tools** - Handpicked by the community, vetted for quality
+- **Saved Tools and Comparison** - Bookmark tools in your browser and compare up to three side by side
+- **RSS and API Access** - Follow new additions at `/feed.xml` or integrate through the public API
 - **Always Growing** - New tools added regularly through community submissions
 
 ---
@@ -42,11 +44,14 @@ Awesome Intune is a community-curated collection of the best tools, scripts, and
 | Feature | Description |
 |---------|-------------|
 | **Semantic Search** | Find tools by describing what you need - our AI understands context |
-| **Smart Filtering** | Filter by category and tool type to narrow down results |
+| **Smart Filtering** | Filter by category, type, and works-with tags |
 | **Screenshot Galleries** | See tools in action before you download |
-| **Tool Details** | GitHub stats, author info, and direct download links |
+| **Tool Details** | GitHub stats, security scan results, author info, and direct download links |
+| **Saved Tools** | Bookmark tools in your browser under `/my-tools` |
+| **Comparison** | Compare up to three tools side by side at `/compare` |
+| **RSS Feed** | Follow new additions at `/feed.xml` |
 | **Email Notifications** | Subscribe to get notified when new tools are added |
-| **Community Driven** | Anyone can submit tools through our simple form |
+| **Community Driven** | Anyone can submit tools through the simple form, and monthly Awesome Pick recognition rewards contributions |
 
 ---
 
@@ -215,6 +220,9 @@ npm run dev
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 | `npm run typecheck` | Run TypeScript type checking |
+| `npm run validate:tools` | Validate every catalog JSON file |
+| `npm run check` | Validate catalog, lint, and typecheck (the CI gate) |
+| `npm run test` | Run the Playwright tests |
 
 ---
 
