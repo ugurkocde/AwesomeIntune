@@ -1,15 +1,24 @@
 "use client";
 
+import type { RepoStats } from "~/types/tool";
 import { useRepoStats } from "./RepoStatsProvider";
 
 /**
  * Renders a prominent warning near the title when the source repository has
  * been archived on GitHub and is therefore no longer maintained.
+ *
+ * The statically stored repoStats are used as the initial value so the notice
+ * is server-rendered even when the live GitHub lookup is throttled.
  */
-export function ArchivedNotice() {
+export function ArchivedNotice({
+  repoStats,
+}: {
+  repoStats?: RepoStats | null;
+}) {
   const { stats } = useRepoStats();
+  const archived = stats?.archived ?? repoStats?.archived ?? false;
 
-  if (!stats?.archived) return null;
+  if (!archived) return null;
 
   return (
     <div

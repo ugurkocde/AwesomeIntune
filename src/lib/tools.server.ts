@@ -12,17 +12,25 @@ export interface AuthorWithTools extends Author {
 const TOOLS_DIRECTORY = path.join(process.cwd(), "data", "tools");
 const COLLECTIONS_DIRECTORY = path.join(process.cwd(), "data", "collections");
 
+// The catalog is bundled and immutable at runtime, so parse it once per
+// process instead of reading every file on each request. In development the
+// module is reloaded when files change.
+let toolsCache: Tool[] | null = null;
+
 /**
  * Read all tool JSON files from the data/tools directory
  * This function should only be called in Server Components
  */
 export function getAllTools(): Tool[] {
+  if (toolsCache) return toolsCache;
+
   if (!fs.existsSync(TOOLS_DIRECTORY)) {
     return [];
   }
 
   const files = fs.readdirSync(TOOLS_DIRECTORY);
   const tools: Tool[] = [];
+  let hadError = false;
 
   for (const file of files) {
     // Skip non-JSON files and template files
@@ -35,12 +43,16 @@ export function getAllTools(): Tool[] {
       const tool = JSON.parse(content) as Tool;
       tools.push(tool);
     } catch (error) {
+      hadError = true;
       console.error(`Error parsing ${file}:`, error);
     }
   }
 
-  // Sort alphabetically by name
-  return tools.sort((a, b) => a.name.localeCompare(b.name));
+  // Sort alphabetically by name. Do not cache a partial catalog after a parse
+  // failure, so a corrected file is picked up on the next call.
+  const sorted = tools.sort((a, b) => a.name.localeCompare(b.name));
+  if (!hadError) toolsCache = sorted;
+  return sorted;
 }
 
 /**

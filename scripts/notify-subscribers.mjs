@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { createHash } from "crypto";
 import { readdir, readFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -26,7 +27,8 @@ async function getAllTools() {
   const tools = [];
 
   for (const file of files) {
-    if (file.endsWith(".json")) {
+    // Match the site loader: never treat the empty template as a real tool.
+    if (file.endsWith(".json") && file !== "template.json") {
       const content = await readFile(join(TOOLS_DIR, file), "utf-8");
       const tool = JSON.parse(content);
       tools.push(tool);
@@ -42,8 +44,9 @@ async function getSentNotifications() {
     .select("tool_id");
 
   if (error) {
-    console.error("Failed to fetch sent notifications:", error);
-    return [];
+    // Never fall back to an empty list: that makes every tool look new and
+    // would re-announce the entire catalog on the next run.
+    throw new Error(`Failed to fetch sent notifications: ${error.message}`);
   }
 
   return data.map((n) => n.tool_id);
@@ -56,8 +59,9 @@ async function getConfirmedSubscribers() {
     .eq("confirmed", true);
 
   if (error) {
-    console.error("Failed to fetch subscribers:", error);
-    return [];
+    // An empty fallback here would record new tools as notified with zero
+    // recipients, silently dropping the notification.
+    throw new Error(`Failed to fetch subscribers: ${error.message}`);
   }
 
   return data;
@@ -70,7 +74,8 @@ async function recordSentNotification(toolId, recipientCount) {
   });
 
   if (error) {
-    console.error(`Failed to record notification for ${toolId}:`, error);
+    // Fail loudly so a missing record does not lead to a silent re-announce.
+    throw new Error(`Failed to record notification for ${toolId}: ${error.message}`);
   }
 }
 
@@ -190,6 +195,64 @@ function generateEmailHtml(tools, unsubscribeUrl) {
 `;
 }
 
+// Resend dedupes requests that share an Idempotency-Key, so a retry after a
+// partial failure does not email a subscriber who already received this exact
+// batch. The key hashes the rendered payload because Resend rejects a reused
+// key whose payload changed, for example after a tool edit. Resend only
+// remembers keys for 24 hours, so a failure that persists beyond that can
+// still duplicate; recipient-level delivery tracking would remove that limit.
+function notificationKey(subscriber, payload) {
+  return createHash("sha256")
+    .update(
+      `awesomeintune:${subscriber.unsubscribe_token}:${JSON.stringify(payload)}`
+    )
+    .digest("hex");
+}
+
+// Resend error names that are worth another attempt. Everything else, such as
+// validation or authentication errors, fails permanently for this batch.
+const RETRYABLE_ERROR_NAMES = new Set([
+  "rate_limit_exceeded",
+  "concurrent_idempotent_requests",
+  "resource_locked",
+  "internal_server_error",
+  "application_error",
+]);
+
+function isRetryable(error) {
+  if (!error) return false;
+  // Thrown network errors carry no statusCode; retry those.
+  if (typeof error.statusCode !== "number") return true;
+  // 429 rate limits and 5xx server errors are transient. 409 is not retried
+  // broadly because some 409s are permanent; the named set lists the
+  // transient 409s explicitly.
+  if (error.statusCode === 429 || error.statusCode >= 500) return true;
+  return RETRYABLE_ERROR_NAMES.has(error.name);
+}
+
+// Retry transient failures within the run. Resend reports API failures in the
+// resolved { error } result rather than by throwing, so both paths are retried.
+async function sendWithRetry(payload, options, attempts = 3) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const { error } = await resend.emails.send(payload, options);
+      if (!error) return null;
+      if (!isRetryable(error)) return error;
+      lastError = error;
+    } catch (error) {
+      lastError = error;
+    }
+
+    if (attempt < attempts) {
+      await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
+    }
+  }
+
+  return lastError;
+}
+
 async function sendNotifications(newTools, subscribers) {
   console.log(
     `Sending notifications for ${newTools.length} new tool(s) to ${subscribers.length} subscriber(s)`
@@ -209,21 +272,29 @@ async function sendNotifications(newTools, subscribers) {
         ? `New tool added: ${newTools[0].name}`
         : `${newTools.length} new tools added to Awesome Intune`;
 
-    try {
-      await resend.emails.send({
-        from: "Awesome Intune <notifications@awesomeintune.com>",
-        to: subscriber.email,
-        subject,
-        html,
-        headers: {
-          "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
-          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-        },
-      });
-      successCount++;
-    } catch (error) {
-      console.error(`Failed to send email to ${subscriber.email}:`, error);
+    const payload = {
+      from: "Awesome Intune <notifications@awesomeintune.com>",
+      to: subscriber.email,
+      subject,
+      html,
+      headers: {
+        "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
+    };
+
+    const failure = await sendWithRetry(payload, {
+      idempotencyKey: notificationKey(subscriber, payload),
+    });
+
+    if (failure) {
+      console.error(
+        `Failed to send email to ${subscriber.email}:`,
+        failure.message ?? failure
+      );
       errorCount++;
+    } else {
+      successCount++;
     }
 
     // Rate limiting: wait 100ms between emails
@@ -233,7 +304,7 @@ async function sendNotifications(newTools, subscribers) {
   console.log(
     `Sent ${successCount} email(s) successfully, ${errorCount} failed`
   );
-  return successCount;
+  return { successCount, errorCount };
 }
 
 async function main() {
@@ -271,11 +342,23 @@ async function main() {
   console.log(`Found ${subscribers.length} confirmed subscriber(s)`);
 
   // Send notifications
-  const recipientCount = await sendNotifications(newTools, subscribers);
+  const { successCount, errorCount } = await sendNotifications(
+    newTools,
+    subscribers
+  );
+
+  if (errorCount > 0) {
+    // Do not mark any tool as notified while sends are failing. Leaving them
+    // unrecorded makes the next run retry; within Resend's 24-hour idempotency
+    // window that retry does not duplicate recipients who already received it.
+    throw new Error(
+      `${errorCount} of ${subscribers.length} notification email(s) failed; tools left unrecorded for retry`
+    );
+  }
 
   // Record sent notifications
   for (const tool of newTools) {
-    await recordSentNotification(tool.id, recipientCount);
+    await recordSentNotification(tool.id, successCount);
   }
 
   console.log("Notification process completed successfully.");

@@ -82,7 +82,7 @@ export default function TermsPage() {
             <div
               className="rounded-xl p-8 md:p-10"
               style={{
-                background: "var(--bg-card)",
+                background: "var(--bg-secondary)",
                 border: "1px solid var(--border-subtle)",
               }}
             >

@@ -32,7 +32,8 @@ Awesome Intune is a community-curated collection of the best tools, scripts, and
 
 **Key Highlights:**
 - **AI-Powered Search** - Describe your problem in plain language and find the right tool instantly
-- **40+ Curated Tools** - Handpicked by the community, vetted for quality
+- **170+ Curated Tools** - Handpicked by the community, vetted for quality
+- **Public API** - Integrate the catalog through the keyed v1 API
 - **Always Growing** - New tools added regularly through community submissions
 
 ---
@@ -42,11 +43,11 @@ Awesome Intune is a community-curated collection of the best tools, scripts, and
 | Feature | Description |
 |---------|-------------|
 | **Semantic Search** | Find tools by describing what you need - our AI understands context |
-| **Smart Filtering** | Filter by category and tool type to narrow down results |
+| **Smart Filtering** | Filter by category, type, and works-with tags |
 | **Screenshot Galleries** | See tools in action before you download |
-| **Tool Details** | GitHub stats, author info, and direct download links |
+| **Tool Details** | GitHub stats, security scan results, author info, and direct download links |
 | **Email Notifications** | Subscribe to get notified when new tools are added |
-| **Community Driven** | Anyone can submit tools through our simple form |
+| **Community Driven** | Anyone can submit tools through the simple form, and monthly Awesome Pick recognition rewards contributions |
 
 ---
 
@@ -215,6 +216,8 @@ npm run dev
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 | `npm run typecheck` | Run TypeScript type checking |
+| `npm run check` | Run ESLint and TypeScript type checking |
+| `npm run test` | Run the Playwright tests |
 
 ---
 

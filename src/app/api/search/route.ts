@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { openai, AI_MODEL } from "~/lib/openai";
 import { getAllTools } from "~/lib/tools.server";
-import { enforceRateLimit } from "~/lib/rate-limit";
+import { enforceDurableRateLimit } from "~/lib/rate-limit.server";
 import { z } from "zod";
 
 const SearchResultSchema = z.object({
@@ -16,6 +16,40 @@ const SearchResultSchema = z.object({
 });
 
 export type AISearchResult = z.infer<typeof SearchResultSchema>;
+
+// Cache successful matches for repeated queries so the same question does not
+// call OpenAI again. Best effort per server instance, like the rate limiter.
+const RESULT_CACHE_TTL_MS = 10 * 60 * 1000;
+const RESULT_CACHE_MAX_ENTRIES = 200;
+const resultCache = new Map<
+  string,
+  { expiresAt: number; value: AISearchResult }
+>();
+
+function normalizeQuery(query: string): string {
+  return query.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function readCachedResult(key: string): AISearchResult | null {
+  const cached = resultCache.get(key);
+  if (!cached) return null;
+  if (cached.expiresAt <= Date.now()) {
+    resultCache.delete(key);
+    return null;
+  }
+  return cached.value;
+}
+
+function writeCachedResult(key: string, value: AISearchResult): void {
+  if (resultCache.size >= RESULT_CACHE_MAX_ENTRIES) {
+    const oldest = resultCache.keys().next().value;
+    if (oldest !== undefined) resultCache.delete(oldest);
+  }
+  resultCache.set(key, {
+    expiresAt: Date.now() + RESULT_CACHE_TTL_MS,
+    value,
+  });
+}
 
 const SYSTEM_PROMPT = `You are a precise assistant that matches user problems with relevant tools from the Awesome Intune collection.
 
@@ -69,7 +103,12 @@ IMPORTANT: You MUST respond with valid JSON in this exact format:
 
 export async function POST(request: NextRequest) {
   try {
-    const limited = enforceRateLimit(request, "search", 10, 60 * 1000);
+    const limited = await enforceDurableRateLimit(
+      request,
+      "search",
+      10,
+      60 * 1000
+    );
     if (limited) return limited;
 
     const body = (await request.json()) as { query?: string };
@@ -80,6 +119,12 @@ export async function POST(request: NextRequest) {
         { error: "Query must be at least 3 characters" },
         { status: 400 }
       );
+    }
+
+    const cacheKey = normalizeQuery(query);
+    const cached = readCachedResult(cacheKey);
+    if (cached) {
+      return NextResponse.json(cached);
     }
 
     const tools = getAllTools();
@@ -121,6 +166,7 @@ Identify which tools can help solve this problem and explain why. Respond with J
     try {
       const parsed = JSON.parse(content) as unknown;
       const result = SearchResultSchema.parse(parsed);
+      writeCachedResult(cacheKey, result);
       return NextResponse.json(result);
     } catch {
       console.error("Failed to parse AI response:", content);

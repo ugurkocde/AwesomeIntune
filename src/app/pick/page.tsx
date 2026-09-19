@@ -655,7 +655,7 @@ export default function PickPage() {
                       >
                         {formatPickMonth(month)}
                       </h3>
-                      <p className="flex items-center gap-2 text-sm font-semibold text-[var(--text-muted)]">
+                      <p className="flex items-center gap-2 text-sm font-semibold text-[var(--text-tertiary)]">
                         <span
                           aria-hidden="true"
                           className="h-2 w-2 rotate-45 bg-[var(--accent-primary)]"
@@ -712,7 +712,7 @@ export default function PickPage() {
 
                             <div className="mt-auto border-t border-[color:var(--border-subtle)] pt-5">
                               {pick.postAvailable === false ? (
-                                <p className="text-sm font-semibold text-[var(--text-muted)]">
+                                <p className="text-sm font-semibold text-[var(--text-tertiary)]">
                                   Contribution link unavailable
                                 </p>
                               ) : (
