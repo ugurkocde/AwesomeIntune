@@ -61,6 +61,31 @@ const config = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "base-uri 'self'",
+              "object-src 'none'",
+              "frame-ancestors 'none'",
+              "form-action 'self'",
+              // Inline is required for the theme bootstrap script and the
+              // analytics shim; Plausible and Turnstile are the only
+              // third-party scripts.
+              "script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co",
+              "frame-src https://challenges.cloudflare.com",
+              "worker-src 'self' blob:",
+              "upgrade-insecure-requests",
+            ].join("; "),
+          },
         ],
       },
     ];
