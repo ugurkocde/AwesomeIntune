@@ -65,34 +65,8 @@ const config = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains",
           },
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "base-uri 'self'",
-              "object-src 'none'",
-              "frame-ancestors 'none'",
-              "form-action 'self'",
-              // Inline is required for the theme bootstrap script and the
-              // analytics shim; Plausible and Turnstile are the only
-              // third-party scripts.
-              // React dev mode and Turbopack use eval; production never does.
-              // Only the exact development environment gets the exception, so
-              // test or SKIP_ENV_VALIDATION builds stay production-safe.
-              process.env.NODE_ENV === "development"
-                ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://challenges.cloudflare.com"
-                : "script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https:",
-              "font-src 'self' data:",
-              // changelog.ugurlabs.com serves the in-app changelog feed and
-              // api.github.com is used by the submit form's metadata prefill.
-              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co https://changelog.ugurlabs.com https://api.github.com",
-              "frame-src https://challenges.cloudflare.com",
-              "worker-src 'self' blob:",
-              "upgrade-insecure-requests",
-            ].join("; "),
-          },
+          // Content-Security-Policy is set per request with a nonce in
+          // src/middleware.ts.
         ],
       },
     ];
