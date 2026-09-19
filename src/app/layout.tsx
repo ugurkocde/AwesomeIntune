@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Suspense } from "react";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { Outfit, DM_Sans, JetBrains_Mono } from "next/font/google";
 
@@ -137,9 +138,12 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Nonce set by src/middleware.ts, applied to the inline scripts below.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   const organizationSchema = generateOrganizationStructuredData();
   const websiteSchema = generateWebsiteWithSearchActionStructuredData();
   const siteGraphSchema = {
@@ -163,6 +167,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" content="#f8fafc" />
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
         />
         <meta name="msvalidate.01" content="3E85A4E6616AA104DB060F4E3AC73298" />
@@ -194,6 +199,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(siteGraphSchema),
           }}
@@ -201,11 +207,12 @@ export default function RootLayout({
         {/* Plausible Analytics */}
         <Script
           defer
+          nonce={nonce}
           data-domain="awesomeintune.com"
           src="https://plausible.io/js/pa-ZkotnMeJMBNcsN6hBD9x1.js"
           strategy="afterInteractive"
         />
-        <Script id="plausible-init" strategy="afterInteractive">
+        <Script id="plausible-init" strategy="afterInteractive" nonce={nonce}>
           {`
             window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
             plausible.init = plausible.init || function(i) { plausible.o = i || {} };
