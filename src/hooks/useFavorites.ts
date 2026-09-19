@@ -8,14 +8,18 @@ const FAVORITES_PREFIX = "awesomeintune:favorite:";
 const FAVORITES_EVENT = "awesomeintune:favorites-changed";
 
 // In-memory mirror so favorites still work within this document when
-// localStorage is blocked, for example in private mode.
+// localStorage is unavailable, for example in private mode.
 let memoryFavorites: string[] | null = null;
+let storageBroken = false;
 
 /**
  * Read the saved tool IDs. Safe on the server and when storage is blocked.
  */
 export function readFavorites(): string[] {
-  if (typeof window === "undefined") return memoryFavorites ?? [];
+  if (typeof window === "undefined" || storageBroken) {
+    return memoryFavorites ?? [];
+  }
+
   const ids: string[] = [];
   try {
     for (let index = 0; index < window.localStorage.length; index++) {
@@ -28,6 +32,7 @@ export function readFavorites(): string[] {
     memoryFavorites = ids;
     return ids;
   } catch {
+    storageBroken = true;
     return memoryFavorites ?? [];
   }
 }
@@ -38,12 +43,16 @@ function setFavorite(id: string, active: boolean): void {
     ? Array.from(new Set([...base, id]))
     : base.filter((value) => value !== id);
 
+  if (storageBroken) return;
+
   try {
     const key = FAVORITES_PREFIX + id;
     if (active) window.localStorage.setItem(key, "1");
     else window.localStorage.removeItem(key);
   } catch {
-    // The in-memory mirror remains the source of truth for this document.
+    // A failed write means storage is unavailable for this document; keep the
+    // in-memory mirror as the source of truth.
+    storageBroken = true;
   }
 }
 
@@ -71,7 +80,7 @@ export function useFavorites() {
   const toggle = useCallback((id: string) => {
     const active = (memoryFavorites ?? readFavorites()).includes(id);
     setFavorite(id, !active);
-    setFavorites(readFavorites());
+    setFavorites(memoryFavorites ?? []);
     window.dispatchEvent(new Event(FAVORITES_EVENT));
   }, []);
 
