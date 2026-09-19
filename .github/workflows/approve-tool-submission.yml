@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Create initial progress comment
         id: create_comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const comment = await github.rest.issues.createComment({
@@ -48,7 +48,7 @@ jobs:
 
       - name: Process tool submission
         id: process
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -525,7 +525,7 @@ jobs:
 
       - name: Final success update
         if: steps.process.outputs.success == 'true' && steps.commit.outputs.committed == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           COMMENT_ID: ${{ steps.create_comment.outputs.result }}
           TOOL_NAME: ${{ steps.process.outputs.tool_name }}
@@ -641,7 +641,7 @@ jobs:
 
       - name: Close issue and add label
         if: steps.process.outputs.success == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.addLabels({
