@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const FAVORITES_KEY = "awesomeintune:favorites";
+// One key per saved tool, so two tabs toggling different tools do not
+// overwrite each other's changes.
+const FAVORITES_PREFIX = "awesomeintune:favorite:";
 const FAVORITES_EVENT = "awesomeintune:favorites-changed";
 
 /**
@@ -10,20 +12,26 @@ const FAVORITES_EVENT = "awesomeintune:favorites-changed";
  */
 export function readFavorites(): string[] {
   if (typeof window === "undefined") return [];
+  const ids: string[] = [];
   try {
-    const raw = window.localStorage.getItem(FAVORITES_KEY);
-    const parsed: unknown = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed)
-      ? parsed.filter((value): value is string => typeof value === "string")
-      : [];
+    for (let index = 0; index < window.localStorage.length; index++) {
+      const key = window.localStorage.key(index);
+      if (key?.startsWith(FAVORITES_PREFIX)) {
+        const id = key.slice(FAVORITES_PREFIX.length);
+        if (id) ids.push(id);
+      }
+    }
   } catch {
     return [];
   }
+  return ids;
 }
 
-function writeFavorites(ids: string[]): void {
+function setFavorite(id: string, active: boolean): void {
   try {
-    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(ids));
+    const key = FAVORITES_PREFIX + id;
+    if (active) window.localStorage.setItem(key, "1");
+    else window.localStorage.removeItem(key);
   } catch {
     // Storage can be blocked (private mode); the list is best effort only.
   }
@@ -48,12 +56,9 @@ export function useFavorites() {
   }, []);
 
   const toggle = useCallback((id: string) => {
-    const current = readFavorites();
-    const next = current.includes(id)
-      ? current.filter((value) => value !== id)
-      : [...current, id];
-    writeFavorites(next);
-    setFavorites(next);
+    const active = readFavorites().includes(id);
+    setFavorite(id, !active);
+    setFavorites(readFavorites());
     window.dispatchEvent(new Event(FAVORITES_EVENT));
   }, []);
 
