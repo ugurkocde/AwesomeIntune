@@ -68,23 +68,32 @@ async function getConfirmedSubscribers() {
 }
 
 // Map of subscriber_id -> Set of tool_ids already delivered to them. Filtered
-// by tool only, so the query stays small regardless of list size.
+// by tool only, and paginated past the Supabase 1000-row API limit, so no
+// delivery is missed (which would cause a duplicate send).
 async function getDeliveries(toolIds) {
-  const { data, error } = await supabase
-    .from("notification_deliveries")
-    .select("tool_id, subscriber_id")
-    .in("tool_id", toolIds);
-
-  if (error) {
-    throw new Error(`Failed to fetch deliveries: ${error.message}`);
-  }
-
+  const pageSize = 1000;
   const delivered = new Map();
-  for (const row of data ?? []) {
-    const set = delivered.get(row.subscriber_id) ?? new Set();
-    set.add(row.tool_id);
-    delivered.set(row.subscriber_id, set);
+
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from("notification_deliveries")
+      .select("tool_id, subscriber_id")
+      .in("tool_id", toolIds)
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      throw new Error(`Failed to fetch deliveries: ${error.message}`);
+    }
+
+    for (const row of data ?? []) {
+      const set = delivered.get(row.subscriber_id) ?? new Set();
+      set.add(row.tool_id);
+      delivered.set(row.subscriber_id, set);
+    }
+
+    if (!data || data.length < pageSize) break;
   }
+
   return delivered;
 }
 
@@ -340,6 +349,14 @@ async function sendNotifications(plan) {
       );
       failed.push(subscriber);
     } else {
+      // Persist immediately so a crash after this send cannot lose the
+      // delivery record and cause a duplicate on the next run.
+      await recordDeliveries(
+        tools.map((tool) => ({
+          tool_id: tool.id,
+          subscriber_id: subscriber.id,
+        }))
+      );
       succeeded.push({ subscriber, tools });
     }
 
@@ -400,15 +417,9 @@ async function main() {
 
   const { succeeded, failed } = await sendNotifications(plan);
 
-  // Persist each successful delivery so a retry skips that recipient even
-  // beyond Resend's 24-hour idempotency window.
+  // Each delivery was persisted as it succeeded; update the in-memory map so
+  // fully delivered tools can be marked.
   for (const { subscriber, tools: sentTools } of succeeded) {
-    await recordDeliveries(
-      sentTools.map((tool) => ({
-        tool_id: tool.id,
-        subscriber_id: subscriber.id,
-      }))
-    );
     const set = delivered.get(subscriber.id) ?? new Set();
     for (const tool of sentTools) set.add(tool.id);
     delivered.set(subscriber.id, set);
