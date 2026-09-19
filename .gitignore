@@ -34,6 +34,7 @@ yarn-error.log*
 
 # debug artifacts (root-level screenshots from browser testing, not public/ assets)
 /.playwright-mcp/
+/.playwright-cli/
 /*.png
 /*.jpg
 /*.jpeg
