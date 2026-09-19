@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
+import { enforceRateLimit } from "~/lib/rate-limit";
 
 export const runtime = "edge";
 
@@ -40,6 +41,9 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export async function GET(request: NextRequest) {
+  const limited = enforceRateLimit(request, "og", 60, 60 * 1000);
+  if (limited) return limited;
+
   const { searchParams } = new URL(request.url);
 
   const title = searchParams.get("title") ?? "Awesome Intune";
@@ -224,6 +228,12 @@ export async function GET(request: NextRequest) {
     {
       width: 1200,
       height: 630,
+      // The image is a pure function of the query parameters, so it is safe to
+      // cache aggressively at the edge and in the browser.
+      headers: {
+        "Cache-Control":
+          "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400",
+      },
     },
   );
 }

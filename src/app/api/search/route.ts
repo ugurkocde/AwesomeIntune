@@ -17,6 +17,40 @@ const SearchResultSchema = z.object({
 
 export type AISearchResult = z.infer<typeof SearchResultSchema>;
 
+// Cache successful matches for repeated queries so the same question does not
+// call OpenAI again. Best effort per server instance, like the rate limiter.
+const RESULT_CACHE_TTL_MS = 10 * 60 * 1000;
+const RESULT_CACHE_MAX_ENTRIES = 200;
+const resultCache = new Map<
+  string,
+  { expiresAt: number; value: AISearchResult }
+>();
+
+function normalizeQuery(query: string): string {
+  return query.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function readCachedResult(key: string): AISearchResult | null {
+  const cached = resultCache.get(key);
+  if (!cached) return null;
+  if (cached.expiresAt <= Date.now()) {
+    resultCache.delete(key);
+    return null;
+  }
+  return cached.value;
+}
+
+function writeCachedResult(key: string, value: AISearchResult): void {
+  if (resultCache.size >= RESULT_CACHE_MAX_ENTRIES) {
+    const oldest = resultCache.keys().next().value;
+    if (oldest !== undefined) resultCache.delete(oldest);
+  }
+  resultCache.set(key, {
+    expiresAt: Date.now() + RESULT_CACHE_TTL_MS,
+    value,
+  });
+}
+
 const SYSTEM_PROMPT = `You are a precise assistant that matches user problems with relevant tools from the Awesome Intune collection.
 
 Given a user's problem description and a catalog of tools, identify which tools DIRECTLY help solve their problem.
@@ -82,6 +116,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const cacheKey = normalizeQuery(query);
+    const cached = readCachedResult(cacheKey);
+    if (cached) {
+      return NextResponse.json(cached);
+    }
+
     const tools = getAllTools();
 
     // Send full tool data including keywords for better semantic matching
@@ -121,6 +161,7 @@ Identify which tools can help solve this problem and explain why. Respond with J
     try {
       const parsed = JSON.parse(content) as unknown;
       const result = SearchResultSchema.parse(parsed);
+      writeCachedResult(cacheKey, result);
       return NextResponse.json(result);
     } catch {
       console.error("Failed to parse AI response:", content);
