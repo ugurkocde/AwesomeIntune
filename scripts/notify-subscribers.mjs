@@ -101,9 +101,13 @@ async function getDeliveries(toolIds) {
 
 async function recordDeliveries(rows) {
   if (!rows.length) return;
+  // Ignore duplicates so an overlapping run cannot fail on the composite key.
   const { error } = await supabase
     .from("notification_deliveries")
-    .insert(rows);
+    .upsert(rows, {
+      onConflict: "tool_id,subscriber_id",
+      ignoreDuplicates: true,
+    });
   if (error) {
     throw new Error(`Failed to record deliveries: ${error.message}`);
   }
