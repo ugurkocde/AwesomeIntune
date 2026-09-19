@@ -30,6 +30,7 @@ export function getAllTools(): Tool[] {
 
   const files = fs.readdirSync(TOOLS_DIRECTORY);
   const tools: Tool[] = [];
+  let hadError = false;
 
   for (const file of files) {
     // Skip non-JSON files and template files
@@ -42,13 +43,16 @@ export function getAllTools(): Tool[] {
       const tool = JSON.parse(content) as Tool;
       tools.push(tool);
     } catch (error) {
+      hadError = true;
       console.error(`Error parsing ${file}:`, error);
     }
   }
 
-  // Sort alphabetically by name, then cache the shared list.
-  toolsCache = tools.sort((a, b) => a.name.localeCompare(b.name));
-  return toolsCache;
+  // Sort alphabetically by name. Do not cache a partial catalog after a parse
+  // failure, so a corrected file is picked up on the next call.
+  const sorted = tools.sort((a, b) => a.name.localeCompare(b.name));
+  if (!hadError) toolsCache = sorted;
+  return sorted;
 }
 
 /**
