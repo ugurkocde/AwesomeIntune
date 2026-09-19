@@ -41,7 +41,7 @@ jobs:
 
       - name: Run security backfill
         id: backfill
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
