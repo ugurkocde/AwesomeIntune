@@ -214,6 +214,7 @@ function notificationKey(subscriber, payload) {
 const RETRYABLE_ERROR_NAMES = new Set([
   "rate_limit_exceeded",
   "concurrent_idempotent_requests",
+  "resource_locked",
   "internal_server_error",
   "application_error",
 ]);
@@ -222,7 +223,14 @@ function isRetryable(error) {
   if (!error) return false;
   // Thrown network errors carry no statusCode; retry those.
   if (typeof error.statusCode !== "number") return true;
-  if (error.statusCode === 429 || error.statusCode >= 500) return true;
+  // 409 conflicts, 429 rate limits, and 5xx server errors are transient.
+  if (
+    error.statusCode === 409 ||
+    error.statusCode === 429 ||
+    error.statusCode >= 500
+  ) {
+    return true;
+  }
   return RETRYABLE_ERROR_NAMES.has(error.name);
 }
 
