@@ -7,6 +7,11 @@ on:
     - cron: '0 7 * * *'
   workflow_dispatch: # Allow manual trigger for testing
 
+# Never let two notification runs overlap.
+concurrency:
+  group: notify-new-tools
+  cancel-in-progress: false
+
 jobs:
   notify:
     runs-on: ubuntu-latest

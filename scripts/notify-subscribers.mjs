@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import { createHash } from "crypto";
 import { readdir, readFile } from "fs/promises";
 import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOOLS_DIR = join(__dirname, "..", "data", "tools");
@@ -55,7 +55,7 @@ async function getSentNotifications() {
 async function getConfirmedSubscribers() {
   const { data, error } = await supabase
     .from("subscribers")
-    .select("email, unsubscribe_token")
+    .select("id, email, unsubscribe_token")
     .eq("confirmed", true);
 
   if (error) {
@@ -65,6 +65,66 @@ async function getConfirmedSubscribers() {
   }
 
   return data;
+}
+
+// Map of subscriber_id -> Set of tool_ids already delivered to them. Filtered
+// by tool only, and paginated past the Supabase 1000-row API limit, so no
+// delivery is missed (which would cause a duplicate send).
+async function getDeliveries(toolIds) {
+  const pageSize = 1000;
+  const delivered = new Map();
+
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from("notification_deliveries")
+      .select("tool_id, subscriber_id")
+      .in("tool_id", toolIds)
+      .order("tool_id", { ascending: true })
+      .order("subscriber_id", { ascending: true })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      throw new Error(`Failed to fetch deliveries: ${error.message}`);
+    }
+
+    for (const row of data ?? []) {
+      const set = delivered.get(row.subscriber_id) ?? new Set();
+      set.add(row.tool_id);
+      delivered.set(row.subscriber_id, set);
+    }
+
+    if (!data || data.length < pageSize) break;
+  }
+
+  return delivered;
+}
+
+async function recordDeliveries(rows) {
+  if (!rows.length) return;
+  // Ignore duplicates so an overlapping run cannot fail on the composite key.
+  const { error } = await supabase
+    .from("notification_deliveries")
+    .upsert(rows, {
+      onConflict: "tool_id,subscriber_id",
+      ignoreDuplicates: true,
+    });
+  if (error) {
+    throw new Error(`Failed to record deliveries: ${error.message}`);
+  }
+}
+
+/**
+ * For each subscriber, the pending tools they have not received yet. Exported
+ * for tests; returns one entry per subscriber that still needs an email.
+ */
+export function planDeliveries(pendingTools, subscribers, deliveredBySubscriber) {
+  const plan = [];
+  for (const subscriber of subscribers) {
+    const delivered = deliveredBySubscriber.get(subscriber.id) ?? new Set();
+    const tools = pendingTools.filter((tool) => !delivered.has(tool.id));
+    if (tools.length) plan.push({ subscriber, tools });
+  }
+  return plan;
 }
 
 async function recordSentNotification(toolId, recipientCount) {
@@ -198,9 +258,9 @@ function generateEmailHtml(tools, unsubscribeUrl) {
 // Resend dedupes requests that share an Idempotency-Key, so a retry after a
 // partial failure does not email a subscriber who already received this exact
 // batch. The key hashes the rendered payload because Resend rejects a reused
-// key whose payload changed, for example after a tool edit. Resend only
-// remembers keys for 24 hours, so a failure that persists beyond that can
-// still duplicate; recipient-level delivery tracking would remove that limit.
+// key whose payload changed, for example after a tool edit. Recipient delivery
+// is tracked durably in notification_deliveries, so the 24-hour key window is
+// only a secondary guard against a lost response.
 function notificationKey(subscriber, payload) {
   return createHash("sha256")
     .update(
@@ -253,24 +313,25 @@ async function sendWithRetry(payload, options, attempts = 3) {
   return lastError;
 }
 
-async function sendNotifications(newTools, subscribers) {
+async function sendNotifications(plan) {
+  const total = plan.reduce((sum, item) => sum + item.tools.length, 0);
   console.log(
-    `Sending notifications for ${newTools.length} new tool(s) to ${subscribers.length} subscriber(s)`
+    `Sending ${total} tool notification(s) across ${plan.length} subscriber(s)`
   );
 
-  let successCount = 0;
-  let errorCount = 0;
+  const succeeded = [];
+  const failed = [];
 
-  for (const subscriber of subscribers) {
+  for (const { subscriber, tools } of plan) {
     const token = encodeURIComponent(subscriber.unsubscribe_token);
     const unsubscribeUrl = `${SITE_URL}/unsubscribe?token=${token}`;
     const oneClickUnsubscribeUrl = `${SITE_URL}/api/unsubscribe?token=${token}`;
-    const html = generateEmailHtml(newTools, unsubscribeUrl);
+    const html = generateEmailHtml(tools, unsubscribeUrl);
 
     const subject =
-      newTools.length === 1
-        ? `New tool added: ${newTools[0].name}`
-        : `${newTools.length} new tools added to Awesome Intune`;
+      tools.length === 1
+        ? `New tool added: ${tools[0].name}`
+        : `${tools.length} new tools added to Awesome Intune`;
 
     const payload = {
       from: "Awesome Intune <notifications@awesomeintune.com>",
@@ -292,9 +353,17 @@ async function sendNotifications(newTools, subscribers) {
         `Failed to send email to ${subscriber.email}:`,
         failure.message ?? failure
       );
-      errorCount++;
+      failed.push(subscriber);
     } else {
-      successCount++;
+      // Persist immediately so a crash after this send cannot lose the
+      // delivery record and cause a duplicate on the next run.
+      await recordDeliveries(
+        tools.map((tool) => ({
+          tool_id: tool.id,
+          subscriber_id: subscriber.id,
+        }))
+      );
+      succeeded.push({ subscriber, tools });
     }
 
     // Rate limiting: wait 100ms between emails
@@ -302,9 +371,9 @@ async function sendNotifications(newTools, subscribers) {
   }
 
   console.log(
-    `Sent ${successCount} email(s) successfully, ${errorCount} failed`
+    `Sent ${succeeded.length} email(s) successfully, ${failed.length} failed`
   );
-  return { successCount, errorCount };
+  return { succeeded, failed };
 }
 
 async function main() {
@@ -318,22 +387,25 @@ async function main() {
   const sentToolIds = await getSentNotifications();
   console.log(`Already notified about ${sentToolIds.length} tool(s)`);
 
-  // Find new tools
-  const newTools = tools.filter((tool) => !sentToolIds.includes(tool.id));
+  // Tools that have not been announced to the whole list yet.
+  const pendingTools = tools.filter((tool) => !sentToolIds.includes(tool.id));
 
-  if (newTools.length === 0) {
+  if (pendingTools.length === 0) {
     console.log("No new tools to notify about. Exiting.");
     return;
   }
 
-  console.log(`Found ${newTools.length} new tool(s):`, newTools.map((t) => t.name));
+  console.log(
+    `Found ${pendingTools.length} pending tool(s):`,
+    pendingTools.map((t) => t.name)
+  );
 
   // Get confirmed subscribers
   const subscribers = await getConfirmedSubscribers();
 
   if (subscribers.length === 0) {
     console.log("No confirmed subscribers. Recording tools as notified.");
-    for (const tool of newTools) {
+    for (const tool of pendingTools) {
       await recordSentNotification(tool.id, 0);
     }
     return;
@@ -341,30 +413,52 @@ async function main() {
 
   console.log(`Found ${subscribers.length} confirmed subscriber(s)`);
 
-  // Send notifications
-  const { successCount, errorCount } = await sendNotifications(
-    newTools,
-    subscribers
+  // Which recipients still need which tools.
+  const delivered = await getDeliveries(pendingTools.map((tool) => tool.id));
+  const plan = planDeliveries(pendingTools, subscribers, delivered);
+
+  console.log(
+    `Delivery plan: ${plan.reduce((sum, item) => sum + item.tools.length, 0)} tool notification(s) for ${plan.length} subscriber(s)`
   );
 
-  if (errorCount > 0) {
-    // Do not mark any tool as notified while sends are failing. Leaving them
-    // unrecorded makes the next run retry; within Resend's 24-hour idempotency
-    // window that retry does not duplicate recipients who already received it.
-    throw new Error(
-      `${errorCount} of ${subscribers.length} notification email(s) failed; tools left unrecorded for retry`
-    );
+  const { succeeded, failed } = await sendNotifications(plan);
+
+  // Each delivery was persisted as it succeeded; update the in-memory map so
+  // fully delivered tools can be marked.
+  for (const { subscriber, tools: sentTools } of succeeded) {
+    const set = delivered.get(subscriber.id) ?? new Set();
+    for (const tool of sentTools) set.add(tool.id);
+    delivered.set(subscriber.id, set);
   }
 
-  // Record sent notifications
-  for (const tool of newTools) {
-    await recordSentNotification(tool.id, successCount);
+  // A tool is announced to the whole list only once every confirmed subscriber
+  // has a delivery record for it.
+  const fullyDelivered = pendingTools.filter((tool) =>
+    subscribers.every((subscriber) => delivered.get(subscriber.id)?.has(tool.id))
+  );
+  for (const tool of fullyDelivered) {
+    await recordSentNotification(tool.id, subscribers.length);
+  }
+
+  console.log(
+    `Recorded ${fullyDelivered.length} fully delivered tool(s); ${succeeded.length} email(s) sent, ${failed.length} failed.`
+  );
+
+  if (failed.length > 0) {
+    // Successful deliveries are recorded, so the next run retries only the
+    // failed recipients.
+    throw new Error(
+      `${failed.length} of ${plan.length} notification email(s) failed; successful deliveries were recorded and the rest will retry`
+    );
   }
 
   console.log("Notification process completed successfully.");
 }
 
-main().catch((error) => {
-  console.error("Notification process failed:", error);
-  process.exit(1);
-});
+// Run only as a CLI so planDeliveries can be imported for tests.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error("Notification process failed:", error);
+    process.exit(1);
+  });
+}
