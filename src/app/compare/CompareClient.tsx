@@ -101,7 +101,8 @@ export function CompareClient({ tools }: { tools: Tool[] }) {
       .split(",")
       .map((value) => value.trim())
       .filter(Boolean);
-    const valid = requested
+    // Deduplicate so a repeated ID cannot create duplicate columns or keys.
+    const valid = [...new Set(requested)]
       .filter((id) => tools.some((tool) => tool.id === id))
       .slice(0, MAX_TOOLS);
     if (valid.length) setSelected(valid);
