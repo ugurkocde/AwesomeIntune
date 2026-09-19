@@ -109,6 +109,13 @@ export function Footer() {
                 Directory Stats
               </Link>
               <Link
+                href="/my-tools"
+                className="text-sm transition-colors hover:text-[var(--accent-primary)]"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                My Tools
+              </Link>
+              <Link
                 href="/authors"
                 className="text-sm transition-colors hover:text-[var(--accent-primary)]"
                 style={{ color: "var(--text-secondary)" }}
