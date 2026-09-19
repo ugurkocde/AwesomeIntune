@@ -235,6 +235,11 @@ async function main() {
       continue;
     }
 
+    if (typeof tool !== "object" || tool === null || Array.isArray(tool)) {
+      errors.push(`${file}: root must be a JSON object`);
+      continue;
+    }
+
     for (const message of validateTool(tool, file, vocab)) {
       errors.push(`${file}: ${message}`);
     }
