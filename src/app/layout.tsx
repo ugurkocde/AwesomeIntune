@@ -186,6 +186,12 @@ export default function RootLayout({
           href="/llms.txt"
           title="LLMs.txt - AI Crawler Instructions"
         />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href="/feed.xml"
+          title="Awesome Intune - New tools"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

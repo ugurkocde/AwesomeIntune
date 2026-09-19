@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "check": "eslint . && tsc --noEmit",
+    "check": "node scripts/validate-tools.mjs && eslint . && tsc --noEmit",
+    "validate:tools": "node scripts/validate-tools.mjs",
     "dev": "next dev --turbo",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",

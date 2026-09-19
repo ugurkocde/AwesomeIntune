@@ -289,7 +289,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
                     }}
                   />
                   <div className="relative p-6 sm:p-10">
-                    <ArchivedNotice />
+                    <ArchivedNotice repoStats={tool.repoStats} />
 
                     {/* Type Badge */}
                     <div className="flex flex-wrap items-center gap-3">
@@ -309,6 +309,24 @@ export default async function ToolPage({ params }: ToolPageProps) {
                         variant="compact"
                         hasSourceCode={!!tool.repoUrl}
                       />
+                      {tool.repoStats?.lastUpdated && (
+                        <span
+                          className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium"
+                          style={{
+                            background: "var(--bg-tertiary)",
+                            color: "var(--text-secondary)",
+                          }}
+                        >
+                          Updated{" "}
+                          {new Date(
+                            tool.repoStats.lastUpdated
+                          ).toLocaleDateString("en-US", {
+                            month: "short",
+                            year: "numeric",
+                            timeZone: "UTC",
+                          })}
+                        </span>
+                      )}
                     </div>
 
                     {/* Tool Name */}
