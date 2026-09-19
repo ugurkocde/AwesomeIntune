@@ -1,15 +1,23 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import tseslint from "typescript-eslint";
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
 
 export default tseslint.config(
   {
     ignores: [".next", "next-env.d.ts"],
   },
-  ...compat.extends("next/core-web-vitals"),
+  // eslint-config-next 16 ships a native flat config array.
+  ...nextCoreWebVitals,
+  {
+    // React Compiler lint rules added by eslint-plugin-react-hooks 7, which
+    // eslint-config-next 16 pulls in. The codebase predates them; track
+    // adoption as a follow-up instead of blocking the upgrade.
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/purity": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+    },
+  },
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
