@@ -62,5 +62,7 @@ begin
 end;
 $$;
 
-revoke all on function public.consume_rate_limit(text, integer, integer) from public;
+-- Supabase default privileges grant execute to anon and authenticated, so
+-- revoke those explicitly. Only the server-side service role may call it.
+revoke all on function public.consume_rate_limit(text, integer, integer) from public, anon, authenticated;
 grant execute on function public.consume_rate_limit(text, integer, integer) to service_role;
