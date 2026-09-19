@@ -44,7 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.0.15",
-    "typescript": "^5.8.2",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.70.0"
   },
   "ct3aMetadata": {
