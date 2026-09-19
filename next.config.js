@@ -77,9 +77,11 @@ const config = {
               // analytics shim; Plausible and Turnstile are the only
               // third-party scripts.
               // React dev mode and Turbopack use eval; production never does.
-              process.env.NODE_ENV === "production"
-                ? "script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com"
-                : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://challenges.cloudflare.com",
+              // Only the exact development environment gets the exception, so
+              // test or SKIP_ENV_VALIDATION builds stay production-safe.
+              process.env.NODE_ENV === "development"
+                ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://challenges.cloudflare.com"
+                : "script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self' data:",
