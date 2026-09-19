@@ -80,8 +80,9 @@ const config = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self' data:",
-              // changelog.ugurlabs.com serves the in-app changelog feed.
-              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co https://changelog.ugurlabs.com",
+              // changelog.ugurlabs.com serves the in-app changelog feed and
+              // api.github.com is used by the submit form's metadata prefill.
+              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co https://changelog.ugurlabs.com https://api.github.com",
               "frame-src https://challenges.cloudflare.com",
               "worker-src 'self' blob:",
               "upgrade-insecure-requests",
