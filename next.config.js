@@ -80,7 +80,8 @@ const config = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co",
+              // changelog.ugurlabs.com serves the in-app changelog feed.
+              "connect-src 'self' https://plausible.io https://challenges.cloudflare.com https://*.supabase.co https://changelog.ugurlabs.com",
               "frame-src https://challenges.cloudflare.com",
               "worker-src 'self' blob:",
               "upgrade-insecure-requests",
