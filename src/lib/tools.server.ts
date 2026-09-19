@@ -12,11 +12,18 @@ export interface AuthorWithTools extends Author {
 const TOOLS_DIRECTORY = path.join(process.cwd(), "data", "tools");
 const COLLECTIONS_DIRECTORY = path.join(process.cwd(), "data", "collections");
 
+// The catalog is bundled and immutable at runtime, so parse it once per
+// process instead of reading every file on each request. In development the
+// module is reloaded when files change.
+let toolsCache: Tool[] | null = null;
+
 /**
  * Read all tool JSON files from the data/tools directory
  * This function should only be called in Server Components
  */
 export function getAllTools(): Tool[] {
+  if (toolsCache) return toolsCache;
+
   if (!fs.existsSync(TOOLS_DIRECTORY)) {
     return [];
   }
@@ -39,8 +46,9 @@ export function getAllTools(): Tool[] {
     }
   }
 
-  // Sort alphabetically by name
-  return tools.sort((a, b) => a.name.localeCompare(b.name));
+  // Sort alphabetically by name, then cache the shared list.
+  toolsCache = tools.sort((a, b) => a.name.localeCompare(b.name));
+  return toolsCache;
 }
 
 /**
