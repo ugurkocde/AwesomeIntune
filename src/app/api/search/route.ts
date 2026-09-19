@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { openai, AI_MODEL } from "~/lib/openai";
 import { getAllTools } from "~/lib/tools.server";
-import { enforceRateLimit } from "~/lib/rate-limit";
+import { enforceDurableRateLimit } from "~/lib/rate-limit.server";
 import { z } from "zod";
 
 const SearchResultSchema = z.object({
@@ -103,7 +103,12 @@ IMPORTANT: You MUST respond with valid JSON in this exact format:
 
 export async function POST(request: NextRequest) {
   try {
-    const limited = enforceRateLimit(request, "search", 10, 60 * 1000);
+    const limited = await enforceDurableRateLimit(
+      request,
+      "search",
+      10,
+      60 * 1000
+    );
     if (limited) return limited;
 
     const body = (await request.json()) as { query?: string };
