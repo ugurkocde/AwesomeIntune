@@ -24,7 +24,7 @@
     "@t3-oss/env-nextjs": "^0.13.11",
     "framer-motion": "^12.23.26",
     "next": "^15.2.3",
-    "openai": "^6.15.0",
+    "openai": "^7.15.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "resend": "^6.28.1",
