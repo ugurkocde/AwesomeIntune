@@ -6,8 +6,25 @@ import { useFavorites } from "~/hooks/useFavorites";
 import { ToolCard } from "~/components/tools/ToolCard";
 
 export function MyToolsClient({ tools }: { tools: Tool[] }) {
-  const { favorites } = useFavorites();
+  const { favorites, ready } = useFavorites();
   const saved = tools.filter((tool) => favorites.includes(tool.id));
+
+  // Avoid flashing "No saved tools" before the client read completes.
+  if (!ready) {
+    return (
+      <div
+        className="rounded-2xl p-10 text-center text-sm"
+        aria-busy="true"
+        style={{
+          background: "var(--bg-secondary)",
+          border: "1px solid var(--border-subtle)",
+          color: "var(--text-tertiary)",
+        }}
+      >
+        Loading saved tools...
+      </div>
+    );
+  }
 
   if (saved.length === 0) {
     return (
