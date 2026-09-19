@@ -93,6 +93,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/compare`,
+      lastModified: STATIC_LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/authors`,
       lastModified: latestToolDate,
       changeFrequency: "weekly",
