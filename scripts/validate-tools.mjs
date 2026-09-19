@@ -249,11 +249,7 @@ function validateTool(tool, file, vocab) {
           ) {
             fail('securityCheck.status "passed" requires every check to pass');
           }
-          if (
-            security.status === "failed" &&
-            allChecksPassed &&
-            security.passed === security.total
-          ) {
+          if (security.status === "failed" && allChecksPassed) {
             fail('securityCheck.status "failed" contradicts passing checks');
           }
         }
