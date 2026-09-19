@@ -7,9 +7,12 @@ create table if not exists public.api_rate_limits (
   count integer not null
 );
 
+create index if not exists api_rate_limits_window_start_idx
+  on public.api_rate_limits (window_start);
+
 alter table public.api_rate_limits enable row level security;
 revoke all on public.api_rate_limits from anon, authenticated;
-grant select, insert, update on public.api_rate_limits to service_role;
+grant select, insert, update, delete on public.api_rate_limits to service_role;
 
 -- Atomically increments the counter for a bucket and reports whether the
 -- request is still within the limit. Only the server-side service role may
@@ -33,6 +36,9 @@ begin
   then
     raise exception 'Invalid rate limit parameters' using errcode = '22023';
   end if;
+
+  -- Prune buckets untouched for a day so the table cannot grow without bound.
+  delete from public.api_rate_limits where window_start < now() - interval '1 day';
 
   insert into public.api_rate_limits (bucket, window_start, count)
   values (p_bucket, now(), 1)

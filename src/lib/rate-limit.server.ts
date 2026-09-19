@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { supabase } from "~/lib/supabase";
 import { enforceRateLimit, getClientIp } from "~/lib/rate-limit";
 
-// null: not yet known, true: reachable, false: disabled for this instance.
-// The first RPC failure stops further round trips and uses the in-memory
-// limiter, so an unapplied migration or Supabase outage does not add latency.
-let durableAvailable: boolean | null = null;
+// After a failed RPC, stop trying until this timestamp to avoid adding latency
+// to every request. The durable limiter is retried once the cooldown passes,
+// so a temporary Supabase outage does not permanently downgrade the instance.
+const DURABLE_RETRY_COOLDOWN_MS = 5 * 60 * 1000;
+let durableRetryAt = 0;
 
 /**
  * Rate limit a public server route, preferring the durable Supabase-backed
  * limiter so the limit holds across serverless instances and cold starts.
- * Falls back to the per-instance in-memory limiter when the store is
+ * Falls back to the per-instance in-memory limiter while the store is
  * unavailable. Never throws.
  */
 export async function enforceDurableRateLimit(
@@ -19,7 +20,7 @@ export async function enforceDurableRateLimit(
   limit: number,
   windowMs: number
 ): Promise<NextResponse | null> {
-  if (durableAvailable !== false) {
+  if (Date.now() >= durableRetryAt) {
     const key = `${name}:${getClientIp(request)}`;
 
     try {
@@ -31,7 +32,6 @@ export async function enforceDurableRateLimit(
 
       if (response.error) throw response.error;
 
-      durableAvailable = true;
       const allowed = response.data as boolean | null;
       if (allowed === true) return null;
 
@@ -43,7 +43,7 @@ export async function enforceDurableRateLimit(
         }
       );
     } catch {
-      durableAvailable = false;
+      durableRetryAt = Date.now() + DURABLE_RETRY_COOLDOWN_MS;
     }
   }
 
