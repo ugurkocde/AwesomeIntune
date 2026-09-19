@@ -195,17 +195,40 @@ function generateEmailHtml(tools, unsubscribeUrl) {
 `;
 }
 
-// A stable key for one subscriber and this exact set of tools. Resend dedupes
-// requests that share an Idempotency-Key, so a retry after a partial failure
-// will not email a subscriber who already received this batch.
-function notificationKey(subscriber, tools) {
-  const ids = tools
-    .map((tool) => tool.id)
-    .sort()
-    .join(",");
+// Resend dedupes requests that share an Idempotency-Key, so a retry after a
+// partial failure does not email a subscriber who already received this exact
+// batch. The key hashes the rendered payload because Resend rejects a reused
+// key whose payload changed, for example after a tool edit. Resend only
+// remembers keys for 24 hours, so a failure that persists beyond that can
+// still duplicate; recipient-level delivery tracking would remove that limit.
+function notificationKey(subscriber, payload) {
   return createHash("sha256")
-    .update(`awesomeintune:${subscriber.unsubscribe_token}:${ids}`)
+    .update(
+      `awesomeintune:${subscriber.unsubscribe_token}:${JSON.stringify(payload)}`
+    )
     .digest("hex");
+}
+
+// Retry transient failures within the run. Resend reports API failures in the
+// resolved { error } result rather than by throwing, so both paths are retried.
+async function sendWithRetry(payload, options, attempts = 3) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const { error } = await resend.emails.send(payload, options);
+      if (!error) return null;
+      lastError = error;
+    } catch (error) {
+      lastError = error;
+    }
+
+    if (attempt < attempts) {
+      await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
+    }
+  }
+
+  return lastError;
 }
 
 async function sendNotifications(newTools, subscribers) {
@@ -227,35 +250,29 @@ async function sendNotifications(newTools, subscribers) {
         ? `New tool added: ${newTools[0].name}`
         : `${newTools.length} new tools added to Awesome Intune`;
 
-    try {
-      // Resend reports API failures in the resolved { error } result rather
-      // than by throwing, so both paths must count as failures.
-      const { error } = await resend.emails.send(
-        {
-          from: "Awesome Intune <notifications@awesomeintune.com>",
-          to: subscriber.email,
-          subject,
-          html,
-          headers: {
-            "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
-            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-          },
-        },
-        { idempotencyKey: notificationKey(subscriber, newTools) }
-      );
+    const payload = {
+      from: "Awesome Intune <notifications@awesomeintune.com>",
+      to: subscriber.email,
+      subject,
+      html,
+      headers: {
+        "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
+    };
 
-      if (error) {
-        console.error(
-          `Failed to send email to ${subscriber.email}:`,
-          error.message ?? error
-        );
-        errorCount++;
-      } else {
-        successCount++;
-      }
-    } catch (error) {
-      console.error(`Failed to send email to ${subscriber.email}:`, error);
+    const failure = await sendWithRetry(payload, {
+      idempotencyKey: notificationKey(subscriber, payload),
+    });
+
+    if (failure) {
+      console.error(
+        `Failed to send email to ${subscriber.email}:`,
+        failure.message ?? failure
+      );
       errorCount++;
+    } else {
+      successCount++;
     }
 
     // Rate limiting: wait 100ms between emails
@@ -310,8 +327,8 @@ async function main() {
 
   if (errorCount > 0) {
     // Do not mark any tool as notified while sends are failing. Leaving them
-    // unrecorded makes the next run retry; the Idempotency-Key prevents a
-    // duplicate for recipients who already received this batch.
+    // unrecorded makes the next run retry; within Resend's 24-hour idempotency
+    // window that retry does not duplicate recipients who already received it.
     throw new Error(
       `${errorCount} of ${subscribers.length} notification email(s) failed; tools left unrecorded for retry`
     );
