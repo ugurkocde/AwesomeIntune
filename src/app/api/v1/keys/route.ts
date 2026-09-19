@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
         {
           error: {
             code: "VALIDATION_ERROR",
-            message: result.error.errors[0]?.message ?? "Invalid request",
+            message: result.error.issues[0]?.message ?? "Invalid request",
           },
         },
         { status: 400, headers: API_SECURITY_HEADERS }

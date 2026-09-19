@@ -97,7 +97,7 @@ export const toolSubmissionSchema = z.object({
 
   // Terms acceptance
   acceptTerms: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the submission guidelines" }),
+    message: "You must accept the submission guidelines",
   }),
 });
 

@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     if (!result.success) {
       return NextResponse.json(
-        { error: result.error.errors[0]?.message ?? "Invalid email" },
+        { error: result.error.issues[0]?.message ?? "Invalid email" },
         { status: 400 }
       );
     }
