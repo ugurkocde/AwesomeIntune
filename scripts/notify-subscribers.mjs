@@ -79,6 +79,8 @@ async function getDeliveries(toolIds) {
       .from("notification_deliveries")
       .select("tool_id, subscriber_id")
       .in("tool_id", toolIds)
+      .order("tool_id", { ascending: true })
+      .order("subscriber_id", { ascending: true })
       .range(from, from + pageSize - 1);
 
     if (error) {
