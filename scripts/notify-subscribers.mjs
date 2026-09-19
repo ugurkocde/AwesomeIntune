@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { createHash } from "crypto";
 import { readdir, readFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -194,6 +195,19 @@ function generateEmailHtml(tools, unsubscribeUrl) {
 `;
 }
 
+// A stable key for one subscriber and this exact set of tools. Resend dedupes
+// requests that share an Idempotency-Key, so a retry after a partial failure
+// will not email a subscriber who already received this batch.
+function notificationKey(subscriber, tools) {
+  const ids = tools
+    .map((tool) => tool.id)
+    .sort()
+    .join(",");
+  return createHash("sha256")
+    .update(`awesomeintune:${subscriber.unsubscribe_token}:${ids}`)
+    .digest("hex");
+}
+
 async function sendNotifications(newTools, subscribers) {
   console.log(
     `Sending notifications for ${newTools.length} new tool(s) to ${subscribers.length} subscriber(s)`
@@ -214,17 +228,31 @@ async function sendNotifications(newTools, subscribers) {
         : `${newTools.length} new tools added to Awesome Intune`;
 
     try {
-      await resend.emails.send({
-        from: "Awesome Intune <notifications@awesomeintune.com>",
-        to: subscriber.email,
-        subject,
-        html,
-        headers: {
-          "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
-          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      // Resend reports API failures in the resolved { error } result rather
+      // than by throwing, so both paths must count as failures.
+      const { error } = await resend.emails.send(
+        {
+          from: "Awesome Intune <notifications@awesomeintune.com>",
+          to: subscriber.email,
+          subject,
+          html,
+          headers: {
+            "List-Unsubscribe": `<${oneClickUnsubscribeUrl}>`,
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+          },
         },
-      });
-      successCount++;
+        { idempotencyKey: notificationKey(subscriber, newTools) }
+      );
+
+      if (error) {
+        console.error(
+          `Failed to send email to ${subscriber.email}:`,
+          error.message ?? error
+        );
+        errorCount++;
+      } else {
+        successCount++;
+      }
     } catch (error) {
       console.error(`Failed to send email to ${subscriber.email}:`, error);
       errorCount++;
@@ -282,9 +310,8 @@ async function main() {
 
   if (errorCount > 0) {
     // Do not mark any tool as notified while sends are failing. Leaving them
-    // unrecorded makes the next run retry; a subscriber who was already
-    // delivered may see a duplicate, which is preferable to silently
-    // dropping the notification for the failed recipients.
+    // unrecorded makes the next run retry; the Idempotency-Key prevents a
+    // duplicate for recipients who already received this batch.
     throw new Error(
       `${errorCount} of ${subscribers.length} notification email(s) failed; tools left unrecorded for retry`
     );
