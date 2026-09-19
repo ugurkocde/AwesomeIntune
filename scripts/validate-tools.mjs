@@ -68,11 +68,21 @@ const SECURITY_CHECK_KEYS = [
   "noHardcodedSecrets",
 ];
 
+const SECURITY_STATUSES = new Set([
+  "passed",
+  "failed",
+  "not_applicable",
+  "scan_error",
+]);
+
 function isRootRelativePath(value) {
   return (
     isNonEmptyString(value) &&
     value.startsWith("/") &&
-    !value.includes("..")
+    // Reject protocol-relative //host paths and Windows-style separators.
+    !value.startsWith("//") &&
+    !value.includes("..") &&
+    !value.includes("\\")
   );
 }
 
@@ -220,6 +230,31 @@ function validateTool(tool, file, vocab) {
             typeof item.passed !== "boolean"
           ) {
             fail(`securityCheck.checks.${key}.passed must be a boolean`);
+          }
+        }
+      }
+
+      // isVerified trusts status === "passed", so a passing status must agree
+      // with the aggregate and individual check results.
+      if (security.status !== undefined && security.status !== null) {
+        if (!SECURITY_STATUSES.has(security.status)) {
+          fail(`securityCheck.status "${security.status}" is not a known status`);
+        } else {
+          const allChecksPassed = SECURITY_CHECK_KEYS.every(
+            (key) => security.checks?.[key]?.passed === true
+          );
+          if (
+            security.status === "passed" &&
+            (!allChecksPassed || security.passed !== security.total)
+          ) {
+            fail('securityCheck.status "passed" requires every check to pass');
+          }
+          if (
+            security.status === "failed" &&
+            allChecksPassed &&
+            security.passed === security.total
+          ) {
+            fail('securityCheck.status "failed" contradicts passing checks');
           }
         }
       }
