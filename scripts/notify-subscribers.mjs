@@ -209,6 +209,23 @@ function notificationKey(subscriber, payload) {
     .digest("hex");
 }
 
+// Resend error names that are worth another attempt. Everything else, such as
+// validation or authentication errors, fails permanently for this batch.
+const RETRYABLE_ERROR_NAMES = new Set([
+  "rate_limit_exceeded",
+  "concurrent_idempotent_requests",
+  "internal_server_error",
+  "application_error",
+]);
+
+function isRetryable(error) {
+  if (!error) return false;
+  // Thrown network errors carry no statusCode; retry those.
+  if (typeof error.statusCode !== "number") return true;
+  if (error.statusCode === 429 || error.statusCode >= 500) return true;
+  return RETRYABLE_ERROR_NAMES.has(error.name);
+}
+
 // Retry transient failures within the run. Resend reports API failures in the
 // resolved { error } result rather than by throwing, so both paths are retried.
 async function sendWithRetry(payload, options, attempts = 3) {
@@ -218,6 +235,7 @@ async function sendWithRetry(payload, options, attempts = 3) {
     try {
       const { error } = await resend.emails.send(payload, options);
       if (!error) return null;
+      if (!isRetryable(error)) return error;
       lastError = error;
     } catch (error) {
       lastError = error;
