@@ -94,7 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/compare`,
-      lastModified: STATIC_LAST_MODIFIED,
+      lastModified: latestToolDate,
       changeFrequency: "monthly",
       priority: 0.6,
     },
