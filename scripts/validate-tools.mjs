@@ -37,8 +37,15 @@ function isPublicUrl(value) {
 
 function isRealDate(value) {
   if (!DATE_PATTERN.test(value)) return false;
-  const parsed = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(parsed.getTime());
+  // Date.UTC rolls impossible days over (2025-02-30 becomes 2025-03-02), so
+  // compare the components back to reject calendar-impossible dates.
+  const [year, month, day] = value.split("-").map(Number);
+  const parsed = new Date(Date.UTC(year, month - 1, day));
+  return (
+    parsed.getUTCFullYear() === year &&
+    parsed.getUTCMonth() === month - 1 &&
+    parsed.getUTCDate() === day
+  );
 }
 
 const URL_FIELDS = [
@@ -48,6 +55,17 @@ const URL_FIELDS = [
   "githubUrl",
   "linkedinUrl",
   "xUrl",
+];
+
+// Every securityCheck must carry all six named checks. A missing item would
+// make SecurityChecklist render undefined on the tool page.
+const SECURITY_CHECK_KEYS = [
+  "noObfuscatedCode",
+  "noRemoteExecution",
+  "noCredentialTheft",
+  "noDataExfiltration",
+  "noMaliciousPatterns",
+  "noHardcodedSecrets",
 ];
 
 function isRootRelativePath(value) {
@@ -153,9 +171,35 @@ function validateTool(tool, file, vocab) {
   }
 
   if (tool.securityCheck !== undefined) {
-    const { passed, total } = tool.securityCheck;
-    if (typeof passed !== "number" || typeof total !== "number") {
-      fail("securityCheck.passed and securityCheck.total must be numbers");
+    const security = tool.securityCheck;
+    if (typeof security !== "object" || security === null) {
+      fail("securityCheck must be an object");
+    } else {
+      for (const field of ["passed", "total", "filesScanned"]) {
+        if (typeof security[field] !== "number") {
+          fail(`securityCheck.${field} must be a number`);
+        }
+      }
+      if (!isNonEmptyString(security.lastChecked)) {
+        fail("securityCheck.lastChecked is required");
+      }
+      if (typeof security.forceApproved !== "boolean") {
+        fail("securityCheck.forceApproved must be a boolean");
+      }
+      if (typeof security.checks !== "object" || security.checks === null) {
+        fail("securityCheck.checks is required");
+      } else {
+        for (const key of SECURITY_CHECK_KEYS) {
+          const item = security.checks[key];
+          if (
+            typeof item !== "object" ||
+            item === null ||
+            typeof item.passed !== "boolean"
+          ) {
+            fail(`securityCheck.checks.${key}.passed must be a boolean`);
+          }
+        }
+      }
     }
   }
 
