@@ -1,4 +1,5 @@
 import type { Tool } from "~/types/tool";
+import { FavoriteButton } from "./FavoriteButton";
 
 interface ToolActionButtonsProps {
   tool: Tool;
@@ -61,8 +62,6 @@ export function ToolActionButtons({ tool }: ToolActionButtonsProps) {
   if (tool.websiteUrl) available.push({ kind: "website", url: tool.websiteUrl });
   if (tool.repoUrl) available.push({ kind: "repo", url: tool.repoUrl });
 
-  if (available.length === 0) return null;
-
   return (
     <div className="flex flex-col gap-3">
       {available.map((action, index) => (
@@ -77,6 +76,11 @@ export function ToolActionButtons({ tool }: ToolActionButtonsProps) {
           {LABELS[action.kind]}
         </a>
       ))}
+      <FavoriteButton
+        toolId={tool.id}
+        toolName={tool.name}
+        variant="full"
+      />
     </div>
   );
 }

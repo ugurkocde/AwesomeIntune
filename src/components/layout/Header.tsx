@@ -33,6 +33,7 @@ function HeaderSearch() {
       {open && (
         <input
           ref={inputRef}
+          id="header-search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={(event) => {
@@ -47,6 +48,7 @@ function HeaderSearch() {
         />
       )}
       <button
+        id="header-search-toggle"
         type={open ? "submit" : "button"}
         onClick={open ? undefined : () => setOpen(true)}
         className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
@@ -97,6 +99,44 @@ export function Header() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMobileOpen(false);
     };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  // Press "/" to jump to search: the hero input on the homepage, otherwise
+  // the header search. Ignored while typing in a field.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) {
+        return;
+      }
+      const target = event.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      const heroInput = document.getElementById("hero-search");
+      if (heroInput) {
+        event.preventDefault();
+        heroInput.focus();
+        return;
+      }
+
+      const toggleButton = document.getElementById("header-search-toggle");
+      if (toggleButton) {
+        event.preventDefault();
+        (toggleButton as HTMLButtonElement).click();
+        requestAnimationFrame(() => {
+          document.getElementById("header-search")?.focus();
+        });
+      }
+    };
+
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
@@ -192,6 +232,26 @@ export function Header() {
               GitHub
             </a>
             <WhatsAppCommunityLink iconOnly />
+            <Link
+              href="/my-tools"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+              aria-label="My tools"
+              title="My tools"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M19 21 12 16 5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" />
+              </svg>
+            </Link>
             <ChangelogBell />
             <ThemeToggle />
             <Link
@@ -360,6 +420,12 @@ export function Header() {
             >
               GitHub
             </a>
+            <Link
+              href="/my-tools"
+              className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+            >
+              My tools
+            </Link>
           </div>
         </div>
       )}
