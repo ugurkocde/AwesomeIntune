@@ -93,8 +93,12 @@ function validateTool(tool, file, vocab) {
     fail(`filename must match id (${tool.id}.json)`);
   }
 
-  if (isNonEmptyString(tool.slug) && !ID_PATTERN.test(tool.slug)) {
-    fail(`slug "${tool.slug}" is not a valid identifier`);
+  if (tool.slug !== undefined) {
+    // An empty slug is not a fallback: routing uses tool.slug ?? tool.id, so
+    // an explicit "" would publish an unresolvable /tools/ route.
+    if (!isNonEmptyString(tool.slug) || !ID_PATTERN.test(tool.slug)) {
+      fail("slug must be a non-empty identifier when present");
+    }
   }
 
   if (!vocab.categories.has(tool.category)) {
@@ -133,8 +137,27 @@ function validateTool(tool, file, vocab) {
   if (tool.authors !== undefined) {
     if (!Array.isArray(tool.authors) || tool.authors.length === 0) {
       fail("authors must be a non-empty array when present");
-    } else if (tool.authors.some((author) => !isNonEmptyString(author?.name))) {
-      fail("every author needs a name");
+    } else {
+      for (const author of tool.authors) {
+        if (!isNonEmptyString(author?.name)) {
+          fail("every author needs a name");
+        }
+        for (const field of ["githubUrl", "linkedinUrl", "xUrl"]) {
+          const value = author?.[field];
+          if (value !== undefined && value !== "" && !isPublicUrl(value)) {
+            fail(`authors.${field} must be an absolute https URL when set`);
+          }
+        }
+        const picture = author?.picture;
+        if (
+          picture !== undefined &&
+          picture !== "" &&
+          !isPublicUrl(picture) &&
+          !isRootRelativePath(picture)
+        ) {
+          fail("authors.picture must be an https URL or a root-relative path");
+        }
+      }
     }
   }
 
@@ -252,11 +275,15 @@ async function main() {
       }
     }
 
-    if (isNonEmptyString(tool.slug)) {
-      if (seenSlugs.has(tool.slug)) {
-        errors.push(`${file}: duplicate slug "${tool.slug}" (also in ${seenSlugs.get(tool.slug)})`);
+    // Routing resolves tool.slug when set, otherwise the tool id. Deduplicate
+    // the effective slug so an explicit slug cannot collide with another
+    // tool's id.
+    const effectiveSlug = isNonEmptyString(tool.slug) ? tool.slug : tool.id;
+    if (isNonEmptyString(effectiveSlug)) {
+      if (seenSlugs.has(effectiveSlug)) {
+        errors.push(`${file}: duplicate effective slug "${effectiveSlug}" (also in ${seenSlugs.get(effectiveSlug)})`);
       } else {
-        seenSlugs.set(tool.slug, file);
+        seenSlugs.set(effectiveSlug, file);
       }
     }
   }
