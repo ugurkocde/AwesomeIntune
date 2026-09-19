@@ -9,6 +9,7 @@ import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
 import { getToolAuthors, generateAuthorSlug, getToolSlug } from "~/lib/tools";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
+import { FavoriteButton } from "./FavoriteButton";
 import { SecurityBadge } from "./SecurityBadge";
 import { WorksWithTags } from "./WorksWithTags";
 
@@ -208,6 +209,7 @@ export const ToolCard = memo(function ToolCard({
                     variant="compact"
                   />
                 )}
+                <FavoriteButton toolId={tool.id} toolName={tool.name} />
               </div>
             </div>
 
