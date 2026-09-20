@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase includes a high-risk credential handling pattern in background.js (token capture from Graph requests) and potential secret exposure in analytics.js (frontend API secret). There is legitimate analytics data exfiltration to an external service with opt-in considerations. No remote code execution, no hardcoded PowerShell-like payloads, and no obvious malware behavior beyond credential handling. To align with security best practices for Intune management tooling, remove token capture/logging, move secrets off the client (or eliminate the need for a secret in frontend), and ensure explicit, auditable consent for analytics data collection.",
+    "aiSummary": "The codebase contains a critical credential-handling risk: it captures and stores Microsoft Graph Authorization tokens within the extension, with token data logged to console. This elevates the risk of token theft if the extension, the host environment, or other extensions are compromised. Telemetry to an external analytics endpoint is present but appears opt-in; ensure privacy-compliant data collection and clear user consent. There are also placeholders for GA credentials treated as secrets; these should be supplied securely at build/runtime rather than hardcoded. No obfuscated code, remote script execution, or malicious patterns detected beyond these credential handling concerns. Recommend hardening token management (in-memory handling, proper OAuth flows), removing sensitive logs, and securing configuration for analytics.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,7 +80,7 @@
     "stars": 16,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-05-11T08:50:43Z",
+    "lastUpdated": "2026-09-16T14:15:24Z",
     "archived": false
   }
 }

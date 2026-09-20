@@ -24,19 +24,21 @@
   "type": "powershell-module",
   "dateAdded": "2026-02-26",
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 18,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "No evidence in the provided code of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets. The only notable pattern is the usage of base64-encoded -EncodedCommand in a helper function, which could be abused to obfuscate actions. The rest of the code appears to implement standard Intune/PSADT tooling constructs (modular dot-sourcing, logging, UI helpers) with no obvious security violations.",
+    "status": "failed",
+    "aiSummary": "Code shows legitimate Intune/PSADT GUI tooling; primary security concern is the use of Base64-encoded PowerShell commands to invoke child processes, which can obscure payloads and bypass policy checks. No immediate credential theft, data exfiltration, or hardcoded secrets detected in the provided segments.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Invoke-WindowsPowerShellCommand encodes the passed CommandText as Base64 and launches PowerShell with -EncodedCommand and -ExecutionPolicy Bypass. This enables obfuscated execution of arbitrary commands. If CommandText is derived from external input, it creates a risk of remote code execution or circumvention of policy checks."
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "The encoded invocation path (pwsh.exe -EncodedCommand) combined with -ExecutionPolicy Bypass can be exploited to execute injected payloads if inputs are not strictly validated. Recommend strict input validation, avoid bypassing policies unless necessary, and consider logging/alerting when decoded commands are produced."
       },
       "noCredentialTheft": {
         "passed": true
@@ -54,8 +56,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 16,
-    "forks": 2,
+    "stars": 17,
+    "forks": 3,
     "license": "MIT",
     "lastUpdated": "2026-02-26T15:54:34Z",
     "archived": false

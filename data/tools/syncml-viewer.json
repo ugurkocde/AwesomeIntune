@@ -46,10 +46,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 25,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code review shows no obfuscated payload, remote execution, credential theft, data exfiltration, or hardcoded secrets. The main concern is a likely compile/run-time bug in the GetEnrollmentGuids fallback that could affect MDM account detection; otherwise, the code aligns with expected Intune administration tooling.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -73,7 +73,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 232,
+    "stars": 236,
     "forks": 35,
     "license": "MIT",
     "lastUpdated": "2026-05-04T14:48:04Z",

@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-01-18",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 27,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall assessment: The codebase largely aligns with legitimate Intune/endpoint management tasks (inventory reporting, Dell BIOS update assessment, and Graph/AzureAD integration). Primary security concerns are (1) automated Graph AppRole assignments that could unintentionally elevate permissions, (2) telemetry that transmits sensitive asset data to an external service requiring governance, and (3) placeholders for credentials that should be supplied securely rather than embedded. No obfuscated code, no hardcoded secrets, and no direct remote code execution detected, though a minor bug risk exists (ModelGUID vs. modelGUID usage in BIOS data processing) that could affect functionality.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The Dell BIOS update reporting script largely implements telemetry and Dell data retrieval for Intune integration, which is expected in a managed environment. The Devices/Permissions script provides automated Graph API role assignments for a service principal, which is a common admin pattern but warrants strict access control and auditing. Notable concerns include: (1) hardcoded secret placeholders for Log Analytics credentials that should be sourced securely, (2) a potential runtime bug in GetModelWebResponse where the model GUID may not be correctly incorporated into the URL, and (3) the risk that automated App Role assignments could broaden MSI permissions if misconfigured. Recommendations: remove hardcoded secrets, fetch credentials from Key Vault or managed identity, implement payload/datasignature validation for remote downloads, add robust input validation and auditing for role assignments, and fix the GetModelWebResponse variable usage to ensure correct data retrieval.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,8 +45,7 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": false,
-        "reason": "Automated assignment of Microsoft Graph app roles to a service principal (New-AzureAdServiceAppRoleAssignment) based on listed permissions. This can grant elevated or unintended access to Intune/DeviceManagement data without explicit per-application consent. Recommend least-privilege configuration, require admin consent workflows, and implement robust auditing."
+        "passed": true
       },
       "noHardcodedSecrets": {
         "passed": true

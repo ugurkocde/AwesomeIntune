@@ -50,10 +50,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase consists largely of template and remediation scripts with placeholders and some potentially destructive operations. No evidence of obfuscated payload, remote script execution, credential theft, data exfiltration, or hardcoded secrets. However, several templates include placeholders and a potentially risky remediation that can affect hardware and registry state. Recommend auditing templates, removing or clearly gating placeholder logic, adding input validation, and ensuring destructive actions (like pnputil usage) are behind explicit confirmations and logging.",
+    "aiSummary": "Overall assessment: The Endpoint Analytics Remediation Scripts appear to be legitimate administrative tools for Intune/Endpoint Analytics workflows. No obfuscated code, remote script downloads, credential theft, or data exfiltration were observed. The primary caution is the presence of template placeholders that must be correctly populated and validated to avoid unintended behavior (e.g., empty app IDs or registry values). Recommend strict validation and review of template content before deployment to production environments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,8 +77,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 640,
-    "forks": 130,
+    "stars": 652,
+    "forks": 129,
     "license": "MIT",
     "lastUpdated": "2026-07-28T10:59:21Z",
     "archived": false

@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 11,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The Windows LAPS Self-Service Portal codebase adheres to expected patterns for an Intune/Graph-backed service, with no malicious patterns detected. The primary security consideration is the handling of LAPS passwords: they are retrieved and returned to authenticated users after ownership verification. This is by design but requires strong access controls, encrypted transport, and careful monitoring of telemetry/audit data to minimize exposure risk. No hardcoded secrets or obfuscated payloads were found beyond legitimate header decoding for Easy Auth.",
+    "aiSummary": "Overall, the code implements a normal Intune/Graph-based LAPS self-service flow but presents notable security considerations: (1) plaintext LAPS passwords are sent in API responses, which is high risk and warrants design reconsideration; (2) justification and PII fields are logged to audit/storage and telemetry, presenting potential data exposure; (3) a minor validation edge case (MIN_JUSTIFICATION parsing) could bypass length checks if misconfigured. There are no obfuscated/remote code execution patterns or hardcoded secrets. Recommended mitigations focus on reducing credential exposure, redacting or encrypting sensitive data in logs/telemetry, tightening access controls to audit/telemetry stores, and validating environment-derived configuration robustly.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -40,7 +40,7 @@
       },
       "noCredentialTheft": {
         "passed": false,
-        "reason": "LAPS passwords are retrieved from Microsoft Graph and returned in the API response after ownership validation. Passwords are decoded from base64 to plaintext and included in the response. While this is the intended feature, it represents a high-risk data exposure point if the API response, transport, or client security is compromised. Mitigations include strict RBAC, TLS (implied), minimizing exposure, and ensuring responses are only delivered to authorized users."
+        "reason": "getLapsPassword decodes and returns the LAPS password as plaintext within the API response. The laps-password flow delivers the credential directly to the client (password field included in the JSON response). This creates a high-risk exposure scenario if the API is intercepted, logged, or leaked. Recommendation: avoid returning plaintext passwords in API responses; explore ephemeral or scope-limited credential delivery mechanisms, enforce strict transport security, and minimize exposure by restricting who can access the endpoint."
       },
       "noDataExfiltration": {
         "passed": true
@@ -55,8 +55,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 9,
-    "forks": 2,
+    "stars": 11,
+    "forks": 3,
     "license": "MIT",
     "lastUpdated": "2026-05-18T03:26:38Z",
     "archived": false

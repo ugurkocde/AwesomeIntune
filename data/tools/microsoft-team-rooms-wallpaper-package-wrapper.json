@@ -51,10 +51,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The code is a straightforward installer wrapper for Intune/Team Rooms wallpaper packaging. It performs local file copies and a registry entry without any obfuscated code, remote code execution, credential harvesting, data exfiltration, or malicious behavior. The primary concern is a placeholder/company-name value that should be replaced to ensure correct registry keys are created. No hardcoded secrets or API keys are present.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

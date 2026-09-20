@@ -56,13 +56,13 @@
     "screenshots/m365-documentation/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The codebase aligns with expected admin tooling for Microsoft Graph/Intune workflows and contains no obfuscated code, reverse shells, credential harvesting, or hardcoded secrets. The main security considerations involve external data submission of translations (potential data exfiltration risk if translations contain sensitive data), a hard-coded user-specific path that could affect reliability/logging, and interactive secret handling during packaging/publishing. No malicious patterns detected.",
+    "status": "failed",
+    "aiSummary": "Two high-severity concerns: potential data leakage to an external service via the translation submission flow, and a hardcoded secret in the code. No obfuscated payloads or evident remote code execution patterns detected. Recommended actions: remove or secure external telemetry, add explicit user consent/data minimization, and store secrets (e.g., sig parameter) in a secure vault or configuration, with rotation and access controls. The core Intune/Graph authentication flows appear standard for admin tooling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,20 +74,22 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": true
+        "passed": false,
+        "reason": "Translation data is posted to an external Azure Logic Apps endpoint via an HTTP POST when submitting to the community. The request includes custom headers (twitter, mail) populated from user input, which may leak user-provided identifiers (email, handle) and translation content to a third-party service. Lacks explicit user-consent for telemetry/exfiltration and data minimization."
       },
       "noMaliciousPatterns": {
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Hardcoded external endpoint URL with a sig parameter (sig=Pf7_psSqpIZFd0XGIceBZak8tFCHtumefiAJw6Tl7zM) embedded in code. This acts as a secret/credential embedded in source control. If leaked, an attacker could abuse the endpoint. Recommend moving to a secure secret store or configuration and rotating it regularly."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 628,
-    "forks": 82,
+    "stars": 630,
+    "forks": 83,
     "license": "NOASSERTION",
     "lastUpdated": "2026-03-15T13:48:54Z",
     "archived": false

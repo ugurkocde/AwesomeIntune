@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-02-16",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The script performs a legitimate macOS admin task (rotating FileVault recovery keys) but handles user credentials in plaintext and writes them to a temporary plist, posing credential exposure risks. It also displays the sensitive recovery key to the user, increasing exposure risk. No remote code execution, hardcoded secrets, or exfiltration detected. Mitigations include securing credential handling (avoid plaintext storage, escape inputs), reducing on-screen exposure of the recovery key, and validating input robustly.",
+    "status": "failed",
+    "aiSummary": "Credential handling is the primary security concern in this script: it captures the user's password and temporarily stores it in plaintext on disk to feed the FileVault rotation tool. This is a legitimate admin operation but requires strict handling to minimize exposure (e.g., robust cleanup, minimization of on-disk storage, and consideration of alternative secure authentication methods). No remote code execution, exfiltration, obfuscated code, or hardcoded secrets are detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,7 +39,8 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": true
+        "passed": false,
+        "reason": "The script prompts the user for their login password via a GUI prompt and stores it in plaintext in a temporary plist file (created with mktemp) to feed fdesetup. The password is kept on disk in /tmp with 600 permissions for a brief window, then the plist is deleted. While the data is only used for FileVault key rotation, this on-disk plaintext credential exposure constitutes a credential-handling vulnerability and could be exploited if cleanup fails or if a sensitive /tmp directory is accessible."
       },
       "noDataExfiltration": {
         "passed": true

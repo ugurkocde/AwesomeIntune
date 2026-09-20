@@ -26,18 +26,18 @@
   "securityCheck": {
     "passed": 5,
     "total": 6,
-    "filesScanned": 7,
-    "lastChecked": "2026-08-16",
+    "filesScanned": 9,
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The codebase contains telemetry that exfiltrates usage data (including user agent and country) and build-time dependency actions that pull tools from remote sources. A notable security hardening issue is the use of an http timestamp URL for code signing. While the tooling and telemetry are expected in enterprise workflows, enforcing data minimization, secure timestamping, and tighter control over external dependencies will improve the security posture without impeding legitimate admin workflows.",
+    "aiSummary": "Overall assessment: The codebase is intended for building and packaging the 1PhoneMirror MSI/Intune wrapper with Azure Trusted Signing. The primary security risk is the runtime download of the signing library without integrity checks or version pinning, which could enable supply-chain compromise. Additionally, several signing-related defaults are hardcoded and an HTTP timestamp endpoint is used, both of which should be addressed with better key management and secure endpoints. Other patterns (Intune packaging, signing flow) are normal for this tooling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "Code signing timestamp uses an http URL (http://timestamp.digicert.com). This introduces potential MITM risk for timestamp tokens, which could affect the validity of code signing. Recommend switching to https and/or using a trusted, validated timestamp source."
+        "reason": "The trusted signing workflow fetches Azure.CodeSigning.Dlib.dll from NuGet at runtime via Get-TrustedSigningDlib. There is no version pinning or integrity verification, creating a supply-chain risk and potential remote code execution if the downloaded library is compromised."
       },
       "noCredentialTheft": {
         "passed": true
@@ -55,10 +55,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 16,
+    "stars": 27,
     "forks": 5,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-06-04T07:50:21Z",
+    "lastUpdated": "2026-09-04T11:18:41Z",
     "archived": false
   },
   "authors": [

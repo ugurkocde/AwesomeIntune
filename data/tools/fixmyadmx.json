@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code snippet provided. Please supply the PowerShell/Intune tool code for analysis. Without code, can't identify obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets.",
+    "aiSummary": "No code provided for analysis. Please supply the code snippet or repository path for a security review of FixMyADMX. Once available, I will assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets in the context of Intune and Microsoft Graph interactions.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 31,
+    "stars": 32,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2026-06-30T15:52:15Z",

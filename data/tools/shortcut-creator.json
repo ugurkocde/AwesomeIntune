@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall, the codebase appears to implement legitimate Intune/Graph-based device management utilities. No obfuscation, no external script downloads, and no credential theft or hardcoded secrets detected. Data exfiltration is limited to locally written reports. The Install.ps1 component introduces a persistent scheduled task that renames devices on shutdown, which could be abused for persistence or cause disruption if misconfigured; ensure strict access controls, auditing, and validation of the Rename-Device-on-Shutdown.ps1 script and its interaction with the environment. Additionally, consider edge-case handling for serial retrieval to avoid unintended renames. Regular review of the Schedule/Shutdown-based workflow and its permissions is recommended as part of defensible change management.",
+    "aiSummary": "Overall, the code appears to be legitimate Intune management tooling. Primary concerns are data exposure via reporting, broad Graph permissions, and potential operational disruption from the shutdown-based rename automation. Recommendations: tighten Graph scopes and access control, redact or securely store reports, implement script/signature verification, and verify rename behavior against naming policies before production deployment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

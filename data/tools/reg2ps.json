@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 28,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Moderate risk. The REG2CI tool appears to be a legitimate admin utility for converting registry data into configuration items for Intune. No credential theft, data exfiltration, or hardcoded secrets are evident. However, there are risk factors: (1) silent exception handling that can obscure failures, (2) external process invocation based on input that could be manipulated, and (3) configuration-driven PowerShell script delivery potential that could lead to remote code execution if not properly secured. Recommendations: implement robust error logging, validate and sanitize all inputs before launching external tools, and enforce strict controls and signing for any endpoint PowerShell scripts deployed via configuration items. Ensure leveragability of Graph/Intune APIs remains within approved, authenticated scopes.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -72,7 +72,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 125,
+    "stars": 126,
     "forks": 21,
     "license": "MS-PL",
     "lastUpdated": "2025-09-05T15:57:30Z",

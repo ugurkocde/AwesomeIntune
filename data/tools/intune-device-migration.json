@@ -24,13 +24,13 @@
   "type": "powershell-module",
   "dateAdded": "2026-04-22",
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The codebase for Intune Device Migration relies on legitimate admin tooling patterns (Microsoft Graph API usage, Intune/Entra interactions, Autopilot registration, and scheduled task/registry manipulation). There are no obfuscated scripts or explicit remote script downloads. Main security considerations center on handling credentials stored on disk (config.json) and the potential for logs/transcripts to reveal sensitive context. Recommend enforcing strict access controls and encryption for config.json, auditing all changes to registry/scheduled tasks, and ensuring transcripts are protected and rotated. The tooling appears appropriately scoped for administrative use with normal Graph API interactions.",
+    "status": "failed",
+    "aiSummary": "The Intune Device Migration scripts perform legitimate Graph API orchestration for device tagging, user assignment, and Autopilot enrollment. Security concerns center on plaintext credential storage (config.json), mild obfuscation, high-risk BitLocker decryption path, and post-migration cleanup actions that could be misused or hinder forensics. Mitigations include secure secret management, explicit approvals for destructive actions, and hardened logging/privacy controls. Overall, the code appears aligned with admin tooling but requires strong secret handling and safeguards around encryption/deletion operations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,17 +45,19 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "decryptDrive calls Disable-BitLocker to decrypt the system drive. This directly lowers device security by removing encryption and could be abused. Requires strict controls, approvals, and auditing; consider conditionally enabling only with user/tenant consent and TPM-bound policies."
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "Config.json stores clientSecret and other Graph credentials used to obtain tokens. If the file is exposed or not protected, a malicious actor could impersonate the app. Recommendation: move secrets to a secure vault (e.g., Azure Key Vault) with managed identities, and avoid plaintext storage."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 27,
-    "forks": 6,
+    "stars": 29,
+    "forks": 7,
     "license": "GPL-3.0",
     "lastUpdated": "2025-11-12T14:59:28Z",
     "archived": false

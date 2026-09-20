@@ -26,11 +26,11 @@
   "securityCheck": {
     "passed": 5,
     "total": 6,
-    "filesScanned": 8,
-    "lastChecked": "2026-08-16",
+    "filesScanned": 10,
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Hardcoded secret detected in the Client Secret authentication script. No obfuscated code, remote code execution, or evident credential theft patterns observed in the provided snippets. Primary risk is secret management: move credentials out of code, use secure vaults or automation secret stores, and rotate credentials. Other scripts rely on managed identity or standard Graph API usage and do not exhibit immediate malicious behavior.",
+    "aiSummary": "The codebase largely follows expected Intune/Entra admin patterns (Graph API usage, service health reporting, automated emails). Security concerns are primarily around hardcoded secrets and placeholders embedded in scripts (high/medium severity) and potential exposure of sensitive data via generated reports (medium). Immediate improvements include removing hardcoded credentials, centralizing secrets (Key Vault / automation-secure variables), and verifying access controls around generated reports and logs.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -49,16 +49,16 @@
       },
       "noHardcodedSecrets": {
         "passed": false,
-        "reason": "Contains hardcoded client secret in the Configuration (ClientSecret). Secrets should not be stored in code. Use Azure Key Vault or Automation Variables with secret scope and rotate credentials regularly."
+        "reason": "Hardcoded credentials in configuration: TenantId, ClientId and ClientSecret are defined in the Config hash with placeholder values. This enables credential access if the script is accessed or stored insecurely. Recommend using a secure secret store (e.g., Azure Key Vault or Automation Variables with secret protection) and injecting secrets at runtime rather than embedding them in code."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 52,
-    "forks": 6,
+    "stars": 61,
+    "forks": 9,
     "license": "MIT",
-    "lastUpdated": "2026-07-22T13:24:38Z",
+    "lastUpdated": "2026-09-06T00:34:01Z",
     "archived": false
   },
   "authors": [

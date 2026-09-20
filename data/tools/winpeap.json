@@ -24,19 +24,20 @@
   "type": "other",
   "dateAdded": "2026-01-13",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "filesScanned": 5,
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The script performs legitimate Intune Autopilot onboarding tasks in WinPE but contains several security concerns that require hardening. Primary risks are plaintext handling of credentials (AppSecret), hardcoded placeholders that could lead to misconfiguration, and potential supply-chain risk from loading a DLL in WinPE. Data exposure is expected for Autopilot workflows but should be governed with data minimization and secure handling. Additional improvements include secure secret management, validation of inputs, signing/validating loaded DLLs, avoiding beta API dependencies, and tightening logging to avoid leaking sensitive information.",
+    "status": "failed",
+    "aiSummary": "The WinPEAP code exhibits remote code execution risk due to runtime download and execution of GitHub-hosted scripts, coupled with a setup-time policy bypass that lessens security controls. No hardcoded secrets were detected. Credential flows use standard OAuth mechanisms (client secret or device code) and do not appear to leak credentials, but the dynamic script-loading pathway represents the primary risk. Mitigations include enforcing script integrity (signing, hashing, and pinning), preferring signed local artifacts over remote downloads, and eliminating or properly restricting ExecutionPolicy bypass during deployment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "The WinPEAP bootstrap orchestrator dynamically fetches and executes remote PowerShell scripts from GitHub (Get-RepoScript and the subsequent invocation of the downloaded 4kAutopilotHashUpload.ps1). This creates a significant remote code execution and supply-chain risk: if the GitHub contents are altered or redirected, arbitrary code can run in the WinPE environment. The code includes an offline baked fallback on X:\\"
       },
       "noCredentialTheft": {
         "passed": true
@@ -54,10 +55,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 37,
-    "forks": 4,
+    "stars": 41,
+    "forks": 5,
     "license": null,
-    "lastUpdated": "2026-01-13T14:25:28Z",
+    "lastUpdated": "2026-08-30T14:13:56Z",
     "archived": false
   },
   "authors": [

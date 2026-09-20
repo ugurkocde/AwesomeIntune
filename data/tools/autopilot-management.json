@@ -61,10 +61,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code supplied for analysis. Provide the source code or script block for analysis focusing on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets. Once provided, I will perform a thorough review and return structured findings.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -91,7 +91,7 @@
     "stars": 51,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-07-21T23:18:57Z",
+    "lastUpdated": "2026-08-29T16:27:38Z",
     "archived": false
   }
 }

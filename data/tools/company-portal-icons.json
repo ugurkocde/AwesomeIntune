@@ -47,10 +47,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code represents a legitimate Intune integration flow using MSAL and Graph API with typical SPA patterns. Primary concerns are token storage in sessionStorage (XSS risk) and external analytics exposure of tenant/user context. No obfuscated payloads, no remote script execution, and no hardcoded secret material beyond a public client ID.",
+    "aiSummary": "Overall assessment: The intune-integration.js file appears to be a legitimate Intune/Graph API integration tool with standard authentication flows (MSAL) and API usage. There are no obfuscated scripts or explicit remote code execution attempts. Token handling follows MSAL patterns, with token requests and interactive flow, which is typical for this scenario. A telemetry beacon is present for analytics, which is common in admin tools but should be reviewed for privacy and consent. Hardcoded public identifiers (clientId) are present but not secret; consider moving to environment-configured values if multi-env deployments are required. No hardcoded credentials or obvious credential theft patterns detected. Recommend validating privacy implications of telemetry, ensuring proper consent, and confirming that all endpoints (Graph Beta, telemetry) are allowed in organizational policies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

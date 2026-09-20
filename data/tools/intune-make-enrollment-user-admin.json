@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code does not exhibit obfuscated code, remote code execution, credential theft, data exfiltration, or hardcoded secrets. The main security concern is a legitimate but sensitive privilege-escalation capability (adding the current user to the Administrators group) within the enrollment tooling. Ensure proper governance, auditing, and least-privilege controls around this capability.",
+    "aiSummary": "The Intune Make Enrollment User Admin tool includes legitimate enrollment-related admin capabilities but introduces privilege escalation risk by programmatically adding the current user to the local Administrators group. Locale-based group name handling is brittle and could cause misapplication across languages. No remote code execution, credential theft, or data exfiltration detected in the provided code.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

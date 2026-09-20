@@ -53,14 +53,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Overall assessment: The codebase implements a fingerprinting/telemetry workflow with legitimate Intune-related functionality, but it includes notable security concerns. Obfuscated/encoded inline code (watchdog), elevated-privilege persistence (SYSTEM scheduled task), and cloud-based data exfiltration payloads to external webhook endpoints are the primary risk areas. Device certificates for webhook authentication are a standard pattern but require secure certificate management. Minor concerns include internal IMDS usage over HTTP and execution policy bypass in encoded commands. Reviewers should verify that encoded command usage is tightly scoped, ensure the Cloud webhook is restricted to trusted endpoints, confirm certificate handling policies, and consider replacing or auditing IMDS access patterns. Overall, these are implementation concerns rather than outright malicious activity, but the combination warrants strict control and auditing.",
+    "aiSummary": "The codebase includes legitimate Intune/Azure discovery and telemetry components but exhibits notable security-relevant patterns: encoded/obfuscated inline commands in watchdog for persistence, a SYSTEM-level scheduled task for ongoing execution, and cloud-based telemetry exfiltration via webhooks. There are no hardcoded secrets. Recommend auditing the use of encoded commands, tightening registry and scheduled task access, validating webhook trust, and ensuring that telemetry is scoped to necessary data with explicit user/organizational consent.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "The watchdog embeds a large inline PowerShell script and encodes it in Base64, then executes it using -EncodedCommand. This obfuscation can hide the exact actions being performed and may hinder detection/forensics."
+        "reason": "Inline PowerShell payload is encoded with Base64 via -EncodedCommand for the scheduled task. This obfuscation conceals behavior and can hinder auditing and review. It also enables automated persistence-like execution on multiple triggers."
       },
       "noRemoteExecution": {
         "passed": true

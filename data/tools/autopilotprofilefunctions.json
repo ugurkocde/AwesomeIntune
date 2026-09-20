@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall assessment: The code targets legitimate Intune Autopilot profile management via Microsoft Graph with normal admin tooling. No hardcoded secrets, no credential harvesting, and no evident data exfiltration. Primary concerns are potential remote code execution risk from runtime module installation, and error handling that could conceal failures. Mitigations include pinning module versions, signing verification, using trusted repositories, and improving error handling/logging.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

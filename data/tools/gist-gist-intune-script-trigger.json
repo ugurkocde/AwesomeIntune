@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "The GIST launcher exposes a high-risk remote code execution pattern by downloading and executing scripts from untrusted external URLs. This creates potential for supply chain tampering and arbitrary code execution on endpoints. To mitigate, avoid using Invoke-Expression on downloaded content; require code signing or hash verification; use a controlled, signed module or embedded scripts; implement strict auditing and least-privilege execution in Intune.",
+    "aiSummary": "The Gist Intune Script Trigger functions as a dynamic script launcher by presenting a catalog of remote scripts and executing the selected one. While this enables flexible admin tooling, it introduces a high-risk remote code execution pattern (Invoke-Expression on downloaded content) without validation or signing. Recommend tightening security by validating script integrity (code signing, hashes), avoiding Invoke-Expression, using safer loading methods (Import-Module, dot-sourcing with restricted scope), whitelisting trusted URLs, and integrating with Intune's approved script deployment mechanisms to minimize attack surface.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 36,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune Toolkit script largely implements legitimate admin tooling (UI loading, Graph interactions, local script loading). Notable security considerations: reliance on a directory of external scripts (supply-chain/trust boundary risk), logging of sensitive session details, and some lax error handling that could hinder security auditing. Recommendations include script signing/integrity checks, redacted logging for sensitive data, tightened error handling, and validation of loaded scripts before execution.",
+    "aiSummary": "The Intune Toolkit script is largely standard for an admin UI tool, with normal Graph API usage and dynamic script loading. Primary security concerns are: potential code execution risk from loading and dot-sourcing local scripts, and logging of potentially sensitive data (tenant and user info) which could lead to data exposure if logs are accessible. A minor bug exists in timestamp initialization in log setup.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,7 +76,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 348,
+    "stars": 353,
     "forks": 51,
     "license": "MIT",
     "lastUpdated": "2026-07-25T13:00:23Z",

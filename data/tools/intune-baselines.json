@@ -53,13 +53,13 @@
     "screenshots/intune-baselines/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 0,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-08-16",
+    "filesScanned": 16,
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "not_applicable",
-    "aiSummary": null,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -83,10 +83,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 91,
-    "forks": 23,
+    "stars": 96,
+    "forks": 24,
     "license": "MIT",
-    "lastUpdated": "2026-08-08T17:36:28Z",
+    "lastUpdated": "2026-09-15T13:13:38Z",
     "archived": false
   }
 }

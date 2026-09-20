@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 11,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase is a functional GUI wrapper around IntuneWinAppUtil with sensible module loading and download behavior. Main security concerns relate to the supply-chain risk of downloading and caching an external binary without integrity verification, and the potential for code execution via dot-sourcing Private/Public scripts during module load. No credential theft, data exfiltration, obfuscated code, or hardcoded secrets detected.",
+    "aiSummary": "The IntuneWinAppUtil GUI codebase contains a notable remote dependency risk: it downloads an external ZIP to obtain IntuneWinAppUtil.exe without any integrity or signature verification, and uses a mutable GitHub master.zip source. This presents potential supply-chain and remote-code-execution risks if the upstream content is compromised. Additionally, the module auto-loads scripts from Private/Public directories at import time, increasing the attack surface. Recommend: (1) pinning to verified release assets and implementing hash/signature verification; (2) implementing signer-based or explicit import practices; (3) validating and limiting the downloaded binaries' provenance; and (4) reviewing TLS/parsing practices for modernization and security hygiene.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 7,
-    "forks": 0,
+    "stars": 9,
+    "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-08-04T10:39:57Z",
+    "lastUpdated": "2026-09-17T19:40:57Z",
     "archived": false
   },
   "authors": [

@@ -18,10 +18,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code snippet provided for analysis. Please supply the IntuneNetworkRequirements source code to assess for security issues related to obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,10 +45,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 31,
+    "stars": 33,
     "forks": 2,
     "license": null,
-    "lastUpdated": "2026-06-24T11:56:52Z",
+    "lastUpdated": "2026-09-12T23:06:00Z",
     "archived": false
   },
   "authors": [

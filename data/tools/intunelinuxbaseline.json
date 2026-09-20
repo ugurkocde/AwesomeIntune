@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 13,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune Linux baseline includes legitimate onboarding and compliance discovery flows, but notable security concerns exist around the Defender onboarding path. Primary issues are remote installer download without integrity verification (risk of RCE/supply chain compromise), transient handling of a sensitive onboarding blob on disk, and the potential to alter apt sources during onboarding. Telemetry suppression and default org binding also warrant scrutiny for security visibility and tenant scoping. No active credential harvesting or data exfiltration patterns are evident in the provided code.",
+    "aiSummary": "Key risk areas in the IntuneLinuxBaseline suite are weighted toward remote code execution risk (onboarding/install flow downloads and executes a script from a URL without integrity checks) and potential credential/data exposure around the onboarding blob. There is also a policy-visibility trade-off risk from disabling telemetry, and a minor misconfiguration in cron scheduling. Recommended hardening steps: enforce integrity verification for downloaded installers (signatures or checksums), prefer signed packages from official Microsoft channels, minimize on-disk sensitive material with robust cleanup, document telemetry/visibility policy, and fix cron cadence to match documented intent.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

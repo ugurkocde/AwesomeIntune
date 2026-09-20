@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script performs destructive cleanup of Intune-related registry keys and restarts the IntuneManagementExtension service based on an AppId. While intended for recovery/retry flows, it poses risk of unintended data loss and service disruption. No remote code execution, credential harvesting, data exfiltration, or hardcoded secrets detected.",
+    "aiSummary": "The script is a legitimate administrative tool for Intune management that performs a targeted registry cleanup of Intune Management Extension traces and restarts the service. It does not contain obfuscated code, credential theft, or data exfiltration, and does not fetch or execute remote code. The primary security concern is its potential to cause disruptive changes to the Intune client by deleting registry keys and restarting a service. Mitigations include: validating and parameterizing AppId, enforcing strict access controls, using -WhatIf and explicit approvals, and adding a conservative allowlist of registry paths to minimize risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 14,
+    "stars": 15,
     "forks": 1,
     "license": null,
     "lastUpdated": "2026-01-09T10:31:33Z",

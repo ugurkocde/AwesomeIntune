@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The code is a standard helper for obtaining a temporary Azure Storage access token via the Azure CLI and returning it as part of a header dictionary. No hardcoded secrets or obfuscated code are present. The primary security concern is potential token leakage through outputs/logs since the Authorization header is returned and could be captured by logs or telemetry. Ensure proper log redaction and consider options to minimize token exposure (e.g., performing calls within the module and avoiding emitting the header, or redacting the token in any captured logs).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 34,
-    "forks": 3,
-    "license": "NOASSERTION",
-    "lastUpdated": "2026-08-15T13:02:38Z",
+    "stars": 43,
+    "forks": 4,
+    "license": "AGPL-3.0",
+    "lastUpdated": "2026-09-19T12:40:38Z",
     "archived": false
   },
   "authors": [

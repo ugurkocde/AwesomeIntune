@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No active credential theft, data exfiltration, or malicious payload behavior detected. The code appears to implement standard Intune Graph/API interactions for Win32 app content management. Primary concerns are: hardcoded non-secret IDs that should be parameterized, unvalidated/unsigned binary download and execution (AzCopy), and a manifest syntax issue that could break module loading. Recommendations: parameterize sensitive IDs, verify integrity and trust of downloaded binaries (prefer signed tools and checksums), and fix the manifest syntax to ensure reliable module import.",
+    "aiSummary": "The codebase largely aligns with Intune Graph API usage and management flows, but has a critical manifest syntax error that will break module loading, a hardcoded clientId, and potential exposure of sensitive URLs via verbose logs. Also, remote content download requires integrity checks to prevent tampering. Address the manifest bug, consider removing hardcoded IDs or making them configurable, and implement content integrity verification and sensitive data redaction in logs.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,8 +76,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 501,
-    "forks": 117,
+    "stars": 511,
+    "forks": 119,
     "license": "MIT",
     "lastUpdated": "2026-01-25T16:46:56Z",
     "archived": false

@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune-App-Sandbox code appears aligned with legitimate Intune Win32 testing workflows (decoding .intunewin packages, running installers in Windows Sandbox, signing and mapping resources). However, there are notable areas to scrutinize: an obfuscated/garbled manifest file, a local decoding/execution pipeline with bypassed execution policy, and a SYSTEM-level scheduled task workflow that could be leveraged for persistence if packages are tampered with. No evidence of credential theft or external data exfiltration was found in the provided snippets. Recommend enforcing package signing and integrity checks, verifying the obfuscated manifest’s provenance, and applying strict auditing and least-privilege controls around Sandbox operations.",
+    "aiSummary": "Overall assessment: The Intune-App-Sandbox tooling appears to be a packaging/testing harness for Windows Sandbox/Intune Win32 apps. While many patterns are legitimate for isolated testing (decoding installers, running in a sandbox, and exporting installation data), there are notable security concerns: apparent obfuscation in the module manifest, deliberate execution policy bypass, and scheduled-task-based SYSTEM execution to run decoded payloads. These patterns warrant strict input validation (trust boundaries for decoded packages), least-privilege usage, and thorough signing/auditing of all inputs to prevent abuse. No explicit hardcoded secrets or external credential handling were detected, but the payload decoding/execution flow represents a potential risk if untrusted packages are supplied.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,7 +84,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 55,
+    "stars": 59,
     "forks": 2,
     "license": "MIT",
     "lastUpdated": "2026-04-03T14:23:19Z",

@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code appears to be legitimate Microsoft Intune / device management tooling (policy manifest management, Timezone/location settings, and post-OOBE updates). No malicious patterns detected. Ensure code signing, strict access controls, and monitoring are in place to guard against misuse of registry changes and update triggers.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,10 +76,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 1438,
-    "forks": 268,
+    "stars": 1475,
+    "forks": 274,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-05-08T12:33:27Z",
+    "lastUpdated": "2026-09-09T15:46:04Z",
     "archived": false
   }
 }

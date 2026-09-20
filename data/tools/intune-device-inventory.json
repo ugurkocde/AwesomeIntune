@@ -53,14 +53,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 37,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The IntuneDeviceInventory toolset contains legitimate Intune Graph integration patterns, but also notable security risks. Key concerns include obfuscated manifest/script content that hampers review, a privileged permission grant for a managed identity that could be misused, webhook-driven device-note updates that could be abused if authentication is weak, plaintext credential handling risks in Graph connection, and telemetry collection that could leak sensitive inventory data if not properly controlled. Recommend re-encoding/ signing the obfuscated modules, validating input/output strictly, enforcing least privilege, securing webhook authentication, and adopting safer authentication mechanisms (certificate/Managed Identity) where possible.",
+    "aiSummary": "The IntuneDeviceInventory codebase mixes legitimate Intune/Graph management tooling with some risk factors. Key concerns are an apparently obfuscated/opaque module manifest, a logic bug in permission assignment, plaintext credential handling in a credential flow, Beta Graph API usage, and a risky script flow control. Data collection for inventory appears to be within expected bounds but includes sensitive identifiers; ensure proper minimization, encryption in transit, and access controls. No explicit remote code download or hardcoded secrets were identified in the provided snippets, but the obfuscated module and credential handling patterns warrant a cautious, thorough review before production deployment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Module manifest contains heavily obfuscated/garbled content (non-ASCII characters, seemingly encoded blocks). This obscurity makes it difficult to review integrity and intent. Potential for hidden payloads; requires source verification, re-encoding in a readable format, and code signing validation."
+        "reason": "Module manifest appears obfuscated or binary gibberish; content is not readable text. This hinders thorough code review and could hide malicious payloads or unauthorized code execution paths."
       },
       "noRemoteExecution": {
         "passed": true
@@ -81,7 +81,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 21,
+    "stars": 22,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2024-07-26T08:38:42Z",

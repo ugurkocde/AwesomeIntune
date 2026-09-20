@@ -46,10 +46,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is largely legitimate for Intune/endpoint management (dependency installation, Windows component setup, and PowerShell module management). No obfuscated logic, no credential harvesting, no data exfiltration, and no hardcoded secrets detected. The primary security concern is reliance on external package sources for installation; mitigate with integrity checks, trusted sources, repository pinning, and signing of modules. Consider adding verification of downloaded content and a restricted, signed module policy to reduce risk from compromised packages.",
+    "aiSummary": "Moderate security risk due to automated installation from external repositories and execution policy bypass. No credential harvesting or data exfiltration observed. Recommendations focus on tightening supply-chain trust: pin versions, verify signatures, restrict package sources, and minimize policy bypass where possible; implement robust logging controls to avoid leaking sensitive information.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

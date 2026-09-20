@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No obfuscated code detected. No remote code execution attempts, credential theft, data exfiltration, malicious payloads, or hardcoded secrets observed in the provided code. The only notable risk is dynamic dot-sourcing of scripts from Private/Public directories at module load time, which could be abused if the hosting environment is not tightly controlled. Recommend tightening import strategy and enforcing code signing to mitigate this supply-chain risk.",
+    "aiSummary": "Overall assessment: No obfuscated code, remote script execution, credential theft, data exfiltration, or explicit malicious payloads are evident in the provided excerpts. The primary security concern is the dynamic dot-sourcing of helper scripts in MDEValidator.psm1, which could be exploited if the module directory is compromised or tampered with. Ensure script signing, integrity validation, and access controls for the Private/Public directories. No hardcoded secrets detected; Microsoft Graph/Intune-related flows appear to be standard manifest-driven exports.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

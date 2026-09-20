@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The core code for the Intune Drive Mapping Generator appears safe for normal admin use, with standard models and controllers. However, the embedded PowerShell script in DriveMapping.ps1 includes persistence mechanisms (scheduled task creation, SYSTEM context execution, and a hidden runner) which could be misused for persistence/evading detection. This warrants strict control: opt-in deployment, auditing, and constraints to prevent unwanted persistence. No remote code fetch, credential theft, or active data exfiltration patterns are observed in the provided code, and normal Intune management patterns (Graph API usage, Intune integration, and authentication flows) are present. Treat internal hardcoded configuration data with care and ensure logging is protected.",
+    "aiSummary": "The codebase shows two notable security concerns: (1) an XXE risk in XML parsing of user-provided data, and (2) a persistence mechanism in the generated PowerShell script that can be used for logon-time persistence with hidden execution. No credential theft, data exfiltration, or remote code execution patterns were observed in the analyzed code paths. Remediation should include securing XML parsing, and re-evaluating or documenting the endpoint-persistence approach in enterprise deployments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -72,8 +72,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 202,
-    "forks": 25,
+    "stars": 203,
+    "forks": 26,
     "license": "MIT",
     "lastUpdated": "2022-02-04T23:09:12Z",
     "archived": false

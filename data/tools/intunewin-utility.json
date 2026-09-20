@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code was provided for analysis. Unable to identify obfuscation, remote execution, credential theft, data exfiltration, or malicious patterns. Please provide the code snippet for the IntuneWin Utility to review.",
+    "aiSummary": "No code provided for analysis. Please supply the IntuneWin Utility code (PowerShell/.ps1 and related scripts) for security review. Once provided, I will evaluate for: obfuscation (base64 or string construction), remote code execution (downloading/executing from URLs), credential theft patterns, data exfiltration (env vars, webhooks), malicious patterns (reverse shells, disabling security), and hardcoded secrets (API keys, tokens).",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 11,
+    "stars": 12,
     "forks": 0,
     "license": null,
-    "lastUpdated": "2026-07-21T05:49:29Z",
+    "lastUpdated": "2026-08-24T19:15:40Z",
     "archived": false
   },
   "authors": [

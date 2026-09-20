@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Toast Notification Creator for Intune is generally appropriate for legitimate admin use. It does not perform credential harvesting, exfiltration, or hardcoded secret usage. The primary security consideration is the potential for toast action URLs to initiate external actions when clicked; validate and restrict such URLs as needed.",
+    "aiSummary": "The ToastNotification tool contains no remote downloads or credential harvesting. Primary concerns are potential code-injection risk via unsanitized user input when exporting remediation scripts and unsafe URL handling for action buttons. Local configuration may expose notification content. No hardcoded secrets detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 24,
+    "stars": 26,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-01-13T22:10:27Z",

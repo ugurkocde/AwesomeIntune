@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of remote code execution, credential theft, or hardcoded secrets. The code primarily relies on GitHub CLI for data retrieval and file IO for nightly builds. However, there is a potential data exposure risk in review_state.py due to exposing full PR review content, and a supply-chain integrity risk in nightly-channel.mjs due to lack of signature verification for artifacts.",
+    "aiSummary": "Found a potential security risk pattern related to update-disabling via registry modification (reg.exe /reg:64) in installer policy tooling. Other analyzed components (review_state.py and nightly-channel.mjs) use standard admin tooling and do not exhibit obfuscated, exfiltrating, or credential-theft behaviors. Recommend governance around update-disable policies and ensure justification and security controls are in place.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 265,
-    "forks": 13,
+    "stars": 292,
+    "forks": 15,
     "license": "MIT",
-    "lastUpdated": "2026-08-16T02:34:48Z",
+    "lastUpdated": "2026-09-20T01:33:13Z",
     "archived": false
   },
   "authors": [

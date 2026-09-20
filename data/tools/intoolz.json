@@ -62,10 +62,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code appears to implement a Microsoft Graph-backed Intune management tool with multi-tenant support. Primary concerns revolve around the use of broad Graph permissions which should be minimized to least privilege, and a session-swapping pattern that requires careful isolation and auditing to prevent cross-tenant token leakage. No evidence of obfuscated code, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets is found in the provided snippets.",
+    "aiSummary": "The codebase shows legitimate administrative tooling patterns (Intune/Graph usage) with no obfuscated code, no remote code execution, no credential harvesting, and no hardcoded secrets. Primary security considerations are: (1) the breadth of Microsoft Graph permissions requested (potential over-privilege); (2) the ability to swap authentication contexts across tenants (tenant isolation risk); and (3) logging practices that could inadvertently expose sensitive data. Recommend tightening scopes to the minimum required, reinforcing tenant isolation and auditing for tenant-switch operations, and implementing secure, privacy-conscious logging. No immediate indicators of malicious activity were found.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

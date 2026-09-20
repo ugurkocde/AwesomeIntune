@@ -85,10 +85,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No obfuscated code, credential theft, remote code execution, or hardcoded secrets detected. The code is largely safe for an Intune management workflow. Notable considerations include external analytics loading in the changelog UI and the admin-bypass merge automation in CI, which should be governed with strong access controls and auditing.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -112,10 +112,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 110,
+    "stars": 116,
     "forks": 44,
     "license": "MIT",
-    "lastUpdated": "2026-08-10T07:36:33Z",
+    "lastUpdated": "2026-09-14T06:13:12Z",
     "archived": false
   }
 }

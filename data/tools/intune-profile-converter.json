@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The script is functionally a legitimate Intune Graph data-fetching utility. The primary security concern is the explicit extraction and reuse of the Graph access token from the session, which could be misused in broader contexts. No remote code execution, exfiltration, or hardcoded secrets detected in this snippet.",
+    "aiSummary": "The script appears to be a legitimate read-only Intune Graph data collector. No obfuscation, remote code execution, credential theft, data exfiltration, or hardcoded secrets detected. A potential improvement is to rely fully on the Graph SDK authentication flow instead of manually extracting tokens from the session, which reduces token exposure risk. Also monitor beta API usage and consider stable v1.0 endpoints where appropriate.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

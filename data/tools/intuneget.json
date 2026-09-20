@@ -51,13 +51,13 @@
     "screenshots/intuneget/screenshot-2.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The IntuneGet-related code primarily relies on legitimate admin workflows (OpenAI classification, Graph API for Intune, and webhooks). However, notable concerns include data exfiltration risk via external AI classification in categorize-apps.js, high-privilege credentials (Supabase service role key) stored in env variables, and external callbacks in Check-DuplicateApp.ps1 that may reveal internal app details. Recommend tightening data governance, secret management (prefer scoped credentials and secret vaults), validating external endpoints, and minimizing external data transfer where possible.",
+    "status": "failed",
+    "aiSummary": "Two security concerns detected: (1) data exfiltration risk from categorize-apps.js due to sending internal app metadata to OpenAI; (2) secret management risk due to usage of a highly privileged Supabase service role key and OpenAI key in environment/config. audit-duplicate-icons.mjs shows no security issues (read-only auditing script with no external data transfers). Recommend data minimization, on-prem classification where possible, and strict secret management practices to mitigate exposure.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -69,22 +69,24 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": true
+        "passed": false,
+        "reason": "The script transmits curated app data (winget_id, name, publisher, description, tags, category) to the OpenAI API for classification. This constitutes data exfiltration of potentially sensitive internal catalog data to an external service. Consider data minimization, on-prem or controlled classification tooling, and verify that data handling complies with organizational policies and OpenAI data usage terms."
       },
       "noMaliciousPatterns": {
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "The script relies on credentials supplied via environment variables: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, as well as OPENAI_API_KEY. The presence of a service role key (highly privileged) in code paths or logs, especially if the NEXT_PUBLIC_ prefix suggests potential frontend exposure, creates a risk of secret leakage. Ensure secrets are kept in secure vaults, never exposed to client-side contexts, rotate keys, and restrict service role permissions."
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 118,
-    "forks": 38,
+    "stars": 134,
+    "forks": 40,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-08-16T02:55:48Z",
+    "lastUpdated": "2026-09-20T01:44:55Z",
     "archived": false
   }
 }

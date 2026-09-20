@@ -53,10 +53,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No malicious payload or obfuscated code detected. Primary concerns are external data sharing to a third-party service for notifications and secret management within the CI/CD workflow. The code is an admin utility for Intune automation; ensure privacy, data protection, and least privilege in secret handling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,10 +80,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 127,
+    "stars": 135,
     "forks": 22,
     "license": "MIT",
-    "lastUpdated": "2026-08-16T02:29:28Z",
+    "lastUpdated": "2026-09-20T02:16:02Z",
     "archived": false
   }
 }

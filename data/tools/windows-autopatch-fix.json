@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code content provided for analysis. Please supply the PowerShell script or module for Windows Autopatch Fix so security issues can be reviewed (obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, hardcoded secrets).",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,7 +70,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 8,
+    "stars": 9,
     "forks": 1,
     "license": null,
     "lastUpdated": "2026-06-02T09:57:09Z",

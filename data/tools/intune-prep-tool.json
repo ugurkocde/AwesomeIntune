@@ -57,13 +57,13 @@
     "screenshots/intune-prep-tool/screenshot-5.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The IntunePrepTool codebase includes legitimate admin automation for Azure AD app registrations but contains credential handling risks and a potential code quality issue. Plaintext storage of secrets in addAppRegPlainText.ps1 is the most critical risk. A credential storage via Windows Credential Manager in addAppReg.ps1 should be evaluated against secure vaults. Permissions requested by Graph API are broad; consider least privilege and auditing. Additionally, external binary downloads without integrity checks raise supply chain concerns.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The IntunePrepTool code demonstrates legitimate automation for Azure AD app registration and Graph interactions. Security concerns center on local credential storage (Credential Manager) for app secrets, and a remote-code-execution risk from downloading and executing external installers without integrity checks. Data exports to local CSVs may expose sensitive information on disk and should be reviewed for encryption/least-privilege. Broad Graph permissions require careful governance. No evidence of hardcoded secrets, exfiltration to external services, reverse shells, or credential family theft beyond legitimate credential storage. Recommend adding cryptographic integrity checks for downloads, minimizing privileged Graph scopes, securing local secret storage, and improving error handling clarity.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,14 +81,13 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "The script stores the generated client secret (password) in plaintext in a CSV at C:\\Users\\$env:username\\.IntunePrepTool\\config_tenantinfo.csv. This exposes credentials on disk and across backups. Recommend avoiding plaintext storage; use a secure vault (Azure Key Vault, Windows Credential Manager with restricted access) and avoid app secrets persistence in files."
+        "passed": true
       }
     },
     "notes": []
   },
   "repoStats": {
-    "stars": 96,
+    "stars": 97,
     "forks": 13,
     "license": "MIT",
     "lastUpdated": "2026-01-29T13:29:54Z",

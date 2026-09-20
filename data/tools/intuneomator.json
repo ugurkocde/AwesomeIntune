@@ -50,17 +50,16 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase contains notable security concerns around eval-based dynamic loading of label content, hardcoded signing credentials, and build-phase code injection risk. No direct credential theft or data exfiltration observed in the provided snippets. Remote URL retrievals are present but not executed within these files; require careful validation and integrity controls in the broader workflow to prevent remote code execution risks.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase is primarily deployment/orchestration for Intuneomator. While intent appears legitimate for an enterprise admin tool, there are a few security concerns worth addressing: (1) the use of eval to process label definitions creates a potential code-execution risk if label data is not strictly controlled; (2) dynamic retrieval of downloads from GitHub without in-script integrity checks could lead to supply-chain risks unless artifacts are signed and verified; (3) a hardcoded signing identity is present in the packaging script and could be a credential leakage vector if exposed. No credential theft, data exfiltration, or malicious runtime behavior is evident in the provided code, and normal Intune/Graph usage patterns are allowed for legitimate admin tooling.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Eval-based loading of label contents: the script uses eval 'case \"$label\" in '\"$labelFile\"'; esac' to load label values. If a label file is tampered or crafted with malicious content, this can lead to arbitrary code execution during label processing."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true
@@ -81,10 +80,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 72,
+    "stars": 77,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-08-15T14:27:36Z",
+    "lastUpdated": "2026-08-24T12:43:48Z",
     "archived": false
   }
 }

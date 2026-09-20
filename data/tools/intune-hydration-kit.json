@@ -57,10 +57,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Intune hydration tool with standard module structure, Graph API authentication, and build/publish tooling. No obfuscated code or remote code execution detected. Token handling shows a potential plaintext exposure risk when converting access tokens to SecureString for Connect-MgGraph; suppressions exist but recommend safer handling or API-supported approaches. A hardcoded default ClientId is present in the browser-based authentication flow; parameterize or remove defaults to reduce misconfiguration risk. No evidence of data exfiltration beyond Graph API calls, nor any malicious persistence or anti-security patterns.",
+    "aiSummary": "Overall assessment: The IntuneHydrationKit codebase appears to be a structured Intune management toolkit with Graph API usage and Intune-centric features. While many patterns are standard for admin tooling, there are notable concerns: (1) dynamic loading of all scripts from Private/Public can enable unintended code execution if those directories are compromised; (2) a hard-coded default client ID could lead to insecure defaults and should be configurable; (3) runtime installation of modules from PSGallery introduces supply-chain risk and should be tightly controlled with signing/pinning; (4) in-memory token handling via ConvertTo-SecureString should avoid plain-text exposure; and (5) secret management for publishing (PSGallery API key) should be handled securely. No evidence of active credential harvesting, remote command execution beyond standard module installs, or explicit data exfiltration of user secrets was observed.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -84,7 +84,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 147,
+    "stars": 149,
     "forks": 14,
     "license": "MIT",
     "lastUpdated": "2026-07-28T13:41:09Z",

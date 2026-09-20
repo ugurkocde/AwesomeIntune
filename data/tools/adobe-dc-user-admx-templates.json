@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-16",
+    "lastChecked": "2026-09-20",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No major security issues detected. The script is a legitimate Intune policy export utility using Microsoft Graph. It adheres to expected authentication flows and writes to local files without exfiltration. Consider validating that the script runs with least-privilege permissions and monitor console output for potential exposure of account/tenant details.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
