@@ -34,7 +34,8 @@
     "https://raw.githubusercontent.com/glueckkanja/IntuneLinuxBaseline/main/pictures/banner.png",
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA001.png",
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA003.png",
-    "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA004.png"
+    "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA004.png",
+    "https://raw.githubusercontent.com/foundry-osd/foundry/main/Assets/GitHub/readme-logo.png"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -125,6 +126,12 @@
       "name": "Entra ID Device Trust",
       "id": "entra-id-device-trust",
       "url": "https://github.com/MSEndpointMgr/EntraIDDeviceTrust",
+      "reason": "No images in README"
+    },
+    {
+      "name": "EntraDeviceAuth",
+      "id": "entradeviceauth",
+      "url": "https://github.com/FlorianSLZ/EntraDeviceAuth",
       "reason": "No images in README"
     },
     {

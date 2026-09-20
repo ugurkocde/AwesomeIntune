@@ -63,5 +63,9 @@
       "picture": "https://github.com/mchave3.png",
       "linkedinUrl": "https://www.linkedin.com/in/mickaël-chave-5301ba15b"
     }
+  ],
+  "screenshots": [
+    "screenshots/foundry-osd/screenshot-1.png",
+    "screenshots/foundry-osd/screenshot-2.png"
   ]
 }

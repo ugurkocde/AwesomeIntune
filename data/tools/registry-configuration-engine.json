@@ -60,5 +60,8 @@
     {
       "name": "Haakon Wibe"
     }
+  ],
+  "screenshots": [
+    "screenshots/registry-configuration-engine/screenshot-1.png"
   ]
 }
