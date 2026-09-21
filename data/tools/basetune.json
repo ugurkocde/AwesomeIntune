@@ -64,5 +64,11 @@
     {
       "name": "Roweski"
     }
+  ],
+  "screenshots": [
+    "screenshots/basetune/screenshot-1.png",
+    "screenshots/basetune/screenshot-2.png",
+    "screenshots/basetune/screenshot-3.png",
+    "screenshots/basetune/screenshot-4.png"
   ]
 }

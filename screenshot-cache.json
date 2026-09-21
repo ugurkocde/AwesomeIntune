@@ -35,7 +35,8 @@
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA001.png",
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA003.png",
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA004.png",
-    "https://raw.githubusercontent.com/foundry-osd/foundry/main/Assets/GitHub/readme-logo.png"
+    "https://raw.githubusercontent.com/foundry-osd/foundry/main/Assets/GitHub/readme-logo.png",
+    "https://raw.githubusercontent.com/roweski/basetune/main/docs/controls.png"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -84,6 +85,12 @@
       "name": "AutopilotProfileFunctions",
       "id": "autopilotprofilefunctions",
       "url": "https://github.com/amirjs/AutopilotProfileFunctions",
+      "reason": "No images in README"
+    },
+    {
+      "name": "CheckMicrosoftEndpoints",
+      "id": "checkmicrosoftendpoints",
+      "url": "https://github.com/roalhelm/CheckMicrosoftEndpoints",
       "reason": "No images in README"
     },
     {
