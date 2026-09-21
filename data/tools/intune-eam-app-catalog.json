@@ -1,0 +1,71 @@
+{
+  "id": "intune-eam-app-catalog",
+  "name": "Intune EAM App Catalog",
+  "description": "Intune EAM App Catalog is a browsable, up-to-date reference of all Microsoft Intune Enterprise App Management (EAM) packages. It surfaces per-app pages with branch/version history, supports filters by publisher, architecture, locales, and auto-update capability, and tracks changes across catalog exports with daily/weekly/monthly changelogs and an RSS feed. Data is sourced from the Microsoft Graph API and rendered as static pages for deployment planning and compatibility checks.",
+  "keywords": [
+    "intune",
+    "eam",
+    "app-catalog",
+    "graph-api",
+    "changelogs",
+    "rss",
+    "deployment-planning",
+    "filtering"
+  ],
+  "author": "Daniel Rung",
+  "authorPicture": "https://github.com/danrung.png",
+  "githubUrl": "https://github.com/danrung",
+  "linkedinUrl": "https://www.linkedin.com/in/daniel-rung/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/danrung/IntuneEAM-AppCatalog",
+  "downloadUrl": "",
+  "websiteUrl": "https://eam.drung.dev/",
+  "category": "packaging",
+  "type": "web-app",
+  "dateAdded": "2026-09-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-09-21",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-09-21T04:29:30Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Daniel Rung",
+      "githubUrl": "https://github.com/danrung",
+      "picture": "https://github.com/danrung.png",
+      "linkedinUrl": "https://www.linkedin.com/in/daniel-rung/"
+    }
+  ]
+}
