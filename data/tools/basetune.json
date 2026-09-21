@@ -1,0 +1,68 @@
+{
+  "id": "basetune",
+  "name": "Basetune",
+  "description": "Basetune is a PowerShell-based tool that compares Intune Settings Catalog and Security Baseline policies across tenants or offline baselines. It supports online Graph API access or offline JSON exports, with local caching of policies and setting definitions to enable offline comparisons. Configure multiple tenants/baselines and run source-vs-target comparisons from the UI or CLI, producing HTML and CSV reports with friendly display names.",
+  "keywords": [
+    "intune",
+    "policy",
+    "baselines",
+    "settings-catalog",
+    "graph-api",
+    "multitenant",
+    "offline",
+    "reporting"
+  ],
+  "author": "Roweski",
+  "authorPicture": "",
+  "githubUrl": "",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/roweski/basetune",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "reporting",
+  "type": "powershell-script",
+  "dateAdded": "2026-09-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 14,
+    "lastChecked": "2026-09-21",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The Basetune CLI shows standard, auditable admin tooling for Intune Graph interactions. Key areas to tighten are secret management (avoid plaintext secrets in Config.json), ensuring integrity of exported modules, and careful handling of Graph Beta API usage. Logging practices should be reviewed to prevent leakage of tenant metadata. No evidence of obfuscated payloads or hardcoded secrets in code; secrets appear to reside in configuration and should be secured.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-09-21T11:39:52Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Roweski"
+    }
+  ]
+}
