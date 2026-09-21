@@ -1,0 +1,71 @@
+{
+  "id": "checkmicrosoftendpoints",
+  "name": "CheckMicrosoftEndpoints",
+  "description": "CheckMicrosoftEndpoints is a PowerShell-based toolkit that validates connectivity to Microsoft services used by Intune and other cloud workloads. It offers full endpoint connectivity tests with latency and response-time measurements, selective service checks, baseline drift detection, and HTML reporting. Designed for enterprise IT, it supports firewall/proxy validation, network diagnostics, and quick status reporting from Windows clients/servers, with no admin rights required for most checks.",
+  "keywords": [
+    "endpoint-management",
+    "intune",
+    "connectivity",
+    "latency",
+    "reporting",
+    "baseline",
+    "powershell",
+    "troubleshooting"
+  ],
+  "author": "Ronny Alhelm",
+  "authorPicture": "https://github.com/roalhelm.png",
+  "githubUrl": "https://github.com/roalhelm",
+  "linkedinUrl": "https://www.linkedin.com/in/ronny-alhelm-3aa28910b",
+  "xUrl": "",
+  "repoUrl": "https://github.com/roalhelm/CheckMicrosoftEndpoints",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "troubleshooting",
+  "type": "powershell-script",
+  "dateAdded": "2026-09-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 4,
+    "lastChecked": "2026-09-21",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "GPL-3.0",
+    "lastUpdated": "2026-08-26T19:38:32Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Ronny Alhelm",
+      "githubUrl": "https://github.com/roalhelm",
+      "picture": "https://github.com/roalhelm.png",
+      "linkedinUrl": "https://www.linkedin.com/in/ronny-alhelm-3aa28910b"
+    }
+  ]
+}
