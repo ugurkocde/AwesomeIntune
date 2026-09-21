@@ -1,0 +1,71 @@
+{
+  "id": "intuneaccess",
+  "name": "IntuneAccess",
+  "description": "IntuneAccess is an open-source, read-only PowerShell module that connects Microsoft Intune RBAC, workload targeting, and evidence into a single local report. It correlates admins, groups, policies, devices, apps and updates to produce structured objects and an offline HTML Signal Atlas explorer. It supports findings, resolution guides, snapshot comparisons and export-only datasets without uploading tenant data.",
+  "keywords": [
+    "intune",
+    "powershell",
+    "graph",
+    "rbac",
+    "evidence",
+    "reporting",
+    "snapshots",
+    "html"
+  ],
+  "author": "Mark Oldham",
+  "authorPicture": "https://github.com/ControlAltDeleteTechBits.png",
+  "githubUrl": "https://github.com/ControlAltDeleteTechBits",
+  "linkedinUrl": "https://www.linkedin.com/in/markoldham365",
+  "xUrl": "",
+  "repoUrl": "https://github.com/ControlAltDeleteTechBits/intune-access",
+  "downloadUrl": "https://www.powershellgallery.com/packages/IntuneAccess/2.0.1",
+  "websiteUrl": "https://controlaltdeletetechbits.co.uk/",
+  "category": "reporting",
+  "type": "powershell-module",
+  "dateAdded": "2026-09-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-09-21",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 5,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-09-16T09:46:57Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mark Oldham",
+      "githubUrl": "https://github.com/ControlAltDeleteTechBits",
+      "picture": "https://github.com/ControlAltDeleteTechBits.png",
+      "linkedinUrl": "https://www.linkedin.com/in/markoldham365"
+    }
+  ]
+}
