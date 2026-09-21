@@ -5,6 +5,7 @@
     "https://amirsayes.co.uk/2025/05/01/is-this-group-even-being-used-introducing-get-intuneassignments/",
     "https://gporais.com/en-us/",
     "https://intunediff.com/",
+    "https://eam.drung.dev/",
     "https://intuneguardian.com/",
     "https://mertozsoy.com/IntuneWin32AppUninstall/",
     "https://www.kqlsearch.com/",
@@ -224,6 +225,12 @@
       "id": "intune-diff",
       "url": "https://intunediff.com/",
       "reason": "Website blocked"
+    },
+    {
+      "name": "Intune EAM App Catalog",
+      "id": "intune-eam-app-catalog",
+      "url": "https://eam.drung.dev/",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "Intune Guardian",
