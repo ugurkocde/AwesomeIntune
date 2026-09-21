@@ -1,0 +1,71 @@
+{
+  "id": "endpoint-registry-studio",
+  "name": "Endpoint Registry Studio",
+  "description": "Endpoint Registry Studio is a client-side Windows Registry authoring tool for Microsoft Intune remediation. It lets you organize registry items into deployment packages, import .reg files, define exact registry properties, and generate PowerShell 5.1 scripts, platform scripts, and Win32 app sources for Intune. It supports targeting HKLM/HKCU in various contexts, produces ADMX templates, and provides review-ready ZIPs, Workspace JSON, and documentation, all without a backend or telemetry.",
+  "keywords": [
+    "endpoint-management",
+    "intune-remediation",
+    "registry",
+    "windows-registry",
+    "powershell",
+    "admx",
+    "win32",
+    "deployment-packages"
+  ],
+  "author": "Marcel Tschimmel",
+  "authorPicture": "https://github.com/modernendpointde.png",
+  "githubUrl": "https://github.com/modernendpointde",
+  "linkedinUrl": "https://www.linkedin.com/in/marcel-t-064341239/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/modernendpointde/endpoint-registry-studio",
+  "downloadUrl": "",
+  "websiteUrl": "https://registry.modernendpoint.de/",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-09-21",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-09-21",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-09-20T19:32:13Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Marcel Tschimmel",
+      "githubUrl": "https://github.com/modernendpointde",
+      "picture": "https://github.com/modernendpointde.png",
+      "linkedinUrl": "https://www.linkedin.com/in/marcel-t-064341239/"
+    }
+  ]
+}
