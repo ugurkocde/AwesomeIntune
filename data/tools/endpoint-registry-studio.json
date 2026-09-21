@@ -67,5 +67,10 @@
       "picture": "https://github.com/modernendpointde.png",
       "linkedinUrl": "https://www.linkedin.com/in/marcel-t-064341239/"
     }
+  ],
+  "screenshots": [
+    "screenshots/endpoint-registry-studio/screenshot-1.png",
+    "screenshots/endpoint-registry-studio/screenshot-2.gif",
+    "screenshots/endpoint-registry-studio/screenshot-3.png"
   ]
 }
