@@ -20,32 +20,32 @@
   "dependencies": {
     "@marsidev/react-turnstile": "^1.6.1",
     "@react-email/components": "^1.0.12",
-    "@supabase/supabase-js": "^2.116.0",
+    "@supabase/supabase-js": "^2.117.2",
     "@t3-oss/env-nextjs": "^0.13.11",
-    "framer-motion": "^13.4.0",
-    "next": "^16.3.5",
-    "openai": "^7.15.0",
+    "framer-motion": "^13.4.6",
+    "next": "^16.3.7",
+    "openai": "^7.25.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "resend": "^6.28.1",
+    "resend": "^6.31.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.23.0",
-    "eslint-config-next": "^16.3.5",
+    "eslint-config-next": "^16.3.7",
     "postcss": "^8.5.3",
-    "prettier": "^3.9.7",
+    "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.0.15",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.70.0"
+    "typescript-eslint": "^8.71.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.40.0"
