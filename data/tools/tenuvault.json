@@ -1,7 +1,7 @@
 {
   "id": "tenuvault",
   "name": "TenuVault",
-  "description": "TenuVault is a desktop app for Windows and macOS that backs up and restores Microsoft Intune configuration through Microsoft Graph using your own delegated admin sign-in. It backs up Settings Catalog, compliance, endpoint security, Administrative Templates, scripts and other supported policy types with their assignments, stores backups encrypted with AES-256-GCM on your device or in your own Azure storage, detects configuration drift and deploys OpenIntuneBaseline. The free Community plan covers one tenant with weekly backups and restores items as unassigned copies; paid Pro and MSP plans add daily schedules and in-place restore, and MSP adds cross-tenant recovery. TenuVault was previously a PowerShell script and web portal and is now TenuVault Desktop.",
+  "description": "TenuVault is a desktop app for Windows and macOS that backs up and restores Microsoft Intune configuration through Microsoft Graph using your own delegated admin sign-in. It backs up Settings Catalog, compliance, endpoint security, Administrative Templates, scripts and other supported policy types with their assignments, stores backups encrypted with AES-256-GCM on your device (or in your own Azure storage on Pro and MSP), detects configuration drift and deploys OpenIntuneBaseline. The free Community plan covers one tenant with weekly backups and restores items as unassigned copies; paid Pro and MSP plans add daily schedules and in-place restore, and MSP adds cross-tenant recovery. TenuVault Desktop succeeds the original PowerShell script and hosted web portal, which remains available for existing users.",
   "keywords": [
     "intune",
     "backup",
