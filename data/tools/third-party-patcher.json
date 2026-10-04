@@ -24,13 +24,13 @@
   "type": "desktop-app",
   "dateAdded": "2026-07-31",
   "securityCheck": {
-    "passed": 0,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 0,
-    "lastChecked": "2026-08-30",
+    "filesScanned": 24,
+    "lastChecked": "2026-10-04",
     "forceApproved": false,
-    "status": "not_applicable",
-    "aiSummary": null,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 34,
+    "stars": 43,
     "forks": 3,
     "license": "MIT",
-    "lastUpdated": "2026-08-30T02:02:00Z",
+    "lastUpdated": "2026-10-02T00:54:04Z",
     "archived": false
   },
   "authors": [

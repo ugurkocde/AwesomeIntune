@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-08-30",
+    "lastChecked": "2026-10-04",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Code to analyze was not provided in the prompt. Please supply the script or module (e.g., .ps1) to perform a security review for Obfuscation, Remote code execution, Credential theft, Data exfiltration, Malicious patterns, and Hardcoded secrets. Without source, no findings can be determined.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 356,
-    "forks": 37,
+    "stars": 360,
+    "forks": 36,
     "license": "MIT",
     "lastUpdated": "2026-07-23T15:51:30Z",
     "archived": false

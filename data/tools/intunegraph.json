@@ -26,11 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 22,
-    "lastChecked": "2026-08-30",
+    "filesScanned": 26,
+    "lastChecked": "2026-10-04",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears aligned with Intune Graph tooling, using Graph API for read-only operations. Recommendations: maintain code signing, restrict scopes, validate fixtures, and monitor module dependencies for integrity.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -57,7 +57,7 @@
     "stars": 7,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-08-05T16:01:38Z",
+    "lastUpdated": "2026-10-02T08:44:31Z",
     "archived": false
   },
   "authors": [

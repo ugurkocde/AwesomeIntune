@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-30",
+    "lastChecked": "2026-10-04",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Security review completed. No hardcoded API keys detected, and SSRF protections for Azure OpenAI endpoints are in place. However there is a significant data exfiltration risk due to sending tenant policy data to external LLM providers, and a potential risk around generated scripts that could be misused to perform remote code execution on endpoints. Additionally, a hard-coded public client ID is present (not a secret) and should be managed via configuration rather than embedded in code.",
+    "aiSummary": "Data exfiltration risk identified: the tool transmits policy/tenant data to third-party AI providers for processing. Other observed code patterns align with a legitimate Intune management workflow, but governance around external data processing should be tightened.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -43,7 +43,7 @@
       },
       "noDataExfiltration": {
         "passed": false,
-        "reason": "The tool sends policy data and other user-provided content to external AI providers (Anthropic/OpenAI/Gemini) for analysis, scripting, resolution, and compliance workflows. This constitutes data exfiltration risk for tenant data. Mitigations: implement data handling controls, redact sensitive information before sending to third parties, consider on-premises or enterprise LLM options, add opt-in/opt-out controls, and ensure transmission is governed by data processing agreements."
+        "reason": "The API forwards Intune policy data, tenant summaries, and related content to multiple external AI providers (Anthropic, OpenAI, Gemini, Azure OpenAI) for analysis or script generation. This constitutes data exfiltration risk: sensitive tenant data could be exposed to third-party services. Mitigate via data minimization, allowlisting/DPAs, required data handling controls, or consider on-premise/offline processing for highly sensitive data."
       },
       "noMaliciousPatterns": {
         "passed": true
@@ -58,7 +58,7 @@
     "stars": 0,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-08-26T10:22:07Z",
+    "lastUpdated": "2026-09-22T11:08:28Z",
     "archived": false
   },
   "authors": [

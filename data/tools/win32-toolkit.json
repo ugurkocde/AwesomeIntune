@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-08-30",
+    "lastChecked": "2026-10-04",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase has legitimate admin tooling patterns but includes a potentially risky dynamic hook injection mechanism and execution policy bypass. No evidence of credential theft, data exfiltration, hardcoded secrets, or remote code execution from URLs. Recommend hardening: avoid ExecutionPolicy bypass in production launchers, restrict and sign hook/asset contents, validate and integrity-check all org hooks before ingestion, and consider minimizing on-device shell code execution by requiring signed scripts and hardened path controls.",
+    "aiSummary": "One moderate risk identified: ExecutionPolicy bypass usage in the launcher. No evidence of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets. The remaining code aligns with legitimate Intune PSADT tooling patterns.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 19,
+    "stars": 20,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-08-05T16:16:12Z",
+    "lastUpdated": "2026-09-07T13:14:21Z",
     "archived": false
   },
   "authors": [
