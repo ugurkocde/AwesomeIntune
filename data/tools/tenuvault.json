@@ -26,8 +26,7 @@
     "desktop-app",
     "openintunebaseline",
     "restore deleted intune policy",
-    "intune cross-tenant restore",
-    "intunebackupandrestore alternative"
+    "intune cross-tenant restore"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",
