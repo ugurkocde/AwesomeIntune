@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { WhatsAppIcon } from "../community/WhatsAppCommunity";
 import Image from "next/image";
-import { WHATSAPP_COMMUNITY } from "~/lib/whatsapp-community";
 import { usePathname } from "next/navigation";
 import { COMMUNITY_URL, GITHUB_REPO_URL, SITE_CONFIG } from "~/lib/constants";
 import { SubscribeForm } from "~/components/newsletter/SubscribeForm";
@@ -183,12 +181,6 @@ export function Footer() {
             >
               {[
                 {
-                  name: "WhatsApp",
-                  href: WHATSAPP_COMMUNITY.inviteUrl,
-                  color: "#146c43",
-                  icon: <WhatsAppIcon className="h-5 w-5" />,
-                },
-                {
                   name: "LinkedIn",
                   href: COMMUNITY_URL,
                   color: "#0a66c2",
@@ -223,7 +215,7 @@ export function Footer() {
                 .map((item) => (
                   <a
                     key={item.name}
-                    href={item.href!}
+                    href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex min-h-14 touch-manipulation items-center gap-3 rounded-xl border border-[color:var(--border-subtle)] bg-[var(--bg-primary)] px-3 py-2.5 text-sm font-semibold text-[var(--text-primary)] transition-colors hover:border-[color:var(--border-accent)] hover:bg-[var(--surface-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-primary)]"

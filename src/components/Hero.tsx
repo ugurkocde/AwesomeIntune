@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { WhatsAppCommunityCard } from "./community/WhatsAppCommunity";
 import Link from "next/link";
 import {
   Suspense,
@@ -194,7 +193,7 @@ export function Hero({
           </div>
         </div>
 
-        <div className="min-w-0 space-y-4">
+        <div className="min-w-0">
           <aside
             className="self-start rounded-2xl border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-2 shadow-[var(--shadow-md)]"
             aria-label="Newest additions"
@@ -245,7 +244,6 @@ export function Hero({
               ))}
             </div>
           </aside>
-          <WhatsAppCommunityCard />
         </div>
       </div>
 
