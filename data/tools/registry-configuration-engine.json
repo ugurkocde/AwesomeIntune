@@ -23,10 +23,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 8,
-    "lastChecked": "2026-09-13",
+    "lastChecked": "2026-10-18",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": null,
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

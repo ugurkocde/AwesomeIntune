@@ -20,16 +20,17 @@
   "type": "powershell-module",
   "dateAdded": "2026-09-13",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-09-13",
+    "lastChecked": "2026-10-18",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": null,
+    "status": "failed",
+    "aiSummary": "Overall assessment indicates legitimate Intune/Entra device authentication patterns are present, but there are notable concerns related to obfuscated manifest content and certificate/private-key handling. Prioritize manifest integrity, robust input validation, key management controls, and secure logging to minimize risk of misuse or accidental exposure. No active remote code download or credential harvesting patterns are evident in the provided code, but the obfuscated artifacts warrant careful verification before deployment.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Module manifest appears heavily garbled and contains non-printable/garbled characters alongside generated metadata and URL-like strings. This strongly suggests obfuscated or corrupted content. Such obfuscation can hinder static analysis, integrity checks, and automated scanning, and may hide malicious payloads or integrity-breaching edits. Recommend restoring a clean, human-readable manifest with explicit module metadata and verified encoding (UTF-8) and ensuring source control provenance."
       },
       "noRemoteExecution": {
         "passed": true
