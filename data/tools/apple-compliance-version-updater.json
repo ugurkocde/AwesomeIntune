@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 8,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The script is suitable for an Intune/Graph API diagnostic tool. No obfuscation, remote code execution, or hard-coded secrets detected. However, credential handling logs sensitive identifiers (partial IDs and secret length) which could leak metadata; tighten logging, minimize exposure in logs, and prefer managed identity or certificate-based authentication when feasible.",
+    "aiSummary": "Overall assessment: The Apple Compliance Version Updater diagnostic script appears safe for use within Intune/Graph workflows. It uses standard authentication flows (managed identity or service principal), avoids hardcoded credentials, and does not perform any intentional data exfiltration or malicious activity. Minor considerations include ensuring secret handling and logs do not inadvertently reveal credentials, and validating RBAC for access to automation variables and logging.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 1,
+    "stars": 2,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-05-15T12:32:18Z",

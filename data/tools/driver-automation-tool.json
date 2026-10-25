@@ -24,13 +24,13 @@
   "type": "other",
   "dateAdded": "2026-05-10",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
-    "filesScanned": 37,
-    "lastChecked": "2026-09-20",
+    "filesScanned": 39,
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "failed",
+    "aiSummary": "Code content not provided. Unable to perform security analysis on the Driver Automation Tool without the source code or script payload to review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -45,7 +45,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Socket-based backdoor in Driver Automation Tool/Scripts/Test-ModernDriverManagement.ps1 ([lines: 450](https://github.com/maurice-daly/DriverAutomationTool/blob/master/Driver Automation Tool/Scripts/Test-ModernDriverManagement.ps1#L450))"
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -54,10 +55,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 576,
-    "forks": 139,
+    "stars": 592,
+    "forks": 140,
     "license": "NOASSERTION",
-    "lastUpdated": "2026-09-16T23:24:42Z",
+    "lastUpdated": "2026-10-22T20:42:21Z",
     "archived": false
   },
   "authors": [

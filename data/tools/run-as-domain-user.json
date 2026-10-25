@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code base primarily serves as a packaging wrapper to launch a domain-user execution flow. It does not fetch remote code or exfiltrate data to external endpoints. There are stealthy execution characteristics and policy bypass usage that warrant auditing. Ensure code signing, restricted execution policies, proper access controls on read of app/domain files, and robust logging/auditing around ShellRunas usage.",
+    "aiSummary": "Overall assessment: The code appears to be a legitimate Intune-managed admin wrapper intended to run a domain-authenticated helper (Run As Domain User). There are no remote downloads, no credential harvesting, and no data exfiltration detected. However, credential handling via /netonly and the use of ExecutionPolicy Bypass present potential security posture concerns. Recommend strict auditing, signed components, minimal privilege for the executing user, and verification of all copied binaries and scripts.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

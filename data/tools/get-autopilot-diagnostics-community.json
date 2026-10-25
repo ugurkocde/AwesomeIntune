@@ -48,10 +48,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The codebase primarily implements a broad backup/restore workflow using batch scripts, with some stealth-like VBScript usage for invisible execution. Security concerns center on potential data exfiltration to cloud storage and ensuring proper user consent and data governance. No remote payloads, credential theft, or hardcoded secrets detected. A minor reliability issue exists in NEWrestore.bat regarding a path variable (BLinks) that could hinder link restoration. Overall, this appears to be a legitimate admin/enterprise backup tool when properly authorized and documented.",
+    "aiSummary": "The code primarily implements backup/restore to OneDrive and asset inventory. Potential issues include stealth execution patterns via invisible VBScript wrappers and bulk data movement to cloud storage which may require governance and encryption controls. No credential harvesting or hardcoded secrets detected; no remote code execution present.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,10 +76,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 748,
-    "forks": 265,
+    "stars": 754,
+    "forks": 262,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-09-03T10:11:45Z",
+    "lastUpdated": "2026-10-07T17:50:30Z",
     "archived": false
   }
 }

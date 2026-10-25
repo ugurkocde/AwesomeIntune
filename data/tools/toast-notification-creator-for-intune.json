@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The ToastNotification tool contains no remote downloads or credential harvesting. Primary concerns are potential code-injection risk via unsanitized user input when exporting remediation scripts and unsafe URL handling for action buttons. Local configuration may expose notification content. No hardcoded secrets detected.",
+    "aiSummary": "The code primarily functions as a toast notification creator for Intune with no remote code download, credential theft, or data exfiltration. However, there are input-handling concerns when generating scripts and an exposure risk via user-supplied URL in toast actions. Implement input validation/escaping and URL whitelisting to reduce risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

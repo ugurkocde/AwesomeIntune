@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall, the codebase appears to be detection/remediation scripts for Intune baselines with standard admin tooling. No malicious patterns detected. Two minor concerns: a hardcoded activation key fragment in one script and an unusual registry value name in another. Address these to strengthen security posture and maintainability.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -83,8 +83,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 96,
-    "forks": 24,
+    "stars": 102,
+    "forks": 23,
     "license": "MIT",
     "lastUpdated": "2026-09-15T13:13:38Z",
     "archived": false

@@ -24,20 +24,19 @@
   "type": "other",
   "dateAdded": "2026-01-13",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The WinPEAP code exhibits remote code execution risk due to runtime download and execution of GitHub-hosted scripts, coupled with a setup-time policy bypass that lessens security controls. No hardcoded secrets were detected. Credential flows use standard OAuth mechanisms (client secret or device code) and do not appear to leak credentials, but the dynamic script-loading pathway represents the primary risk. Mitigations include enforcing script integrity (signing, hashing, and pinning), preferring signed local artifacts over remote downloads, and eliminating or properly restricting ExecutionPolicy bypass during deployment.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The WinPEAP/OSDCloud automation appears to be a legitimate enterprise deployment tool leveraging Microsoft Graph and Autopilot. The primary security concern is the dynamic remote code loading in bootstrap.ps1 (remote script download and execution), which introduces risk if the source can be tampered with. Additional concerns include sensitive data handling (hardware hash) stored locally, secrets exposure risks through config-stored AppSecret, and logging that could capture sensitive data. Recommendations include: signing and pinning remote scripts or converting to signed modules, implementing integrity checks (hash/signature) for downloaded code, securing config.json and secrets (prefer vault/certificate-based auth), encrypting or securely handling hardware hashes, and limiting/log redacting transcript output. If remote script delivery must be retained, consider a hardened workflow with code signing, delivery manifests, and reduced trust in external sources.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": false,
-        "reason": "The WinPEAP bootstrap orchestrator dynamically fetches and executes remote PowerShell scripts from GitHub (Get-RepoScript and the subsequent invocation of the downloaded 4kAutopilotHashUpload.ps1). This creates a significant remote code execution and supply-chain risk: if the GitHub contents are altered or redirected, arbitrary code can run in the WinPE environment. The code includes an offline baked fallback on X:\\"
+        "passed": true
       },
       "noCredentialTheft": {
         "passed": true
@@ -55,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 41,
+    "stars": 42,
     "forks": 5,
     "license": null,
-    "lastUpdated": "2026-08-30T14:13:56Z",
+    "lastUpdated": "2026-10-04T17:36:32Z",
     "archived": false
   },
   "authors": [

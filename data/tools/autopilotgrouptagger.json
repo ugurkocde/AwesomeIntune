@@ -70,10 +70,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Please provide the AutopilotGroupTagger script/code to review for security issues.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -97,7 +97,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 33,
+    "stars": 34,
     "forks": 4,
     "license": "MIT",
     "lastUpdated": "2026-09-03T08:16:14Z",

@@ -46,10 +46,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate security risk due to automated installation from external repositories and execution policy bypass. No credential harvesting or data exfiltration observed. Recommendations focus on tightening supply-chain trust: pin versions, verify signatures, restrict package sources, and minimize policy bypass where possible; implement robust logging controls to avoid leaking sensitive information.",
+    "aiSummary": "No obfuscated code or credential theft detected. The primary security concern is runtime installation of modules from external repositories, which requires supply-chain risk mitigations (version pinning, signature verification, trusted sources). The script is a legitimate admin bootstrapper for Intune-related tooling, but ensure governance around module sources and logging.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,7 +74,7 @@
   },
   "repoStats": {
     "stars": 6,
-    "forks": 0,
+    "forks": 1,
     "license": null,
     "lastUpdated": "2025-05-21T19:09:26Z",
     "archived": false

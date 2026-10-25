@@ -50,16 +50,17 @@
   ],
   "dateAdded": "2026-01-05",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 7,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The codebase is primarily deployment/orchestration for Intuneomator. While intent appears legitimate for an enterprise admin tool, there are a few security concerns worth addressing: (1) the use of eval to process label definitions creates a potential code-execution risk if label data is not strictly controlled; (2) dynamic retrieval of downloads from GitHub without in-script integrity checks could lead to supply-chain risks unless artifacts are signed and verified; (3) a hardcoded signing identity is present in the packaging script and could be a credential leakage vector if exposed. No credential theft, data exfiltration, or malicious runtime behavior is evident in the provided code, and normal Intune/Graph usage patterns are allowed for legitimate admin tooling.",
+    "status": "failed",
+    "aiSummary": "The Intuneomator codebase shows legitimate automation patterns but contains notable security considerations. Key issues: (1) eval usage to parse label data introduces local code execution risk dependent on label integrity; (2) storing a complex build-script snippet as a string for project modification may obscure behavior and hinder auditing; (3) hardcoding a signing identity constitutes a credential-like exposure risk. Recommendations: replace eval with strict, explicit parsing of label contents; avoid embedding large scripts as strings in code paths; move signing identities/certificates to secure CI/CD secret stores or environment-managed credentials with proper access controls; add input validation and code reviews for all dynamic label data to prevent injection attacks.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Usage of eval to load label values: eval 'case \"$label\" in '\"$labelFile\"'; esac' reads the entire label file content into shell variables. This creates a local code execution risk if a label file is tampered with or crafted to inject shell commands. It relies on the integrity of external label data and can be exploited to run arbitrary commands during label processing."
       },
       "noRemoteExecution": {
         "passed": true
@@ -80,7 +81,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 77,
+    "stars": 80,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2026-08-24T12:43:48Z",

@@ -27,7 +27,7 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-21",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
     "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 2,
+    "stars": 4,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-09-21T04:29:30Z",
+    "lastUpdated": "2026-10-24T15:44:36Z",
     "archived": false
   },
   "authors": [

@@ -26,11 +26,11 @@
   "securityCheck": {
     "passed": 6,
     "total": 6,
-    "filesScanned": 14,
-    "lastChecked": "2026-09-21",
+    "filesScanned": 27,
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Basetune CLI shows standard, auditable admin tooling for Intune Graph interactions. Key areas to tighten are secret management (avoid plaintext secrets in Config.json), ensuring integrity of exported modules, and careful handling of Graph Beta API usage. Logging practices should be reviewed to prevent leakage of tenant metadata. No evidence of obfuscated payloads or hardcoded secrets in code; secrets appear to reside in configuration and should be secured.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 0,
+    "stars": 2,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-09-21T11:39:52Z",
+    "lastUpdated": "2026-10-24T07:59:31Z",
     "archived": false
   },
   "authors": [

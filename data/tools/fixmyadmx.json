@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code provided for analysis. Please supply the code snippet or repository path for a security review of FixMyADMX. Once available, I will assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets in the context of Intune and Microsoft Graph interactions.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

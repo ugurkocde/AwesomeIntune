@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code provided for analysis. Please supply the PowerShell/Intune tool code to perform security review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 0,
-    "forks": 2,
+    "stars": 1,
+    "forks": 3,
     "license": null,
     "lastUpdated": "2025-12-13T09:57:07Z",
     "archived": false

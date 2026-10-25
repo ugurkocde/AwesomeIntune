@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Geolocation data collection in Failure.ps1 could lead to potential data exposure if logs are uploaded to external endpoints. No other malicious behavior detected; code follows standard Intune admin tooling usage for logging and device information collection.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

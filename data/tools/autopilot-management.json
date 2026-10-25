@@ -61,10 +61,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No code supplied for analysis. Provide the source code or script block for analysis focusing on obfuscation, remote execution, credential theft, data exfiltration, malicious patterns, and hardcoded secrets. Once provided, I will perform a thorough review and return structured findings.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

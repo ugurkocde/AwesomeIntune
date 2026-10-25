@@ -59,13 +59,13 @@
     }
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase shows legitimate administrative tooling patterns (Intune/Graph usage) with no obfuscated code, no remote code execution, no credential harvesting, and no hardcoded secrets. Primary security considerations are: (1) the breadth of Microsoft Graph permissions requested (potential over-privilege); (2) the ability to swap authentication contexts across tenants (tenant isolation risk); and (3) logging practices that could inadvertently expose sensitive data. Recommend tightening scopes to the minimum required, reinforcing tenant isolation and auditing for tenant-switch operations, and implementing secure, privacy-conscious logging. No immediate indicators of malicious activity were found.",
+    "status": "failed",
+    "aiSummary": "Broad Graph permissions requested by DestinationUserAuthentication imply a large privilege surface. No evidence of obfuscated code, remote code execution, credential theft, data exfiltration, or other malicious execution in the provided snippets. Recommend least-privilege review, careful consent management, and monitoring of token usage to mitigate risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,7 +80,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "The code declares a broad set of Microsoft Graph and Device Management scopes (DefaultScopes), including Directory.Read.All, AuditLog.Read.All, Reports.Read.All, RoleManagement.Read.All, DeviceManagementApps.ReadWrite.All, DeviceManagementCloudCA.ReadWrite.All, DeviceManagementConfiguration.ReadWrite.All, DeviceManagementManagedDevices.ReadWrite.All, DeviceManagementRBAC.ReadWrite.All, DeviceManagementScripts.ReadWrite.All, DeviceManagementServiceConfig.ReadWrite.All, Group.ReadWrite.All, etc. While these permissions may be legitimate for an Intune admin tool, they create a large access surface and raise risk if credentials are compromised or misused. Recommend applying the principle of least privilege, requesting only necessary scopes, and auditing consent and token usage. Consider using more granular permissions, short-lived tokens, and separating privileges where possible."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -89,10 +90,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 11,
+    "stars": 12,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-06-29T10:31:48Z",
+    "lastUpdated": "2026-10-22T05:55:23Z",
     "archived": false
   }
 }

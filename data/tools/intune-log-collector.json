@@ -45,13 +45,13 @@
     "screenshots/intune-log-collector/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall assessment: The code implements legitimate Intune/Graph-based device authentication and blob/log handling patterns. Notable security considerations include potential data exposure through blob content returned in responses and logs, plus SAS token distribution that could be misused if leaked. No obfuscated or remote-code execution patterns detected. Recommend tightening logging of sensitive fields, validating blob content exposure boundaries, and ensuring SAS tokens are minimally scoped and time-bounded.",
+    "status": "passed",
+    "aiSummary": "The Intune Log Collector components rely on Azure-managed identities and storage access to fetch and expose data via HTTP. Security concerns center on data exposure through blob content retrieval and SAS token issuance. While authentication and authorization flows appear legitimate, returning blob contents and SAS tokens to callers can enable unintended data access if access controls, token lifetimes, or logging are not tightly restricted. Improve data minimization, redact sensitive identifiers in logs, and consider limiting blob/SAS access to strictly required scopes and durations. No malicious patterns (RCE, credential theft via code, or hardcoded secrets) are evident beyond standard secret management considerations.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -63,8 +63,7 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "Generates and returns a SAS token with read/write access for the storage container using a stored policy. If leaked, the token could allow unauthorized access to logs. Risk mitigations include tightening token scope, reducing lifetime, and avoiding returning tokens in API responses unless required."
+        "passed": true
       },
       "noMaliciousPatterns": {
         "passed": true

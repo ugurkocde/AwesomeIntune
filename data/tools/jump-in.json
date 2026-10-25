@@ -27,10 +27,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Credential handling is the primary security concern in this script: it captures the user's password and temporarily stores it in plaintext on disk to feed the FileVault rotation tool. This is a legitimate admin operation but requires strict handling to minimize exposure (e.g., robust cleanup, minimization of on-disk storage, and consideration of alternative secure authentication methods). No remote code execution, exfiltration, obfuscated code, or hardcoded secrets are detected.",
+    "aiSummary": "Credential handling risk: The script collects and stores the user password in plaintext for FileVault key rotation. While the functionality is legitimate for an admin tool, it requires strict handling, minimal exposure, secure deletion, and proper auditing to avoid credential leakage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -40,7 +40,7 @@
       },
       "noCredentialTheft": {
         "passed": false,
-        "reason": "The script prompts the user for their login password via a GUI prompt and stores it in plaintext in a temporary plist file (created with mktemp) to feed fdesetup. The password is kept on disk in /tmp with 600 permissions for a brief window, then the plist is deleted. While the data is only used for FileVault key rotation, this on-disk plaintext credential exposure constitutes a credential-handling vulnerability and could be exploited if cleanup fails or if a sensitive /tmp directory is accessible."
+        "reason": "Credential handling: The script prompts the actual user for their account password via GUI and writes it to a temporary plist (PASSWORD) which is then consumed by fdesetup -inputplist to rotate the FileVault recovery key. The password is stored in plaintext in the temp plist (and briefly in memory) and later deleted; however, this creates a potential credential exposure surface if the file is leaked, the host is compromised, or logs capture the output. This approach is risky because plaintext credentials are materialized on disk during the operation. Mitigations include minimizing plaintext storage, using a more secure authentication flow if available, securely deleting traces after use, and auditing access to the plist and fdesetup usage."
       },
       "noDataExfiltration": {
         "passed": true

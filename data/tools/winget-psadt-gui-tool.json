@@ -24,21 +24,19 @@
   "type": "powershell-module",
   "dateAdded": "2026-02-26",
   "securityCheck": {
-    "passed": 4,
+    "passed": 6,
     "total": 6,
     "filesScanned": 18,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Code shows legitimate Intune/PSADT GUI tooling; primary security concern is the use of Base64-encoded PowerShell commands to invoke child processes, which can obscure payloads and bypass policy checks. No immediate credential theft, data exfiltration, or hardcoded secrets detected in the provided segments.",
+    "status": "passed",
+    "aiSummary": "The WinGet-PSADT-GUI-Tool code appears to be a legitimate Intune/PSADT tooling component. The primary concerns are: (1) the use of -EncodedCommand in Invoke-WindowsPowerShellCommand (potential obfuscation; require auditing and potentially avoid); (2) heavy dot-sourcing of many modules at startup (increases attack surface; enforce code signing and integrity checks). No direct remote code execution, credential theft, or data exfiltration is detected in these snippets.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Invoke-WindowsPowerShellCommand encodes the passed CommandText as Base64 and launches PowerShell with -EncodedCommand and -ExecutionPolicy Bypass. This enables obfuscated execution of arbitrary commands. If CommandText is derived from external input, it creates a risk of remote code execution or circumvention of policy checks."
+        "passed": true
       },
       "noRemoteExecution": {
-        "passed": false,
-        "reason": "The encoded invocation path (pwsh.exe -EncodedCommand) combined with -ExecutionPolicy Bypass can be exploited to execute injected payloads if inputs are not strictly validated. Recommend strict input validation, avoid bypassing policies unless necessary, and consider logging/alerting when decoded commands are produced."
+        "passed": true
       },
       "noCredentialTheft": {
         "passed": true
@@ -57,7 +55,7 @@
   },
   "repoStats": {
     "stars": 17,
-    "forks": 3,
+    "forks": 4,
     "license": "MIT",
     "lastUpdated": "2026-02-26T15:54:34Z",
     "archived": false

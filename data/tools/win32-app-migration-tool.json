@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 33,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Win32 App Migration Tool components appear to be standard Intune/ConfigMgr tooling without remote script execution, credential harvesting, or data exfiltration. However, there are input-validation regex issues in Connect-SiteServer.ps1, a small but tangible bug in Get-ClientCertificate.ps1, and potential over-logging of sensitive metadata in Get-AppInfo.ps1. These should be addressed to prevent runtime issues and reduce security risk while preserving functionality.",
+    "aiSummary": "Two potential issues were identified in the provided code: (1) a likely malformed regex in the SiteCode validation that could crash parameter binding, affecting legitimate admin operations; (2) reliance on an environment variable to locate a module for loading, which could be a surface for misconfiguration or supply-chain risk. No evidence of remote code execution, credential theft, data exfiltration, hardcoded secrets, or other malicious patterns was detected in the supplied snippets.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 106,
+    "stars": 107,
     "forks": 22,
     "license": "NOASSERTION",
     "lastUpdated": "2026-06-08T08:45:49Z",

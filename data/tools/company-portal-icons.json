@@ -47,10 +47,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The intune-integration.js file appears to be a legitimate Intune/Graph API integration tool with standard authentication flows (MSAL) and API usage. There are no obfuscated scripts or explicit remote code execution attempts. Token handling follows MSAL patterns, with token requests and interactive flow, which is typical for this scenario. A telemetry beacon is present for analytics, which is common in admin tools but should be reviewed for privacy and consent. Hardcoded public identifiers (clientId) are present but not secret; consider moving to environment-configured values if multi-env deployments are required. No hardcoded credentials or obvious credential theft patterns detected. Recommend validating privacy implications of telemetry, ensuring proper consent, and confirming that all endpoints (Graph Beta, telemetry) are allowed in organizational policies.",
+    "aiSummary": "No obfuscated code, no remote code execution, and no credential theft patterns beyond standard OAuth token usage. The main security concerns are (1) data exfiltration via external analytics (GoatCounter) that could leak user/tenant data, and (2) token handling in a browser context which could be exposed via XSS. The code aligns with expected Intune/Graph API usage but should address telemetry privacy and hardening of token handling in a SPA.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -74,7 +74,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 14,
+    "stars": 15,
     "forks": 0,
     "license": "MIT",
     "lastUpdated": "2026-08-03T08:38:36Z",

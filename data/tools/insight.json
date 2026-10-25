@@ -62,10 +62,10 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "Code input missing. Unable to perform security analysis without source code. Please include the code for InSight Intune tool to proceed.",
+    "aiSummary": "Code block not provided. Unable to assess security risks. Please submit the InSight Intune tool code for review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
@@ -91,7 +91,7 @@
   },
   "repoStats": {
     "stars": 37,
-    "forks": 0,
+    "forks": 1,
     "license": null,
     "lastUpdated": "2026-01-14T22:51:24Z",
     "archived": false

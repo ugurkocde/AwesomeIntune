@@ -52,10 +52,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The codebase contains no obfuscated code, no remote script downloads, no credential harvesting, and no explicit data exfiltration. The primary security concerns are input handling (unsanitized CSV data contributing to XML content) and a minor control-flow issue that could crash the script. The rest of the tooling aligns with standard admin tasks for Intune/Microsoft Graph integration, assuming proper authentication and policy governance.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

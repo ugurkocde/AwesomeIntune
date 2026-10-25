@@ -24,19 +24,20 @@
   "type": "other",
   "dateAdded": "2026-03-20",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "failed",
+    "aiSummary": "Overall, the code appears suitable for an Intune-driven management tool with Graph API interactions and proper DPAPI use. The primary concern is potential remote code execution risk from externally-supplied scriptblocks used in update/deploy workflows; mitigate by validating or sandboxing scriptblocks and avoiding passing raw scriptblocks from untrusted sources. No hardcoded credentials or obvious credential theft patterns detected. No obfuscated code detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "ScriptBlock parameters ($BuildPackage, $ValidateArtifact, $DeployPackage) are invoked via the & operator. If untrusted user input or external modules supply these scriptblocks, this enables arbitrary code execution on the host. Recommend restricting scriptblock sources, validating content, or refactoring to avoid external scriptblocks."
       },
       "noCredentialTheft": {
         "passed": true
@@ -54,10 +55,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 46,
+    "stars": 47,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-09-12T18:49:28Z",
+    "lastUpdated": "2026-09-28T14:58:56Z",
     "archived": false
   },
   "authors": [

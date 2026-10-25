@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No obfuscated code, credential theft, or data exfiltration patterns detected. Primary concern is remote configuration trust: the detection script fetches an external XML config and uses it to make decisions, which could be exploited if the config is tampered with. A secondary concern is a potential runtime issue: -UseBasicParsing is not a valid parameter for Invoke-RestMethod in PowerShell 5.1 and would cause an error; it is currently handled by a catch, but it should be removed or corrected for reliability. Additionally, missing Toast feature configuration in the XML could cause false conflicts; ensure the config schema is validated and robust against incomplete data.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

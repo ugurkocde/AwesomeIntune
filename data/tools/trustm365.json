@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No obfuscated code, no external remote code execution, no credential theft, and no hardcoded secrets detected. The primary security concern is the use of internal HTTP calls to a localhost service (port 3001) for template comparison and reload. Treat these as inter-process communications: ensure proper authentication, encryption ( TLS/mTLS if feasible for localhost), access controls, and consider more secure IPC mechanisms to minimize exposure in case of host compromise.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 97,
+    "stars": 98,
     "forks": 16,
     "license": "MIT",
     "lastUpdated": "2026-08-28T05:18:50Z",

@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase contains a critical credential-handling risk: it captures and stores Microsoft Graph Authorization tokens within the extension, with token data logged to console. This elevates the risk of token theft if the extension, the host environment, or other extensions are compromised. Telemetry to an external analytics endpoint is present but appears opt-in; ensure privacy-compliant data collection and clear user consent. There are also placeholders for GA credentials treated as secrets; these should be supplied securely at build/runtime rather than hardcoded. No obfuscated code, remote script execution, or malicious patterns detected beyond these credential handling concerns. Recommend hardening token management (in-memory handling, proper OAuth flows), removing sensitive logs, and securing configuration for analytics.",
+    "aiSummary": "Foundational security concerns center on credential handling and data exfiltration. The extension captures and stores Microsoft Graph Authorization headers (token harvesting risk) and sends analytics data to an external service (data exfiltration risk). There are placeholders for secrets but no active hardcoded credentials beyond placeholders. No obfuscated code or remote script execution patterns detected. Mitigations include removing/renaming token capture or securing storage and access, restricting analytics data, and ensuring tokens/data are minimally exposed with explicit opt-in and proper telemetry handling.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,7 +80,7 @@
     "stars": 16,
     "forks": 0,
     "license": "MIT",
-    "lastUpdated": "2026-09-16T14:15:24Z",
+    "lastUpdated": "2026-10-01T11:37:44Z",
     "archived": false
   }
 }

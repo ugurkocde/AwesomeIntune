@@ -56,10 +56,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Intune Make Enrollment User Admin tool includes legitimate enrollment-related admin capabilities but introduces privilege escalation risk by programmatically adding the current user to the local Administrators group. Locale-based group name handling is brittle and could cause misapplication across languages. No remote code execution, credential theft, or data exfiltration detected in the provided code.",
+    "aiSummary": "The codebase primarily implements legitimate Intune enrollment admin tooling with locale-aware admin group detection and local group management. The most significant concern is the explicit privilege escalation pathway: the install flow automatically adds the current user to the local Administrators group, which requires strict policy governance, auditing, and explicit user consent in managed environments. Additional concerns include potential inconsistencies in group membership checks and localized group name handling, as well as local logging of actions. No remote code execution, credential harvesting, data exfiltration, or hard-coded secrets are present.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

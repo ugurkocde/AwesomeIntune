@@ -24,20 +24,19 @@
   "type": "desktop-app",
   "dateAdded": "2026-05-18",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 9,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall assessment: The codebase is intended for building and packaging the 1PhoneMirror MSI/Intune wrapper with Azure Trusted Signing. The primary security risk is the runtime download of the signing library without integrity checks or version pinning, which could enable supply-chain compromise. Additionally, several signing-related defaults are hardcoded and an HTTP timestamp endpoint is used, both of which should be addressed with better key management and secure endpoints. Other patterns (Intune packaging, signing flow) are normal for this tooling.",
+    "status": "passed",
+    "aiSummary": "Overall assessment: The codebase is a legitimate build/packaging utility for Intune distribution. It does not exhibit credential theft, data exfiltration, or malicious runtime behavior. However, it relies on external tooling (NuGet/WiX via dotnet, GitHub for vcpkg) at build time, which introduces supply-chain risk. Recommendations: pin dependencies to known-good versions, verify integrity (hashes), consider internal artifact registries or signed tooling, and ensure signing credentials are protected and not logged.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": false,
-        "reason": "The trusted signing workflow fetches Azure.CodeSigning.Dlib.dll from NuGet at runtime via Get-TrustedSigningDlib. There is no version pinning or integrity verification, creating a supply-chain risk and potential remote code execution if the downloaded library is compromised."
+        "passed": true
       },
       "noCredentialTheft": {
         "passed": true
@@ -55,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 27,
+    "stars": 38,
     "forks": 5,
     "license": "GPL-3.0",
-    "lastUpdated": "2026-09-04T11:18:41Z",
+    "lastUpdated": "2026-09-30T15:00:38Z",
     "archived": false
   },
   "authors": [

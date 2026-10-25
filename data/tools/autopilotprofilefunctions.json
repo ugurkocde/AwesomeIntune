@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code targets legitimate Intune Autopilot profile management via Microsoft Graph with normal admin tooling. No hardcoded secrets, no credential harvesting, and no evident data exfiltration. Primary concerns are potential remote code execution risk from runtime module installation, and error handling that could conceal failures. Mitigations include pinning module versions, signing verification, using trusted repositories, and improving error handling/logging.",
+    "aiSummary": "No evidence of obfuscated code, remote code execution, credential harvesting, data exfiltration, or hardcoded secrets. The main risk identified is a casing inconsistency in DeploymentMode checks that can lead to misconfiguration of Autopilot deployment profiles. Recommend standardizing to canonical values or using case-insensitive comparisons and validating inputs sourced from Profiles.csv.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

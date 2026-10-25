@@ -53,14 +53,14 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 37,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "failed",
-    "aiSummary": "The IntuneDeviceInventory codebase mixes legitimate Intune/Graph management tooling with some risk factors. Key concerns are an apparently obfuscated/opaque module manifest, a logic bug in permission assignment, plaintext credential handling in a credential flow, Beta Graph API usage, and a risky script flow control. Data collection for inventory appears to be within expected bounds but includes sensitive identifiers; ensure proper minimization, encryption in transit, and access controls. No explicit remote code download or hardcoded secrets were identified in the provided snippets, but the obfuscated module and credential handling patterns warrant a cautious, thorough review before production deployment.",
+    "aiSummary": null,
     "checks": {
       "noObfuscatedCode": {
         "passed": false,
-        "reason": "Module manifest appears obfuscated or binary gibberish; content is not readable text. This hinders thorough code review and could hide malicious payloads or unauthorized code execution paths."
+        "reason": "Module manifest appears corrupted with non-ASCII characters and what looks like binary data. This can indicate encoding issues, tampering, or obfuscation. Such artifacts hinder proper validation, signing, and integrity checks, and could mask malicious content."
       },
       "noRemoteExecution": {
         "passed": true

@@ -53,10 +53,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No malicious payload or obfuscated code detected. Primary concerns are external data sharing to a third-party service for notifications and secret management within the CI/CD workflow. The code is an admin utility for Intune automation; ensure privacy, data protection, and least privilege in secret handling.",
+    "aiSummary": "Overall assessment: The code is a legitimate admin/maintenance script for Intune Automation with a standard CI/CD/notification workflow. Security posture is reasonable with respect to obfuscation, remote code execution, credential handling, data exfiltration, and hardcoded secrets. Key recommendations include ensuring secure storage/rotation of API keys via a secret store or managed identity, minimizing any potential PII exposure in logs, and continuing to validate inputs and access control on the API calls (Supabase/Resend) used by the tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -80,10 +80,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 135,
-    "forks": 22,
+    "stars": 142,
+    "forks": 24,
     "license": "MIT",
-    "lastUpdated": "2026-09-20T02:16:02Z",
+    "lastUpdated": "2026-10-25T02:16:47Z",
     "archived": false
   }
 }

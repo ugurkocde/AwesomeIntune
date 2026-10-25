@@ -58,10 +58,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "Overall, the Intune/Winget tooling appears to follow standard Graph API usage and admin workflows. No evidence of remote code execution, credential theft, data exfiltration to external services, or malicious patterns found in the provided snippets. The primary concern is transcript-based logging potentially leaking inventory details; mitigate with secure log handling and access controls. The placeholder TenantID should be replaced with secure configuration rather than hardcoded in code.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -85,7 +85,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 256,
+    "stars": 260,
     "forks": 37,
     "license": "GPL-3.0",
     "lastUpdated": "2026-07-13T14:09:23Z",

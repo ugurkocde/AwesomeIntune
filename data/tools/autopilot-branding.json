@@ -43,10 +43,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code snippet provided. Unable to assess security issues for Autopilot Branding. Please supply the code to analyze.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -70,8 +70,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 497,
-    "forks": 106,
+    "stars": 501,
+    "forks": 107,
     "license": "MIT",
     "lastUpdated": "2025-11-08T06:48:41Z",
     "archived": false

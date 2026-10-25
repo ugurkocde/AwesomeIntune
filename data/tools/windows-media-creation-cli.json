@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code performs legitimate Intune/Windows Media Creation tasks (downloading OEM driver catalogs, extracting, and injecting drivers into a Windows image). Primary security concerns are remote code execution risk from executing vendor installers, and a potential bug due to an undefined baseDownloadUrl in add-driver.ps1. No credential harvesting or data exfiltration patterns were detected, and there are no hardcoded secrets. Recommendations: fix the undefined variable, add signature/hash verification for downloaded drivers, and consider implementing driver package validation prior to integration into install.wim.",
+    "aiSummary": "The scripts perform legitimate admin tasks (modifying Windows install media with drivers) but download and execute external binaries without integrity or signature verification, creating remote code execution / supply-chain risk. Recommendations: enforce code signing checks, verify file hashes, pin trusted sources, use HTTPS consistently with certificate validation, and implement input validation/sanitization.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

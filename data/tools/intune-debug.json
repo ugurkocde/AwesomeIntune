@@ -45,10 +45,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 38,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No evidence of remote code execution, credential theft, data exfiltration, reverse shells, or hardcoded secrets in the provided excerpts. The module mainly builds an HTML report and exposes utility functions. However, there are potential security concerns around HTML injection due to unescaped values and a base64 decoding path that could obscure content. Additionally, there is a likely bug in the ScriptBody decoding logic that should be corrected. Recommendations: sanitize all dynamic content before embedding in HTML; remove or restrict base64 decoding for display content unless strictly necessary; fix the ScriptBody decoding index reference; perform a broader review of all data sources that feed the HTML output for potential injection vectors.",
+    "aiSummary": "No evidence of remote code execution, credential theft, or hardcoded secrets. The tool appears to be a legitimate Intune debugging/reporting module. However, there are potential data exposure risks in HTML rendering of ScriptBody and certificate metadata, which should be mitigated by access controls and sensitive-data handling policies.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

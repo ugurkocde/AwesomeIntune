@@ -50,17 +50,16 @@
     }
   ],
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase includes legitimate Intune/Azure discovery and telemetry components but exhibits notable security-relevant patterns: encoded/obfuscated inline commands in watchdog for persistence, a SYSTEM-level scheduled task for ongoing execution, and cloud-based telemetry exfiltration via webhooks. There are no hardcoded secrets. Recommend auditing the use of encoded commands, tightening registry and scheduled task access, validating webhook trust, and ensuring that telemetry is scoped to necessary data with explicit user/organizational consent.",
+    "status": "passed",
+    "aiSummary": "Overall, the IntuneStatefulDeviceFingerprinting code includes legitimate admin telemetry and compliance features, but it exhibits obfuscation, persistence mechanisms, and outbound telemetry that warrant strong governance. Recommendations: replace EncodedCommand usage with signed, auditable scripts; document and control the scheduled task (scope, duration, and logging); ensure webhook endpoints are trusted and data minimization is applied; explicit error logging; verify certificate handling with least privilege and secure storage; and consider opt-in/transparent telemetry controls to reduce risk of unintended data exposure.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": false,
-        "reason": "Inline PowerShell payload is encoded with Base64 via -EncodedCommand for the scheduled task. This obfuscation conceals behavior and can hinder auditing and review. It also enables automated persistence-like execution on multiple triggers."
+        "passed": true
       },
       "noRemoteExecution": {
         "passed": true

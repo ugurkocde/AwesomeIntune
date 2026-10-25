@@ -49,10 +49,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The codebase largely aligns with Intune Graph API usage and management flows, but has a critical manifest syntax error that will break module loading, a hardcoded clientId, and potential exposure of sensitive URLs via verbose logs. Also, remote content download requires integrity checks to prevent tampering. Address the manifest bug, consider removing hardcoded IDs or making them configurable, and implement content integrity verification and sensitive data redaction in logs.",
+    "aiSummary": "The codebase largely represents a legitimate Intune Win32 app management tool; however, there are several security-relevant concerns: (1) external binary download and execution (AzCopy) in remote file transfer logic, (2) a hardcoded app-registration identifier, (3) a module manifest syntax bug, and (4) a potential zip extraction vulnerability when unpacking .intunewin archives. Address these issues by enforcing binary integrity checks, removing hardcoded secrets or clearly documenting overrides, fixing manifest syntax, and strengthening archive extraction security.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -76,7 +76,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 511,
+    "stars": 516,
     "forks": 119,
     "license": "MIT",
     "lastUpdated": "2026-01-25T16:46:56Z",

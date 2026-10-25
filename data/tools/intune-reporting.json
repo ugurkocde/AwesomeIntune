@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 27,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The Dell BIOS update reporting script largely implements telemetry and Dell data retrieval for Intune integration, which is expected in a managed environment. The Devices/Permissions script provides automated Graph API role assignments for a service principal, which is a common admin pattern but warrants strict access control and auditing. Notable concerns include: (1) hardcoded secret placeholders for Log Analytics credentials that should be sourced securely, (2) a potential runtime bug in GetModelWebResponse where the model GUID may not be correctly incorporated into the URL, and (3) the risk that automated App Role assignments could broaden MSI permissions if misconfigured. Recommendations: remove hardcoded secrets, fetch credentials from Key Vault or managed identity, implement payload/datasignature validation for remote downloads, add robust input validation and auditing for role assignments, and fix the GetModelWebResponse variable usage to ensure correct data retrieval.",
+    "aiSummary": "The Dell BIOS reporting script largely handles telemetry and BIOS status reporting with minimal obfuscation. A separate script fabricates and assigns Graph permissions to a service principal, which is a powerful action that needs strict governance. Address data minimization for telemetry, secure secret storage, and implement auditing/least privilege controls for programmatic Graph permission assignments.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

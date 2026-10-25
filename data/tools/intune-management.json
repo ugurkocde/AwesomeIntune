@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 30,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Moderate security concerns primarily around credential handling in memory, silent/hidden operation, and broad Unblock-File usage. No hardcoded secrets detected. Overall, the code appears to be a legitimate Intune/Graph management tool with standard admin patterns, but these areas should be reviewed for secure handling, auditing, and module integrity.",
+    "aiSummary": "No security issues detected in the provided code that would indicate malicious activity. The module aligns with legitimate Intune Graph API management tooling. Observations focus on standard admin patterns (runtime credentials, local module loading, UI components) and emphasize secure handling of credentials, access controls, and integrity checks for any future remote script usage.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,10 +81,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 2061,
-    "forks": 377,
+    "stars": 2115,
+    "forks": 384,
     "license": "MIT",
-    "lastUpdated": "2026-09-19T07:26:28Z",
+    "lastUpdated": "2026-10-25T03:19:36Z",
     "archived": false
   }
 }

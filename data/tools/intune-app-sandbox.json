@@ -54,16 +54,17 @@
     "screenshots/intune-app-sandbox/screenshot-2.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 10,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The Intune-App-Sandbox tooling appears to be a packaging/testing harness for Windows Sandbox/Intune Win32 apps. While many patterns are legitimate for isolated testing (decoding installers, running in a sandbox, and exporting installation data), there are notable security concerns: apparent obfuscation in the module manifest, deliberate execution policy bypass, and scheduled-task-based SYSTEM execution to run decoded payloads. These patterns warrant strict input validation (trust boundaries for decoded packages), least-privilege usage, and thorough signing/auditing of all inputs to prevent abuse. No explicit hardcoded secrets or external credential handling were detected, but the payload decoding/execution flow represents a potential risk if untrusted packages are supplied.",
+    "status": "failed",
+    "aiSummary": "Overall assessment: The Intune-App-Sandbox tool implements a legitimate Windows Sandbox workflow for testing Intune Win32 apps. Security concerns mainly revolve around potential obfuscation in the module manifest, and the use of policy-bypass and sandbox-based decoding/execution flows. To strengthen security, verify module signing and integrity of the obscured manifest, minimize or tightly scope ExecutionPolicy bypass usage, enforce strict input/package validation and code-signing for decoders/installers, and ensure sandbox output remains isolated from untrusted hosts or networks.",
     "checks": {
       "noObfuscatedCode": {
-        "passed": true
+        "passed": false,
+        "reason": "Module manifest appears garbled with non-printable characters and whitespace noise, suggesting obfuscated or corrupted content. This could indicate tampering or hidden payloads. Requires integrity verification and signing."
       },
       "noRemoteExecution": {
         "passed": true
@@ -84,7 +85,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 59,
+    "stars": 61,
     "forks": 2,
     "license": "MIT",
     "lastUpdated": "2026-04-03T14:23:19Z",

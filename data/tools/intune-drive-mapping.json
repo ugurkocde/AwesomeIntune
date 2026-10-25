@@ -42,13 +42,13 @@
     "screenshots/intune-drive-mapping/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "The codebase shows two notable security concerns: (1) an XXE risk in XML parsing of user-provided data, and (2) a persistence mechanism in the generated PowerShell script that can be used for logon-time persistence with hidden execution. No credential theft, data exfiltration, or remote code execution patterns were observed in the analyzed code paths. Remediation should include securing XML parsing, and re-evaluating or documenting the endpoint-persistence approach in enterprise deployments.",
+    "status": "failed",
+    "aiSummary": "Overall, the codebase uses standard Intune/PowerShell drive-mapping patterns and does not include direct credential theft or remote code execution from external URLs. However, the test PS1 contains persistence (scheduled task) and window-hiding techniques that can be misused for stealthy execution, and transcript logging that could leak sensitive data. Production-grade tooling should replace the stealth-windows launcher with transparent, auditable startup mechanisms and enforce strict logging controls. Validate file upload handling for security and ensure no execution occurs from uploaded content.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -63,7 +63,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "When executed with SYSTEM privileges the script creates a scheduled task to run on user logon, including a VBScript wrapper to hide the PowerShell window and invoke PowerShell with -ExecutionPolicy ByPass. This persistence pattern resembles malware techniques and should be guarded in production builds."
       },
       "noHardcodedSecrets": {
         "passed": true

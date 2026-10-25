@@ -24,13 +24,13 @@
   "type": "powershell-script",
   "dateAdded": "2026-07-14",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
-    "filesScanned": 10,
-    "lastChecked": "2026-09-20",
+    "filesScanned": 9,
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "The codebase largely follows expected Intune/Entra admin patterns (Graph API usage, service health reporting, automated emails). Security concerns are primarily around hardcoded secrets and placeholders embedded in scripts (high/medium severity) and potential exposure of sensitive data via generated reports (medium). Immediate improvements include removing hardcoded credentials, centralizing secrets (Key Vault / automation-secure variables), and verifying access controls around generated reports and logs.",
+    "status": "passed",
+    "aiSummary": "No evidence of remote code execution or credential theft in the provided code. The primary concerns are hardcoded client secrets in the ClientSecretAuth script and the broad collection/transmission of tenant data (service principals and sign-ins) for reporting. Mitigate with secret management, least privilege, secure data handling, and consideration of using stable Graph APIs over Beta where feasible.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -48,8 +48,7 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": false,
-        "reason": "Hardcoded credentials in configuration: TenantId, ClientId and ClientSecret are defined in the Config hash with placeholder values. This enables credential access if the script is accessed or stored insecurely. Recommend using a secure secret store (e.g., Azure Key Vault or Automation Variables with secret protection) and injecting secrets at runtime rather than embedding them in code."
+        "passed": true
       }
     },
     "notes": []
@@ -58,7 +57,7 @@
     "stars": 61,
     "forks": 9,
     "license": "MIT",
-    "lastUpdated": "2026-09-06T00:34:01Z",
+    "lastUpdated": "2026-10-10T17:32:29Z",
     "archived": false
   },
   "authors": [

@@ -50,10 +50,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The Endpoint Analytics Remediation Scripts appear to be legitimate administrative tools for Intune/Endpoint Analytics workflows. No obfuscated code, remote script downloads, credential theft, or data exfiltration were observed. The primary caution is the presence of template placeholders that must be correctly populated and validated to avoid unintended behavior (e.g., empty app IDs or registry values). Recommend strict validation and review of template content before deployment to production environments.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -77,10 +77,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 652,
-    "forks": 129,
+    "stars": 662,
+    "forks": 130,
     "license": "MIT",
-    "lastUpdated": "2026-07-28T10:59:21Z",
+    "lastUpdated": "2026-10-14T13:18:07Z",
     "archived": false
   }
 }

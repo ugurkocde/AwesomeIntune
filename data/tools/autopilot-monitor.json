@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The code is a standard helper for obtaining a temporary Azure Storage access token via the Azure CLI and returning it as part of a header dictionary. No hardcoded secrets or obfuscated code are present. The primary security concern is potential token leakage through outputs/logs since the Authorization header is returned and could be captured by logs or telemetry. Ensure proper log redaction and consider options to minimize token exposure (e.g., performing calls within the module and avoiding emitting the header, or redacting the token in any captured logs).",
+    "aiSummary": "No remote code execution, no hardcoded secrets, and no active data exfiltration beyond normal CI flows were detected. The main concerns relate to token handling in Get-StorageAuthHeaders.ps1 (potential leakage outside CI) and the use of SYSTEM-level scheduled tasks in Invoke-BootstrapSystemPass.ps1 (risk if CI runners are compromised). Overall, patterns align with legitimate Intune/Graph/CI workflows, but secret handling in non-CI contexts and runner security should be reinforced.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 43,
-    "forks": 4,
+    "stars": 85,
+    "forks": 5,
     "license": "AGPL-3.0",
-    "lastUpdated": "2026-09-19T12:40:38Z",
+    "lastUpdated": "2026-10-23T10:18:22Z",
     "archived": false
   },
   "authors": [

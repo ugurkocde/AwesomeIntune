@@ -24,19 +24,20 @@
   "type": "other",
   "dateAdded": "2026-07-14",
   "securityCheck": {
-    "passed": 6,
+    "passed": 4,
     "total": 6,
     "filesScanned": 13,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Key risk areas in the IntuneLinuxBaseline suite are weighted toward remote code execution risk (onboarding/install flow downloads and executes a script from a URL without integrity checks) and potential credential/data exposure around the onboarding blob. There is also a policy-visibility trade-off risk from disabling telemetry, and a minor misconfiguration in cron scheduling. Recommended hardening steps: enforce integrity verification for downloaded installers (signatures or checksums), prefer signed packages from official Microsoft channels, minimize on-disk sensitive material with robust cleanup, document telemetry/visibility policy, and fix cron cadence to match documented intent.",
+    "status": "failed",
+    "aiSummary": "The Intune Linux baseline includes standard Defender onboarding and system hardening steps, but there are notable security concerns around remote installer execution without integrity checks and handling of onboarding payloads that may contain sensitive tokens. Recommended mitigations include signature verification for installers, minimizing disk persistence of onboarding payloads, and ensuring secure, possibly in-memory handling of onboarding data.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "Downloads and executes a remote installer (mde_installer.sh) from a Microsoft URL without any integrity verification (no signature or checksum validation). This presents a supply chain / MITM risk and may execute untrusted code."
       },
       "noCredentialTheft": {
         "passed": true
@@ -45,7 +46,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Integrity verification is not performed for the downloaded installer. Absence of signature/checksum validation enables potential tampering risk. Recommend implementing a cryptographic signature check or comparing a trusted manifest prior to execution."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -54,7 +56,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 20,
+    "stars": 21,
     "forks": 4,
     "license": "MIT",
     "lastUpdated": "2026-08-05T11:44:28Z",

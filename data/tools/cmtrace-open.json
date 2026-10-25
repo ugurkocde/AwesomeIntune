@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Found a potential security risk pattern related to update-disabling via registry modification (reg.exe /reg:64) in installer policy tooling. Other analyzed components (review_state.py and nightly-channel.mjs) use standard admin tooling and do not exhibit obfuscated, exfiltrating, or credential-theft behaviors. Recommend governance around update-disable policies and ensure justification and security controls are in place.",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 292,
-    "forks": 15,
+    "stars": 317,
+    "forks": 20,
     "license": "MIT",
-    "lastUpdated": "2026-09-20T01:33:13Z",
+    "lastUpdated": "2026-10-22T19:36:35Z",
     "archived": false
   },
   "authors": [

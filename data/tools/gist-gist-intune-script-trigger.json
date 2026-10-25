@@ -27,17 +27,17 @@
     "passed": 5,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": true,
     "status": "failed",
-    "aiSummary": "The Gist Intune Script Trigger functions as a dynamic script launcher by presenting a catalog of remote scripts and executing the selected one. While this enables flexible admin tooling, it introduces a high-risk remote code execution pattern (Invoke-Expression on downloaded content) without validation or signing. Recommend tightening security by validating script integrity (code signing, hashes), avoiding Invoke-Expression, using safer loading methods (Import-Module, dot-sourcing with restricted scope), whitelisting trusted URLs, and integrating with Intune's approved script deployment mechanisms to minimize attack surface.",
+    "aiSummary": "High risk due to remote script execution from untrusted URLs via Invoke-Expression. The code itself does not harvest credentials or exfiltrate data, but it enables dynamic execution of external scripts, which can undermine security controls in an Intune environment. Recommend replacing dynamic remote script execution with signed, verified local scripts, eliminating Invoke-Expression, and adding strict allowlisting, integrity checks (hash verification), and comprehensive logging.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
         "passed": false,
-        "reason": "DownloadString execution in GistIntuneScriptTrigger.ps1 ([lines: 461](https://github.com/MrWyss-MSFT/gist/blob/main/GistIntuneScriptTrigger.ps1#L461))"
+        "reason": "DownloadString execution in GistIntuneScriptTrigger.ps1 ([lines: 469](https://github.com/MrWyss-MSFT/gist/blob/main/GistIntuneScriptTrigger.ps1#L469))"
       },
       "noCredentialTheft": {
         "passed": true
@@ -58,7 +58,7 @@
     "stars": 1,
     "forks": 2,
     "license": null,
-    "lastUpdated": "2026-03-22T16:07:47Z",
+    "lastUpdated": "2026-10-07T14:42:56Z",
     "archived": false
   },
   "authors": [

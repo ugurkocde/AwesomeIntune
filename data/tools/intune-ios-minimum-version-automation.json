@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The code is a legitimate Intune Graph API automation runbook. No malicious patterns detected. Primary security considerations center on secure handling of Azure Automation variables (client_secret), careful use of Graph beta endpoints (stability/permissions), and ensuring mail notifications do not leak sensitive data or reach unintended recipients.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

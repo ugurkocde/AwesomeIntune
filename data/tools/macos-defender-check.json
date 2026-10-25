@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 3,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "The Defender Check script is largely benign with respect to security, intended as a tamper protection test for Microsoft Defender for Endpoint on macOS. However, two notable concerns exist: (1) sensitive Org ID is logged locally which could expose tenant information if logs are not protected; (2) the tamper test can attempt to disable Real-Time Protection, which could be misused or become a risk if not properly controlled. No obfuscation, remote code execution, credential theft, data exfiltration to external endpoints, or hardcoded secrets were found.",
+    "aiSummary": "The macOS Defender Check script is a legitimate admin tool intended to verify Microsoft Defender for Endpoint Tamper Protection. It includes a controlled test that temporarily attempts to disable Real-Time Protection, which is expected to be gated by tamper protection. No obfuscated code, no credential harvesting, no remote code execution, no hardcoded secrets, and no external data exfiltration are detected.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

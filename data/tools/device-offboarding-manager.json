@@ -65,10 +65,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 12,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "The Playbooks largely implement standard Intune/Graph API inventory and reporting tasks without obvious malicious behavior. While none of the code contains obfuscated commands or explicit remote code execution, there are notable security considerations: broad exposure of device identifiers and inventory data in logs/UI, use of Graph beta endpoints across multiple scripts, and handling of highly sensitive recovery keys (BitLocker/FileVault) which could lead to data exposure if logs are not properly secured. Recommend restricting output to administrators, redacting PII where feasible, auditing access to sensitive reports, migrating to stable Graph endpoints (v1.0) where possible, and ensuring sensitive fields are not logged or exposed outside secure channels.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -92,8 +92,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 260,
-    "forks": 41,
+    "stars": 264,
+    "forks": 40,
     "license": "MIT",
     "lastUpdated": "2026-07-09T18:57:30Z",
     "archived": false

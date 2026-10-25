@@ -24,13 +24,13 @@
   "type": "web-app",
   "dateAdded": "2026-03-12",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 11,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Overall, the code implements a normal Intune/Graph-based LAPS self-service flow but presents notable security considerations: (1) plaintext LAPS passwords are sent in API responses, which is high risk and warrants design reconsideration; (2) justification and PII fields are logged to audit/storage and telemetry, presenting potential data exposure; (3) a minor validation edge case (MIN_JUSTIFICATION parsing) could bypass length checks if misconfigured. There are no obfuscated/remote code execution patterns or hardcoded secrets. Recommended mitigations focus on reducing credential exposure, redacting or encrypting sensitive data in logs/telemetry, tightening access controls to audit/telemetry stores, and validating environment-derived configuration robustly.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -39,8 +39,7 @@
         "passed": true
       },
       "noCredentialTheft": {
-        "passed": false,
-        "reason": "getLapsPassword decodes and returns the LAPS password as plaintext within the API response. The laps-password flow delivers the credential directly to the client (password field included in the JSON response). This creates a high-risk exposure scenario if the API is intercepted, logged, or leaked. Recommendation: avoid returning plaintext passwords in API responses; explore ephemeral or scope-limited credential delivery mechanisms, enforce strict transport security, and minimize exposure by restricting who can access the endpoint."
+        "passed": true
       },
       "noDataExfiltration": {
         "passed": true
@@ -55,7 +54,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 11,
+    "stars": 12,
     "forks": 3,
     "license": "MIT",
     "lastUpdated": "2026-05-18T03:26:38Z",

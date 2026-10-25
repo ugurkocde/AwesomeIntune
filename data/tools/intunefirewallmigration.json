@@ -52,13 +52,13 @@
     "screenshots/intunefirewallmigration/screenshot-1.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Intune management tool for migrating Windows Firewall rules to Microsoft Intune. Notable concerns include a self-relaunch mechanism to enforce PowerShell 5 compatibility (potential obfuscation/audit complexity), automatic Gallery module installation (supply-chain risk), and plaintext handling of appSecret/appId credentials (risk of secret leakage via logs/history). Recommend tightening credential handling (prefer certificate/auth vaults), pinning/verifying module sources, and documenting the PS-version behavior to aid audits.",
+    "status": "failed",
+    "aiSummary": "The codebase appears to be a legitimate Intune firewall migration tool with Graph integration and proper authentication flows overall. The most notable security concerns are a packaging misconfiguration in the module manifest (RootModule mismatch) that could block or redirect module loading, and the use of a command-line appSecret parameter which risks secret exposure. No obfuscated code, no data exfiltration, and no evident malicious behavior were detected. Recommended mitigations: fix the manifest RootModule to point to the correct file, review Private/Strings.ps1 for integrity, and adopt vault/cert-based authentication instead of passing app secrets on the command line. Ensure PSGallery module installation is signed and trusted to reduce supply-chain risk.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -73,7 +73,8 @@
         "passed": true
       },
       "noMaliciousPatterns": {
-        "passed": true
+        "passed": false,
+        "reason": "Module manifest RootModule points to 'IntuneFirewallRuleMigration.psm1' while the repository contains 'IntuneFirewallMigration.psm1'. This packaging misconfiguration could prevent the module from loading and executing as intended. If an attacker or a misbuild redirects tooling, it could introduce risk. Action: correct RootModule to the actual root module file and validate module import paths."
       },
       "noHardcodedSecrets": {
         "passed": true
@@ -82,7 +83,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 27,
+    "stars": 28,
     "forks": 1,
     "license": "MIT",
     "lastUpdated": "2026-07-01T07:54:35Z",

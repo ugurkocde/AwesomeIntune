@@ -57,13 +57,13 @@
     "screenshots/intune-prep-tool/screenshot-5.webp"
   ],
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 5,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "Overall assessment: The IntunePrepTool code demonstrates legitimate automation for Azure AD app registration and Graph interactions. Security concerns center on local credential storage (Credential Manager) for app secrets, and a remote-code-execution risk from downloading and executing external installers without integrity checks. Data exports to local CSVs may expose sensitive information on disk and should be reviewed for encryption/least-privilege. Broad Graph permissions require careful governance. No evidence of hardcoded secrets, exfiltration to external services, reverse shells, or credential family theft beyond legitimate credential storage. Recommend adding cryptographic integrity checks for downloads, minimizing privileged Graph scopes, securing local secret storage, and improving error handling clarity.",
+    "status": "failed",
+    "aiSummary": "The IntunePrepTool automates Graph app registrations, but contains notable security risks: plaintext persistence of OAuth client secrets (addAppRegPlainText.ps1), local credential storage in Windows Credential Manager (addAppReg.ps1), and remote artifact download/execution (MicrosoftDesktopApp.ps1). Additionally, there is a potential runtime issue in addAppReg.ps1 due to an undefined variable ($appID vs $appId) that could cause failures. Recommendations: remove plaintext secret exports, use secure vaults for secrets, constrain or remove local secret storage, implement integrity checks for remote downloads, and fix the variable name bug to ensure reliable operation.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,14 +81,15 @@
         "passed": true
       },
       "noHardcodedSecrets": {
-        "passed": true
+        "passed": false,
+        "reason": "OAuth client secret (generated at runtime) is persisted in plaintext to a CSV file located at C:\\Users\\<user>\\.IntunePrepTool\\<customername>.csv via the clientsecret field. This exposes sensitive credentials on disk and risks leakage if the machine is compromised or accessed by unauthorized users. Best practice is to avoid persisting secrets in plaintext; instead, store secrets in a secure vault (e.g., Azure Key Vault) or use a secure, access-controlled credential store."
       }
     },
     "notes": []
   },
   "repoStats": {
     "stars": 97,
-    "forks": 13,
+    "forks": 14,
     "license": "MIT",
     "lastUpdated": "2026-01-29T13:29:54Z",
     "archived": false

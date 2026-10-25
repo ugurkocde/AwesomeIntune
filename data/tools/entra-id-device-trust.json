@@ -44,10 +44,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 16,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The codebase appears to be a legitimate Microsoft Intune/Entra ID device trust utility with cryptographic signing for attestation, Graph API usage, and certificate-based operations. No remote script downloads or hardcoded secrets are present. Primary security considerations involve protecting the private signing keys, ensuring secure transmission and access controls for attestation endpoints, and sanitizing error information to avoid leaking internal details.",
+    "aiSummary": "No explicit malware patterns detected. The code implements a certificate-based device trust attestation workflow and uses Microsoft Graph API as expected for Intune-related tooling. Primary concerns center on protecting private signing keys, ensuring secure transmission of attestation data, and safeguarding authentication tokens.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true

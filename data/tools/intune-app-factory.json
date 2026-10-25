@@ -54,10 +54,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 22,
-    "lastChecked": "2026-09-20",
+    "lastChecked": "2026-10-25",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Overall assessment: The code appears to align with a standard Intune App Deployment Toolkit pattern and does not show obvious malicious behavior such as remote script execution, credential harvesting, or data exfiltration. The primary security concerns are the process-level execution policy bypass and the reliance on a locally loaded toolkit (AppDeployToolkitMain.ps1) which necessitates strong integrity controls (code signing, hashing, secure distribution). No direct use of Graph API, remote URLs, or credential theft patterns detected in the provided snippets.",
+    "aiSummary": "The provided code snippets resemble standard Intune App Deployment Toolkit usage with no remote code downloads, credential harvesting, or data exfiltration detected. Minor security considerations include process-scoped execution policy bypass and the presence of templated placeholder values that should not contain secrets. No hard-coded credentials are evident in these samples. Recommendations: sign scripts, minimize execution policy bypass, review uninstall flows for strict scoping and auditing, and ensure placeholders are replaced with safe values before deployment.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -81,7 +81,7 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 66,
+    "stars": 67,
     "forks": 16,
     "license": "MIT",
     "lastUpdated": "2024-09-10T22:42:31Z",
