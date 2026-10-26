@@ -1,7 +1,7 @@
 {
   "id": "apdp-deviceassociation-service",
   "name": "APDP-DeviceAssociation-Service",
-  "description": "APDP-DeviceAssociation-Service is a PowerShell-based tool that automates pre-association of Autopilot Device Preparation (APDP) devices. It pairs a client-side script with an Azure Automation runbook to collect device-link data during Windows OOBE, submit it to a webhook, and optionally assign an APDP profile to the device. The solution supports installation-media integration, local logging, and optional Teams notifications for administrator visibility.",
+  "description": "APDP-DeviceAssociation-Service pre-associates Windows Autopilot device preparation devices with Intune. A client script on the installation media collects device-link data during OOBE and posts it to an Azure Automation webhook, where a runbook creates the association and can assign an APDP profile and send Teams notifications. An optional switch removes existing Autopilot registrations, so review the configuration before using it in production.",
   "keywords": [
     "intune",
     "autopilot",
