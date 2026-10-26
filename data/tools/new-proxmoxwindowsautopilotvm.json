@@ -1,0 +1,71 @@
+{
+  "id": "new-proxmoxwindowsautopilotvm",
+  "name": "New-ProxmoxWindowsAutopilotVM",
+  "description": "Creates a Windows VM from a Proxmox template, configures CPU, memory and disk size, and enrolls it in Windows Autopilot. This automation streamlines lab and test deployments by provisioning VMs and automating Autopilot enrollment. Use it to validate Intune/Autopilot workflows and accelerate test environments.",
+  "keywords": [
+    "intune",
+    "automation",
+    "proxmox",
+    "windows-autopilot",
+    "vm-provisioning",
+    "powershell",
+    "lab-environment",
+    "testing"
+  ],
+  "author": "Maurice Flöthmann",
+  "authorPicture": "https://github.com/Mau2rice0.png",
+  "githubUrl": "https://github.com/Mau2rice0",
+  "linkedinUrl": "https://www.linkedin.com/in/maurice-flöthmann-268344276/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Mau2rice0/World-of-M365/tree/main/Intune/Automation/New-ProxmoxWindowsAutopilotVM",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 9,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "Security review highlights hardcoded secret usage (client secret) and use of a Beta Graph API endpoint. Additionally, operational logs may expose internal identifiers (tenant IDs and emails). Recommendations: migrate secret handling to secure storage or managed identity, avoid Beta endpoints for production tasks, and tighten logging to redact sensitive information.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 61,
+    "forks": 9,
+    "license": "MIT",
+    "lastUpdated": "2026-10-10T17:32:29Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Maurice Flöthmann",
+      "githubUrl": "https://github.com/Mau2rice0",
+      "picture": "https://github.com/Mau2rice0.png",
+      "linkedinUrl": "https://www.linkedin.com/in/maurice-flöthmann-268344276/"
+    }
+  ]
+}
