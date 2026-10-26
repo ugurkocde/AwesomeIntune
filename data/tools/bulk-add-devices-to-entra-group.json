@@ -1,0 +1,71 @@
+{
+  "id": "bulk-add-devices-to-entra-group",
+  "name": "Bulk Add Devices to Entra Group",
+  "description": "Bulk Add Devices to Entra Group is a PowerShell tool that adds devices to a Microsoft Entra ID group from a CSV or Excel file via Microsoft Graph. It accepts any identifier per row, auto-detects headers, and ranks candidates by last activity to select the most recently active device when duplicates exist. Includes duplicate handling, an exclusion group, dry-run reporting, an audit trail, and automatic installation of required modules for PowerShell 5.1 or 7.",
+  "keywords": [
+    "intune",
+    "entra",
+    "group-management",
+    "powershell",
+    "microsoft-graph",
+    "device-management",
+    "csv-excel",
+    "audit-log"
+  ],
+  "author": "Vlad Grigoroiu",
+  "authorPicture": "https://github.com/V-ManCode.png",
+  "githubUrl": "https://github.com/V-ManCode",
+  "linkedinUrl": "https://linkedin.com/in/vlad-grigoroiu",
+  "xUrl": "",
+  "repoUrl": "https://github.com/V-ManCode/Add-DevicesToEntraGroup",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 1,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The code is a standard Intune/Graph admin script with expected authentication flows. No obfuscated code, remote script execution, credential harvesting, or hardcoded secrets detected. The primary risk is logging of rich device identifiers and timestamps to local files; mitigate by restricting log access, masking sensitive fields, or offering an adjustable logging policy.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 1,
+    "license": "MIT",
+    "lastUpdated": "2026-10-18T06:40:27Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Vlad Grigoroiu",
+      "githubUrl": "https://github.com/V-ManCode",
+      "picture": "https://github.com/V-ManCode.png",
+      "linkedinUrl": "https://linkedin.com/in/vlad-grigoroiu"
+    }
+  ]
+}
