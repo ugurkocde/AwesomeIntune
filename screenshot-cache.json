@@ -13,6 +13,7 @@
     "https://www.msiinfo.com",
     "https://openintunebaseline.com",
     "https://www.osdeploy.com/",
+    "https://wherethemlogs.app",
     "https://www.wpninjas.ch/2021/05/automatic-intune-documentation-evolves-to-automatic-microsoft365-documentation/"
   ],
   "rejectedImages": [
@@ -37,7 +38,8 @@
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA003.png",
     "https://raw.githubusercontent.com/j0eyv/ConditionalAccessBaseline/main/Images/CA004.png",
     "https://raw.githubusercontent.com/foundry-osd/foundry/main/Assets/GitHub/readme-logo.png",
-    "https://raw.githubusercontent.com/roweski/basetune/main/docs/controls.png"
+    "https://raw.githubusercontent.com/roweski/basetune/main/docs/controls.png",
+    "https://raw.githubusercontent.com/JanicVerboon/APDP-DeviceAssociation-Service/main/SupportingFiles/SolutionOverview.png"
   ],
   "manualScreenshotsNeeded": [
     {
@@ -86,6 +88,12 @@
       "name": "AutopilotProfileFunctions",
       "id": "autopilotprofilefunctions",
       "url": "https://github.com/amirjs/AutopilotProfileFunctions",
+      "reason": "No images in README"
+    },
+    {
+      "name": "Bulk Add Devices to Entra Group",
+      "id": "bulk-add-devices-to-entra-group",
+      "url": "https://github.com/V-ManCode/Add-DevicesToEntraGroup",
       "reason": "No images in README"
     },
     {
@@ -407,6 +415,12 @@
       "reason": "No images in README"
     },
     {
+      "name": "New-ProxmoxWindowsAutopilotVM",
+      "id": "new-proxmoxwindowsautopilotvm",
+      "url": "https://github.com/Mau2rice0/World-of-M365/tree/main/Intune/Automation/New-ProxmoxWindowsAutopilotVM",
+      "reason": "No images in README"
+    },
+    {
       "name": "NukeTool",
       "id": "nuketool",
       "url": "https://www.nuketune.com/",
@@ -471,6 +485,12 @@
       "id": "toast-notification-creator-for-intune",
       "url": "https://github.com/AntoPorter/Intune-ToastNotifications",
       "reason": "No images in README"
+    },
+    {
+      "name": "Where Them Logs App",
+      "id": "where-them-logs-app",
+      "url": "https://wherethemlogs.app",
+      "reason": "Website blocked; No images in README"
     },
     {
       "name": "Windows Autopatch Fix",

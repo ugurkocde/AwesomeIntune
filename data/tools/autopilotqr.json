@@ -66,5 +66,8 @@
       "githubUrl": "https://github.com/Simsen/",
       "picture": "https://github.com/Simsen.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/autopilotqr/screenshot-1.png"
   ]
 }
