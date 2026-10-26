@@ -1,7 +1,7 @@
 {
   "id": "doctor-do",
   "name": "Doctor DO",
-  "description": "Doctor DO is a Microsoft Intune–focused diagnostics and optimization tool that monitors large device estates, tracks problems, and guides fixes to improve delivery optimization, cache server performance, and policy impact. It provides estate dashboards, per-site efficiency metrics, a prioritized list of critical device problems and fixes, and policy analytics to optimize update delivery and reduce WAN usage.",
+  "description": "Doctor DO diagnoses Windows Delivery Optimization on Intune-managed devices. The free DoctorDO PowerShell module checks a device's DO settings, download sources, peers, ports, proxies and Connected Cache, and writes an offline HTML or PDF report. The module is source-available under the PolyForm Shield license. A fleet console that runs in your own Azure, with per-site efficiency and fixes mapped to Intune settings, is in private preview.",
   "keywords": [
     "intune",
     "endpoint-management",

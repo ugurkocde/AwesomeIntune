@@ -1,7 +1,7 @@
 {
   "id": "where-them-logs-app",
   "name": "Where Them Logs App",
-  "description": "Where Them Logs App is a searchable catalog of application log file locations across Windows, macOS, and Linux. It prints each path exactly as the machine writes it, organized by vendor, app, installer type, and architecture for rapid incident response. Key features: live type-ahead search, platform/installer/architecture filtering, an admin portal with JSON import/export, and a seed dataset of vendors and apps. Built with Next.js and Cosmos DB on Azure.",
+  "description": "Where Them Logs App is a searchable catalog of where applications write their log files on Windows, macOS and Linux, including the Intune Management Extension, Company Portal and common third-party apps. Paths are shown verbatim with environment variables unexpanded, so they paste straight into remediation scripts. It also exposes a no-key MCP server for AI agents, and missing apps or wrong paths can be reported through GitHub issues.",
   "keywords": [
     "log-management",
     "log-paths",

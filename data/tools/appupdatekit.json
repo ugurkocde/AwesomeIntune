@@ -1,7 +1,7 @@
 {
   "id": "appupdatekit",
   "name": "AppUpdateKit",
-  "description": "AppUpdateKit is a Windows Intune Win32 app update toolkit that adds consent popups, postpone options with countdowns, progress and result notifications, and a restart prompt with a deadline. A GUI Builder automatically generates install, uninstall, detection and requirement scripts per app. Core logic in the _Kit centralizes popups, postpone rules, and restart behavior, with language-ready texts and per-app configuration.",
+  "description": "AppUpdateKit is a PowerShell toolkit for Intune Win32 app updates that ask the user first: a consent popup, postpone options with a countdown, progress and result notifications, and a restart prompt with a deadline. A GUI Builder generates the install, uninstall, detection and requirement scripts for each app. The Builder and full manual are in Dutch, while the popup texts shown to users are customizable.",
   "keywords": [
     "intune",
     "win32",
