@@ -1,0 +1,72 @@
+{
+  "id": "where-them-logs-app",
+  "name": "Where Them Logs App",
+  "description": "Where Them Logs App is a searchable catalog of application log file locations across Windows, macOS, and Linux. It prints each path exactly as the machine writes it, organized by vendor, app, installer type, and architecture for rapid incident response. Key features: live type-ahead search, platform/installer/architecture filtering, an admin portal with JSON import/export, and a seed dataset of vendors and apps. Built with Next.js and Cosmos DB on Azure.",
+  "keywords": [
+    "log-management",
+    "log-paths",
+    "windows",
+    "macos",
+    "linux",
+    "search",
+    "admin-portal",
+    "cosmosdb"
+  ],
+  "author": "Scott McAllister",
+  "authorPicture": "https://github.com/scotscottmca.png",
+  "githubUrl": "https://github.com/scotscottmca",
+  "linkedinUrl": "https://www.linkedin.com/in/scottmca/",
+  "xUrl": "https://x.com/ScotScottMcA",
+  "repoUrl": "https://github.com/scotscottmca/wherethemlogs.app",
+  "downloadUrl": "",
+  "websiteUrl": "https://wherethemlogs.app",
+  "category": "troubleshooting",
+  "type": "web-app",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 50,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No obfuscated code or remote code execution detected. Primary risks are information disclosure on the 403 admin page and potential data leakage through external sharing of log paths. Recommend tightening what is surfaced on error pages and auditing/public posting of internal log paths.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-10-07T08:17:36Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Scott McAllister",
+      "githubUrl": "https://github.com/scotscottmca",
+      "picture": "https://github.com/scotscottmca.png",
+      "linkedinUrl": "https://www.linkedin.com/in/scottmca/",
+      "xUrl": "https://x.com/ScotScottMcA"
+    }
+  ]
+}
