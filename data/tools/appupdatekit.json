@@ -1,0 +1,70 @@
+{
+  "id": "appupdatekit",
+  "name": "AppUpdateKit",
+  "description": "AppUpdateKit is a Windows Intune Win32 app update toolkit that adds consent popups, postpone options with countdowns, progress and result notifications, and a restart prompt with a deadline. A GUI Builder automatically generates install, uninstall, detection and requirement scripts per app. Core logic in the _Kit centralizes popups, postpone rules, and restart behavior, with language-ready texts and per-app configuration.",
+  "keywords": [
+    "intune",
+    "win32",
+    "appupdates",
+    "consent",
+    "postpone",
+    "countdown",
+    "restart",
+    "builder"
+  ],
+  "author": "Fonfey",
+  "authorPicture": "https://github.com/Fonfey.png",
+  "githubUrl": "https://github.com/Fonfey",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Fonfey/AppUpdateKit",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "packaging",
+  "type": "powershell-script",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 27,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "The AppUI-Launcher.ps1 code implements per-user UI interactions for app updates with scheduled tasks and VBScript launchers to run child PowerShell scripts. Notable security concerns include: policy-bypass execution and hidden process launching, which could be abused for stealth execution; ensure strict access controls, script signing, auditing of created scheduled tasks, and minimize use of bypass. No remote code fetch, no credential theft, and no hardcoded secrets observed here.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-10-26T10:04:53Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Fonfey",
+      "githubUrl": "https://github.com/Fonfey",
+      "picture": "https://github.com/Fonfey.png"
+    }
+  ]
+}
