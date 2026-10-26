@@ -1,0 +1,66 @@
+{
+  "id": "doctor-do",
+  "name": "Doctor DO",
+  "description": "Doctor DO is a Microsoft Intune–focused diagnostics and optimization tool that monitors large device estates, tracks problems, and guides fixes to improve delivery optimization, cache server performance, and policy impact. It provides estate dashboards, per-site efficiency metrics, a prioritized list of critical device problems and fixes, and policy analytics to optimize update delivery and reduce WAN usage.",
+  "keywords": [
+    "intune",
+    "endpoint-management",
+    "delivery-optimization",
+    "cache-server",
+    "policy-changes",
+    "device-fixes",
+    "site-efficiency",
+    "reporting"
+  ],
+  "author": "Maurice Daly",
+  "authorPicture": "https://github.com/maurice-daly.png",
+  "githubUrl": "https://github.com/maurice-daly",
+  "linkedinUrl": "https://ie.linkedin.com/in/mauricedaly",
+  "xUrl": "https://x.com/modaly_it",
+  "repoUrl": "",
+  "downloadUrl": "https://www.powershellgallery.com/packages/DoctorDO/1.0.0",
+  "websiteUrl": "https://www.doctor-do.com/overview/",
+  "category": "troubleshooting",
+  "type": "powershell-module",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 0,
+    "total": 6,
+    "filesScanned": 0,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "not_applicable",
+    "aiSummary": null,
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": null,
+  "authors": [
+    {
+      "name": "Maurice Daly",
+      "githubUrl": "https://github.com/maurice-daly",
+      "picture": "https://github.com/maurice-daly.png",
+      "linkedinUrl": "https://ie.linkedin.com/in/mauricedaly",
+      "xUrl": "https://x.com/modaly_it"
+    }
+  ]
+}
