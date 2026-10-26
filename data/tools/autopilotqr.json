@@ -1,0 +1,70 @@
+{
+  "id": "autopilotqr",
+  "name": "AutopilotQR",
+  "description": "AutopilotQR is a free, open-source browser app for Windows Autopilot device preparation - Device Association. Sign in with your Microsoft Entra tenant, scan the OOBE QR code, choose a policy, and pre-associate the device with Intune via Microsoft Graph without CSVs, USBs, or local installation. It runs entirely in your browser (MSAL PKCE) and can be self-hosted; early preview uses the Graph beta API and may change.",
+  "keywords": [
+    "intune",
+    "autopilot",
+    "device-association",
+    "graph-api",
+    "msal",
+    "self-hosted",
+    "browser-based",
+    "windows-autopilot"
+  ],
+  "author": "Simon Hartmann Eriksen",
+  "authorPicture": "https://github.com/Simsen.png",
+  "githubUrl": "https://github.com/Simsen/",
+  "linkedinUrl": "",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Simsen/AutopilotQR",
+  "downloadUrl": "",
+  "websiteUrl": "https://AutopilotQR.app",
+  "category": "configuration",
+  "type": "web-app",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 12,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 15,
+    "forks": 3,
+    "license": "MIT",
+    "lastUpdated": "2026-10-23T01:21:58Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Simon Hartmann Eriksen",
+      "githubUrl": "https://github.com/Simsen/",
+      "picture": "https://github.com/Simsen.png"
+    }
+  ]
+}
