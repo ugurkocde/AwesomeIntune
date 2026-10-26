@@ -1,0 +1,79 @@
+{
+  "id": "autopilotsnap",
+  "name": "AutopilotSnap",
+  "description": "AutopilotSnap is a free, browser-based tool for technicians preparing Windows devices. Scan the Windows Autopilot QR code, review the detected device, and generate a CSV (Manufacturer, Model, Serial) to upload to Intune as corporate device identifiers. No sign-in, no backend, and all data stays in your browser. This independent community project is not affiliated with or endorsed by Microsoft.",
+  "keywords": [
+    "intune",
+    "autopilot",
+    "qr-code",
+    "csv",
+    "corporate-device-identifiers",
+    "device-preparation",
+    "browser-based",
+    "zxing-wasm"
+  ],
+  "author": "Florian Salzmann",
+  "authorPicture": "https://github.com/JayRHa.png",
+  "githubUrl": "https://github.com/JayRHa",
+  "linkedinUrl": "https://www.linkedin.com/in/jannik-r/",
+  "xUrl": "https://x.com/jannik_reinhard",
+  "repoUrl": "https://github.com/FlorianSLZ/msn-AutopilotSnap",
+  "downloadUrl": "",
+  "websiteUrl": "https://autopilotsnap.msnugget.com/",
+  "category": "automation",
+  "type": "web-app",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 18,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-10-22T11:46:46Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Florian Salzmann",
+      "githubUrl": "https://github.com/FlorianSLZ",
+      "picture": "https://github.com/FlorianSLZ.png",
+      "linkedinUrl": "https://www.linkedin.com/in/fsalzmann",
+      "xUrl": "https://x.com/FlorianSLZ"
+    },
+    {
+      "name": "Jannik Reinhard",
+      "githubUrl": "https://github.com/JayRHa",
+      "picture": "https://github.com/JayRHa.png",
+      "linkedinUrl": "https://www.linkedin.com/in/jannik-r/",
+      "xUrl": "https://x.com/jannik_reinhard"
+    }
+  ]
+}
