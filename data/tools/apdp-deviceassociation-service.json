@@ -1,0 +1,72 @@
+{
+  "id": "apdp-deviceassociation-service",
+  "name": "APDP-DeviceAssociation-Service",
+  "description": "APDP-DeviceAssociation-Service is a PowerShell-based tool that automates pre-association of Autopilot Device Preparation (APDP) devices. It pairs a client-side script with an Azure Automation runbook to collect device-link data during Windows OOBE, submit it to a webhook, and optionally assign an APDP profile to the device. The solution supports installation-media integration, local logging, and optional Teams notifications for administrator visibility.",
+  "keywords": [
+    "intune",
+    "autopilot",
+    "device-association",
+    "powershell",
+    "azure-automation",
+    "webhook",
+    "oobe",
+    "teams"
+  ],
+  "author": "Janic Verboon",
+  "authorPicture": "https://github.com/JanicVerboon.png",
+  "githubUrl": "https://github.com/JanicVerboon",
+  "linkedinUrl": "https://www.linkedin.com/in/janic-verboon-04b11b114/",
+  "xUrl": "https://x.com/JanicVerboon",
+  "repoUrl": "https://github.com/JanicVerboon/APDP-DeviceAssociation-Service",
+  "downloadUrl": "",
+  "websiteUrl": "",
+  "category": "automation",
+  "type": "powershell-script",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 2,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No malicious patterns were detected. The code is aligned with legitimate Intune/Graph automation practices (managed identity, Graph API usage, Teams notifications). There are legitimate security considerations: data sent to Teams can expose inventory details; sensitive data is logged; ensure webhook endpoints are trusted and data minimization is applied. No hardcoded secrets observed beyond a configurable webhook placeholder that should be secured. Recommend tightening logging, validating webhook payload formats, and restricting external endpoints to reduce data exposure risk.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 2,
+    "forks": 0,
+    "license": "MIT",
+    "lastUpdated": "2026-09-30T15:03:11Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Janic Verboon",
+      "githubUrl": "https://github.com/JanicVerboon",
+      "picture": "https://github.com/JanicVerboon.png",
+      "linkedinUrl": "https://www.linkedin.com/in/janic-verboon-04b11b114/",
+      "xUrl": "https://x.com/JanicVerboon"
+    }
+  ]
+}
