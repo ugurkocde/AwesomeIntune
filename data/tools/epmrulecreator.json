@@ -1,0 +1,71 @@
+{
+  "id": "epmrulecreator",
+  "name": "EPMRuleCreator",
+  "description": "From a file to a Microsoft Intune Elevation Rule, EPMRuleCreator analyzes a file locally, shows file metadata and signing certificates, and helps generate and upload an EPM rule. It supports exporting certificates, choosing signature-based or hash-based matching, and can run in portable or per-user install with optional Explorer context menu integration. File analysis does not require sign-in or admin rights for basic use.",
+  "keywords": [
+    "intune",
+    "epm",
+    "elevation-rule",
+    "file-analysis",
+    "certificate-inspection",
+    "export-certificates",
+    "explorer-context-menu",
+    "portable-install"
+  ],
+  "author": "Mathias Borowicz",
+  "authorPicture": "https://github.com/mathiasborowicz.png",
+  "githubUrl": "https://github.com/mathiasborowicz",
+  "linkedinUrl": "https://www.linkedin.com/in/mathias-borowicz-050aa8152",
+  "xUrl": "",
+  "repoUrl": "https://github.com/mathiasborowicz/EPMRuleCreator",
+  "downloadUrl": "https://github.com/mathiasborowicz/EPMRuleCreator/releases",
+  "websiteUrl": "https://zerotruststories.com/epm-rule-creator/",
+  "category": "configuration",
+  "type": "desktop-app",
+  "dateAdded": "2026-10-26",
+  "securityCheck": {
+    "passed": 6,
+    "total": 6,
+    "filesScanned": 36,
+    "lastChecked": "2026-10-26",
+    "forceApproved": false,
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "checks": {
+      "noObfuscatedCode": {
+        "passed": true
+      },
+      "noRemoteExecution": {
+        "passed": true
+      },
+      "noCredentialTheft": {
+        "passed": true
+      },
+      "noDataExfiltration": {
+        "passed": true
+      },
+      "noMaliciousPatterns": {
+        "passed": true
+      },
+      "noHardcodedSecrets": {
+        "passed": true
+      }
+    },
+    "notes": []
+  },
+  "repoStats": {
+    "stars": 7,
+    "forks": 0,
+    "license": "GPL-3.0",
+    "lastUpdated": "2026-10-22T13:43:54Z",
+    "archived": false
+  },
+  "authors": [
+    {
+      "name": "Mathias Borowicz",
+      "githubUrl": "https://github.com/mathiasborowicz",
+      "picture": "https://github.com/mathiasborowicz.png",
+      "linkedinUrl": "https://www.linkedin.com/in/mathias-borowicz-050aa8152"
+    }
+  ]
+}
