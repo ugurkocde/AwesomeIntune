@@ -66,5 +66,9 @@
       "githubUrl": "https://github.com/Fonfey",
       "picture": "https://github.com/Fonfey.png"
     }
+  ],
+  "screenshots": [
+    "screenshots/appupdatekit/screenshot-1.webp",
+    "screenshots/appupdatekit/screenshot-2.webp"
   ]
 }
