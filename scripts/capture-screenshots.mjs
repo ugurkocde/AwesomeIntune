@@ -156,6 +156,7 @@ async function analyzeImageWithAI(imagePath) {
     const response = await openai.chat.completions.create({
       model: 'gpt-5.6-luna',
       max_completion_tokens: 500,
+      reasoning_effort: 'none',
       messages: [
         {
           role: 'user',
