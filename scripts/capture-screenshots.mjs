@@ -154,7 +154,7 @@ async function analyzeImageWithAI(imagePath) {
     const mimeType = imagePath.endsWith('.png') ? 'image/png' : 'image/jpeg';
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-5-nano',
+      model: 'gpt-5.6-luna',
       max_completion_tokens: 500,
       messages: [
         {
