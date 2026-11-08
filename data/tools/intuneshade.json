@@ -24,13 +24,13 @@
   "type": "web-app",
   "dateAdded": "2026-07-31",
   "securityCheck": {
-    "passed": 5,
+    "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-10-04",
+    "lastChecked": "2026-11-08",
     "forceApproved": false,
-    "status": "failed",
-    "aiSummary": "Data exfiltration risk identified: the tool transmits policy/tenant data to third-party AI providers for processing. Other observed code patterns align with a legitimate Intune management workflow, but governance around external data processing should be tightened.",
+    "status": "passed",
+    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -42,8 +42,7 @@
         "passed": true
       },
       "noDataExfiltration": {
-        "passed": false,
-        "reason": "The API forwards Intune policy data, tenant summaries, and related content to multiple external AI providers (Anthropic, OpenAI, Gemini, Azure OpenAI) for analysis or script generation. This constitutes data exfiltration risk: sensitive tenant data could be exposed to third-party services. Mitigate via data minimization, allowlisting/DPAs, required data handling controls, or consider on-premise/offline processing for highly sensitive data."
+        "passed": true
       },
       "noMaliciousPatterns": {
         "passed": true
@@ -56,9 +55,9 @@
   },
   "repoStats": {
     "stars": 0,
-    "forks": 0,
+    "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-09-22T11:08:28Z",
+    "lastUpdated": "2026-10-26T09:15:52Z",
     "archived": false
   },
   "authors": [

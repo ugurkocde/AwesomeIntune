@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 1,
-    "lastChecked": "2026-10-04",
+    "lastChecked": "2026-11-08",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "aiSummary": "No code snippet provided. Without the code, I cannot assess for obfuscation, remote code execution, credential theft, data exfiltration, malicious patterns, or hardcoded secrets. Please provide the PowerShell/Intune tool code (or sanitized version) to enable a security review.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,8 +54,8 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 94,
-    "forks": 12,
+    "stars": 96,
+    "forks": 15,
     "license": "MIT",
     "lastUpdated": "2026-09-07T04:43:51Z",
     "archived": false

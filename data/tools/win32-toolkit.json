@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-10-04",
+    "lastChecked": "2026-11-08",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "One moderate risk identified: ExecutionPolicy bypass usage in the launcher. No evidence of remote script downloads, credential harvesting, data exfiltration, reverse shells, or hardcoded secrets. The remaining code aligns with legitimate Intune PSADT tooling patterns.",
+    "aiSummary": "The codebase does not perform remote downloads or credential theft and contains no data exfiltration patterns. Two security concerns exist: (1) ExecutionPolicy.Bypass usage in the launcher, which can enable code execution outside policy controls, and (2) dot-sourcing of organization hook scripts from templates, posing a risk if assets/templates are compromised. Mitigations include signing/enforcing execution policies, asset integrity checks, and avoiding dynamic dot-sourcing of untrusted scripts.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
@@ -54,10 +54,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 20,
+    "stars": 24,
     "forks": 1,
     "license": "MIT",
-    "lastUpdated": "2026-09-07T13:14:21Z",
+    "lastUpdated": "2026-10-31T17:56:28Z",
     "archived": false
   },
   "authors": [

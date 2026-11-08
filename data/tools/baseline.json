@@ -27,10 +27,10 @@
     "passed": 6,
     "total": 6,
     "filesScanned": 2,
-    "lastChecked": "2026-10-04",
+    "lastChecked": "2026-11-08",
     "forceApproved": false,
     "status": "passed",
-    "aiSummary": "Code to analyze was not provided in the prompt. Please supply the script or module (e.g., .ps1) to perform a security review for Obfuscation, Remote code execution, Credential theft, Data exfiltration, Malicious patterns, and Hardcoded secrets. Without source, no findings can be determined.",
+    "aiSummary": "No code provided for analysis. Unable to assess security posture for the Baseline Intune tool without the source code.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
