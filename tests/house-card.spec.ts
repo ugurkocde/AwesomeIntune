@@ -45,6 +45,23 @@ test.describe("TenuVault placements", () => {
     );
   });
 
+  test("an unknown stored value is replaced by a fresh pick", async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      ([key]) => window.localStorage.setItem(key!, "toString"),
+      [MESSAGE_KEY],
+    );
+    await page.goto("/");
+    const row = page.locator("[data-house-card]");
+    await expect(row).not.toHaveAttribute("data-house-card", "pending");
+    const shown = await row.getAttribute("data-house-card");
+    expect(["restore", "free"]).toContain(shown);
+    expect(
+      await page.evaluate((key) => window.localStorage.getItem(key), MESSAGE_KEY),
+    ).toBe(shown);
+  });
+
   test("the house row sits between two rows of tools", async ({ page }) => {
     await page.goto("/");
     const row = page.locator("[data-house-card]");

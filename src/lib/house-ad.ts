@@ -95,8 +95,9 @@ export function pickHouseMessage(
 ): HouseMessage {
   try {
     const saved = storage?.getItem(HOUSE_MESSAGE_KEY);
-    if (saved && saved in HOUSE_MESSAGES) {
-      return HOUSE_MESSAGES[saved as HouseMessageId];
+    const known = HOUSE_MESSAGE_IDS.find((id) => id === saved);
+    if (known) {
+      return HOUSE_MESSAGES[known];
     }
   } catch {
     // Fall through to a fresh pick.
