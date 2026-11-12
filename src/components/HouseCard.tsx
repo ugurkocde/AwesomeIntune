@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   HOUSE_MESSAGES,
@@ -49,25 +50,34 @@ export function HouseCard({ placement, className = "" }: HouseCardProps) {
       className={`rounded-[14px] border border-[color:var(--border-subtle)] bg-[var(--bg-secondary)] p-5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] ${className}`}
     >
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
-        <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-semibold tracking-[0.08em] text-[var(--text-tertiary)] uppercase">
-            TenuVault · From the maker of Awesome Intune
-          </p>
-          <div className="mt-1.5 grid">
-            {MESSAGES.map((candidate) => (
-              <div
-                key={candidate.id}
-                aria-hidden={candidate.id !== message?.id}
-                className={stacked(candidate)}
-              >
-                <p className="font-display text-[17px] leading-tight font-bold text-[var(--text-primary)]">
-                  {candidate.headline}
-                </p>
-                <p className="mt-1.5 text-[13px] leading-[1.6] text-[var(--text-secondary)]">
-                  {candidate.body}
-                </p>
-              </div>
-            ))}
+        <div className="flex min-w-0 flex-1 items-start gap-4 sm:items-center">
+          <Image
+            src="/images/tenuvault-icon.svg"
+            alt=""
+            width={44}
+            height={44}
+            className="h-10 w-10 flex-none rounded-xl sm:h-11 sm:w-11"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-semibold tracking-[0.08em] text-[var(--text-tertiary)] uppercase">
+              TenuVault · From the maker of Awesome Intune
+            </p>
+            <div className="mt-1.5 grid">
+              {MESSAGES.map((candidate) => (
+                <div
+                  key={candidate.id}
+                  aria-hidden={candidate.id !== message?.id}
+                  className={stacked(candidate)}
+                >
+                  <p className="font-display text-[17px] leading-tight font-bold text-[var(--text-primary)]">
+                    {candidate.headline}
+                  </p>
+                  <p className="mt-1.5 text-[13px] leading-[1.6] text-[var(--text-secondary)]">
+                    {candidate.body}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="flex flex-none flex-wrap gap-2.5">
