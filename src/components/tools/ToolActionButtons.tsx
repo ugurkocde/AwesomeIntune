@@ -1,4 +1,5 @@
 import type { Tool } from "~/types/tool";
+import { listingLink } from "~/lib/house-ad";
 import { FavoriteButton } from "./FavoriteButton";
 
 interface ToolActionButtonsProps {
@@ -67,9 +68,10 @@ export function ToolActionButtons({ tool }: ToolActionButtonsProps) {
       {available.map((action, index) => (
         <a
           key={action.kind}
-          href={action.url}
+          {...(action.kind === "repo"
+            ? { href: action.url, rel: "noopener noreferrer" }
+            : listingLink(action.url, "tool_page"))}
           target="_blank"
-          rel="noopener noreferrer"
           className={`btn ${index === 0 ? "btn-primary" : "btn-secondary"} w-full`}
         >
           {ICONS[action.kind]}

@@ -7,6 +7,7 @@ import type { Tool } from "~/types/tool";
 import { TYPE_CONFIG, CATEGORY_CONFIG } from "~/lib/constants";
 import { trackToolClick, trackOutboundLink } from "~/lib/plausible";
 import { getToolAuthors, generateAuthorSlug, getToolSlug } from "~/lib/tools";
+import { listingLink } from "~/lib/house-ad";
 import { formatViewCount } from "~/hooks/useViewTracking";
 import { UpvoteButton } from "./UpvoteButton";
 import { FavoriteButton } from "./FavoriteButton";
@@ -478,9 +479,8 @@ export const ToolCard = memo(function ToolCard({
               )}
               {tool.downloadUrl && (
                 <a
-                  href={tool.downloadUrl}
+                  {...listingLink(tool.downloadUrl, "tool_card")}
                   target="_blank"
-                  rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.downloadUrl!)}
                   className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[opacity,transform] hover:opacity-90 active:scale-[0.98]"
                   style={{
@@ -506,9 +506,8 @@ export const ToolCard = memo(function ToolCard({
               )}
               {tool.websiteUrl && !tool.downloadUrl && (
                 <a
-                  href={tool.websiteUrl}
+                  {...listingLink(tool.websiteUrl, "tool_card")}
                   target="_blank"
-                  rel="noopener noreferrer"
                   onClick={() => handleOutboundClick(tool.websiteUrl!)}
                   className="relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-[opacity,transform] hover:opacity-90 active:scale-[0.98]"
                   style={{
