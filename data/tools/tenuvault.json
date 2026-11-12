@@ -1,7 +1,7 @@
 {
   "id": "tenuvault",
   "name": "TenuVault",
-  "description": "TenuVault is a desktop app for Windows and macOS that backs up and restores Microsoft Intune configuration through Microsoft Graph using your own delegated admin sign-in. It backs up Settings Catalog, compliance, endpoint security, Administrative Templates, scripts and other supported policy types with their assignments, stores backups encrypted with AES-256-GCM on your device (or in your own Azure storage on Pro and MSP), detects configuration drift and deploys OpenIntuneBaseline. The free Community plan covers one tenant with weekly backups and restores items as unassigned copies; paid Pro and MSP plans add daily schedules and in-place restore, and MSP adds cross-tenant recovery. TenuVault Desktop succeeds the original PowerShell script and hosted web portal, which remains available for existing users. Made by the maintainer of Awesome Intune.",
+  "description": "TenuVault is a desktop app for Windows and macOS that backs up, compares and restores Microsoft Intune configuration. It signs in as you through an app registration in your own tenant, so no third-party service holds your tenant data. A backup covers more than 40 Intune object types with their assignments, from Settings Catalog, compliance and endpoint security policies to scripts and enrollment profiles. Conditional Access policies can be included. Backups are encrypted on your device, or go to your own Azure storage on Pro and MSP. TenuVault also shows what changed between two backups, detects configuration drift, and deploys and validates OpenIntuneBaseline. The free Community plan covers one tenant with weekly backups and restores single items as unassigned copies. Pro and MSP add daily schedules, restore in place with assignments, drift revert and CIS Benchmark assessments, and MSP restores into other tenants. Made by the maintainer of Awesome Intune.",
   "keywords": [
     "intune",
     "backup",
@@ -26,7 +26,12 @@
     "desktop-app",
     "openintunebaseline",
     "restore deleted intune policy",
-    "intune cross-tenant restore"
+    "intune cross-tenant restore",
+    "intune drift detection",
+    "cis benchmark intune",
+    "deploy openintunebaseline",
+    "conditional access backup",
+    "macos"
   ],
   "author": "Ugur Koc",
   "authorPicture": "https://github.com/ugurkocde.png",
@@ -42,13 +47,22 @@
     "windows",
     "macos",
     "graph-api",
+    "settings-catalog",
     "configuration-profiles",
-    "compliance-policies"
+    "compliance-policies",
+    "security-baselines",
+    "remediation-scripts",
+    "app-protection-policies",
+    "autopilot",
+    "conditional-access"
   ],
   "dateAdded": "2026-01-04",
   "screenshots": [
     "screenshots/tenuvault/screenshot-1.webp",
-    "screenshots/tenuvault/screenshot-2.webp"
+    "screenshots/tenuvault/screenshot-2.webp",
+    "screenshots/tenuvault/screenshot-3.webp",
+    "screenshots/tenuvault/screenshot-4.webp",
+    "screenshots/tenuvault/screenshot-5.webp"
   ],
   "securityCheck": {
     "passed": 6,

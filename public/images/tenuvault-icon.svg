@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 100 824 824" width="824" height="824">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCFBF9"/>
+      <stop offset="1" stop-color="#ECE9E5"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#tile)"/>
+  <rect x="104" y="104" width="816" height="816" rx="181" fill="none" stroke="#786E64" stroke-opacity="0.16" stroke-width="8"/>
+  <g fill="#2B2927" fill-rule="evenodd">
+    <path d="M212 512a300 300 0 1 0 600 0a300 300 0 1 0 -600 0ZM274 512a238 238 0 1 0 476 0a238 238 0 1 0 -476 0Z"/>
+    <rect x="178" y="392" width="70" height="70" rx="18"/>
+    <rect x="178" y="562" width="70" height="70" rx="18"/>
+    <path opacity="0.14" d="M300 512a212 212 0 1 0 424 0a212 212 0 1 0 -424 0ZM316 512a196 196 0 1 0 392 0a196 196 0 1 0 -392 0Z"/>
+  </g>
+  <g fill="#E4674B">
+    <g><rect x="490" y="362" width="44" height="90"/><circle cx="512" cy="362" r="36"/></g>
+    <g transform="rotate(120 512 512)"><rect x="490" y="362" width="44" height="90"/><circle cx="512" cy="362" r="36"/></g>
+    <g transform="rotate(240 512 512)"><rect x="490" y="362" width="44" height="90"/><circle cx="512" cy="362" r="36"/></g>
+    <path fill-rule="evenodd" d="M434 512a78 78 0 1 0 156 0a78 78 0 1 0 -156 0ZM486 512a26 26 0 1 0 52 0a26 26 0 1 0 -52 0Z"/>
+  </g>
+</svg>
