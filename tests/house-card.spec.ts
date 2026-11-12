@@ -1,79 +1,127 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
-const MESSAGE_KEY = "awesome-intune-house-message";
+// The messages take turns by calendar day in Berlin. These two are
+// consecutive days, at noon.
+const DAY_ONE = new Date("2026-11-12T11:00:00Z");
+const DAY_TWO = new Date("2026-11-13T11:00:00Z");
+
+const FREE_URL = (campaign: string) =>
+  `https://www.tenuvault.com/download?utm_source=awesomeintune.com&utm_medium=house_ad&utm_campaign=${campaign}&utm_content=free_v1`;
+const RESTORE_URL = (campaign: string) =>
+  `https://www.tenuvault.com/intune-restore?utm_source=awesomeintune.com&utm_medium=house_ad&utm_campaign=${campaign}&utm_content=restore_v1`;
+
+async function openOn(page: Page, day: Date, path = "/") {
+  await page.clock.setFixedTime(day);
+  await page.goto(path);
+  const row = page.locator("[data-house-card]");
+  await expect(row).not.toHaveAttribute("data-house-card", "pending");
+  return row;
+}
 
 test.describe("TenuVault placements", () => {
-  test("the house row shows the visitor's stored message with a tagged link", async ({
+  test("the two messages take turns by day, each with its own tagged link", async ({
     page,
   }) => {
-    await page.addInitScript(
-      ([key]) => window.localStorage.setItem(key!, "free"),
-      [MESSAGE_KEY],
-    );
-    await page.goto("/");
+    const seen: Record<string, string | null> = {};
+    for (const day of [DAY_ONE, DAY_TWO]) {
+      const row = await openOn(page, day);
+      const id = (await row.getAttribute("data-house-card"))!;
+      const action = row.locator('a[target="_blank"]');
+      await expect(action).toBeVisible();
+      await expect(action).toHaveAttribute("rel", "sponsored noopener");
+      seen[id] = await action.getAttribute("href");
 
-    const row = page.locator('[data-house-card="free"]');
-    await expect(row).toBeVisible();
-    await expect(row).toContainText("From the maker of Awesome Intune");
-    await expect(row).toContainText("Back up your Intune tenant in minutes.");
+      await expect(row).toContainText("From the maker of Awesome Intune");
+      await expect(row.getByRole("link", { name: "Details" })).toHaveAttribute(
+        "href",
+        "/tools/tenuvault",
+      );
+      if (id === "free") {
+        await expect(
+          row.getByText("Back up your Intune configuration in minutes."),
+        ).toBeVisible();
+        await expect(
+          row.getByRole("link", { name: /^Download free/ }),
+        ).toBeVisible();
+        await expect(row.getByText("Deleted an Intune policy?")).toBeHidden();
+      } else {
+        await expect(
+          row.getByText("Deleted an Intune policy? Intune has no recycle bin."),
+        ).toBeVisible();
+        await expect(
+          row.getByRole("link", { name: /^See how restore works/ }),
+        ).toBeVisible();
+      }
+    }
+    expect(seen).toEqual({
+      free: FREE_URL("home_grid"),
+      restore: RESTORE_URL("home_grid"),
+    });
+  });
 
-    const action = row.getByRole("link", { name: "Download free" });
-    await expect(action).toHaveAttribute(
-      "href",
-      "https://www.tenuvault.com/download?utm_source=awesomeintune.com&utm_medium=house_ad&utm_campaign=home_grid&utm_content=free",
-    );
-    await expect(action).toHaveAttribute("rel", "sponsored noopener");
+  test("the whole Berlin day shows one message", async ({ page }) => {
+    const noon = await (
+      await openOn(page, DAY_ONE)
+    ).getAttribute("data-house-card");
+    // 00:30 and 23:30 Berlin time on the same day.
+    for (const time of ["2026-11-11T23:30:00Z", "2026-11-12T22:30:00Z"]) {
+      await expect(await openOn(page, new Date(time))).toHaveAttribute(
+        "data-house-card",
+        noon!,
+      );
+    }
     await expect(
-      row.getByRole("link", { name: "Directory entry" }),
-    ).toHaveAttribute("href", "/tools/tenuvault");
+      await openOn(page, new Date("2026-11-12T23:30:00Z")),
+    ).not.toHaveAttribute("data-house-card", noon!);
   });
 
-  test("a first visit picks one message and keeps it", async ({ page }) => {
-    await page.goto("/");
-    const row = page.locator("[data-house-card]");
-    await expect(row).not.toHaveAttribute("data-house-card", "pending");
-    const first = await row.getAttribute("data-house-card");
-    expect(["restore", "free"]).toContain(first);
-    expect(
-      await page.evaluate((key) => window.localStorage.getItem(key), MESSAGE_KEY),
-    ).toBe(first);
-
-    await page.reload();
-    await expect(page.locator("[data-house-card]")).toHaveAttribute(
-      "data-house-card",
-      first!,
-    );
+  test("nothing is stored in the browser for the message", async ({ page }) => {
+    await openOn(page, DAY_ONE);
+    const keys = await page.evaluate(() => Object.keys(window.localStorage));
+    expect(keys.filter((key) => /house|message/i.test(key))).toEqual([]);
   });
 
-  test("an unknown stored value is replaced by a fresh pick", async ({
-    page,
-  }) => {
-    await page.addInitScript(
-      ([key]) => window.localStorage.setItem(key!, "toString"),
-      [MESSAGE_KEY],
-    );
-    await page.goto("/");
-    const row = page.locator("[data-house-card]");
-    await expect(row).not.toHaveAttribute("data-house-card", "pending");
-    const shown = await row.getAttribute("data-house-card");
-    expect(["restore", "free"]).toContain(shown);
-    expect(
-      await page.evaluate((key) => window.localStorage.getItem(key), MESSAGE_KEY),
-    ).toBe(shown);
-  });
+  for (const width of [360, 414, 768, 1280]) {
+    test(`the tools below sit at the same place for either message at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      const offsets: number[] = [];
+      for (const day of [DAY_ONE, DAY_TWO]) {
+        const row = await openOn(page, day);
+        offsets.push(
+          await row.evaluate((node) => {
+            const box = node.getBoundingClientRect();
+            return Math.round(box.bottom + window.scrollY);
+          }),
+        );
+      }
+      expect(offsets[0]).toBe(offsets[1]);
+    });
+  }
 
   test("the house row sits between two rows of tools", async ({ page }) => {
-    await page.goto("/");
-    const row = page.locator("[data-house-card]");
-    await expect(row).toBeVisible();
-    const before = await row.evaluate(
-      (node) => node.parentElement!.querySelectorAll("article").length,
-    );
-    expect(before).toBeGreaterThan(6);
+    const row = await openOn(page, DAY_ONE);
     const position = await row.evaluate((node) =>
       Array.from(node.parentElement!.children).indexOf(node),
     );
     expect(position).toBe(6);
+    expect(
+      await row.evaluate(
+        (node) => node.parentElement!.querySelectorAll("article").length,
+      ),
+    ).toBeGreaterThan(6);
+  });
+
+  test("the list view shows the row with its own placement", async ({
+    page,
+  }) => {
+    await page.addInitScript(() =>
+      window.localStorage.setItem("awesome-intune-view-mode", "list"),
+    );
+    const row = await openOn(page, DAY_ONE);
+    const href = await row.locator('a[target="_blank"]').getAttribute("href");
+    expect([FREE_URL("home_list"), RESTORE_URL("home_list")]).toContain(href);
   });
 
   test("a search or a filter shows tools only", async ({ page }) => {
@@ -84,6 +132,18 @@ test.describe("TenuVault placements", () => {
     await page.goto("/?q=autopilot");
     await expect(page.locator("article").first()).toBeVisible();
     await expect(page.locator("[data-house-card]")).toHaveCount(0);
+  });
+
+  test("before the message is known the row offers no link to click", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto("/");
+    const row = page.locator("[data-house-card]");
+    await expect(row).toHaveAttribute("data-house-card", "pending");
+    await expect(row.locator('a[target="_blank"]')).toBeHidden();
+    await context.close();
   });
 
   test("the directory entry links to tenuvault.com with tags and a referrer", async ({
@@ -101,14 +161,42 @@ test.describe("TenuVault placements", () => {
     ).toHaveAttribute("rel", "noopener noreferrer");
   });
 
+  test("the entry's card and the comparison table are tagged too", async ({
+    page,
+  }) => {
+    await page.goto("/?q=tenuvault");
+    const card = page.locator("article", { hasText: "TenuVault" }).first();
+    await expect(card.getByRole("link", { name: "Download" })).toHaveAttribute(
+      "href",
+      "https://www.tenuvault.com/download?utm_source=awesomeintune.com&utm_medium=listing&utm_campaign=tool_card",
+    );
+
+    await page.goto("/compare?tools=tenuvault,intune-management");
+    await expect(
+      page.locator('a[href*="tenuvault.com"]').first(),
+    ).toHaveAttribute(
+      "href",
+      "https://www.tenuvault.com/intune-backup?utm_source=awesomeintune.com&utm_medium=listing&utm_campaign=compare",
+    );
+  });
+
   test("other tools keep their links untouched", async ({ page }) => {
     await page.goto("/tools/intune-management");
-    const links = page.locator('a[target="_blank"][href*="utm_source"]');
-    // Only the sponsor links in the footer are tagged on this page.
-    for (const href of await links.evaluateAll((nodes) =>
-      nodes.map((node) => node.getAttribute("href") ?? ""),
-    )) {
-      expect(href).toContain("utm_source=awesome_intune");
+    const hrefs = await page
+      .locator('a[target="_blank"]')
+      .evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          href: node.getAttribute("href") ?? "",
+          rel: node.getAttribute("rel") ?? "",
+        })),
+      );
+    expect(hrefs.length).toBeGreaterThan(0);
+    for (const { href, rel } of hrefs) {
+      expect(rel).toBe("noopener noreferrer");
+      // Only the sponsor links in the footer carry a tag on this page.
+      if (href.includes("utm_")) {
+        expect(href).toContain("utm_source=awesome_intune");
+      }
     }
   });
 });

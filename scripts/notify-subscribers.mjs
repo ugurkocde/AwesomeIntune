@@ -172,9 +172,9 @@ function formatType(type) {
 
 // Tagged so tenuvault.com can tell these visits from the directory's.
 const TENUVAULT_URL =
-  "https://www.tenuvault.com/?utm_source=awesomeintune.com&amp;utm_medium=newsletter&amp;utm_campaign=new_tools_email&amp;utm_content=free";
+  "https://www.tenuvault.com/?utm_source=awesomeintune.com&amp;utm_medium=newsletter&amp;utm_campaign=new_tools_email&amp;utm_content=newsletter_v1";
 
-export function generateEmailHtml(tools, unsubscribeUrl) {
+function generateEmailHtml(tools, unsubscribeUrl) {
   const toolCards = tools
     .map(
       (tool) => `

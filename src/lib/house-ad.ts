@@ -1,10 +1,10 @@
 // TenuVault is made by the maintainer of Awesome Intune. The directory shows
-// it in two ways: as a normal directory entry, and as one labelled card in the
-// tool grid. Both link to tenuvault.com with UTM parameters, so that site can
+// it in two ways: as a normal directory entry, and as one labelled row in the
+// tool list. Both link to tenuvault.com with UTM parameters, so that site can
 // tell which placement and which message a visitor came from.
 
 const TENUVAULT_ORIGIN = "https://www.tenuvault.com";
-const TENUVAULT_HOSTS = new Set(["tenuvault.com", "www.tenuvault.com"]);
+const TENUVAULT_DOMAIN = "tenuvault.com";
 const UTM_SOURCE = "awesomeintune.com";
 
 export type HouseMessageId = "restore" | "free";
@@ -13,6 +13,9 @@ export type ListingPlacement = "tool_card" | "tool_page" | "compare";
 
 export interface HouseMessage {
   id: HouseMessageId;
+  // Sent as utm_content and with the click event. The number goes up when
+  // the wording changes, so results for old and new wording stay apart.
+  tag: string;
   headline: string;
   body: string;
   action: string;
@@ -22,6 +25,7 @@ export interface HouseMessage {
 export const HOUSE_MESSAGES: Record<HouseMessageId, HouseMessage> = {
   restore: {
     id: "restore",
+    tag: "restore_v1",
     headline: "Deleted an Intune policy? Intune has no recycle bin.",
     body: "TenuVault backs up your Intune configuration and restores a deleted policy from the backup. Free for one tenant.",
     action: "See how restore works",
@@ -29,7 +33,8 @@ export const HOUSE_MESSAGES: Record<HouseMessageId, HouseMessage> = {
   },
   free: {
     id: "free",
-    headline: "Back up your Intune tenant in minutes.",
+    tag: "free_v1",
+    headline: "Back up your Intune configuration in minutes.",
     body: "TenuVault is a desktop app for Windows and macOS. Free for one tenant, with no card and no TenuVault account.",
     action: "Download free",
     path: "/download",
@@ -39,7 +44,6 @@ export const HOUSE_MESSAGES: Record<HouseMessageId, HouseMessage> = {
 export const HOUSE_MESSAGE_IDS = Object.keys(
   HOUSE_MESSAGES,
 ) as HouseMessageId[];
-export const HOUSE_MESSAGE_KEY = "awesome-intune-house-message";
 
 function tagged(
   url: URL,
@@ -62,13 +66,20 @@ export function houseAdUrl(
     new URL(message.path, TENUVAULT_ORIGIN),
     "house_ad",
     placement,
-    message.id,
+    message.tag,
   );
 }
 
+function isTenuVault(url: URL): boolean {
+  if (url.protocol !== "https:" && url.protocol !== "http:") return false;
+  const host = url.hostname.replace(/\.$/, "");
+  return host === TENUVAULT_DOMAIN || host.endsWith(`.${TENUVAULT_DOMAIN}`);
+}
+
 // A directory entry's own links. Links to other sites stay exactly as their
-// authors submitted them and send no referrer. Links to tenuvault.com are
-// tagged and keep the referrer, because both sites have the same owner.
+// authors submitted them and send no referrer. Links to tenuvault.com and its
+// subdomains are tagged and keep the referrer, because both sites have the
+// same owner.
 export function listingLink(
   url: string,
   placement: ListingPlacement,
@@ -80,37 +91,24 @@ export function listingLink(
   } catch {
     return untouched;
   }
-  if (!TENUVAULT_HOSTS.has(parsed.hostname)) return untouched;
+  if (!isTenuVault(parsed)) return untouched;
   return { href: tagged(parsed, "listing", placement), rel: "noopener" };
 }
 
-type MessageStorage = Pick<Storage, "getItem" | "setItem">;
+const BERLIN_DATE = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Europe/Berlin",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
 
-// Each visitor gets one of the messages at random and keeps it, so a click or
-// a download can be credited to one message. Without usable storage the
-// message is picked again on every page load.
-export function pickHouseMessage(
-  storage: MessageStorage | undefined,
-  random: () => number = Math.random,
-): HouseMessage {
-  try {
-    const saved = storage?.getItem(HOUSE_MESSAGE_KEY);
-    const known = HOUSE_MESSAGE_IDS.find((id) => id === saved);
-    if (known) {
-      return HOUSE_MESSAGES[known];
-    }
-  } catch {
-    // Fall through to a fresh pick.
-  }
-  const index = Math.min(
-    HOUSE_MESSAGE_IDS.length - 1,
-    Math.floor(random() * HOUSE_MESSAGE_IDS.length),
-  );
-  const picked = HOUSE_MESSAGES[HOUSE_MESSAGE_IDS[index]!];
-  try {
-    storage?.setItem(HOUSE_MESSAGE_KEY, picked.id);
-  } catch {
-    // The pick still holds for this page view.
-  }
-  return picked;
+// The messages take turns by calendar day (Berlin time), so each one is shown
+// on every weekday over two weeks and their clicks can be compared. Nothing
+// is stored in the visitor's browser for this.
+export function houseMessageFor(now: Date): HouseMessage {
+  const [year, month, day] = BERLIN_DATE.format(now).split("-").map(Number);
+  const dayNumber = Math.round(Date.UTC(year!, month! - 1, day) / 86_400_000);
+  return HOUSE_MESSAGES[
+    HOUSE_MESSAGE_IDS[dayNumber % HOUSE_MESSAGE_IDS.length]!
+  ];
 }
