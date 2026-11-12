@@ -95,20 +95,32 @@ export function listingLink(
   return { href: tagged(parsed, "listing", placement), rel: "noopener" };
 }
 
-const BERLIN_DATE = new Intl.DateTimeFormat("en-CA", {
-  timeZone: "Europe/Berlin",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-});
-
 // The messages take turns by calendar day (Berlin time), so each one is shown
 // on every weekday over two weeks and their clicks can be compared. Nothing
 // is stored in the visitor's browser for this.
 export function houseMessageFor(now: Date): HouseMessage {
-  const [year, month, day] = BERLIN_DATE.format(now).split("-").map(Number);
-  const dayNumber = Math.round(Date.UTC(year!, month! - 1, day) / 86_400_000);
-  return HOUSE_MESSAGES[
-    HOUSE_MESSAGE_IDS[dayNumber % HOUSE_MESSAGE_IDS.length]!
-  ];
+  return HOUSE_MESSAGES[HOUSE_MESSAGE_IDS[dayIndex(now)]!];
+}
+
+function dayIndex(now: Date): number {
+  const count = HOUSE_MESSAGE_IDS.length;
+  let dayNumber: number;
+  try {
+    // Read the parts by name: the layout of a formatted date string is locale
+    // data, not something to rely on.
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Berlin",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(now);
+    const part = (type: "year" | "month" | "day") =>
+      Number(parts.find((p) => p.type === type)?.value);
+    dayNumber = Date.UTC(part("year"), part("month") - 1, part("day"));
+  } catch {
+    // A browser without time zone data falls back to the UTC day.
+    dayNumber = now.getTime();
+  }
+  const day = Math.floor(dayNumber / 86_400_000);
+  return Number.isFinite(day) ? ((day % count) + count) % count : 0;
 }

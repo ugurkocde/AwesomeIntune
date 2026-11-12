@@ -142,7 +142,13 @@ test.describe("TenuVault placements", () => {
     await page.goto("/");
     const row = page.locator("[data-house-card]");
     await expect(row).toHaveAttribute("data-house-card", "pending");
-    await expect(row.locator('a[target="_blank"]')).toBeHidden();
+    // Without JavaScript the whole directory section stays hidden, so the
+    // link's own style is checked: it must be hidden by itself.
+    expect(
+      await row
+        .locator('a[target="_blank"]')
+        .evaluate((node) => getComputedStyle(node).visibility),
+    ).toBe("hidden");
     await context.close();
   });
 

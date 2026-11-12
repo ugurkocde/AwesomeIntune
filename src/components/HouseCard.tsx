@@ -82,7 +82,7 @@ export function HouseCard({ placement, className = "" }: HouseCardProps) {
             target="_blank"
             rel="sponsored noopener"
             onClick={() => trackHouseAdClick(link.tag, placement)}
-            className={`grid flex-1 rounded-xl border border-[color:var(--border-accent)] px-4 py-2.5 text-sm font-medium whitespace-nowrap text-[var(--accent-primary)] transition-[background-color,opacity] duration-300 hover:bg-[var(--accent-glow)] ${
+            className={`grid flex-1 rounded-xl border border-[color:var(--accent-primary)] px-4 py-2.5 text-sm font-medium whitespace-nowrap text-[var(--accent-primary)] transition-[background-color,color,opacity] duration-300 hover:bg-[var(--accent-glow)] hover:text-[var(--accent-secondary)] ${
               message ? "opacity-100" : "invisible opacity-0"
             }`}
           >
