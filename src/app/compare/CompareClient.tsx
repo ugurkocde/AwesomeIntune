@@ -9,6 +9,7 @@ import {
   WORKS_WITH_CONFIG,
 } from "~/lib/constants";
 import { getToolSlug } from "~/lib/tools";
+import { listingLink } from "~/lib/house-ad";
 
 const MAX_TOOLS = 3;
 
@@ -80,9 +81,8 @@ const ROWS: Array<{ label: string; value: (tool: Tool) => React.ReactNode }> = [
         )}
         {tool.websiteUrl && (
           <a
-            href={tool.websiteUrl}
+            {...listingLink(tool.websiteUrl, "compare")}
             target="_blank"
-            rel="noopener noreferrer"
             className="font-semibold text-[var(--accent-primary)] hover:underline"
           >
             Website

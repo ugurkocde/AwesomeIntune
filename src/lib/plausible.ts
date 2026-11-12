@@ -16,6 +16,7 @@ type PlausibleEvents = {
   "Category Filter": { category: string };
   "File Download": { file: string };
   "Sponsor Click": { sponsor: string; location: string };
+  "House Ad Click": { message: string; placement: string };
 };
 
 export function trackEvent<T extends keyof PlausibleEvents>(
@@ -53,4 +54,8 @@ export function trackCategoryFilter(category: string): void {
 
 export function trackSponsorClick(sponsor: string, location: string): void {
   trackEvent("Sponsor Click", { sponsor, location });
+}
+
+export function trackHouseAdClick(message: string, placement: string): void {
+  trackEvent("House Ad Click", { message, placement });
 }

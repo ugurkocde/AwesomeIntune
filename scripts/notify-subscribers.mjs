@@ -170,7 +170,11 @@ function formatType(type) {
   return typeLabels[type] || type;
 }
 
-function generateEmailHtml(tools, unsubscribeUrl) {
+// Tagged so tenuvault.com can tell these visits from the directory's.
+const TENUVAULT_URL =
+  "https://www.tenuvault.com/?utm_source=awesomeintune.com&amp;utm_medium=newsletter&amp;utm_campaign=new_tools_email&amp;utm_content=free";
+
+export function generateEmailHtml(tools, unsubscribeUrl) {
   const toolCards = tools
     .map(
       (tool) => `
@@ -236,6 +240,11 @@ function generateEmailHtml(tools, unsubscribeUrl) {
 
     <!-- Divider -->
     <hr style="border: none; border-top: 1px solid #262626; margin: 40px 0;">
+
+    <!-- The maintainer's own product, labelled as such -->
+    <p style="color: #a3a3a3; font-size: 14px; line-height: 22px; text-align: center; margin: 0 0 32px;">
+      From the maker of Awesome Intune: <a href="${TENUVAULT_URL}" style="color: #00d4ff; text-decoration: none;">TenuVault</a> backs up your Intune configuration and restores deleted policies. Free for one tenant.
+    </p>
 
     <!-- Footer -->
     <div style="text-align: center;">

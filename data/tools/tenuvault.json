@@ -36,7 +36,7 @@
   "repoUrl": "https://github.com/ugurkocde/TenuVault",
   "downloadUrl": "https://www.tenuvault.com/download",
   "websiteUrl": "https://www.tenuvault.com/intune-backup",
-  "category": "automation",
+  "category": "configuration",
   "type": "desktop-app",
   "worksWith": [
     "windows",

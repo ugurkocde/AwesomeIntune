@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import {
+  Fragment,
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { Tool } from "~/types/tool";
@@ -15,6 +22,7 @@ import { FilterDrawer } from "./FilterSidebar";
 import { ViewToggle } from "./ViewToggle";
 import { ToolCard } from "./ToolCard";
 import { ToolListItem } from "./ToolListItem";
+import { HouseCard } from "../HouseCard";
 import { LoadMoreButton } from "./LoadMoreButton";
 import { SearchBar } from "./SearchBar";
 import { SearchProgress } from "./SearchProgress";
@@ -22,6 +30,9 @@ import { SearchProgress } from "./SearchProgress";
 const INITIAL_LOAD = 9;
 const LOAD_MORE_COUNT = 9;
 const SCROLL_STATE_KEY = "tools-list-scroll-state";
+// After two rows of three and three rows of two, so the row never splits a
+// row of tools.
+const HOUSE_CARD_INDEX = 6;
 
 interface ScrollState {
   scrollPosition: number;
@@ -297,6 +308,12 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
 
   const hasMore = displayCount < unifiedTools.length;
 
+  // The card for the maintainer's own product sits in the unfiltered
+  // directory only. Someone who searches or filters asked for something
+  // specific, and gets exactly that.
+  const showHouseCard =
+    !hasActiveFilters && displayedTools.length > HOUSE_CARD_INDEX;
+
   // Load more handler
   const loadMore = useCallback(() => {
     if (isLoadingMore || !hasMore) return;
@@ -531,19 +548,26 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 {viewMode === "grid" && (
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                     {displayedTools.map((tool, index) => (
-                      <ToolCard
-                        key={tool.id}
-                        tool={tool}
-                        index={index}
-                        isRelatedMatch={additionalAiIdSet.has(tool.id)}
-                        viewCount={viewCounts[tool.id]}
-                        onVisible={recordView}
-                        voteCount={voteCounts[tool.id] ?? 0}
-                        hasVoted={hasVoted(tool.id)}
-                        isVotePending={isVotePending(tool.id)}
-                        onVote={vote}
-                        onBeforeNavigate={handleBeforeNavigate}
-                      />
+                      <Fragment key={tool.id}>
+                        {showHouseCard && index === HOUSE_CARD_INDEX && (
+                          <HouseCard
+                            placement="home_grid"
+                            className="md:col-span-2 xl:col-span-3"
+                          />
+                        )}
+                        <ToolCard
+                          tool={tool}
+                          index={index}
+                          isRelatedMatch={additionalAiIdSet.has(tool.id)}
+                          viewCount={viewCounts[tool.id]}
+                          onVisible={recordView}
+                          voteCount={voteCounts[tool.id] ?? 0}
+                          hasVoted={hasVoted(tool.id)}
+                          isVotePending={isVotePending(tool.id)}
+                          onVote={vote}
+                          onBeforeNavigate={handleBeforeNavigate}
+                        />
+                      </Fragment>
                     ))}
                   </div>
                 )}
@@ -551,19 +575,23 @@ export function BrowseToolsSection({ tools }: BrowseToolsSectionProps) {
                 {viewMode === "list" && (
                   <div className="space-y-3">
                     {displayedTools.map((tool, index) => (
-                      <ToolListItem
-                        key={tool.id}
-                        tool={tool}
-                        index={index}
-                        isRelatedMatch={additionalAiIdSet.has(tool.id)}
-                        viewCount={viewCounts[tool.id]}
-                        onVisible={recordView}
-                        voteCount={voteCounts[tool.id] ?? 0}
-                        hasVoted={hasVoted(tool.id)}
-                        isVotePending={isVotePending(tool.id)}
-                        onVote={vote}
-                        onBeforeNavigate={handleBeforeNavigate}
-                      />
+                      <Fragment key={tool.id}>
+                        {showHouseCard && index === HOUSE_CARD_INDEX && (
+                          <HouseCard placement="home_list" />
+                        )}
+                        <ToolListItem
+                          tool={tool}
+                          index={index}
+                          isRelatedMatch={additionalAiIdSet.has(tool.id)}
+                          viewCount={viewCounts[tool.id]}
+                          onVisible={recordView}
+                          voteCount={voteCounts[tool.id] ?? 0}
+                          hasVoted={hasVoted(tool.id)}
+                          isVotePending={isVotePending(tool.id)}
+                          onVote={vote}
+                          onBeforeNavigate={handleBeforeNavigate}
+                        />
+                      </Fragment>
                     ))}
                   </div>
                 )}
