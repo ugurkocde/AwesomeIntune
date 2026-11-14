@@ -4,4 +4,4 @@ export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const AI_MODEL = "gpt-5-nano";
+export const AI_MODEL = "gpt-5.6-luna";

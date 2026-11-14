@@ -261,7 +261,7 @@ jobs:
 
               try {
                 const response = await openai.chat.completions.create({
-                  model: 'gpt-5-nano',
+                  model: 'gpt-5.6-luna',
                   response_format: { type: 'json_object' },
                   messages: [
                     { role: 'system', content: 'You are an expert at cataloging Microsoft Intune and endpoint management tools. Always respond with valid JSON.' },
