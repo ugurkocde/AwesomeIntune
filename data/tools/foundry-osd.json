@@ -20,19 +20,20 @@
   "type": "desktop-app",
   "dateAdded": "2026-09-13",
   "securityCheck": {
-    "passed": 6,
+    "passed": 5,
     "total": 6,
     "filesScanned": 50,
-    "lastChecked": "2026-10-18",
+    "lastChecked": "2026-11-22",
     "forceApproved": false,
-    "status": "passed",
-    "aiSummary": "No security issues detected. Code appears safe for an Intune management tool.",
+    "status": "failed",
+    "aiSummary": "No obfuscated code or direct credential harvesting evident. The codebase primarily uses standard admin tooling for building and packaging artifacts. The primary security concern centers on the Velopack workflow (Publish-FoundryVelopack.ps1) due to supply-chain risk and potential credential exposure when using tokens on the command line. Recommend adding integrity/signature checks and safer token handling. Other scripts appear to perform local build/publish tasks without remote execution or data exfiltration.",
     "checks": {
       "noObfuscatedCode": {
         "passed": true
       },
       "noRemoteExecution": {
-        "passed": true
+        "passed": false,
+        "reason": "Velopack packaging workflow downloads previous releases from a remote Velopack feed and builds MSI packages without explicit integrity verification or signature checks. If the feed is compromised or serves tainted artifacts, malicious installers could be produced and distributed, enabling potential compromise on target endpoints. Recommend implementing artifact signing, hash verification, TLS pinning, and explicit integrity checks before packaging or deployment."
       },
       "noCredentialTheft": {
         "passed": true
@@ -50,10 +51,10 @@
     "notes": []
   },
   "repoStats": {
-    "stars": 88,
-    "forks": 7,
+    "stars": 99,
+    "forks": 8,
     "license": "MIT",
-    "lastUpdated": "2026-10-17T21:43:51Z",
+    "lastUpdated": "2026-11-19T20:01:48Z",
     "archived": false
   },
   "authors": [
