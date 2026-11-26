@@ -29,29 +29,44 @@ let cachedRequests: ToolRequestWithVotes[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 30 * 1000; // 30 seconds cache
 
+// Public idea list. POST stays uncached. Status sync still runs on CDN revalidation.
+const GET_CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+// Degraded or read-your-writes responses must not be stored on the shared cache.
+const PRIVATE_NO_STORE = "private, no-store";
+
+function isDefaultList(
+  status: string | null,
+  category: string | null,
+  sort: string
+): boolean {
+  return !status && !category && sort === "votes";
+}
+
 // GET - Fetch all tool requests with vote counts
 export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const status = searchParams.get("status");
-    const category = searchParams.get("category");
-    const sort = searchParams.get("sort") ?? "votes"; // 'votes' or 'newest'
+  const { searchParams } = new URL(request.url);
+  const status = searchParams.get("status");
+  const category = searchParams.get("category");
+  const sort = searchParams.get("sort") ?? "votes"; // 'votes' or 'newest'
+  // Post-submit refresh adds `fresh` so it misses the shared CDN entry.
+  const bypassCache = searchParams.has("fresh");
+  const defaultList = isDefaultList(status, category, sort);
 
+  try {
     const now = Date.now();
 
     // Return cached value if still valid and no specific filters
     if (
+      !bypassCache &&
       cachedRequests !== null &&
       now - cacheTimestamp < CACHE_DURATION_MS &&
-      !status &&
-      !category &&
-      sort === "votes"
+      defaultList
     ) {
       return NextResponse.json(
         { requests: cachedRequests, total: cachedRequests.length },
         {
           headers: {
-            "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+            "Cache-Control": GET_CACHE_CONTROL,
           },
         }
       );
@@ -129,12 +144,21 @@ export async function GET(request: NextRequest) {
 
     if (voteError) {
       console.error("Error fetching vote counts:", voteError);
+      // A previous complete default list is safe to show, but must not refresh the CDN.
+      if (!bypassCache && defaultList && cachedRequests !== null) {
+        return NextResponse.json(
+          { requests: cachedRequests, total: cachedRequests.length },
+          { headers: { "Cache-Control": PRIVATE_NO_STORE } }
+        );
+      }
     }
 
     // Create vote count map
     const voteCountMap: Record<string, number> = {};
-    for (const row of (voteCounts as VoteCountRow[]) ?? []) {
-      voteCountMap[row.request_id] = row.vote_count;
+    if (!voteError) {
+      for (const row of (voteCounts as VoteCountRow[]) ?? []) {
+        voteCountMap[row.request_id] = row.vote_count;
+      }
     }
 
     // Combine requests with vote counts
@@ -146,12 +170,12 @@ export async function GET(request: NextRequest) {
     }));
 
     // Sort by votes if requested
-    if (sort === "votes") {
+    if (sort === "votes" && !voteError) {
       requestsWithVotes.sort((a, b) => b.vote_count - a.vote_count);
     }
 
-    // Update cache if no filters
-    if (!status && !category && sort === "votes") {
+    // Only a complete default list may seed the in-memory cache.
+    if (!voteError && defaultList) {
       cachedRequests = requestsWithVotes;
       cacheTimestamp = now;
     }
@@ -160,20 +184,21 @@ export async function GET(request: NextRequest) {
       { requests: requestsWithVotes, total: requestsWithVotes.length },
       {
         headers: {
-          "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+          "Cache-Control":
+            bypassCache || voteError ? PRIVATE_NO_STORE : GET_CACHE_CONTROL,
         },
       }
     );
   } catch (error) {
     console.error("Error in GET /api/ideas:", error);
 
-    // Return cached data if available, even if stale
-    if (cachedRequests !== null) {
+    // The snapshot is the unfiltered votes list. Never store it under another URL.
+    if (!bypassCache && defaultList && cachedRequests !== null) {
       return NextResponse.json(
         { requests: cachedRequests, total: cachedRequests.length },
         {
           headers: {
-            "Cache-Control": "public, max-age=15",
+            "Cache-Control": PRIVATE_NO_STORE,
           },
         }
       );

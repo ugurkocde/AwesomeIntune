@@ -12,6 +12,11 @@ let cachedStats: { toolCount: number; totalViews: number } | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 60 * 1000; // 60 seconds cache
 
+// Shared CDN cache. max-age alone is browser-only and still invokes the function.
+const CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+// A failed read must not replace the shared entry or extend its freshness.
+const PRIVATE_NO_STORE = "private, no-store";
+
 async function fetchTotalViews(): Promise<number> {
   const { data, error } = await supabase
     .from("tool_view_counts")
@@ -19,7 +24,7 @@ async function fetchTotalViews(): Promise<number> {
 
   if (error) {
     console.error("Error fetching view counts:", error);
-    return 0;
+    throw error;
   }
 
   // Sum all view counts
@@ -37,7 +42,7 @@ export async function GET() {
     if (cachedStats !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+          "Cache-Control": CACHE_CONTROL,
         },
       });
     }
@@ -59,17 +64,17 @@ export async function GET() {
 
     return NextResponse.json(stats, {
       headers: {
-        "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+        "Cache-Control": CACHE_CONTROL,
       },
     });
   } catch (error) {
     console.error("Error in GET /api/stats:", error);
 
-    // Return cached data if available, even if stale
+    // Last successful snapshot only. Do not renew the shared cache from a failure.
     if (cachedStats !== null) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30",
+          "Cache-Control": PRIVATE_NO_STORE,
         },
       });
     }

@@ -6,13 +6,23 @@ let cachedCount: number | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
 
+// Public aggregate. Do not CDN-cache a fallback 0 when the database is down.
+const CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+
+function jsonCount(count: number, cache: boolean) {
+  return NextResponse.json(
+    { count },
+    cache ? { headers: { "Cache-Control": CACHE_CONTROL } } : undefined
+  );
+}
+
 export async function GET() {
   try {
     const now = Date.now();
 
     // Return cached value if still valid
     if (cachedCount !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
-      return NextResponse.json({ count: cachedCount });
+      return jsonCount(cachedCount, true);
     }
 
     // Query total subscribers count (all email addresses)
@@ -23,16 +33,22 @@ export async function GET() {
     if (error) {
       console.error("Failed to fetch subscriber count:", error);
       // Return cached value if available, otherwise 0
-      return NextResponse.json({ count: cachedCount ?? 0 });
+      if (cachedCount !== null) {
+        return jsonCount(cachedCount, true);
+      }
+      return jsonCount(0, false);
     }
 
     // Update cache
     cachedCount = count ?? 0;
     cacheTimestamp = now;
 
-    return NextResponse.json({ count: cachedCount });
+    return jsonCount(cachedCount, true);
   } catch (error) {
     console.error("Subscriber count error:", error);
-    return NextResponse.json({ count: cachedCount ?? 0 });
+    if (cachedCount !== null) {
+      return jsonCount(cachedCount, true);
+    }
+    return jsonCount(0, false);
   }
 }

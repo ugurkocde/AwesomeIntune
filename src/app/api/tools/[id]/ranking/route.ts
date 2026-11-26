@@ -7,6 +7,8 @@ interface ToolViewCountRow {
   view_count: number;
 }
 
+const CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -65,7 +67,7 @@ export async function GET(
       },
       {
         headers: {
-          "Cache-Control": "public, max-age=60, stale-while-revalidate=30",
+          "Cache-Control": CACHE_CONTROL,
         },
       }
     );
