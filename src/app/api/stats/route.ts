@@ -12,6 +12,9 @@ let cachedStats: { toolCount: number; totalViews: number } | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 60 * 1000; // 60 seconds cache
 
+// Shared CDN cache. max-age alone is browser-only and still invokes the function.
+const CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+
 async function fetchTotalViews(): Promise<number> {
   const { data, error } = await supabase
     .from("tool_view_counts")
@@ -37,7 +40,7 @@ export async function GET() {
     if (cachedStats !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+          "Cache-Control": CACHE_CONTROL,
         },
       });
     }
@@ -59,7 +62,7 @@ export async function GET() {
 
     return NextResponse.json(stats, {
       headers: {
-        "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+        "Cache-Control": CACHE_CONTROL,
       },
     });
   } catch (error) {
@@ -69,7 +72,7 @@ export async function GET() {
     if (cachedStats !== null) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30",
+          "Cache-Control": CACHE_CONTROL,
         },
       });
     }

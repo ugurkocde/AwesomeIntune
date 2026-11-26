@@ -28,6 +28,18 @@ interface GitHubRepoResponse {
 const cache = new Map<string, { data: GitHubStats; timestamp: number }>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
+// GitHub repo metadata changes slowly. Cache successful GETs at the CDN.
+// The cache key includes the repoUrl query string. Errors stay uncached.
+const CACHE_CONTROL = "public, s-maxage=3600, stale-while-revalidate=86400";
+
+function jsonGitHubStats(stats: GitHubStats) {
+  return NextResponse.json(stats, {
+    headers: {
+      "Cache-Control": CACHE_CONTROL,
+    },
+  });
+}
+
 function extractRepoInfo(url: string): { owner: string; repo: string } | null {
   // Handle various GitHub URL formats:
   // https://github.com/owner/repo
@@ -116,7 +128,7 @@ export async function GET(request: NextRequest) {
     // Check cache
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-      return NextResponse.json(cached.data);
+      return jsonGitHubStats(cached.data);
     }
 
     // Fetch from GitHub API
@@ -160,7 +172,7 @@ export async function GET(request: NextRequest) {
     // Update cache
     cache.set(cacheKey, { data: stats, timestamp: Date.now() });
 
-    return NextResponse.json(stats);
+    return jsonGitHubStats(stats);
   } catch (error) {
     console.error("GitHub stats error:", error);
     return NextResponse.json(

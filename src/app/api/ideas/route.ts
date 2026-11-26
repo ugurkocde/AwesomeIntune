@@ -29,6 +29,9 @@ let cachedRequests: ToolRequestWithVotes[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 30 * 1000; // 30 seconds cache
 
+// Public idea list. POST stays uncached. Status sync still runs on CDN revalidation.
+const GET_CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+
 // GET - Fetch all tool requests with vote counts
 export async function GET(request: NextRequest) {
   try {
@@ -51,7 +54,7 @@ export async function GET(request: NextRequest) {
         { requests: cachedRequests, total: cachedRequests.length },
         {
           headers: {
-            "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+            "Cache-Control": GET_CACHE_CONTROL,
           },
         }
       );
@@ -160,7 +163,7 @@ export async function GET(request: NextRequest) {
       { requests: requestsWithVotes, total: requestsWithVotes.length },
       {
         headers: {
-          "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+          "Cache-Control": GET_CACHE_CONTROL,
         },
       }
     );
@@ -173,7 +176,7 @@ export async function GET(request: NextRequest) {
         { requests: cachedRequests, total: cachedRequests.length },
         {
           headers: {
-            "Cache-Control": "public, max-age=15",
+            "Cache-Control": GET_CACHE_CONTROL,
           },
         }
       );

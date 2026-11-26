@@ -14,6 +14,9 @@ let cachedCounts: Record<string, number> | null = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 30 * 1000; // 30 seconds cache (can be longer now since reads are fast)
 
+// GET is a public aggregate. POST must stay uncached.
+const GET_CACHE_CONTROL = "public, s-maxage=300, stale-while-revalidate=600";
+
 // Function to fetch view counts from the counter table (pre-aggregated)
 async function fetchViewCounts(): Promise<Record<string, number>> {
   const { data, error } = await supabase
@@ -43,7 +46,7 @@ export async function GET() {
     if (cachedCounts !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+          "Cache-Control": GET_CACHE_CONTROL,
         },
       });
     }
@@ -57,7 +60,7 @@ export async function GET() {
 
     return NextResponse.json(counts, {
       headers: {
-        "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+        "Cache-Control": GET_CACHE_CONTROL,
       },
     });
   } catch (error) {
@@ -67,7 +70,7 @@ export async function GET() {
     if (cachedCounts !== null) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15",
+          "Cache-Control": GET_CACHE_CONTROL,
         },
       });
     }
