@@ -117,6 +117,8 @@ export default function RequestsPage() {
         if (statusFilter) params.set("status", statusFilter);
         if (categoryFilter) params.set("category", categoryFilter);
         params.set("sort", sortBy);
+        // Unique query so this refresh misses a still-fresh CDN entry.
+        params.set("fresh", String(Date.now()));
 
         const response = await fetch(`/api/ideas?${params.toString()}`, {
           cache: "no-store",
