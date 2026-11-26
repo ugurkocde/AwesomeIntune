@@ -12,7 +12,15 @@ export async function GET() {
 
     // Return cached value if still valid
     if (cachedCount !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
-      return NextResponse.json({ count: cachedCount });
+      return NextResponse.json(
+        { count: cachedCount },
+        {
+          headers: {
+            "Cache-Control":
+              "public, s-maxage=300, stale-while-revalidate=600",
+          },
+        }
+      );
     }
 
     // Query total subscribers count (all email addresses)
@@ -30,7 +38,15 @@ export async function GET() {
     cachedCount = count ?? 0;
     cacheTimestamp = now;
 
-    return NextResponse.json({ count: cachedCount });
+    return NextResponse.json(
+      { count: cachedCount },
+      {
+        headers: {
+          "Cache-Control":
+            "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      }
+    );
   } catch (error) {
     console.error("Subscriber count error:", error);
     return NextResponse.json({ count: cachedCount ?? 0 });

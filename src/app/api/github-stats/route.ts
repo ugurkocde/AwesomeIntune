@@ -116,7 +116,12 @@ export async function GET(request: NextRequest) {
     // Check cache
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-      return NextResponse.json(cached.data);
+      return NextResponse.json(cached.data, {
+        headers: {
+          "Cache-Control":
+            "public, s-maxage=3600, stale-while-revalidate=86400",
+        },
+      });
     }
 
     // Fetch from GitHub API
@@ -160,7 +165,12 @@ export async function GET(request: NextRequest) {
     // Update cache
     cache.set(cacheKey, { data: stats, timestamp: Date.now() });
 
-    return NextResponse.json(stats);
+    return NextResponse.json(stats, {
+      headers: {
+        "Cache-Control":
+          "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
   } catch (error) {
     console.error("GitHub stats error:", error);
     return NextResponse.json(
