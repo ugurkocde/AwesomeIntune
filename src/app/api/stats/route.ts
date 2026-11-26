@@ -37,7 +37,7 @@ export async function GET() {
     if (cachedStats !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
         },
       });
     }
@@ -59,7 +59,7 @@ export async function GET() {
 
     return NextResponse.json(stats, {
       headers: {
-        "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },
     });
   } catch (error) {
@@ -69,7 +69,7 @@ export async function GET() {
     if (cachedStats !== null) {
       return NextResponse.json(cachedStats, {
         headers: {
-          "Cache-Control": "public, max-age=30",
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
         },
       });
     }

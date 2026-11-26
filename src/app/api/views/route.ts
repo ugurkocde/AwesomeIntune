@@ -43,7 +43,7 @@ export async function GET() {
     if (cachedCounts !== null && now - cacheTimestamp < CACHE_DURATION_MS) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
         },
       });
     }
@@ -57,7 +57,7 @@ export async function GET() {
 
     return NextResponse.json(counts, {
       headers: {
-        "Cache-Control": "public, max-age=15, stale-while-revalidate=10",
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },
     });
   } catch (error) {
@@ -67,7 +67,7 @@ export async function GET() {
     if (cachedCounts !== null) {
       return NextResponse.json(cachedCounts, {
         headers: {
-          "Cache-Control": "public, max-age=15",
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
         },
       });
     }

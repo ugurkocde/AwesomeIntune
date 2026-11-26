@@ -228,7 +228,7 @@ export async function GET(request: NextRequest) {
       {
         headers: {
           ...API_SECURITY_HEADERS,
-          "Cache-Control": "public, max-age=30, stale-while-revalidate=30",
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
           "X-RateLimit-Remaining": String(authResult.remainingRequests ?? 0),
         },
       }
