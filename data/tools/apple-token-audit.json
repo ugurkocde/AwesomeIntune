@@ -1,0 +1,17 @@
+{
+  "id": "apple-token-audit",
+  "name": "Apple Token Audit",
+  "description": "Read-only PowerShell script that lists the three Apple dates Intune needs renewed every year: the Apple MDM push certificate, every ADE enrolment program token and every Apps and Books (VPP) token. Shows the expiry date, days left and the Apple ID behind each one, notes whether an expired push certificate is still inside the 30-day grace period, flags personal Apple IDs and VPP tokens Intune reports as invalid, and exports a CSV. Exits 1 when anything needs renewing, so it can run on a schedule. Uses delegated, read-only Microsoft Graph scopes and changes nothing in the tenant.",
+  "keywords": ["intune", "apple", "apns", "push certificate", "ade", "vpp", "ios", "macos", "graph", "audit"],
+  "author": "Atliso",
+  "authorPicture": "https://github.com/Atliso-Dev.png",
+  "githubUrl": "https://github.com/Atliso-Dev",
+  "linkedinUrl": "https://www.linkedin.com/company/atliso/",
+  "xUrl": "",
+  "repoUrl": "https://github.com/Atliso-Dev/apple-token-audit",
+  "downloadUrl": "https://github.com/Atliso-Dev/apple-token-audit/releases/latest",
+  "websiteUrl": "https://atliso.com/tools/apple-token-audit",
+  "category": "reporting",
+  "type": "powershell-script",
+  "dateAdded": "2026-10-19"
+}
