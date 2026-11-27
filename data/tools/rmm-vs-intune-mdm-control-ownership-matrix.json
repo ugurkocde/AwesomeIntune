@@ -1,0 +1,31 @@
+{
+  "id": "rmm-vs-intune-mdm-control-ownership-matrix",
+  "name": "RMM vs Intune/MDM Control Ownership Matrix",
+  "description": "A vendor-neutral buyer map and 18-domain CSV responsibility matrix for assigning monitoring, patching, automation, enrollment, compliance, app delivery, remote support, evidence, and device-retirement ownership across RMM, Microsoft Intune/MDM, remote support, and unified endpoint management. It includes Microsoft Learn references, implementation questions, and safe pilot guidance.",
+  "keywords": [
+    "intune",
+    "mdm",
+    "rmm",
+    "endpoint-management",
+    "responsibility-matrix",
+    "control-ownership",
+    "uem"
+  ],
+  "author": "Kip Ecklund",
+  "authorPicture": "https://github.com/izikipizi.png",
+  "githubUrl": "https://github.com/izikipizi",
+  "repoUrl": "https://github.com/izikipizi/nizlo-msp-operations-resources",
+  "downloadUrl": "https://izikipizi.github.io/nizlo-msp-operations-resources/downloads/rmm-vs-remote-support-vs-mdm-vs-endpoint-management.csv",
+  "websiteUrl": "https://izikipizi.github.io/nizlo-msp-operations-resources/rmm-vs-remote-support-vs-mdm-vs-endpoint-management.html",
+  "category": "other",
+  "type": "documentation",
+  "worksWith": [
+    "windows",
+    "macos",
+    "ios",
+    "android",
+    "configuration-profiles",
+    "compliance-policies"
+  ],
+  "dateAdded": "2026-11-20"
+}
