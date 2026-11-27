@@ -350,7 +350,7 @@ async function runAISecurityCheck(files, toolName, openaiApiKey) {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-5-nano",
+      model: "gpt-5.6-luna",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: "You are a security code reviewer specializing in PowerShell and endpoint management tools. Respond only with valid JSON. Be thorough but avoid false positives on legitimate admin tools." },
